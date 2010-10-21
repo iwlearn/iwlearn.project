@@ -19,7 +19,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 	# overview
 	
     atapi.StringField(
-        'gef_project_id',
+		'gef_project_id',
         required=False,
 		searchable=False,
         storage=atapi.AnnotationStorage(),
@@ -56,7 +56,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         required=False,
 		searchable=True, 
         storage=atapi.AnnotationStorage(),
-        widget=atapi.PickListWidget(
+        widget=atapi.SelectionWidget(
             label=_(u"Geographic Sub Region"),
             description=_(u"Geographic Sub Region in which the project operates"),
         ),
@@ -67,7 +67,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         required=False,
 		searchable=True, 
         storage=atapi.AnnotationStorage(),
-        widget=atapi.PickListWidget(
+        widget=atapi.SelectionWidget(
             label=_(u"Basin"),
             description=_(u"Field description"),
         ),
@@ -77,7 +77,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.ReferenceField(
         'project_contacts',
         storage=atapi.AnnotationStorage(),
-        widget=atapi.ReferenceBrowserWidget(
+        widget=atapi.ReferenceWidget(
             label=_(u"Project Contacts"),
             description=_(u"Select Project Contacts"),
         ),
@@ -118,7 +118,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         required=False,
 		searchable=True, 
         storage=atapi.AnnotationStorage(),
-        widget=atapi.SellectionWidget(
+        widget=atapi.SelectionWidget(
             label=_(u"Project Status"),
             description=_(u"Project Status"),
         ),
@@ -152,7 +152,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         required=False,
 		searchable=True, 
         storage=atapi.AnnotationStorage(),
-        widget=atapi.PickListWidget(
+        widget=atapi.SelectionWidget(
             label=_(u"GEF Strategic Priority"),
             description=_(u"GEF Strategic Priority"),
         ),
@@ -175,7 +175,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         required=False,
 		searchable=True, 
         storage=atapi.AnnotationStorage(),
-        widget=atapi.PickListWidget(
+        widget=atapi.SelectionWidget(
             label=_(u"GEF Operational Programme"),
             description=_(u"GEF Operational Programme"),
         ),
@@ -209,7 +209,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         required=False,
 		searchable=True, 
         storage=atapi.AnnotationStorage(),
-        widget=atapi.PickListWidget(
+        widget=atapi.SelectionWidget(
             label=_(u"Countries"),
             description=_(u"Countries"),
         ),

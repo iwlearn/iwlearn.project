@@ -22,7 +22,7 @@ class IProject(Interface):
 #
     evaluator_name = schema.TextLine(
         title=_(u"Name of Evaluator"),
-        required=Name of Evaluator,
+        required=False,
         description=_(u"Field description"),
     )
 #
@@ -166,7 +166,7 @@ class IProject(Interface):
 #
     region = schema.List(
         title=_(u"Geographic Region"),
-        required=true,
+        required=True,
         description=_(u"Geographic Region in which the project operates"),
     )
 #

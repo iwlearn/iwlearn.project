@@ -69,7 +69,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         storage=atapi.AnnotationStorage(),
         widget=atapi.SelectionWidget(
             label=_(u"Basin"),
-            description=_(u"Field description"),
+            description=_(u"Basin"),
         ),
     ),
 
@@ -292,7 +292,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'gef_project_stage',
         storage=atapi.AnnotationStorage(),
         widget=atapi.SelectionWidget(
-            label=_(u"New Field"),
+            label=_(u"GEF Project Stage"),
             description=_(u"GEF Project Stage"),
         ),
     ),

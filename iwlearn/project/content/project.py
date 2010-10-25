@@ -6,10 +6,14 @@ from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
+from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
+from Products.AddRemoveWidget import AddRemoveWidget
+
 
 from iwlearn.project import projectMessageFactory as _
 from iwlearn.project.interfaces import IProject
 from iwlearn.project.config import PROJECTNAME
+from iwlearn.project import vocabulary
 
 ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
@@ -43,9 +47,11 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'region',
         required=True,
 		searchable=True,  
-        widget=atapi.SelectionWidget(
+        vocabulary = vocabulary.get_regions(),
+        widget=atapi.MultiSelectionWidget(
             label=_(u"Geographic Region"),
             description=_(u"Geographic Region in which the project operates"),
+            format='checkbox',
         ),
     ),
 
@@ -53,9 +59,11 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'subregion',
         required=False,
 		searchable=True, 
-        widget=atapi.SelectionWidget(
+        vocabulary = vocabulary.get_subregions(),
+        widget=atapi.MultiSelectionWidget(
             label=_(u"Geographic Sub Region"),
             description=_(u"Geographic Sub Region in which the project operates"),
+            format='checkbox',
         ),
     ),
 
@@ -63,7 +71,8 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'country',
         required=False,
 		searchable=True, 
-        widget=atapi.SelectionWidget(
+        vocabulary = vocabulary.get_countries(),
+        widget=atapi.InAndOutWidget(
             label=_(u"Countries"),
             description=_(u"Countries"),
         ),
@@ -74,6 +83,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'basin',
         required=False,
 		searchable=True, 
+        vocabulary = vocabulary.BASINS,
         widget=atapi.SelectionWidget(
             label=_(u"Basin"),
             description=_(u"Basin"),
@@ -83,7 +93,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     atapi.ReferenceField(
         'project_contacts',
-        widget=atapi.ReferenceWidget(
+        widget=ReferenceBrowserWidget(
             label=_(u"Project Contacts"),
             description=_(u"Select Project Contacts"),
         ),
@@ -110,6 +120,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'project_type',
         required=False,
 		searchable=True, 
+        vocabulary = vocabulary.PROJECT_TYPES,
         widget=atapi.SelectionWidget(
             label=_(u"Project Type"),
             description=_(u"Project Type"),
@@ -121,6 +132,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'project_status',
         required=False,
 		searchable=True, 
+        vocabulary = vocabulary.PROJECT_STATUS,
         widget=atapi.SelectionWidget(
             label=_(u"Project Status"),
             description=_(u"Project Status"),
@@ -132,6 +144,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         widget=atapi.CalendarWidget(
             label=_(u"Start Date"),
             description=_(u"Start Date"),
+            show_hm=False,
         ),
         validators=('isValidDate'),
     ),
@@ -141,6 +154,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         widget=atapi.CalendarWidget(
             label=_(u"End date"),
             description=_(u"End date"),
+            show_hm=False,
         ),
         validators=('isValidDate'),
     ),
@@ -152,7 +166,8 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'strategic_priority',
         required=False,
 		searchable=True, 
-        widget=atapi.SelectionWidget(
+        vocabulary = vocabulary.STRATEGIC_PRIORITIES,
+        widget=atapi.InAndOutWidget(
             label=_(u"GEF Strategic Priority"),
             description=_(u"GEF Strategic Priority"),
         ),
@@ -162,9 +177,11 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'focal_area',
         required=False,
 		searchable=True, 
-        widget=atapi.SelectionWidget(
+        vocabulary = vocabulary.FOCAL_AREAS,
+        widget=atapi.MultiSelectionWidget(
             label=_(u"Focal Areas"),
             description=_(u"Focal Areas"),
+            format = 'checkbox',
         ),
     ),
 
@@ -173,7 +190,8 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'operational_programme',
         required=False,
 		searchable=True, 
-        widget=atapi.SelectionWidget(
+        vocabulary = vocabulary.OPERATIONAL_PROGRAMMES,
+        widget=atapi.InAndOutWidget(
             label=_(u"GEF Operational Programme"),
             description=_(u"GEF Operational Programme"),
         ),
@@ -205,6 +223,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'leadagency',
         required=False,
 		searchable=True, 
+        vocabulary = vocabulary.LEAD_AGENCY,
         widget=atapi.SelectionWidget(
             label=_(u"Lead Implementing Agency"),
             description=_(u"Lead Implementing Agency"),
@@ -215,7 +234,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'other_implementing_agency',
         required=False,
 		searchable=True, 
-        widget=atapi.LinesWidget(
+        widget=AddRemoveWidget(
             label=_(u"Other Implementing Agencies"),
             description=_(u"Other Implementing Agencies"),
         ),
@@ -226,7 +245,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'executing_agency',
         required=False,
 		searchable=True, 
-        widget=atapi.LinesWidget(
+        widget=AddRemoveWidget(
             label=_(u"Executing Agencies"),
             description=_(u"Executing Agencies"),
         ),
@@ -238,7 +257,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'other_partners',
         required=False,
 		searchable=True, 
-        widget=atapi.LinesWidget(
+        widget=AddRemoveWidget(
             label=_(u"Other Partners"),
             description=_(u"Other Partners"),
         ),
@@ -290,6 +309,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         widget=atapi.CalendarWidget(
             label=_(u"Terminal Evaluation Date"),
             description=_(u"Terminal Evaluation Date"),
+            show_hm=False,
         ),
         validators=('isValidDate'),
     ),
@@ -309,6 +329,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         widget=atapi.CalendarWidget(
             label=_(u"Evaluation Report Date"),
             description=_(u"Evaluation Report Date"),
+            show_hm=False,
         ),
         validators=('isValidDate'),
     ),

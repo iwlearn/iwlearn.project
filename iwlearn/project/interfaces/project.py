@@ -80,7 +80,7 @@ class IProject(Interface):
         description=_(u"GEF Project Id"),
     )
 #
-    focal_area = schema.TextLine(
+    focal_area = schema.List(
         title=_(u"Focal Areas"),
         required=False,
         description=_(u"Focal Areas"),

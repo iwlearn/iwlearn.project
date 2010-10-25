@@ -20,8 +20,6 @@ ProjectDatabaseSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 # Set storage on fields copied from ATFolderSchema, making sure
 # they work well with the python bridge properties.
 
-ProjectDatabaseSchema['title'].storage = atapi.AnnotationStorage()
-ProjectDatabaseSchema['description'].storage = atapi.AnnotationStorage()
 
 schemata.finalizeATCTSchema(
     ProjectDatabaseSchema,
@@ -37,8 +35,6 @@ class ProjectDatabase(folder.ATFolder):
     meta_type = "Project Database"
     schema = ProjectDatabaseSchema
 
-    title = atapi.ATFieldProperty('title')
-    description = atapi.ATFieldProperty('description')
 
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
 

@@ -8,6 +8,8 @@ from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from Products.AddRemoveWidget import AddRemoveWidget
+from Products.ATExtensions.widget.url import UrlWidget
+
 
 
 from iwlearn.project import projectMessageFactory as _
@@ -36,7 +38,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'remote_url',
         required=False,
 		searchable=False,        
-        widget=atapi.StringWidget(
+        widget= UrlWidget(
             label=_(u"Project Website"),
             description=_(u"Website of the project"),
         ),
@@ -97,8 +99,8 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             label=_(u"Project Contacts"),
             description=_(u"Select Project Contacts"),
         ),
-        relationship='project_project_contacts',
-        allowed_types=(), # specify portal type names here ('Example Type',)
+        relationship='persons_project_contacts',
+        allowed_types=('ContactPerson',), # specify portal type names here ('Example Type',)
         multiValued=True,
     ),
 
@@ -283,70 +285,6 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         ),
         validators=('isDecimal'),
     ),
-
-	# other stuff - seems to be unused
-
-    atapi.StringField(
-        'gef_project_stage',
-        widget=atapi.SelectionWidget(
-            label=_(u"GEF Project Stage"),
-            description=_(u"GEF Project Stage"),
-        ),
-    ),
-
-
-    atapi.StringField(
-        'evaluator_name',
-        widget=atapi.StringWidget(
-            label=_(u"Name of Evaluator"),
-            description=_(u"Field description"),
-        ),
-    ),
-
-
-    atapi.DateTimeField(
-        'terminal_evaluation_date',
-        widget=atapi.CalendarWidget(
-            label=_(u"Terminal Evaluation Date"),
-            description=_(u"Terminal Evaluation Date"),
-            show_hm=False,
-        ),
-        validators=('isValidDate'),
-    ),
-
-
-    atapi.StringField(
-        'consultant_name',
-        widget=atapi.StringWidget(
-            label=_(u"Name of Consultant"),
-            description=_(u"Name of Consultant"),
-        ),
-    ),
-
-
-    atapi.DateTimeField(
-        'evaluation_report_date',
-        widget=atapi.CalendarWidget(
-            label=_(u"Evaluation Report Date"),
-            description=_(u"Evaluation Report Date"),
-            show_hm=False,
-        ),
-        validators=('isValidDate'),
-    ),
-
-
-    atapi.TextField(
-        'project_results',        
-        widget=atapi.RichWidget(
-            label=_(u"Project Results"),
-            description=_(u"Project Results"),
-        ),
-		validators=('isTidyHtmlWithCleanup',),
-    ),
-
-
-
-
 
 
 ))

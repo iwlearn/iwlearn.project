@@ -3,7 +3,7 @@
 
 # http://en.wikipedia.org/wiki/List_of_countries_spanning_more_than_one_continent
 # Africa and Asia
-# Two of 29 governorates of Egypt lie entirely on the Asian Sinai 
+# Two of 29 governorates of Egypt lie entirely on the Asian Sinai
 # Peninsula and two are transcontinental
 
 # Asia and Europe
@@ -18,100 +18,100 @@ from plone.i18n.locales.countries import _countrylist
 
 REGION_SUBREGION_COUNTRIES ={
 u'Europe': {
-    u'Northern Europe': 
-        [u'dk', u'fo', u'fi', u'is', u'no', u'sj', u'se', u'ax'], 
-    u'Eastern Europe': 
-        [u'by', u'ee', u'lv', u'lt', u'md', u'pl', u'ua', u'az', u'kz', 
-        u'ru'], 
-    u'South East Europe': 
-        [u'al', u'ba', u'bg', u'hr', u'gr', u'mk', u'ro', 
-        u'cs', u'si', u'ge', u'tr'], 
-    u'Southern Europe': 
-        [u'va', u'it', u'mt', u'sm'], 
-    u'Central Europe': 
-        [u'at', u'cz', u'hu', u'li', u'sk', u'ch'], 
-    u'Western Europe': 
-        [u'be', u'fr', u'de', u'ie', u'lu', u'im', u'mc', u'nl', 
-        u'gb', u'gg', u'je'], 
-    u'South West Europe': 
+    u'Northern Europe':
+        [u'dk', u'fo', u'fi', u'is', u'no', u'sj', u'se', u'ax'],
+    u'Eastern Europe':
+        [u'by', u'ee', u'lv', u'lt', u'md', u'pl', u'ua', u'az', u'kz',
+        u'ru'],
+    u'South East Europe':
+        [u'al', u'ba', u'bg', u'hr', u'gr', u'mk', u'ro',
+        u'cs', u'si', u'ge', u'tr'],
+    u'Southern Europe':
+        [u'va', u'it', u'mt', u'sm'],
+    u'Central Europe':
+        [u'at', u'cz', u'hu', u'li', u'sk', u'ch'],
+    u'Western Europe':
+        [u'be', u'fr', u'de', u'ie', u'lu', u'im', u'mc', u'nl',
+        u'gb', u'gg', u'je'],
+    u'South West Europe':
         [u'ad', u'gi', u'pt', u'es']
-    }, 
+    },
 u'Atlantic Ocean': {
-    u'South Atlantic Ocean': 
+    u'South Atlantic Ocean':
         ['bv', u'sh', u'gs']
-    }, 
+    },
 u'Oceania': {
 # http://en.wikipedia.org/wiki/Oceania#Geopolitical_Oceania
     u'Australasia': [u'au', u'nz', u'cx', u'cc', u'nf'],
     u'Melanesia': [u'fj', u'id', u'nc', u'pg', u'sb', u'vu'],
     u'Micronesia': [u'fm', u'gu', u'ki', u'mh', u'nr', u'mp', u'pw', u'um'],
-    u'Polynesia': [u'as', u'ck', u'cl', u'pf', u'us', u'nu', u'pn', u'ws', 
+    u'Polynesia': [u'as', u'ck', u'cl', u'pf', u'us', u'nu', u'pn', u'ws',
        u'tk', u'to', u'tv', u'wf'],
-#    u'North Pacific Ocean': 
-#        [u'um'], 
-#    u'South Pacific Ocean': [], 
-#    u'Pacific': 
-#        [u'as', u'au', u'ck', u'fj', u'pf', u'gu', u'ki', u'mh', u'fm', 
-#        u'nr', u'nc', u'nz', u'nu', u'nf', u'mp', u'pw', u'pg', u'pn', u'sb', 
+#    u'North Pacific Ocean':
+#        [u'um'],
+#    u'South Pacific Ocean': [],
+#    u'Pacific':
+#        [u'as', u'au', u'ck', u'fj', u'pf', u'gu', u'ki', u'mh', u'fm',
+#        u'nr', u'nc', u'nz', u'nu', u'nf', u'mp', u'pw', u'pg', u'pn', u'sb',
 #        u'tk', u'to', u'tv', u'vu', u'wf', u'ws']
-    }, 
+    },
 u'Africa': {
-    u'Eastern Africa': 
-        [u'dj', u'er', u'et', u'ke', u'so', u'tz', u'ug'], 
-    u'Northern Africa': 
-        [u'dz', u'eg', u'ly', u'ma', u'sd', u'tn', u'eh'], 
-    u'Indian Ocean': 
-        [u'km', u'mg', u'mu', u'yt', u're', u'sc'], 
-    u'Southern Africa': 
-        [u'ao', u'bw', u'ls', u'mw', u'mz', u'na', u'za', u'sz', 
-        u'zm', u'zw'], 
-    u'Western Africa': 
-        [u'bj', u'bf', u'cm', u'cv', u'ci', u'gq', u'ga', u'gm', 
-        u'gh', u'gn', u'gw', u'lr', u'ml', u'mr', u'ne', u'ng', u'st', u'sn', 
-        u'sl', u'tg'], 
-    u'Central Africa': 
+    u'Eastern Africa':
+        [u'dj', u'er', u'et', u'ke', u'so', u'tz', u'ug'],
+    u'Northern Africa':
+        [u'dz', u'eg', u'ly', u'ma', u'sd', u'tn', u'eh'],
+    u'Indian Ocean':
+        [u'km', u'mg', u'mu', u'yt', u're', u'sc'],
+    u'Southern Africa':
+        [u'ao', u'bw', u'ls', u'mw', u'mz', u'na', u'za', u'sz',
+        u'zm', u'zw'],
+    u'Western Africa':
+        [u'bj', u'bf', u'cm', u'cv', u'ci', u'gq', u'ga', u'gm',
+        u'gh', u'gn', u'gw', u'lr', u'ml', u'mr', u'ne', u'ng', u'st', u'sn',
+        u'sl', u'tg'],
+    u'Central Africa':
         [u'bi', u'cf', u'td', u'cg', u'rw', u'cd']
-    }, 
+    },
 u'Asia': {
-    u'Northern Asia': 
-        [u'mn', u'ru'], 
-    u'East Asia': 
-        ['cn', u'jp', u'kp', u'kr', u'tw', u'hk', u'mo'], 
-    u'South West Asia': 
-        [u'am', u'az', u'bh', u'cy', u'ge', u'ir', u'iq', u'il', 
-        u'jo', u'kw', u'lb', u'om', u'ps', u'qa', u'sa', u'sy', u'tr', u'ae', 
-        u'ye', u'eg'], 
-    u'South East Asia': 
-        [u'bn', u'kh', u'cx', u'cc', u'id', u'la', u'my', u'mm', 
-        u'ph', u'sg', u'th', u'vn', u'tl'], 
-    u'Central Asia': 
-        [u'kz', u'kg', u'tj', u'tm', u'uz'], 
-    u'South Asia': 
-        ['af', u'bd', u'bt', u'in', u'mv', u'np', u'pk', u'lk', 
+    u'Northern Asia':
+        [u'mn', u'ru'],
+    u'East Asia':
+        ['cn', u'jp', u'kp', u'kr', u'tw', u'hk', u'mo'],
+    u'South West Asia':
+        [u'am', u'az', u'bh', u'cy', u'ge', u'ir', u'iq', u'il',
+        u'jo', u'kw', u'lb', u'om', u'ps', u'qa', u'sa', u'sy', u'tr', u'ae',
+        u'ye', u'eg'],
+    u'South East Asia':
+        [u'bn', u'kh', u'cx', u'cc', u'id', u'la', u'my', u'mm',
+        u'ph', u'sg', u'th', u'vn', u'tl'],
+    u'Central Asia':
+        [u'kz', u'kg', u'tj', u'tm', u'uz'],
+    u'South Asia':
+        ['af', u'bd', u'bt', u'in', u'mv', u'np', u'pk', u'lk',
         u'io']
-    }, 
+    },
 u'Americas': {
-    u'Central America': 
-        [u'bz', u'cr', u'sv', u'gt', u'hn', u'mx', u'ni', u'pa'], 
-    u'North America': 
-        [u'ca', u'gl', u'pm', u'us'], 
-    u'South America': 
-        [u'ar', u'bo', u'br', u'cl', u'co', u'ec', u'fk', u'gf', 
-        u'gy', u'py', u'pe', u'sr', u'uy', u've'], 
-    u'Caribbean': 
-        [u'ai', u'ag', u'aw', u'bs', u'bb', u'bm', u'vg', u'ky', u'cu', 
-        u'dm', u'do', u'gd', u'gp', u'ht', u'jm', u'mq', u'ms', u'an', u'pr', 
-        u'kn', u'lc', u'vc', u'tt', u'tc', u'vi'], 
+    u'Central America':
+        [u'bz', u'cr', u'sv', u'gt', u'hn', u'mx', u'ni', u'pa'],
+    u'North America':
+        [u'ca', u'gl', u'pm', u'us'],
+    u'South America':
+        [u'ar', u'bo', u'br', u'cl', u'co', u'ec', u'fk', u'gf',
+        u'gy', u'py', u'pe', u'sr', u'uy', u've'],
+    u'Caribbean':
+        [u'ai', u'ag', u'aw', u'bs', u'bb', u'bm', u'vg', u'ky', u'cu',
+        u'dm', u'do', u'gd', u'gp', u'ht', u'jm', u'mq', u'ms', u'an', u'pr',
+        u'kn', u'lc', u'vc', u'tt', u'tc', u'vi'],
     #'North Pacific Ocean': []
-    }, 
+    },
 u'Antarctica': {
     u'Antarctica': [u'aq']
-    }, 
+    },
 u'Indian Ocean': {
     u'Southern Indian Ocean': [u'tf', u'hm']
     },
 u'Global' : {
-     u'Global' : [] #_countrylist.keys()
+     #u'Global' : [] #_countrylist.keys()
      }
 }
 
@@ -125,8 +125,8 @@ for _r in REGION_SUBREGION_COUNTRIES:
             _regions[u'region'].append(_r)
             _regions[u'subregion'].append(_sr)
             COUNTRYS_SUB_REGION[_country]=_regions
-        
-        
+
+
 FOCAL_AREAS = [
     'Biodiversity',
     'Climate Change',
@@ -459,15 +459,15 @@ BASINS = [
     'Yukon',
     'Zambezi']
 
-    
+
 def get_regions(countries = None, subregions=None):
     ''' return the regions for a list of countries or all regions
     if no countries are given'''
     regions =[]
     if countries:
-        pass 
+        pass
     elif subregions:
-        pass 
+        pass
     else:
         regions = REGION_SUBREGION_COUNTRIES.keys()
     regions.sort()
@@ -488,14 +488,14 @@ def get_subregions(regions=None, countries=None):
         subregions = get_region_subgegion(regions)
     elif countries:
         subregions=[]
-        pass 
+        pass
     else:
         subregions = get_region_subgegion(
             REGION_SUBREGION_COUNTRIES.keys())
-    return subregions    
-    
+    return subregions
+
 def get_countries(subregions=None, regions=None):
-    ''' return all countries belonging to a list of subregions 
+    ''' return all countries belonging to a list of subregions
     or regions or all if no regions or subregions are given'''
     countries = []
     if subregions:
@@ -505,5 +505,5 @@ def get_countries(subregions=None, regions=None):
     else:
         countries=COUNTRYS_SUB_REGION.keys()
         countries.sort()
-    return countries 
-    
+    return countries
+

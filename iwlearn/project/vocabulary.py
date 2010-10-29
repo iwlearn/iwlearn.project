@@ -460,30 +460,35 @@ BASINS = [
     'Zambezi']
 
 
-def get_regions(countries = None, subregions=None):
+def get_regions(countries = None, subregions=None, regions=None):
     ''' return the regions for a list of countries or all regions
     if no countries are given'''
-    regions =[]
     rd ={} #dict to make entries in list regions unique
     if countries:
         for country in countries:
-            rd[COUNTRYS_SUB_REGION[country]['region']]=''
+            for region in COUNTRYS_SUB_REGION[country]['region']:
+                rd[region]=''
     if subregions:
         for subregion in subregions:
             rsc = REGION_SUBREGION_COUNTRIES
             for subregions_region in [[s.keys(),r] for r,s in rsc.iteritems()]:
                 if subregion in subregions_region[0]:
                     rd[subregions_region[1]]=''
-    regions = rd.keys()
-    if ((countries == None) and (subregions==None)):
-        regions = REGION_SUBREGION_COUNTRIES.keys()
-    regions.sort()
-    return regions
+    if regions:
+        for region in regions:
+            if region in REGION_SUBREGION_COUNTRIES.keys():
+                rd[region]=''
+    _regions = rd.keys()
+    if ((countries == None) and (subregions==None) and (regions==None)):
+        _regions = REGION_SUBREGION_COUNTRIES.keys()
+    _regions.sort()
+    return _regions
 
-def get_subregions(regions=None, countries=None):
+def get_subregions(regions=None, countries=None, subregions=None):
     ''' return subregions for a list of regions or countries or all
     if no regions or countries are given'''
-    def get_region_subgegion(regions):
+
+    def get_region_subregion(regions):
         subregions = []
         regions.sort()
         for region in regions:
@@ -491,26 +496,32 @@ def get_subregions(regions=None, countries=None):
             subregion.sort()
             subregions= subregions + subregion
         return subregions
+    _subregions =[]
     if regions:
-        subregions = get_region_subgegion(regions)
-    elif countries:
-        subregions=[]
+        _subregions = get_region_subregion(regions)
+    if countries:
+        _subregions=[]
         pass
-    else:
-        subregions = get_region_subgegion(
-            REGION_SUBREGION_COUNTRIES.keys())
-    return subregions
-
-def get_countries(subregions=None, regions=None):
-    ''' return all countries belonging to a list of subregions
-    or regions or all if no regions or subregions are given'''
-    countries = []
     if subregions:
         pass
-    elif regions:
+    if (regions==None and countries==None and subregions==None):
+        _subregions = get_region_subregion(
+            REGION_SUBREGION_COUNTRIES.keys())
+    return _subregions
+
+def get_countries(subregions=None, regions=None, countries=None):
+    ''' return all countries belonging to a list of subregions
+    or regions or all if no regions or subregions are given'''
+    _countries = []
+    if subregions:
         pass
-    else:
-        countries=COUNTRYS_SUB_REGION.keys()
-        countries.sort()
-    return countries
+    if regions:
+        pass
+    if countries:
+        pass
+    if (regions==None and countries==None and subregions==None):
+        _countries=COUNTRYS_SUB_REGION.keys()
+
+    _countries.sort()
+    return _countries
 

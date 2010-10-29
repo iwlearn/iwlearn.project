@@ -1,8 +1,9 @@
-#migrate IWProject to iwlearn.project
+# -*- coding: utf-8 -*-
+# migrate IWProject to iwlearn.project
 # migrate_projects
 
 from iwlearn.project import vocabulary
-
+from plone.i18n.locales.countries import _countrylist
 
 #Implementing agencies:
 #     FAO
@@ -127,7 +128,85 @@ def getRegions(region, subregions,countries):
     print regions
     return regions
 
+COUNTRY_MAP = {
+ u"africa": None,
+ u"america": None,
+ u"antigua barbuda": u"Antigua and Barbuda",
+ u"barbados, w.i": u"Barbados",
+ u"bosnia & herzegovina": u"Bosnia and Herzegovina",
+ u"bosnia herzegovina": u"Bosnia and Herzegovina",
+ u"brasil": u"Brazil",
+ u"central african repulic": u"Central African Republic",
+ u"central america": None,
+ u"china,": u"China",
+ u"congo, democratic republic": u"Congo The Democratic Republic of",
+ u"congo, democratic republic of the": u"Congo The Democratic Republic of",
+ u"country": None,
+ u"fiji islands": u"Fiji",
+ u"fyr macedonia": u"Macedonia the former Yugoslavian Republic of",
+ u"fyr of macedonia": u"Macedonia the former Yugoslavian Republic of",
+ u"geneva": u"Switzerland",
+ u"guinea bissau": u"Guinea-Bissau",
+ u"i.r. iran": u"Iran Islamic Republic of",
+ u"iran": u"Iran Islamic Republic of",
+ u"iran,": u"Iran Islamic Republic of",
+ u"iran, islamic republic": u"Iran Islamic Republic of",
+ u"iran, islamic republic of": u"Iran Islamic Republic of",
+ u"kingdom of saudi arabia": u"Saudi Arabia",
+ u"korea": u"Korea Republic of",
+ u"korea, democratic people's republic": u"Korea Democratic People's Republic of",
+ u"korea, democratic people's republic of": u"Korea Democratic People's Republic of",
+ u"korea, republic": u"Korea Republic of",
+ u"korea, republic of": u"Korea Republic of",
+ u"lao pdr": u"Lao People's Democratic Republic",
+ u"libya": u"Libyan Arab Jamahiriya",
+ u"luxemburg": u"Luxembourg",
+ u"macedonia, former yugoslav republic": u"Macedonia the former Yugoslavian Republic of",
+ u"macedonia, former yugoslav republic of": u"Macedonia the former Yugoslavian Republic of",
+ u"micronesia": u"Micronesia Federated States of",
+ u"micronesia, federated states": u"Micronesia Federated States of",
+ u"moldova": u"Moldova Republic of",
+ u"moldova, republic": u"Moldova Republic of",
+ u"moldova, republic of": u"Moldova Republic of",
+ u"méxico": u"Mexico",
+ u"northern africa": None,
+ u"null": None,
+ u"palestinian territory, occupied": u"Palestinian Territory occupied",
+ u"pr china": u"China",
+ u"republic of chad": u"Chad",
+ u"republic of kazakhstan": u"Kazakhstan",
+ u"republic of korea": u"Korea Republic of",
+ u"russia": u"Russian Federation",
+ u"saint kitts nevis": u"Saint Kitts and Nevis",
+ u"saint vincent grenadines": u"Saint Vincent and the Grenadines",
+ u"sao tome principe": u"Sao Tome and Principe",
+ u"serbia": u"Serbia and Montenegro",
+ u"serbia and montegnegro": u"Serbia and Montenegro",
+ u"serbia montenegro": u"Serbia and Montenegro",
+ u"slovak republic": u"Slovakia",
+ u"tanzania": u"Tanzania United Republic of",
+ u"tanzania, united republic": u"Tanzania United Republic of",
+ u"tanzania, united republic of": u"Tanzania United Republic of",
+ u"the netherlands": u"Netherlands",
+ u"trinidad tobago": u"Trinidad and Tobago",
+ u"tunisie": u"Tunisia",
+ u"usa": u"United States",
+ u"vietnam": u"Viet Nam",
+ u"western africa": None,
+ u"western asia": None,
+ u"western europe": None,
+}
+for k, v in _countrylist.iteritems():
+    COUNTRY_MAP[v['name'].lower()] = v['name']
 
+def update_countries(countries):
+    cl = []
+    if countries:
+        for country in countries:
+            c = COUNTRY_MAP[country.lower()]
+            if c:
+                cl.append(c)
+    return cl
 
 def migrate(self):
     def migrate_project(old, old_parent, new_parent, f):
@@ -154,9 +233,9 @@ def migrate(self):
             pass
         else:
             pass
-        regions = old.getRegions()
+        region = old.getRegion()
         subregions = old.getSubregion()
-        countries = old.getCountry()
+        countries = update_countries(old.getCountry())
         getRegions(region, subregions,countries)
 
         #copy or migrate child objects

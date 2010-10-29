@@ -3,6 +3,75 @@ import unittest
 from iwlearn.project import vocabulary
 
 
+class SubregionTestCase( unittest.TestCase ):
+    """ Test the subregions"""
+    def test_all_subregions(self):
+        result = vocabulary.get_subregions()
+        self.assertEqual(result, [u'Central Africa', u'Eastern Africa',
+            u'Indian Ocean', u'Northern Africa', u'Southern Africa',
+            u'Western Africa', u'Caribbean', u'Central America',
+            u'North America', u'South America', u'Antarctica',
+            u'Central Asia', u'East Asia', u'Northern Asia',
+            u'South Asia', u'South East Asia', u'South West Asia',
+            u'South Atlantic Ocean', u'Central Europe', u'Eastern Europe',
+            u'Northern Europe', u'South East Europe', u'South West Europe',
+            u'Southern Europe', u'Western Europe', u'Southern Indian Ocean',
+            u'Australasia', u'Melanesia', u'Micronesia', u'Polynesia'])
+
+    def test_regions(self):
+        result = vocabulary.get_subregions(regions=['Africa'])
+        self.assertEqual(result, [u'Central Africa', u'Eastern Africa',
+            u'Indian Ocean', u'Northern Africa', u'Southern Africa',
+            u'Western Africa'])
+
+        result = vocabulary.get_subregions(regions=['Africa', 'Europe'])
+        self.assertEqual(result,[u'Central Africa', u'Eastern Africa',
+            u'Indian Ocean', u'Northern Africa', u'Southern Africa',
+            u'Western Africa', u'Central Europe', u'Eastern Europe',
+            u'Northern Europe', u'South East Europe', u'South West Europe',
+            u'Southern Europe', u'Western Europe'])
+
+    def test_subregions(self):
+        result = vocabulary.get_subregions(subregions=['Polynesia'])
+        self.assertEqual(result,[u'Polynesia'])
+
+        result = vocabulary.get_subregions(subregions=['Polynesia','East Asia'])
+        self.assertEqual(result,[u'Polynesia', u'East Asia'])
+
+    def test_countries(self):
+        result =  vocabulary.get_subregions(countries=['Anguilla', 'Andorra', 'India'])
+        self.assertEqual(result, [u'xxx'] )
+
+        result =  vocabulary.get_subregions(countries=['Egypt'])
+        self.assertEqual(result, [u'xxx'] )
+
+        result =  vocabulary.get_subregions(countries=['Kazakhstan'])
+        self.assertEqual(result, [u'xxx'] )
+
+        result =  vocabulary.get_subregions(countries=['Egypt', 'Kazakhstan'])
+        self.assertEqual(result, [u'xxx'])
+
+    def test_combinations(self):
+        result = vocabulary.get_subregions(subregions=['Polynesia'],
+            regions=['Africa'])
+        self.assertEqual(result,  [u'Central Africa', u'Eastern Africa',
+            u'Indian Ocean', u'Northern Africa', u'Southern Africa',
+            u'Western Africa', u'Polynesia'])
+        result = vocabulary.get_subregions(subregions=['Polynesia','East Asia'] ,
+            countries=['Egypt', 'Kazakhstan'])
+        self.assertEqual(result,[u'xxx'] )
+        result = vocabulary.get_subregions(subregions=['Polynesia','East Asia'] ,
+            regions=[u'Global'])
+        self.assertEqual(result, [u'xxx'])
+        result = vocabulary.get_subregions(countries=['Egypt', 'Kazakhstan'],
+            regions=[u'Global'])
+        self.assertEqual(result, [u'xxx'])
+
+
+
+class CountryTestCase( unittest.TestCase ):
+    """ Test the countries"""
+
 class RegionTestCase( unittest.TestCase ):
     """ Test the regions"""
 
@@ -39,9 +108,26 @@ class RegionTestCase( unittest.TestCase ):
         result =  vocabulary.get_regions(countries=['Egypt', 'Kazakhstan'])
         self.assertEqual(result, [u'Africa', u'Asia', u'Europe'])
 
+    def test_combinations(self):
+        result = vocabulary.get_regions(subregions=['Polynesia'],
+            regions=['Africa'])
+        self.assertEqual(result, [u'Africa', u'Oceania'])
+        result = vocabulary.get_regions(subregions=['Polynesia','East Asia'] ,
+            countries=['Egypt', 'Kazakhstan'])
+        self.assertEqual(result,[u'Africa', u'Asia', u'Europe', u'Oceania'] )
+        result = vocabulary.get_regions(subregions=['Polynesia','East Asia'] ,
+            regions=[u'Global'])
+        self.assertEqual(result, [u'Asia', u'Global', u'Oceania'])
+        result = vocabulary.get_regions(countries=['Egypt', 'Kazakhstan'],
+            regions=[u'Global'])
+        self.assertEqual(result, [u'Africa', u'Asia', u'Europe', u'Global'])
+
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite( RegionTestCase ))
+    suite.addTest(unittest.makeSuite( SubregionTestCase ))
+    suite.addTest(unittest.makeSuite( CountryTestCase ))
+
     return suite
 
 if __name__ == '__main__':

@@ -464,11 +464,18 @@ def get_regions(countries = None, subregions=None):
     ''' return the regions for a list of countries or all regions
     if no countries are given'''
     regions =[]
+    rd ={} #dict to make entries in list regions unique
     if countries:
-        pass
-    elif subregions:
-        pass
-    else:
+        for country in countries:
+            rd[COUNTRYS_SUB_REGION[country]['region']]=''
+    if subregions:
+        for subregion in subregions:
+            rsc = REGION_SUBREGION_COUNTRIES
+            for subregions_region in [[s.keys(),r] for r,s in rsc.iteritems()]:
+                if subregion in subregions_region[0]:
+                    rd[subregions_region[1]]=''
+    regions = rd.keys()
+    if ((countries == None) and (subregions==None)):
         regions = REGION_SUBREGION_COUNTRIES.keys()
     regions.sort()
     return regions

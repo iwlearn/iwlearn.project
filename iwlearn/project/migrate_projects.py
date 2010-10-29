@@ -1,6 +1,8 @@
 #migrate IWProject to iwlearn.project
 # migrate_projects
 
+from iwlearn.project import vocabulary
+
 
 #Implementing agencies:
 #     FAO
@@ -69,8 +71,62 @@ def get_agency_uid_map(context):
     for agency in agencies.keys():
         uid = get_implementing_agency_uid(agencies[agency]['name'], context)
         agencies[agency]['uid'] = uid
-    print agencies
+    #print agencies
     return agencies
+
+# Regions and subregions
+
+SUB_REGIONS_MAP = {
+# africa
+    'Eastern Africa': ['Eastern Africa'],
+    'Central Africa': ['Central Africa'],
+    'Northern Africa': ['Northern Africa'],
+    'Southern Africa': ['Southern Africa'],
+    'Western Africa': ['Western Africa', 'Indian Ocean'],
+#americas
+    'Caribbean': ['Caribbean'],
+    'Central America': ['Central America'],
+    'Northern America': ['North America'],
+    'Southern America': ['South America'],
+#europe
+    'Eastern Europe': ['Eastern Europe','South East Europe'],
+    'Northern Europe': ['Northern Europe'],
+    'Southern Europe': ['Southern Europe','South East Europe','South West Europe'],
+    'Western Europe': ['Western Europe','South West Europe'],
+#asia
+    'Eastern Asia': ['East Asia'],
+    'South-Central Asia': ['Central Asia', 'South Asia'],
+    'South-Eastern Asia': ['South East Asia'],
+    'Western Asia': ['South West Asia'],
+#oceania
+    'Australia & New Zealand': ['Australasia'],
+    'Melanesia': ['Melanesia'],
+    'Micronesia': ['Micronesia'],
+    'Polynesia': ['Polynesia'],
+    }
+
+def getRegions(region, subregions,countries):
+    ''' Try to guess the regions from countries,
+    regions and subregions '''
+    # dict to make regions unique
+    rd = {}
+    if region:
+        rd[region] = region
+    srl = []
+    for subregion in subregions:
+        srl = srl + SUB_REGIONS_MAP[subregion]
+        rl = vocabulary.get_regions(subregions=srl)
+        for r in rl:
+            rd[r]=''
+    if countries:
+        rl = vocabulary.get_regions(countries=countries)
+        for r in rl:
+            rd[r]=''
+    regions = rd.keys()
+    regions.sort()
+    print regions
+    return regions
+
 
 
 def migrate(self):
@@ -95,9 +151,14 @@ def migrate(self):
                     hit = True
                     auids.append(agency_map[agency]['uid'])
         if hit:
-            print auids
+            pass
         else:
-            print ias
+            pass
+        regions = old.getRegions()
+        subregions = old.getSubregion()
+        countries = old.getCountry()
+        getRegions(region, subregions,countries)
+
         #copy or migrate child objects
         for child in old.objectValues():
             if child.portal_type == 'IWSubProject':

@@ -109,24 +109,27 @@ SUB_REGIONS_MAP = {
 def getRegions(region, subregions,countries):
     ''' Try to guess the regions from countries,
     regions and subregions '''
-    # dict to make regions unique
-    rd = {}
-    if region:
-        rd[region] = region
-    srl = []
+    _subregions=[]
     for subregion in subregions:
-        srl = srl + SUB_REGIONS_MAP[subregion]
-        rl = vocabulary.get_regions(subregions=srl)
-        for r in rl:
-            rd[r]=''
-    if countries:
-        rl = vocabulary.get_regions(countries=countries)
-        for r in rl:
-            rd[r]=''
-    regions = rd.keys()
-    regions.sort()
-    print regions
+        _subregions += SUB_REGIONS_MAP[subregion]
+    regions = vocabulary.get_regions(countries=countries,
+        subregions=_subregions,regions=[region])
+    print countries
+    print region, ' -> ', regions
     return regions
+
+def getSubregions(region, subregions,countries):
+    _subregions=[]
+    if countries:
+        _subregions=[]
+    else:
+        for subregion in subregions:
+            _subregions += SUB_REGIONS_MAP[subregion]
+    newsubregions = vocabulary.get_subregions(countries=countries,
+        subregions=_subregions)
+    print subregions, ' -> ', newsubregions
+    print
+    return subregions
 
 COUNTRY_MAP = {
  u"africa": None,
@@ -237,7 +240,7 @@ def migrate(self):
         subregions = old.getSubregion()
         countries = update_countries(old.getCountry())
         getRegions(region, subregions,countries)
-
+        getSubregions(region, subregions,countries)
         #copy or migrate child objects
         for child in old.objectValues():
             if child.portal_type == 'IWSubProject':

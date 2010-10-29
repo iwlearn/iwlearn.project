@@ -487,27 +487,40 @@ def get_regions(countries = None, subregions=None, regions=None):
 def get_subregions(regions=None, countries=None, subregions=None):
     ''' return subregions for a list of regions or countries or all
     if no regions or countries are given'''
-
-    def get_region_subregion(regions):
-        subregions = []
+    def sort_subregions(subregions):
+        sorted_subregions =[]
+        regions = REGION_SUBREGION_COUNTRIES.keys()
         regions.sort()
         for region in regions:
-            subregion = REGION_SUBREGION_COUNTRIES[region].keys()
-            subregion.sort()
-            subregions= subregions + subregion
-        return subregions
-    _subregions =[]
+            region_subregion = []
+            for subregion in subregions:
+                if subregion in REGION_SUBREGION_COUNTRIES[region].keys():
+                    region_subregion.append(subregion)
+            region_subregion.sort()
+            sorted_subregions = sorted_subregions + region_subregion
+        return sorted_subregions
+
+    srd ={}
     if regions:
-        _subregions = get_region_subregion(regions)
+        for region in regions:
+            if region in REGION_SUBREGION_COUNTRIES.keys():
+                for subregion in REGION_SUBREGION_COUNTRIES[region].keys():
+                    srd[subregion] = ''
     if countries:
-        _subregions=[]
-        pass
+        for country in countries:
+            for subregion in COUNTRYS_SUB_REGION[country]['subregion']:
+                srd[subregion] = ''
+        #import pdb; pdb.set_trace()
     if subregions:
-        pass
+        for subregion in subregions:
+            srd[subregion] = ''
     if (regions==None and countries==None and subregions==None):
-        _subregions = get_region_subregion(
-            REGION_SUBREGION_COUNTRIES.keys())
-    return _subregions
+        rsc = REGION_SUBREGION_COUNTRIES
+        for region in [s.keys() for r,s in rsc.iteritems()]:
+            for subregion in region:
+                srd[subregion] = ''
+    return sort_subregions(srd.keys())
+
 
 def get_countries(subregions=None, regions=None, countries=None):
     ''' return all countries belonging to a list of subregions

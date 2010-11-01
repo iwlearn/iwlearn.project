@@ -237,7 +237,6 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'leadagency',
         required=False,
         #searchable=True,
-        #vocabulary = vocabulary.LEAD_AGENCY,
         widget=ReferenceBrowserWidget(
             label=_(u"Lead Implementing Agency"),
             description=_(u"Lead Implementing Agency"),
@@ -272,6 +271,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             label=_(u"Executing Agencies"),
             description=_(u"Executing Agencies"),
             base_query={'Subject':'Executing Agency'},
+            allow_browse=True,
             allow_sorting=True,
         ),
         relationship='executing_agency_project',
@@ -322,15 +322,15 @@ class Project(folder.ATFolder):
     meta_type = "Project"
     schema = ProjectSchema
 
-    def _computeSubregions(self):
-        if self.getGlobal():
-            vocabulary.get_regions(countries=self.getCountry(),
-                regions=['Global'])
-        else:
-             vocabulary.get_regions(countries=self.getCountry())
-
     def _computeRegions(self):
-        vocabulary.get_subregions(countries=self.getCountry())
+        if self.getGlobal():
+            return vocabulary.get_regions(countries=self.getCountry(),
+                regions=[u'Global'])
+        else:
+             return vocabulary.get_regions(countries=self.getCountry())
+
+    def _computeSubregions(self):
+        return vocabulary.get_subregions(countries=self.getCountry())
 
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
 

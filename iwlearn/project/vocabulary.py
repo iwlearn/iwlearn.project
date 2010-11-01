@@ -239,6 +239,7 @@ LEAD_AGENCY= [
     ]
 
 BASINS = [
+    '',
     'Agulhas Current (LME)',
     'Albemarle Sound',
     'Amazon',

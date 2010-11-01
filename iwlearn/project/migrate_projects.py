@@ -47,42 +47,57 @@ from plone.i18n.locales.countries import _countrylist
 
 
 
-def get_implementing_agency_uid(agency, context):
+def get_implementing_agency_uid(agency, context, tags):
     sa = '"' + agency +'"'
     ia = context.portal_catalog(
             portal_type='ContactOrganization',
             Title=sa)
     assert(len(ia)==1)
+    print ia[0].Subject, tags
+    ia[0].getObject().setSubject(tags)
+    ia[0].getObject().reindexObject(idxs=['Subject'])
     return ia[0].getObject().UID()
 
 def get_agency_uid_map(context):
     agencies = {
         'UNDP' : {'name': 'United Nations Development Programme (UNDP)',
-            'alias':['UNDP', 'United Nations Development Programme', ]},
+            'alias':['UNDP', 'United Nations Development Programme', ],
+            'tags':['Lead Implementing Agency', 'Implementing Agency']},
         'UNIDO' : {'name': 'United Nations Industrial Development Organization (UNIDO)',
-            'alias':[]},
+            'alias':[],
+            'tags':['Implementing Agency']},
         'UNEP': {'name': 'United Nations Environment Programme (UNEP)',
-            'alias':['UNEP', 'UNEP, IBRD', 'United Nations Environment Programme']},
+            'alias':['UNEP', 'UNEP, IBRD', 'United Nations Environment Programme'],
+            'tags':['Lead Implementing Agency', 'Implementing Agency']},
         'UNOPS': {'name': 'United Nations Office for Project Services (UNOPS)',
-            'alias': ['UNOPS']},
+            'alias': ['UNOPS'],
+            'tags':['Implementing Agency']},
         'IBRD': {'name': 'International Bank for Reconstruction and Development (IBRD)',
             'alias': ['UNEP, IBRD', 'IBRD', 'World Bank',
-            'International Bank for Reconstruction and Development (WB)']},
+            'International Bank for Reconstruction and Development (WB)'],
+            'tags':['Lead Implementing Agency', 'Implementing Agency']},
         'IFAD': {'name': 'International Fund for Agriculture and Development (IFAD)',
-            'alias': ['International Fund for Agriculture and Development(IFAD)'] },
+            'alias': ['International Fund for Agriculture and Development(IFAD)'] ,
+            'tags':['Implementing Agency']},
         'IMARPE': {'name': 'Instituto del Mar del Peru (IMARPE)',
-            'alias': ['IMARPE(Peru)']},
+            'alias': ['IMARPE(Peru)'],
+            'tags':['Implementing Agency']},
         'IFOP': {'name': 'Instituto de Fomento Pesquero (IFOP)',
-            'alias': ['IFOP(Chile)']},
+            'alias': ['IFOP(Chile)'],
+            'tags':['Implementing Agency']},
         'IADB': {'name': 'Inter-American Development Bank (IADB)',
-            'alias': ['IADB','Inter-American Development Bank']},
+            'alias': ['IADB','Inter-American Development Bank'],
+            'tags':['Lead Implementing Agency', 'Implementing Agency']},
         'FAO': {'name': 'Food and Agricultural Organization (FAO)',
-            'alias': ['FAO', 'Food and Agriculture Organization']},
+            'alias': ['FAO', 'Food and Agriculture Organization'],
+            'tags':['Lead Implementing Agency', 'Implementing Agency']},
         'AfDB': {'name': 'African Development Bank (AfDB)',
-            'alias': ['African Development Bank',]}
+            'alias': ['African Development Bank',],
+            'tags':['Lead Implementing Agency', 'Implementing Agency']}
     }
     for agency in agencies.keys():
-        uid = get_implementing_agency_uid(agencies[agency]['name'], context)
+        uid = get_implementing_agency_uid(agencies[agency]['name'],
+            context, agencies[agency]['tags'])
         agencies[agency]['uid'] = uid
     #print agencies
     return agencies
@@ -248,6 +263,7 @@ def migrate(self):
             pass
         else:
             print 'could not find other implementing agency: ', ias
+        # lead implementing agency
         la = old.getLeadagency()
         hit = False
         for agency in agency_map.keys():
@@ -279,7 +295,8 @@ def migrate(self):
                 print 'ignored: ', child.portal_type, child.id
     ###########################################################
     print 'starting migration'
-    f = None
+    f = open('update_project_uids.py', 'w')
+    f.write('def migrate(self):\n')
     agency_map = get_agency_uid_map(self)
     for brain in self.portal_catalog(portal_type = 'IWProjectDatabase'):
         obj=brain.getObject()
@@ -303,4 +320,5 @@ def migrate(self):
                 print 'ignored: ', child.portal_type, child.id
         #parent.manage_delObjects(ids=[obj_id + '_old'])
     print 'migration finished'
+    f.close()
     return 'success'

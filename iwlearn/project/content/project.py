@@ -22,57 +22,69 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     # -*- Your Archetypes field definitions here ... -*-
 
 
-	# overview
-	
+    # overview
+
     atapi.StringField(
-		'gef_project_id',
+        'gef_project_id',
         required=False,
-		searchable=False,
+        searchable=False,
         widget=atapi.StringWidget(
             label=_(u"GEF Project Id"),
             description=_(u"GEF Project Id"),
         ),
     ),
-	
+
     atapi.StringField(
         'remote_url',
         required=False,
-		searchable=False,        
+        searchable=False,
         widget= UrlWidget(
             label=_(u"Project Website"),
             description=_(u"Website of the project"),
         ),
         validators=('isURL'),
     ),
-		
-    atapi.LinesField(
-        'region',
+
+    atapi.BooleanField(
+        'global',
         required=True,
-		searchable=True,  
-        vocabulary = vocabulary.get_regions(),
-        widget=atapi.MultiSelectionWidget(
-            label=_(u"Geographic Region"),
-            description=_(u"Geographic Region in which the project operates"),
-            format='checkbox',
+        searchable=True,
+        default=False,
+        widget=atapi.BooleanWidget(
+            label=_(u"Global"),
+            description=_(u"Indicate if the project has a global scope"),
         ),
+
     ),
 
-    atapi.LinesField(
+
+    atapi.ComputedField(
+        'region',
+        required=True,
+        searchable=True,
+        expression = 'context._computeRegions()',
+        widget=atapi.ComputedWidget(
+            label=_(u"Geographic Region"),
+            description=_(u"Geographic Region in which the project operates"),
+        ),
+
+    ),
+
+    atapi.ComputedField(
         'subregion',
         required=False,
-		searchable=True, 
-        vocabulary = vocabulary.get_subregions(),
-        widget=atapi.MultiSelectionWidget(
+        searchable=True,
+        expression = 'context._computeSubregions()',
+        widget=atapi.ComputedWidget(
             label=_(u"Geographic Sub Region"),
             description=_(u"Geographic Sub Region in which the project operates"),
-            format='checkbox',
         ),
     ),
 
     atapi.LinesField(
         'country',
         required=False,
-		searchable=True, 
+        searchable=True,
         vocabulary = vocabulary.get_countries(),
         widget=atapi.InAndOutWidget(
             label=_(u"Countries"),
@@ -80,11 +92,11 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         ),
     ),
 
-        	
+
     atapi.LinesField(
         'basin',
         required=False,
-		searchable=True, 
+        searchable=True,
         vocabulary = vocabulary.BASINS,
         widget=atapi.SelectionWidget(
             label=_(u"Basin"),
@@ -107,21 +119,21 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.TextField(
         'project_summary',
         required=False,
-		searchable=True, 
+        searchable=True,
         widget=atapi.RichWidget(
             label=_(u"Project Description"),
             description=_(u"Project Description"),
         ),
         validators=('isTidyHtmlWithCleanup',),
-        default_output_type='text/x-html-safe',        
+        default_output_type='text/x-html-safe',
     ),
 
-	#   General Information
+    #   General Information
 
     atapi.StringField(
         'project_type',
         required=False,
-		searchable=True, 
+        searchable=True,
         vocabulary = vocabulary.PROJECT_TYPES,
         widget=atapi.SelectionWidget(
             label=_(u"Project Type"),
@@ -133,7 +145,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.StringField(
         'project_status',
         required=False,
-		searchable=True, 
+        searchable=True,
         vocabulary = vocabulary.PROJECT_STATUS,
         widget=atapi.SelectionWidget(
             label=_(u"Project Status"),
@@ -162,23 +174,23 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     ),
 
 
-	# GEF characteristic
+    # GEF characteristic
 
     atapi.LinesField(
         'strategic_priority',
         required=False,
-		searchable=True, 
+        searchable=True,
         vocabulary = vocabulary.STRATEGIC_PRIORITIES,
         widget=atapi.InAndOutWidget(
             label=_(u"GEF Strategic Priority"),
             description=_(u"GEF Strategic Priority"),
         ),
     ),
-    
+
     atapi.LinesField(
         'focal_area',
         required=False,
-		searchable=True, 
+        searchable=True,
         vocabulary = vocabulary.FOCAL_AREAS,
         widget=atapi.MultiSelectionWidget(
             label=_(u"Focal Areas"),
@@ -191,14 +203,14 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.LinesField(
         'operational_programme',
         required=False,
-		searchable=True, 
+        searchable=True,
         vocabulary = vocabulary.OPERATIONAL_PROGRAMMES,
         widget=atapi.InAndOutWidget(
             label=_(u"GEF Operational Programme"),
             description=_(u"GEF Operational Programme"),
         ),
     ),
-    
+
     atapi.FixedPointField(
         'gef_project_allocation',
         widget=atapi.DecimalWidget(
@@ -216,54 +228,57 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         ),
         validators=('isDecimal'),
     ),
-    
-    
+
+
     # Partners
 
 
-    atapi.StringField(
+    atapi.ReferenceField(
         'leadagency',
         required=False,
-		searchable=True, 
-        vocabulary = vocabulary.LEAD_AGENCY,
-        widget=atapi.SelectionWidget(
+        #searchable=True,
+        #vocabulary = vocabulary.LEAD_AGENCY,
+        widget=ReferenceBrowserWidget(
             label=_(u"Lead Implementing Agency"),
             description=_(u"Lead Implementing Agency"),
+            base_query={'Subject':'Lead Implementing Agency'},
         ),
+        relationship='leadagency_project',
+        allowed_types=('ContactOrganization',), # specify portal type names here ('Example Type',)
+        multiValued=False,
     ),
 
-    atapi.LinesField(
+    atapi.ReferenceField(
         'other_implementing_agency',
         required=False,
-		searchable=True, 
-        widget=AddRemoveWidget(
+        #searchable=True,
+        widget=ReferenceBrowserWidget(
             label=_(u"Other Implementing Agencies"),
             description=_(u"Other Implementing Agencies"),
+            base_query={'Subject':'Implementing Agency'},
+            allow_sorting=True,
         ),
+        relationship='other_implementing_project',
+        allowed_types=('ContactOrganization',), # specify portal type names here ('Example Type',)
+        multiValued=True,
     ),
 
 
-    atapi.LinesField(
+    atapi.ReferenceField(
         'executing_agency',
         required=False,
-		searchable=True, 
-        widget=AddRemoveWidget(
+        #searchable=True,
+        widget=ReferenceBrowserWidget(
             label=_(u"Executing Agencies"),
             description=_(u"Executing Agencies"),
+            base_query={'Subject':'Executing Agency'},
+            allow_sorting=True,
         ),
+        relationship='executing_agency_project',
+        allowed_types=('ContactOrganization',), # specify portal type names here ('Example Type',)
+        multiValued=True,
     ),
 
-
-
-  atapi.LinesField(
-        'other_partners',
-        required=False,
-		searchable=True, 
-        widget=AddRemoveWidget(
-            label=_(u"Other Partners"),
-            description=_(u"Other Partners"),
-        ),
-    ),
 
     # geographical info
 
@@ -307,10 +322,18 @@ class Project(folder.ATFolder):
     meta_type = "Project"
     schema = ProjectSchema
 
+    def _computeSubregions(self):
+        if self.getGlobal():
+            vocabulary.get_regions(countries=self.getCountry(),
+                regions=['Global'])
+        else:
+             vocabulary.get_regions(countries=self.getCountry())
 
+    def _computeRegions(self):
+        vocabulary.get_subregions(countries=self.getCountry())
 
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
- 
+
 
 
 atapi.registerType(Project, PROJECTNAME)

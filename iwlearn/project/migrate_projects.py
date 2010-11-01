@@ -36,6 +36,16 @@ from plone.i18n.locales.countries import _countrylist
 #   Food and Agricultural Organization (FAO)
 
 
+# lead agencies:
+#    African Development Bank (AfDB) <<< to be added
+#    Food and Agriculture Organization
+#    Inter-American Development Bank
+#    United Nations Development Programme
+#    United Nations Environment Programme
+#    World Bank
+
+
+
 
 def get_implementing_agency_uid(agency, context):
     sa = '"' + agency +'"'
@@ -52,11 +62,11 @@ def get_agency_uid_map(context):
         'UNIDO' : {'name': 'United Nations Industrial Development Organization (UNIDO)',
             'alias':[]},
         'UNEP': {'name': 'United Nations Environment Programme (UNEP)',
-            'alias':['UNEP', 'UNEP, IBRD']},
+            'alias':['UNEP', 'UNEP, IBRD', 'United Nations Environment Programme']},
         'UNOPS': {'name': 'United Nations Office for Project Services (UNOPS)',
             'alias': ['UNOPS']},
         'IBRD': {'name': 'International Bank for Reconstruction and Development (IBRD)',
-            'alias': ['UNEP, IBRD', 'IBRD',
+            'alias': ['UNEP, IBRD', 'IBRD', 'World Bank',
             'International Bank for Reconstruction and Development (WB)']},
         'IFAD': {'name': 'International Fund for Agriculture and Development (IFAD)',
             'alias': ['International Fund for Agriculture and Development(IFAD)'] },
@@ -65,9 +75,11 @@ def get_agency_uid_map(context):
         'IFOP': {'name': 'Instituto de Fomento Pesquero (IFOP)',
             'alias': ['IFOP(Chile)']},
         'IADB': {'name': 'Inter-American Development Bank (IADB)',
-            'alias': ['IADB']},
+            'alias': ['IADB','Inter-American Development Bank']},
         'FAO': {'name': 'Food and Agricultural Organization (FAO)',
-            'alias': ['FAO']},
+            'alias': ['FAO', 'Food and Agriculture Organization']},
+        'AfDB': {'name': 'African Development Bank (AfDB)',
+            'alias': ['African Development Bank',]}
     }
     for agency in agencies.keys():
         uid = get_implementing_agency_uid(agencies[agency]['name'], context)
@@ -114,8 +126,8 @@ def getRegions(region, subregions,countries):
         _subregions += SUB_REGIONS_MAP[subregion]
     regions = vocabulary.get_regions(countries=countries,
         subregions=_subregions,regions=[region])
-    print countries
-    print region, ' -> ', regions
+    #print countries
+    #print region, ' -> ', regions
     return regions
 
 def getSubregions(region, subregions,countries):
@@ -127,8 +139,8 @@ def getSubregions(region, subregions,countries):
             _subregions += SUB_REGIONS_MAP[subregion]
     newsubregions = vocabulary.get_subregions(countries=countries,
         subregions=_subregions)
-    print subregions, ' -> ', newsubregions
-    print
+    #print subregions, ' -> ', newsubregions
+    #print
     return subregions
 
 COUNTRY_MAP = {
@@ -235,12 +247,27 @@ def migrate(self):
         if hit:
             pass
         else:
+            print 'could not find other implementing agency: ', ias
+        la = old.getLeadagency()
+        hit = False
+        for agency in agency_map.keys():
+            if ((la in agency_map[agency]['alias']) or
+                    (la == agency_map[agency]['name'])):
+                # set lead agency reference
+                hit = True
+                pass
+        if hit:
             pass
+        else:
+            print 'leadagency not found: ', la
+
+        #print old.Title()
         region = old.getRegion()
         subregions = old.getSubregion()
         countries = update_countries(old.getCountry())
         getRegions(region, subregions,countries)
         getSubregions(region, subregions,countries)
+        #print old.getProject_contacts()
         #copy or migrate child objects
         for child in old.objectValues():
             if child.portal_type == 'IWSubProject':

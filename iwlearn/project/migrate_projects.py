@@ -28,7 +28,7 @@ from plone.i18n.locales.countries import _countrylist
 #   United Nations Industrial Development Organization (UNIDO)
 #   United Nations Environment Programme (UNEP)
 #   United Nations Office for Project Services (UNOPS)
-#   International Bank for Reconstruction and Development (IBRD) <<< to be added
+#   International Bank for Reconstruction and Development (WB)
 #   International Fund for Agriculture and Development (IFAD) <<< to be added
 #   Instituto del Mar del Peru (IMARPE) <<< rename Peru; Institute of the Sea (IMARPE)
 #   Instituto de Fomento Pesquero (IFOP) <<< rename Institute of Fishing Promotion (IFOP)
@@ -72,7 +72,7 @@ def get_agency_uid_map(context):
         'UNOPS': {'name': 'United Nations Office for Project Services (UNOPS)',
             'alias': ['UNOPS'],
             'tags':['Implementing Agency']},
-        'IBRD': {'name': 'International Bank for Reconstruction and Development (IBRD)',
+        'IBRD': {'name': 'International Bank for Reconstruction and Development (WB)',
             'alias': ['UNEP, IBRD', 'IBRD', 'World Bank',
             'International Bank for Reconstruction and Development (WB)'],
             'tags':['Lead Implementing Agency', 'Implementing Agency']},
@@ -263,7 +263,15 @@ def migrate(self):
         if hit:
             pass
             #new.setLeadagency(lauid)
+            f.write('    #project leadagency \n')
+            f.write('    obj=uid_tool.lookupObject("' + old.UID() + '")\n')
+            f.write('    obj.setLeadagency("' + lauid + '")\n')
             #set backreferences from organization
+            f.write('    #organization set leadagency backrefs\n')
+            f.write('    obj=uid_tool.lookupObject("' + lauid + '")\n')
+            f.write('    project_uids = list(la_obj.getRawProjectlead())\n')
+            f.write('    project_uids.append("' + old.UID() + '")\n')
+            f.write('    obj.setProjectlead(project_uids)\n')
             la_obj=uid_tool.lookupObject(lauid)
             project_uids = list(la_obj.getRawProjectlead())
             project_uids.append(old.UID())
@@ -282,9 +290,21 @@ def migrate(self):
                     auids.append(agency_map[agency]['uid'])
         if hit:
             pass
+            #set other implementing agencies
+            f.write('    #project implementing agencies \n')
+            f.write('    obj=uid_tool.lookupObject("' + old.UID() + '")\n')
+            f.write('    obj.setOther_implementing_agency([')
+            for auid in auids:
+                f.write('"' + auid + '", ')
+            f.write('])\n')
             #new.setOther_implementing_agency(auids)
             #set the backreferences from organization
+            f.write('    #backrefs for  implementing agencies from org to project\n')
             for auid in auids:
+                f.write('    oia_obj=uid_tool.lookupObject("' + auid +'")\n')
+                f.write('    project_uids = list(oia_obj.getRawProjectimplementing())\n')
+                f.write('    project_uids.append("' + old.UID() +'")\n')
+                f.write('    oia_obj.setProjectimplementing(project_uids)\n')
                 oia_obj=uid_tool.lookupObject(auid)
                 project_uids = list(oia_obj.getRawProjectimplementing())
                 project_uids.append(old.UID())
@@ -313,6 +333,8 @@ def migrate(self):
     print 'starting migration'
     f = open('update_project_uids.py', 'w')
     f.write('def migrate(self):\n')
+    f.write('    print "start setting uids"\n')
+    f.write('    uid_tool = self.reference_catalog\n')
     agency_map = get_agency_uid_map(self)
     uid_tool = self.reference_catalog
     for brain in self.portal_catalog(portal_type = 'IWProjectDatabase'):

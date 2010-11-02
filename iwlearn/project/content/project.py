@@ -236,7 +236,6 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.ReferenceField(
         'leadagency',
         required=False,
-        #searchable=True,
         widget=ReferenceBrowserWidget(
             label=_(u"Lead Implementing Agency"),
             description=_(u"Lead Implementing Agency"),
@@ -250,7 +249,6 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.ReferenceField(
         'other_implementing_agency',
         required=False,
-        #searchable=True,
         widget=ReferenceBrowserWidget(
             label=_(u"Other Implementing Agencies"),
             description=_(u"Other Implementing Agencies"),
@@ -266,7 +264,6 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.ReferenceField(
         'executing_agency',
         required=False,
-        #searchable=True,
         widget=ReferenceBrowserWidget(
             label=_(u"Executing Agencies"),
             description=_(u"Executing Agencies"),

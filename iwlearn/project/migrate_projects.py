@@ -249,6 +249,27 @@ def migrate(self):
         #portal_types.constructContent('Project', new_parent, obj_id)
         #new = new_parent[obj_id]
         # set fields
+        # lead implementing agency
+        la = old.getLeadagency()
+        hit = False
+        lauid = None
+        for agency in agency_map.keys():
+            if ((la in agency_map[agency]['alias']) or
+                    (la==agency_map[agency]['name'])):
+                # set lead agency reference
+                hit = True
+                lauid = agency_map[agency]['uid']
+                pass
+        if hit:
+            pass
+            #new.setLeadagency(lauid)
+            #set backreferences from organization
+            la_obj=uid_tool.lookupObject(lauid)
+            project_uids = list(la_obj.getRawProjectlead())
+            project_uids.append(old.UID())
+            #la_obj.setProjectlead(project_uids)
+        else:
+            print 'leadagency not found: ', la
         # Implementing agencies
         ias = old.getOther_implementing_agency()
         hit = False
@@ -256,26 +277,21 @@ def migrate(self):
         for ia in ias:
             for agency in agency_map.keys():
                 if ((ia in agency_map[agency]['alias']) or
-                        (ia == agency_map[agency]['name'])):
+                        (ia==agency_map[agency]['name'])):
                     hit = True
                     auids.append(agency_map[agency]['uid'])
         if hit:
             pass
+            #new.setOther_implementing_agency(auids)
+            #set the backreferences from organization
+            for auid in auids:
+                oia_obj=uid_tool.lookupObject(auid)
+                project_uids = list(oia_obj.getRawProjectimplementing())
+                project_uids.append(old.UID())
+                #oia_obj.setProjectimplementing(project_uids)
         else:
             print 'could not find other implementing agency: ', ias
-        # lead implementing agency
-        la = old.getLeadagency()
-        hit = False
-        for agency in agency_map.keys():
-            if ((la in agency_map[agency]['alias']) or
-                    (la == agency_map[agency]['name'])):
-                # set lead agency reference
-                hit = True
-                pass
-        if hit:
-            pass
-        else:
-            print 'leadagency not found: ', la
+
 
         #print old.Title()
         region = old.getRegion()
@@ -298,10 +314,10 @@ def migrate(self):
     f = open('update_project_uids.py', 'w')
     f.write('def migrate(self):\n')
     agency_map = get_agency_uid_map(self)
+    uid_tool = self.reference_catalog
     for brain in self.portal_catalog(portal_type = 'IWProjectDatabase'):
         obj=brain.getObject()
         parent = obj.getParentNode()
-        new = None
         if callable(obj.id):
             obj_id = obj.id()
         else:
@@ -310,6 +326,7 @@ def migrate(self):
         portal_types = parent.portal_types
         #portal_types.constructContent('ProjectDatabase', parent, obj_id)
         print 'created project db: ', obj_id
+        new = None
         #new = parent[obj_id]
         #new.update(title=obj.title, description=obj.description )
         #migrate_metadata(obj, new, parent, parent)

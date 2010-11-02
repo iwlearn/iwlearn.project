@@ -238,6 +238,20 @@ def update_countries(countries):
                 cl.append(c)
     return cl
 
+def migrate_metadata(old, new, old_parent, new_parent):
+    new.update(creation_date=old.creation_date)
+    if old.effective_date:
+        new.setEffectiveDate(old.effective_date)
+    else:
+        new.setEffectiveDate(old.creation_date)
+    new.setCreators(old.Creators())
+    new.setModificationDate(old.creation_date)
+    new.setSubject(old.Subject())
+    uid = old.UID()
+    old._uncatalogUID(new_parent)
+    new._setUID(uid)
+
+
 def migrate(self):
     def migrate_project(old, old_parent, new_parent, f):
         new = None
@@ -246,9 +260,32 @@ def migrate(self):
         else:
             obj_id = old.id
         portal_types = old_parent.portal_types
-        #portal_types.constructContent('Project', new_parent, obj_id)
-        #new = new_parent[obj_id]
+        portal_types.constructContent('Project', new_parent, obj_id)
+        print old.Title()
+        new = new_parent[obj_id]
         # set fields
+        new.update(title=old.title)
+        new.setBasin(old.getBasin() )
+        new.SetCountry(update_countries(old.getCountry()))
+        new.setEnd_date(old.getEnd_date() )
+        new.setFocal_area(old.getFocal_area() )
+        new.setGef_project_allocation(old.getGef_project_allocation() )
+        new.setGef_project_id(old.getGef_project_id )
+        new.setGlobal('Global' in old.getRegion())
+        new.setLatitude(old.getLeadagency() )
+        new.setLongitude(old.getLongitude() )
+        new.setOperational_programme(old.getOperational_programme() )
+        new.setProject_status(old.getProject_status() )
+        new.setProject_summary( '<div class="migration-tbd">' +
+            ', '.join(old.getExecuting_agency()) + '</div> <hr/> <br/>' +
+            old.getSummary_project_description() + '<p><hr/></p>' +
+            old.getProject_results())
+        new.setProject_type(old.getProject_type() )
+        new.setRemote_url(old.getProject_website_address() )
+        new.setStart_date(old.getStart_date() )
+        new.setStrategic_priority(old.getStrategic_priority() )
+        new.setTotal_cost(old.getTotal_cost() )
+
         # lead implementing agency
         la = old.getLeadagency()
         hit = False
@@ -312,21 +349,13 @@ def migrate(self):
         else:
             print 'could not find other implementing agency: ', ias
 
-
-        #print old.Title()
-        region = old.getRegion()
-        subregions = old.getSubregion()
-        countries = update_countries(old.getCountry())
-        getRegions(region, subregions,countries)
-        getSubregions(region, subregions,countries)
-        #print old.getProject_contacts()
+        migrate_metadata(old, new, old_parent, new_parent)
         #copy or migrate child objects
         for child in old.objectValues():
             if child.portal_type == 'IWSubProject':
                 migrate_project(child, old, new, f)
             elif child.portal_type == 'Folder':
-                pass
-                #new.manage_pasteObjects(old.manage_cutObjects(child.id))
+                new.manage_pasteObjects(old.manage_cutObjects(child.id))
             else:
                 print 'ignored: ', child.portal_type, child.id
     ###########################################################
@@ -344,20 +373,20 @@ def migrate(self):
             obj_id = obj.id()
         else:
             obj_id = obj.id
-        #parent.manage_renameObject(obj_id, obj_id + '_old')
+        parent.manage_renameObject(obj_id, obj_id + '_old')
         portal_types = parent.portal_types
-        #portal_types.constructContent('ProjectDatabase', parent, obj_id)
+        portal_types.constructContent('ProjectDatabase', parent, obj_id)
         print 'created project db: ', obj_id
         new = None
-        #new = parent[obj_id]
-        #new.update(title=obj.title, description=obj.description )
-        #migrate_metadata(obj, new, parent, parent)
+        new = parent[obj_id]
+        new.update(title=obj.title, description=obj.description )
+        migrate_metadata(obj, new, parent, parent)
         for child in obj.objectValues():
             if child.portal_type == 'IWProject':
                 migrate_project(child, obj, new, f)
             else:
                 print 'ignored: ', child.portal_type, child.id
-        #parent.manage_delObjects(ids=[obj_id + '_old'])
+        parent.manage_delObjects(ids=[obj_id + '_old'])
     print 'migration finished'
     f.close()
     return 'success'

@@ -145,7 +145,7 @@ def migrate_organization(old, f):
     f.write('    obj=uid_tool.lookupObject("' + old.UID() + '")\n')
     f.write('    obj.setContactpersons([')
     for person in old.getBRefs():
-        f.write(' "' + person + '",')
+        f.write(' "' + person.UID() + '",')
     f.write('])\n')
 
 

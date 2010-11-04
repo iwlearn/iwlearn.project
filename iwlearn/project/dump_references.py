@@ -89,9 +89,6 @@ def migrate_project(old, f, agency_map, context):
         f.write('    project_uids = list(la_obj.getRawProjectlead())\n')
         f.write('    project_uids.append("' + old.UID() + '")\n')
         f.write('    obj.setProjectlead(project_uids)\n')
-        la_obj=uid_tool.lookupObject(lauid)
-        project_uids = list(la_obj.getRawProjectlead())
-        project_uids.append(old.UID())
     else:
         print 'leadagency not found: ', la
     # Implementing agencies
@@ -120,9 +117,6 @@ def migrate_project(old, f, agency_map, context):
             f.write('    project_uids = list(oia_obj.getRawProjectimplementing())\n')
             f.write('    project_uids.append("' + old.UID() +'")\n')
             f.write('    oia_obj.setProjectimplementing(project_uids)\n')
-            oia_obj=uid_tool.lookupObject(auid)
-            project_uids = list(oia_obj.getRawProjectimplementing())
-            project_uids.append(old.UID())
     else:
         print 'could not find other implementing agency: ', ias
 

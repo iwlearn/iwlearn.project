@@ -137,7 +137,7 @@ def migrate_person(old, f):
         f.write('        print "set organization failed"\n')
     f.write('    obj.setProjects([')
     for project in old.getBRefs('Rel1'):
-        f.write(' "' + project + '",')
+        f.write(' "' + project.UID() + '",')
     f.write('])\n')
 
 def migrate_organization(old, f):

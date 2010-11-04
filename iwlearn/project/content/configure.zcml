@@ -4,26 +4,19 @@
     i18n_domain="iwlearn.project">
 
   <!-- configure your content components here -->
-  
+
   <!-- -*- extra stuff goes here -*- -->
   <class class=".project.Project">
     <require
         permission="zope2.View"
         interface="..interfaces.IProject"
         />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IProject"
-        />
+
   </class>
   <class class=".projectdatabase.ProjectDatabase">
     <require
         permission="zope2.View"
         interface="..interfaces.IProjectDatabase"
-        />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IProjectDatabase"
         />
   </class>
 

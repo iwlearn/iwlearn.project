@@ -350,8 +350,7 @@ def migrate(self):
             if child.portal_type == 'IWSubProject':
                 migrate_project(child, old, new, f)
             elif child.portal_type == 'Folder':
-                #new.manage_pasteObjects(old.manage_cutObjects(child.id))
-                pass
+                new.manage_pasteObjects(old.manage_cutObjects(child.id))
             else:
                 print 'ignored: ', child.portal_type, child.id
         migrate_metadata(old, new, old_parent, new_parent)

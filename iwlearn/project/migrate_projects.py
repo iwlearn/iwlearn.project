@@ -259,7 +259,7 @@ def migrate(self):
             obj_id = old.id()
         else:
             obj_id = old.id
-        portal_types = old_parent.portal_types
+        portal_types = parent.portal_types
         portal_types.constructContent('Project', new_parent, obj_id)
         print old.Title()
         new = new_parent[obj_id]
@@ -271,7 +271,7 @@ def migrate(self):
         new.setFocal_area(old.getFocal_area() )
         new.setGef_project_allocation(old.getGef_project_allocation() )
         new.setGef_project_id(old.getGef_project_id )
-        new.setGlobal('Global' in old.getRegion())
+        new.setGlobalproject('Global' in old.getRegion())
         new.setLatitude(old.getLeadagency() )
         new.setLongitude(old.getLongitude() )
         new.setOperational_programme(old.getOperational_programme() )
@@ -375,7 +375,7 @@ def migrate(self):
             obj_id = obj.id
         parent.manage_renameObject(obj_id, obj_id + '_old')
         portal_types = parent.portal_types
-        portal_types.constructContent('ProjectDatabase', parent, obj_id)
+        portal_types.constructContent('Project Database', parent, obj_id)
         print 'created project db: ', obj_id
         new = None
         new = parent[obj_id]
@@ -386,7 +386,7 @@ def migrate(self):
                 migrate_project(child, obj, new, f)
             else:
                 print 'ignored: ', child.portal_type, child.id
-        parent.manage_delObjects(ids=[obj_id + '_old'])
+        parent.manage_delObjects(ids=[obj_id])
     print 'migration finished'
     f.close()
     return 'success'

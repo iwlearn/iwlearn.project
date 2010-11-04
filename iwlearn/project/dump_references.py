@@ -8,9 +8,9 @@
 def get_implementing_agency_uid(agency, context, tags):
     sa = '"' + agency +'"'
     ia = context.portal_catalog(
-            portal_type='ContactOrganization',
+            portal_type='mxmContactsOrganization',
             Title=sa)
-    assert(len(ia)==1)
+    assert(len(ia)==1), ia.Title
     ia[0].getObject().setSubject(tags)
     ia[0].getObject().reindexObject(idxs=['Subject'])
     return ia[0].getObject().UID()
@@ -40,10 +40,10 @@ def get_agency_uid_map(context):
         'IFAD': {'name': 'International Fund for Agriculture and Development (IFAD)',
             'alias': ['International Fund for Agriculture and Development(IFAD)'] ,
             'tags':['Implementing Agency']},
-        'IMARPE': {'name': 'Instituto del Mar del Peru (IMARPE)',
+        'IMARPE': {'name': 'Peru; Institute of the Sea (IMARPE)',
             'alias': ['IMARPE(Peru)'],
             'tags':['Implementing Agency']},
-        'IFOP': {'name': 'Instituto de Fomento Pesquero (IFOP)',
+        'IFOP': {'name': 'Institute of Fishing Promotion (IFOP)',
             'alias': ['IFOP(Chile)'],
             'tags':['Implementing Agency']},
         'IADB': {'name': 'Inter-American Development Bank (IADB)',

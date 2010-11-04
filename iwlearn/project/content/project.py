@@ -46,7 +46,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     ),
 
     atapi.BooleanField(
-        'global',
+        'globalproject',
         required=True,
         searchable=True,
         default=False,
@@ -320,7 +320,7 @@ class Project(folder.ATFolder):
     schema = ProjectSchema
 
     def _computeRegions(self):
-        if self.getGlobal():
+        if self.getGlobalproject():
             return vocabulary.get_regions(countries=self.getCountry(),
                 regions=[u'Global'])
         else:

@@ -10,7 +10,7 @@ def get_implementing_agency_uid(agency, context, tags):
     ia = context.portal_catalog(
             portal_type='mxmContactsOrganization',
             Title=sa)
-    assert(len(ia)==1), ia.Title
+    assert(len(ia)==1), agency
     ia[0].getObject().setSubject(tags)
     ia[0].getObject().reindexObject(idxs=['Subject'])
     return ia[0].getObject().UID()

@@ -52,7 +52,7 @@ def get_implementing_agency_uid(agency, context, tags):
     ia = context.portal_catalog(
             portal_type='ContactOrganization',
             Title=sa)
-    assert(len(ia)==1)
+    assert(len(ia)==1), agency
     #print ia[0].Subject, tags
     ia[0].getObject().setSubject(tags)
     ia[0].getObject().reindexObject(idxs=['Subject'])
@@ -399,7 +399,7 @@ def migrate(self):
                 migrate_project(child, obj, new, f)
             else:
                 print 'ignored: ', child.portal_type, child.id
-        #parent.manage_delObjects(ids=[obj_id])
+        parent.manage_delObjects(ids=[obj_id])
     print 'migration finished'
     f.close()
     return 'success'

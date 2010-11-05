@@ -238,6 +238,16 @@ def update_countries(countries):
                 cl.append(c)
     return cl
 
+def uniquelist(seq):
+    # order preserving
+    seen={}
+    result = []
+    for item in seq:
+        if item in seen.keys(): continue
+        seen[item] = 1
+        result.append(item)
+    return result
+
 def migrate_metadata(old, new, old_parent, new_parent):
     new.setCreationDate(old.CreationDate())
     if old.getEffectiveDate():
@@ -309,6 +319,7 @@ def migrate(self):
             la_obj=uid_tool.lookupObject(lauid)
             project_uids = list(la_obj.getRawProjectlead())
             project_uids.append(old.UID())
+            project_uids = uniquelist(project_uids)
             la_obj.setProjectlead(project_uids)
         else:
             print 'leadagency not found: ', la
@@ -323,6 +334,7 @@ def migrate(self):
                     hit = True
                     auids.append(agency_map[agency]['uid'])
         if hit:
+            auids = uniquelist(auids)
             #set other implementing agencies
             f.write('    #project implementing agencies \n')
             f.write('    obj=uid_tool.lookupObject("' + old.UID() + '")\n')
@@ -341,6 +353,7 @@ def migrate(self):
                 oia_obj=uid_tool.lookupObject(auid)
                 project_uids = list(oia_obj.getRawProjectimplementing())
                 project_uids.append(old.UID())
+                project_uids = uniquelist(project_uids)
                 oia_obj.setProjectimplementing(project_uids)
         else:
             print 'could not find other implementing agency: ', ias
@@ -354,6 +367,7 @@ def migrate(self):
             else:
                 print 'ignored: ', child.portal_type, child.id
         migrate_metadata(old, new, old_parent, new_parent)
+        old_parent.manage_delObjects(ids=[obj_id])
     ###########################################################
     print 'starting migration'
     f = open('update_project_uids.py', 'w')
@@ -385,7 +399,7 @@ def migrate(self):
                 migrate_project(child, obj, new, f)
             else:
                 print 'ignored: ', child.portal_type, child.id
-        parent.manage_delObjects(ids=[obj_id])
+        #parent.manage_delObjects(ids=[obj_id])
     print 'migration finished'
     f.close()
     return 'success'

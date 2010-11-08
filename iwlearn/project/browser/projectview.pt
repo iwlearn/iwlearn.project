@@ -3,15 +3,6 @@
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="iwlearn.project">
 <body>
-    <!--div metal:fill-slot="main">
-        <tal:main-macro metal:define-macro="main"
-                        tal:define="testview view/test">
-
-            <span tal:content="testview/dummy">test</span>
-
-        </tal:main-macro>
-    </div-->
-
   <metal:content-core fill-slot="content-core">
     <metal:content-core define-macro="content-core">
         <table border="0" cellspacing="1" width="100%"
@@ -107,10 +98,10 @@
                              <li tal:repeat="contact contacts">
                                 <a tal:attributes="href contact/absolute_url">
                                   <span tal:replace="contact/Title" > Name of contact </span> <br/>
-                                  <span tal:replace="contact/jobtitle"/> <br/>
+                                  <!--span tal:replace="contact/jobtitle"/> <br/-->
                                 </a>
                                   <!--span tal:replace="contact/organizationName"/> <br/-->
-                                  <!--span tal:replace="contact/getEmail"> ab@cd.org </span> <br/-->
+                                  <span tal:replace="contact/Description"> ab@cd.org </span>
 
                              </li>
                        </ul>
@@ -249,18 +240,6 @@
                     <span tal:replace="structure accessor" />
                   </td>
                 </tr>
-                <tal:hide condition="nothing"><!-- njj: hidden, see http://issuetracker.iwlearn.org/issues/707 -->
-                <tr tal:define="field python:here.Schema()['gef_project_stage']; accessor python:getattr(here, field.accessor)"
-                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
-
-                  <td width="46%" bgcolor="#FAE3B0">
-                    <b>GEF Project Stage</b>
-                  </td>
-                  <td width="54%">
-                    <span tal:replace="structure accessor" />
-                  </td>
-                </tr>
-                </tal:hide>
                 <tr tal:define="field python:here.Schema()['gef_project_allocation']; accessor python:getattr(here, field.accessor)"
                 tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
@@ -302,7 +281,7 @@
                     <metal:block use-macro="widget_view" />
                   </td>
                 </tr>
-                <tr tal:define="field python:here.Schema()['leadagency']; accessor python:getattr(here, field.accessor)"
+                <tr tal:define="field python:here.Schema()['leadagency']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
                 tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
                   <td width="46%" bgcolor="#C7D8A8">
@@ -312,7 +291,7 @@
                     </b>
                   </td>
                   <td width="54%">
-                    <span tal:replace="structure accessor" />
+                    <metal:block use-macro="widget_view" />
                   </td>
                 </tr>
                 <tr tal:define="field python:here.Schema()['other_implementing_agency']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"

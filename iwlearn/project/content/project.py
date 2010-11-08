@@ -47,7 +47,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     atapi.BooleanField(
         'globalproject',
-        required=True,
+        required=False,
         searchable=True,
         default=False,
         widget=atapi.BooleanWidget(

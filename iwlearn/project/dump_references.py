@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # save references and backreferences as a python script to restore them
 # after the content migration link restore_references.py into
-# parts/clientX/Extensions and execute te script as an external method
+# parts/clientX/Extensions and execute the script as an external method
 # dump_references.py
 
 
@@ -41,10 +41,10 @@ def get_agency_uid_map(context):
             'alias': ['International Fund for Agriculture and Development(IFAD)'] ,
             'tags':['Implementing Agency']},
         'IMARPE': {'name': 'Peru; Institute of the Sea (IMARPE)',
-            'alias': ['IMARPE(Peru)'],
+            'alias': ['IMARPE(Peru)','Instituto del Mar del Peru (IMARPE)'],
             'tags':['Implementing Agency']},
         'IFOP': {'name': 'Institute of Fishing Promotion (IFOP)',
-            'alias': ['IFOP(Chile)'],
+            'alias': ['IFOP(Chile)', 'Instituto de Fomento Pesquero (IFOP)'],
             'tags':['Implementing Agency']},
         'IADB': {'name': 'Inter-American Development Bank (IADB)',
             'alias': ['IADB','Inter-American Development Bank'],
@@ -86,7 +86,7 @@ def migrate_project(old, f, agency_map, context):
         #set backreferences from organization
         f.write('    #organization set leadagency backrefs\n')
         f.write('    obj=uid_tool.lookupObject("' + lauid + '")\n')
-        f.write('    project_uids = list(la_obj.getRawProjectlead())\n')
+        f.write('    project_uids = list(obj.getRawProjectlead())\n')
         f.write('    project_uids.append("' + old.UID() + '")\n')
         f.write('    obj.setProjectlead(project_uids)\n')
     else:
@@ -129,18 +129,21 @@ def migrate_person(old, f):
         f.write('        obj.setOrganization("' + old.getRawOrganization() + '")\n')
         f.write('    except:\n')
         f.write('        print "set organization failed"\n')
-    f.write('    obj.setProjects([')
-    for project in old.getBRefs('Rel1'):
-        f.write(' "' + project.UID() + '",')
-    f.write('])\n')
+    if old.getBRefs('Rel1'):
+        f.write('    obj.setProjects([')
+        for project in old.getBRefs('Rel1'):
+            f.write(' "' + project.UID() + '",')
+        f.write('])\n')
 
 def migrate_organization(old, f):
-    f.write('    #organization \n')
-    f.write('    obj=uid_tool.lookupObject("' + old.UID() + '")\n')
-    f.write('    obj.setContactpersons([')
-    for person in old.getBRefs():
-        f.write(' "' + person.UID() + '",')
-    f.write('])\n')
+    if old.getBrefs():
+        f.write('    #organization \n')
+        f.write('    obj=uid_tool.lookupObject("' + old.UID() + '")\n')
+        f.write('    if obj:\n'
+        f.write('        obj.setContactpersons([')
+        for person in old.getBRefs():
+            f.write(' "' + person.UID() + '",')
+        f.write('])\n')
 
 
 def migrate(self):

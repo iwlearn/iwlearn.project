@@ -7,4 +7,14 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+  <browser:page
+      for="..interfaces.IProject"
+      name="view"
+      class=".projectview.ProjectView"
+      template="projectview.pt"
+      allowed_interface=".projectview.IProjectView"
+      permission="zope.Public"
+      />
+
+
 </configure>

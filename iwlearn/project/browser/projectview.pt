@@ -1,0 +1,380 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="iwlearn.project">
+<body>
+    <!--div metal:fill-slot="main">
+        <tal:main-macro metal:define-macro="main"
+                        tal:define="testview view/test">
+
+            <span tal:content="testview/dummy">test</span>
+
+        </tal:main-macro>
+    </div-->
+
+  <metal:content-core fill-slot="content-core">
+    <metal:content-core define-macro="content-core">
+        <table border="0" cellspacing="1" width="100%"
+        id="AutoNumber1" cellpadding="0">
+          <tr>
+            <td width="65%" valign="top">
+              <div class="c3">
+                <table class="c2" border="0" cellspacing="3"
+                width="100%" id="AutoNumber3">
+                  <tr tal:define="field python:here.Schema()['gef_project_id']; accessor python:getattr(here, field.accessor)"
+                  tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                    <td class="c1" width="22%" bgcolor="#E9F1F7"
+                    valign="top">
+                      <b>
+                        <font size="2" face="Arial">GEF ID</font>
+                      </b>
+                    </td>
+                    <td class="c1" width="78%" valign="top">
+                      <span tal:replace="structure accessor" />
+                    </td>
+                  </tr>
+                  <tr tal:define="field python:here.Schema()['remote_url']; accessor python:getattr(here, field.accessor)"
+                  tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                    <td class="c1" width="22%" bgcolor="#E9F1F7"
+                    valign="top" whitespace="wrap">
+                      <b>
+                        <font size="2" face="Arial">Project Website
+                        URL</font>
+                      </b>
+                    </td>
+                    <td class="c1" width="78%" valign="top">
+                      <a href="#" target="_blank"
+                      tal:attributes="href accessor"
+                      tal:content="python:here.getRemote_url().replace('?', ' ')" />
+                    </td>
+                  </tr>
+                  <tr tal:define="field python:here.Schema()['region']; accessor python:getattr(here, field.accessor)"
+                  tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                    <td class="c1" width="22%" bgcolor="#E9F1F7"
+                    valign="top">
+                      <b>
+                        <font face="Arial" size="2">Region</font>
+                      </b>
+                    </td>
+                    <td class="c1" width="78%" valign="top">
+                      <span tal:replace="structure accessor" />
+                    </td>
+                  </tr>
+                  <tr tal:define="field python:here.Schema()['subregion']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                  tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                    <td class="c1" width="22%" valign="top"
+                    bgcolor="#E9F1F7">
+                      <b>
+                        <font face="Arial" size="2">
+                        Sub-Region</font>
+                      </b>
+                    </td>
+                    <td class="c1" width="78%" valign="top">
+                      <span>
+                        <metal:block use-macro="widget_view" />
+                      </span>
+                    </td>
+                  </tr>
+                  <tr tal:define="field python:here.Schema()['basin']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                  tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                    <td class="c1" width="22%" valign="top"
+                    bgcolor="#E9F1F7">
+                      <b>
+                        <font face="Arial" size="2">Basin</font>
+                      </b>
+                    </td>
+                    <td class="c1" width="78%" valign="top">
+                      <span>
+                        <metal:block use-macro="widget_view" />
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="c1" width="22%" bgcolor="#E9F1F7"
+                    valign="top">
+                      <b>
+                        <font size="2" face="Arial">Project
+                        Contacts</font>
+                      </b>
+                    </td>
+                    <td class="c1" width="78%" valign="top">
+                        <ul tal:define="contacts here/getProject_contacts">
+                             <li tal:repeat="contact contacts">
+                                <a tal:attributes="href contact/absolute_url">
+                                  <span tal:replace="contact/Title" > Name of contact </span> <br/>
+                                  <span tal:replace="contact/jobtitle"/> <br/>
+                                </a>
+                                  <!--span tal:replace="contact/organizationName"/> <br/-->
+                                  <!--span tal:replace="contact/getEmail"> ab@cd.org </span> <br/-->
+
+                             </li>
+                       </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="c1" width="22%" bgcolor="#E9F1F7"
+                    valign="top">
+                      <b>
+                        <font size="2" face="Arial">Tranche Funding</font>
+                      </b>
+                    </td>
+                    <td class="c1" width="78%" valign="top">
+                        <!--tal:put_filter_on_request define="dummy python:request.set('contentFilter', {'meta_type': ['IWSubProject']})">
+                            <metal:use_body use-macro="folderlisting_macro" />
+                        </tal:put_filter_on_request-->
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="c1" width="22%" bgcolor="#E9F1F7"
+                    valign="top">
+                      <b>
+                        <font size="2" face="Arial">Project
+                        Documents</font>
+                      </b>
+                    </td>
+                    <td class="c1" width="78%" valign="top">
+                        <!--tal:put_filter_on_request define="dummy python:request.set('contentFilter', {'meta_type': ['ATLink', 'ATFile', 'ATFolder']})">
+                            <metal:use_body use-macro="folderlisting_macro" />
+                        </tal:put_filter_on_request-->
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+            <td width="35%" valign="top">
+              <table border="0" cellspacing="3" width="100%"
+              id="AutoNumber2">
+                <tr>
+                  <td width="100%" bgcolor="#624A7F" colspan="2">
+                  &#160;
+                  <b>
+                    <font color="#FFFFFF" size="2" face="Arial">
+                    General Information:</font>
+                  </b></td>
+                </tr>
+                <tr tal:define="field python:here.Schema()['project_type']; accessor python:getattr(here, field.accessor)"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td width="46%" bgcolor="#BEB0D0">
+                    <b>
+                      <font face="Arial" size="2">Project
+                      Type</font>
+                    </b>
+                  </td>
+                  <td width="54%">
+                    <span tal:replace="structure accessor" />
+                  </td>
+                </tr>
+                <tr tal:define="field python:here.Schema()['project_status']; accessor python:getattr(here, field.accessor)"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td width="46%" bgcolor="#BEB0D0">
+                    <b>
+                      <font size="2" face="Arial">Project
+                      Status</font>
+                    </b>
+                  </td>
+                  <td width="54%">
+                    <span tal:replace="structure accessor" />
+                  </td>
+                </tr>
+                <tr tal:define="field python:here.Schema()['start_date']; accessor python:getattr(here, field.accessor)"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td width="46%" bgcolor="#BEB0D0">
+                    <b>
+                      <font size="2" face="Arial">Start Date</font>
+                    </b>
+                  </td>
+                  <td width="54%">
+                    <span tal:replace="structure accessor" />
+                  </td>
+                </tr>
+                <tr class="c4" valign="top"
+                tal:define="field python:here.Schema()['end_date']; accessor python:getattr(here, field.accessor)"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td width="46%" bgcolor="#BEB0D0">
+                    <b>
+                      <font size="2" face="Arial">End Date</font>
+                    </b>
+                  </td>
+                  <td width="54%">
+                    <span tal:replace="structure accessor" />
+                  </td>
+                </tr>
+                <tr>
+                  <td width="100%" colspan="2">&#160;</td>
+                </tr>
+                <tr>
+                  <td width="100%" colspan="2" bgcolor="#CC6600">
+                    <b>
+                      <font size="2" face="Arial" color="#FFFFFF">
+                      GEF characteristic:</font>
+                    </b>
+                  </td>
+                </tr>
+                <tr tal:define="field python:here.Schema()['strategic_priority']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td width="46%" bgcolor="#FAE3B0">
+                    <b>Strategic Priority</b>
+                  </td>
+                  <td width="54%">
+                    <metal:block use-macro="widget_view" />
+                  </td>
+                </tr>
+                <tr tal:define="field python:here.Schema()['operational_programme']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td width="46%" bgcolor="#FAE3B0">
+                    <b>Operational Programme</b>
+                  </td>
+                  <td width="54%">
+                    <metal:block use-macro="widget_view" />
+                  </td>
+                </tr>
+                <tr tal:define="field python:here.Schema()['focal_area']; accessor python:getattr(here, field.accessor)"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td width="46%" bgcolor="#FAE3B0">
+                    <b>Focal Area</b>
+                  </td>
+                  <td width="54%">
+                    <span tal:replace="structure accessor" />
+                  </td>
+                </tr>
+                <tal:hide condition="nothing"><!-- njj: hidden, see http://issuetracker.iwlearn.org/issues/707 -->
+                <tr tal:define="field python:here.Schema()['gef_project_stage']; accessor python:getattr(here, field.accessor)"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td width="46%" bgcolor="#FAE3B0">
+                    <b>GEF Project Stage</b>
+                  </td>
+                  <td width="54%">
+                    <span tal:replace="structure accessor" />
+                  </td>
+                </tr>
+                </tal:hide>
+                <tr tal:define="field python:here.Schema()['gef_project_allocation']; accessor python:getattr(here, field.accessor)"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td width="46%" bgcolor="#FAE3B0">
+                    <b>GEF Allocation to project</b>
+                  </td>
+                  <td width="54%">
+                  <span tal:replace="structure accessor" />M
+                  US$</td>
+                </tr>
+                <tr tal:define="field python:here.Schema()['total_cost']; accessor python:getattr(here, field.accessor)"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td width="46%" bgcolor="#FAE3B0">
+                    <b>Total Cost of the project:</b>
+                  </td>
+                  <td width="54%">
+                  <span tal:replace="structure accessor" />M
+                  US$</td>
+                </tr>
+                <tr>
+                  <td width="100%" colspan="2">&#160;</td>
+                </tr>
+                <tr>
+                  <td width="100%" colspan="2" bgcolor="#57722E">
+                    <b>&#160;
+                    <font color="#FFFFFF">Partners:</font></b>
+                  </td>
+                </tr>
+                <tr tal:define="field python:here.Schema()['country']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td width="46%" bgcolor="#C7D8A8">
+                    <b>
+                      <font size="2" face="Arial">Countries:</font>
+                    </b>
+                  </td>
+                  <td width="54%">
+                    <metal:block use-macro="widget_view" />
+                  </td>
+                </tr>
+                <tr tal:define="field python:here.Schema()['leadagency']; accessor python:getattr(here, field.accessor)"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td width="46%" bgcolor="#C7D8A8">
+                    <b>
+                      <font size="2" face="Arial">Lead Implementing
+                      Agency</font>
+                    </b>
+                  </td>
+                  <td width="54%">
+                    <span tal:replace="structure accessor" />
+                  </td>
+                </tr>
+                <tr tal:define="field python:here.Schema()['other_implementing_agency']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td valign="top" width="46%" bgcolor="#C7D8A8">
+                    <b>
+                      <font size="2" face="Arial">Other
+                      Implementing Agency</font>
+                    </b>
+                  </td>
+                  <td width="54%">
+                    <metal:block use-macro="widget_view" />
+                  </td>
+                </tr>
+                <tr tal:define="field python:here.Schema()['executing_agency']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td valign="top" width="46%" bgcolor="#C7D8A8">
+                    <b>
+                      <font size="2" face="Arial">Executing
+                      Agencies</font>
+                    </b>
+                  </td>
+                  <td valign="top" width="54%">
+                    <metal:block use-macro="widget_view" />
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <table border="0" cellspacing="3" width="100%"
+        id="AutoNumber4">
+          <tr>
+            <td width="100%" valign="top" colspan="2">
+              <table border="0" cellspacing="3" class="c5"
+              bordercolor="#111111" width="100%" id="AutoNumber7"
+              tal:define="field python:here.Schema()['project_summary']; accessor python:getattr(here, field.accessor)"
+              tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                <tr>
+                  <td width="100%" bgcolor="#94B9DC">
+                    <b>
+                      <font size="2" face="Arial">Project
+                      Description:</font>
+                    </b>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="100%">
+                    <spal tal:replace="structure here/project_summary" />
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+
+    </metal:content-core>
+  </metal:content-core>
+
+</body>
+</html>

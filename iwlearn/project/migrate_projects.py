@@ -55,7 +55,7 @@ def get_implementing_agency_uid(agency, context, tags):
     assert(len(ia)==1), agency
     #print ia[0].Subject, tags
     ia[0].getObject().setSubject(tags)
-    ia[0].getObject().reindexObject(idxs=['Subject'])
+    #ia[0].getObject().reindexObject(idxs=['Subject'])
     return ia[0].getObject().UID()
 
 def get_agency_uid_map(context):
@@ -285,7 +285,7 @@ def migrate(self):
         new.setLongitude(old.getLongitude() )
         new.setOperational_programme(old.getOperational_programme() )
         new.setProject_status(old.getProject_status() )
-        new.setProject_summary( '<div class="migration-tbd">' +
+        new.setProject_summary( '<div class="migration-tbd"> <h3> Executing Agencies: </h3>' +
             ', '.join(old.getExecuting_agency()) + '</div> <hr/> <br/>' +
             old.getSummary_project_description() + '<p><hr/></p>' +
             old.getProject_results())

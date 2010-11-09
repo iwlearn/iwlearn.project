@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+  <!--index name="getSubRegions" meta_type="KeywordIndex">
+  The index is added in setuphandlers.py to avoid reindexing
+    <indexed_attr value="getSubRegions"/>
+  </index-->
+  <column value="getSubRegions"/>
+  <!--index name="getAgencies" meta_type="KeywordIndex">
+  The index is added in setuphandlers.py to avoid reindexing
+    <indexed_attr value="getAgencies"/>
+  </index-->
+  <column value="getAgencies"/>
+</object>

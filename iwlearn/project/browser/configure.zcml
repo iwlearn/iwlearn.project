@@ -8,6 +8,16 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="view"
+      class=".projectdbview.ProjectDBView"
+      template="projectdbview.pt"
+      allowed_interface=".projectdbview.IProjectDBView"
+      permission="zope.Public"
+      />
+
+
+  <browser:page
       for="..interfaces.IProject"
       name="view"
       class=".projectview.ProjectView"

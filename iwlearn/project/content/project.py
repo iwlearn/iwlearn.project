@@ -329,6 +329,18 @@ class Project(folder.ATFolder):
     def _computeSubregions(self):
         return vocabulary.get_subregions(countries=self.getCountry())
 
+
+    def getSubRegions(self):
+        """ get region + subregion for indexing """
+        return self._computeRegions() + self._computeSubregions()
+
+    def getAgencies(self):
+        """ Returns the implementing + lead agencies of the project """
+        agencies = []
+        for ia in self.getOther_implementing_agency():
+            agencies.append(ia.Title())
+        agencies.append(self.getLeadagency().Title())
+        return agencies
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
 
 

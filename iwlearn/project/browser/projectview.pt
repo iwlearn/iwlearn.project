@@ -97,12 +97,9 @@
                         <ul tal:define="contacts here/getProject_contacts">
                              <li tal:repeat="contact contacts">
                                 <a tal:attributes="href contact/absolute_url">
-                                  <span tal:replace="contact/Title" > Name of contact </span> <br/>
-                                  <!--span tal:replace="contact/jobtitle"/> <br/-->
-                                </a>
-                                  <!--span tal:replace="contact/organizationName"/> <br/-->
-                                  <span tal:replace="contact/Description"> ab@cd.org </span>
-
+                                  <span tal:replace="contact/Title" > Name of contact </span>
+                                </a> <br/>
+                                  <span tal:replace="contact/Description">jobtitle, org, department </span>
                              </li>
                        </ul>
                     </td>

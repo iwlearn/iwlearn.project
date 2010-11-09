@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
@@ -12,7 +13,7 @@
   <include package=".content" />
   <include package=".portlets" />
   <i18n:registerTranslations directory="locales" />
-  
+
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="default"
@@ -21,7 +22,28 @@
       description="Database of GEF IW Projects"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-  
+
   <!-- -*- extra stuff goes here -*- -->
+
+
+  <!-- Register the import step -->
+  <genericsetup:importStep
+      name="iwlearn.project"
+      title="iwlearn.project special import handlers"
+      description=""
+      handler="iwlearn.project.setuphandlers.setupVarious" />
+
+  <!-- Register the upgrade step -->
+  <genericsetup:upgradeStep
+      title="Add catalog indexes"
+      description=""
+      source="1000"
+      destination="1001"
+      handler="iwlearn.project.setuphandlers.add_catalog_indexes"
+      profile="iwlearn.project:default" />
+
+
+
+
 
 </configure>

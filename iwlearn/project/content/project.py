@@ -327,18 +327,31 @@ class Project(folder.ATFolder):
 
     def _computeRegions(self):
         if self.getGlobalproject():
-            return vocabulary.get_regions(countries=self.getCountry(),
-                regions=[u'Global'])
+            return ','.join(vocabulary.get_regions(
+                    countries=self.getCountry(),
+                    regions=[u'Global']))
         else:
-             return vocabulary.get_regions(countries=self.getCountry())
+             return ','.join(vocabulary.get_regions(
+                    countries=self.getCountry()))
 
     def _computeSubregions(self):
-        return vocabulary.get_subregions(countries=self.getCountry())
+        return ','.join(vocabulary.get_subregions(
+                countries=self.getCountry()))
 
 
     def getSubRegions(self):
         """ get region + subregion for indexing """
-        return self._computeRegions() + self._computeSubregions()
+        if self.getGlobalproject():
+            return vocabulary.get_regions(
+                    countries=self.getCountry(),
+                    regions=[u'Global']).extend(
+                        vocabulary.get_subregions(
+                            countries=self.getCountry()))
+        else:
+         return vocabulary.get_regions(
+                    countries=self.getCountry()).extend(
+                    vocabulary.get_subregions(
+                        countries=self.getCountry()))
 
     def getAgencies(self):
         """ Returns the implementing + lead agencies of the project """
@@ -354,8 +367,7 @@ class Project(folder.ATFolder):
 def reindexProjectDocuments(context, event):
     """ Project documents acquire some project attributes: project_type
         region/subregion lead/agency project_status.  This part take
-        care about reindex all project documents.  This method is called
-        from mutators of these attributes.
+        care about reindex all project documents.
     """
     logger.info('reindexProjectDocuments')
     # Reindex project documents

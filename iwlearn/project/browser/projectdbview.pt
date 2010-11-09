@@ -4,10 +4,43 @@
       i18n:domain="iwlearn.project">
 <body>
     <div metal:fill-slot="main">
-        <tal:main-macro metal:define-macro="main"
-                        tal:define="testview view/test">
+        <tal:main-macro metal:define-macro="main">
+            <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action=".">
+                <div class="field">
+                    <label for="SearchableText">Search text</label>
 
-            <span tal:content="testview/dummy">test</span>
+                    <div class="formHelp">
+                    For a simple text search, enter your search term
+                    here. Multiple words may be found by combining
+                    them with <strong>AND</strong> and <strong>OR</strong>.
+                    The text in this field will be matched with
+                    items' contents, title and description.
+                    </div>
+
+                    <input type="text" value="" size="25" name="SearchableText" id="SearchableText">
+                </div>
+
+                <div class="field">
+                    <label  for="getSubRegions">Region</label>
+                    <div class="formHelp">
+                    Return projects in this region
+                    </div>
+                        <select id="getSubRegions" name="getSubRegions">
+                            <tal:loop tal:repeat="region view/get_region">
+                                <option value="Africa"
+                                    tal:attributes="value region/value;
+                                        selected region/selected;
+                                        disabled region/disabled;"
+                                    tal:content="region/name">Africa</option>
+                            </tal:loop>
+                        </select>
+                </div>
+
+                <div class="formControls">
+                    <input type="submit" value="Search" name="submit" class="context">
+                </div>
+
+            </form>
 
         </tal:main-macro>
     </div>

@@ -33,6 +33,10 @@ def add_catalog_indexes(context, logger=None):
     # Specify the indexes you want, with ('index_name', 'index_type')
     wanted = (('getSubRegions', 'KeywordIndex'),
               ('getAgencies', 'KeywordIndex'),
+              ('getBasin', 'KeywordIndex'),
+              ('getCountry', 'KeywordIndex'),
+              ('getProject_status', 'FieldIndex'),
+              ('getProject_type', 'FieldIndex'),
               )
     indexables = []
     for name, meta_type in wanted:
@@ -43,7 +47,6 @@ def add_catalog_indexes(context, logger=None):
     if len(indexables) > 0:
         logger.info("Indexing new indexes %s.", ', '.join(indexables))
         catalog.manage_reindexIndex(ids=indexables)
-
 
 
 def setupVarious(context):

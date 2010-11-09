@@ -2,13 +2,16 @@
 """
 
 from zope.interface import implements
+import logging
 
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
+from Products.CMFCore.utils import getToolByName
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from Products.AddRemoveWidget import AddRemoveWidget
 from Products.ATExtensions.widget.url import UrlWidget
+
 
 
 
@@ -16,6 +19,9 @@ from iwlearn.project import projectMessageFactory as _
 from iwlearn.project.interfaces import IProject
 from iwlearn.project.config import PROJECTNAME
 from iwlearn.project import vocabulary
+
+
+logger = logging.getLogger('iwlearn.project')
 
 ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
@@ -341,7 +347,28 @@ class Project(folder.ATFolder):
             agencies.append(ia.Title())
         agencies.append(self.getLeadagency().Title())
         return agencies
+
+
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
+
+def reindexProjectDocuments(context, event):
+    """ Project documents acquire some project attributes: project_type
+        region/subregion lead/agency project_status.  This part take
+        care about reindex all project documents.  This method is called
+        from mutators of these attributes.
+    """
+    logger.info('reindexProjectDocuments')
+    # Reindex project documents
+    cat = getToolByName(context, 'portal_catalog')
+    brains = cat.searchResults(portal_type='File',
+        path='/'.join(context.getPhysicalPath()))
+    for brain in brains:
+        obj = brain.getObject()
+        logger.info('reindex: %s' % '/'.join(obj.getPhysicalPath()))
+        obj.reindexObject(idxs=['getSubRegions',
+            'getAgencies', 'getBasin','getCountry',
+            'getProject_status', 'getProject_type'])
+
 
 
 

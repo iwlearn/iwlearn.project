@@ -24,7 +24,11 @@
       />
 
   <!-- -*- extra stuff goes here -*- -->
-
+<subscriber
+  for=".interfaces.IProject
+       Products.Archetypes.interfaces.IObjectEditedEvent"
+  handler=".content.project.reindexProjectDocuments"
+  />
 
   <!-- Register the import step -->
   <genericsetup:importStep

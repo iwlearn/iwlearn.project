@@ -5,9 +5,9 @@
     <indexed_attr value="getSubRegions"/>
   </index-->
   <column value="getSubRegions"/>
-  <!--index name="getAgencies" meta_type="KeywordIndex">
-  The index is added in setuphandlers.py to avoid reindexing
-    <indexed_attr value="getAgencies"/>
-  </index-->
   <column value="getAgencies"/>
+  <column value="getBasin"/>
+  <column value="getCountry "/>
+  <column value="getProject_status"/>
+  <column value="getProject_type"/>
 </object>

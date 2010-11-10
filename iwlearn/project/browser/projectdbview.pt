@@ -5,6 +5,21 @@
 <body>
     <div metal:fill-slot="main">
         <tal:main-macro metal:define-macro="main">
+
+            <dl class="enableFormTabbing">
+                <dt id="fieldsetlegend-about-projects">About</dt>
+                <dd id="fieldset-about-projects" class="documentDescription"
+                    tal:content="here/Description">
+                </dd>
+                <dt id="fieldsetlegend-map-projects">Map</dt>
+                <dd id="fieldset-map-project">
+                </dd>
+                <dt id="fieldsetlegend-new-projects">New Projects</dt>
+                <dd id="fieldset-new-projects">
+                <dt id="fieldsetlegend-updated-projects">Recently Updated Projects</dt>
+                <dd id="fieldset-updated-projects">
+                </dd>
+            </dl>
             <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action=".">
                 <div class="field">
                     <label for="SearchableText">Search text</label>
@@ -20,28 +35,149 @@
                     <input type="text" value="" size="25" name="SearchableText" id="SearchableText">
                 </div>
 
-                <div class="field">
+                <div class="field even">
+                    <label for="Title">Title</label>
+                    <div class="formHelp">
+                    Return items matching this title.
+                    </div>
+                    <input type="text" size="25" name="Title" id="Title">
+                </div>
+
+
+                <div class="field odd">
                     <label  for="getSubRegions">Region</label>
                     <div class="formHelp">
                     Return projects in this region
                     </div>
                         <select id="getSubRegions" name="getSubRegions">
-                            <tal:loop tal:repeat="region view/get_region">
+                            <tal:loop tal:repeat="opt view/get_region">
                                 <option value="Africa"
-                                    tal:attributes="value region/value;
-                                        selected region/selected;
-                                        disabled region/disabled;"
-                                    tal:content="region/name">Africa</option>
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">Africa</option>
                             </tal:loop>
                         </select>
                 </div>
+
+                <div class="field even">
+                    <label  for="getProject_type">Project type</label>
+                    <div class="formHelp">
+                    Return projects of this type
+                    </div>
+                        <select id="getProject_type" name="getProject_type">
+                            <tal:loop tal:repeat="opt view/get_projecttype">
+                                <option value="All"
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">All</option>
+                            </tal:loop>
+                        </select>
+                </div>
+
+                <div class="field odd">
+                    <label  for="getAgencies">Project type</label>
+                    <div class="formHelp">
+                    Return projects this agency implements
+                    </div>
+                        <select id="getAgencies" name="getAgencies">
+                            <tal:loop tal:repeat="opt view/get_agency">
+                                <option value="All"
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">All</option>
+                            </tal:loop>
+                        </select>
+                </div>
+
+                <div class="field even">
+                    <label  for="getProject_status">Project status</label>
+                    <div class="formHelp">
+                    Return projects of this status
+                    </div>
+                        <select id="getProject_status" name="getProject_status">
+                            <tal:loop tal:repeat="opt view/get_status">
+                                <option value="All"
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">All</option>
+                            </tal:loop>
+                        </select>
+                </div>
+
+                <div class="field odd">
+                    <label  for="getBasin">Basin</label>
+                    <div class="formHelp">
+                    Return projects with this Basin
+                    </div>
+                        <select id="getBasin" name="getBasin">
+                            <tal:loop tal:repeat="opt view/get_basin">
+                                <option value="All"
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">All</option>
+                            </tal:loop>
+                        </select>
+                </div>
+
 
                 <div class="formControls">
                     <input type="submit" value="Search" name="submit" class="context">
                 </div>
 
             </form>
-
+            <tal:searchresults tal:define="search_results view/search_results" tal:condition="search_results">
+              <table  tal:define="results search_results/results;
+                         Batch python:modules['Products.CMFPlone'].Batch;
+                         b_size search_results/size;
+                         b_start search_results/start;
+                         searchterm view/search_term"
+                         class='listing'>
+                <caption tal:condition="not: results">
+                  <strong i18n:translate="description_no_results_found">
+                    No results were found.
+                  </strong>
+                </caption>
+                <caption tal:condition="results">
+                   <strong i18n:translate="batch_x_items_matching_your_criteria">
+                        <span i18n:name="number" tal:content="python:len(results)">234</span> items matching your criteria.
+                   </strong>
+                </caption>
+                <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Status</th>
+                      <th>Project type</th>
+                      <th>Lead agency</th>
+                      <th>Region</th>
+                    </tr>
+                </thead>
+                <tfoot tal:define="batch python:Batch(results, b_size, int(b_start), orphan=1);">
+                    <tr> <td colspan="5"> <div metal:use-macro="here/batch_macros/macros/navigation" /> </td></tr>
+                </tfoot>
+                <tbody tal:condition="results" tal:define="batch python:Batch(results, b_size, int(b_start), orphan=1);">
+                  <tal:loop tal:repeat="result batch">
+                      <tr tal:define="oddrow repeat/result/odd;"
+                            tal:attributes="class python:oddrow and 'even' or 'odd'">
+                          <td> <a tal:attributes="href result/getURL;" tal:content="result/Title">title</a> </td>
+                          <td tal:content="result/getProject_status">status</td>
+                          <td tal:content="result/getProject_type"></td>
+                          <td tal:content="result/getAgencies"></td>
+                          <td tal:content="result/getSubRegions"></td>
+                      </tr>
+                  </tal:loop>
+                </tbody>
+              </table>
+            </tal:searchresults>
         </tal:main-macro>
     </div>
 </body>

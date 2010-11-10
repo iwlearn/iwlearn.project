@@ -9,6 +9,15 @@
 
   <browser:page
       for="*"
+      name="flexijson_view"
+      class=".flexijsonview.FlexiJsonView"
+      allowed_interface=".flexijsonview.IFlexiJsonView"
+      permission="zope.Public"
+      />
+
+
+  <browser:page
+      for="*"
       name="projectmap_config"
       class=".projectmap_configview.ProjectmapConfigView"
       template="projectmap_configview.pt"

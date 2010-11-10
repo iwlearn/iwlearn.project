@@ -167,6 +167,97 @@
               </fieldset>
             </form>
 
+            <table id="flexiprojects" style="display:none"></table>
+
+<script type="text/javascript">
+
+            function clickCell(celDiv,id)
+            {
+                $(celDiv).click
+                (
+                    function ()
+                        {
+                        alert(this.innerHTML);
+                        }
+                );
+            }
+
+            $("#flexiprojects").flexigrid
+            (
+            {
+            url: '@@flexijson_view',
+            dataType: 'json',
+            colModel : [
+                {display: 'Title', name : 'Title', width : 40, sortable : true, align: 'center'},
+                {display: 'Status', name : 'getProject_status', width : 180, sortable : true, align: 'left'},
+                {display: 'Project type', name : 'getProject_type', width : 120, sortable : true, align: 'left'},
+                {display: 'Lead agency', name : 'getAgencies', width : 130, sortable : true, align: 'left'},
+                {display: 'Region', name : 'getSubRegions', width : 80, sortable : true, align: 'right'},
+                {display: 'Status', name : 'getProject_status', width : 80, sortable : true, align: 'right'}
+                ],
+           // searchitems : [
+           //     {display: 'Title', name : 'Title'},
+           //     {display: 'Region', name : 'getSubRegions', isdefault: true}
+           //     ],
+            sortname: "Title",
+            sortorder: "asc",
+            usepager: true,
+            title: 'Projects',
+            useRp: true,
+            rp: 15,
+            showTableToggleBtn: true,
+            width: 700,
+            onSubmit: addFormData,
+            preProcess: getData,
+            height: 200
+            }
+            );
+
+
+
+
+//This function adds paramaters to the post of flexigrid. You can add a verification as well by return to false if you don't want flexigrid to submit
+function addFormData()
+    {
+
+    //passing a form object to serializeArray will get the valid data from all the objects, but, if the you pass a non-form object, you have to specify the input elements that the data will come from
+    var dt = $('#projectsearchform').serializeArray();
+    $("#flexiprojects").flexOptions({params: dt});
+    return true;
+    }
+
+function getData(data)
+{
+/*
+    var txt = '';
+    var p = data.params;
+
+    if (p.val1) txt += "Value 1: "+p.val1+"<br/>" ;
+    if (p.val2) txt += "Value 2: "+p.val2+"<br/>" ;
+    if (p.val3) txt += "Value 3: "+p.val3+"<br/>" ;
+    if (p.val4) txt += "Value 3: "+p.val4+"<br/>" ;
+
+    $('#xparams').html(txt);
+*/
+    return data;
+}
+
+$('#projectsearchform').submit
+(
+    function ()
+        {
+            $('#flexiprojects').flexOptions({newp: 1}).flexReload();
+            return false;
+        }
+);
+
+
+</script>
+
+
+
+
+
             <tal:searchresults tal:define="search_results view/search_results" tal:condition="search_results">
               <table  tal:define="results search_results/results;
                          Batch python:modules['Products.CMFPlone'].Batch;
@@ -191,6 +282,7 @@
                       <th>Project type</th>
                       <th>Lead agency</th>
                       <th>Region</th>
+                      <th>Status</th>
                     </tr>
                 </thead>
                 <tfoot tal:define="batch python:Batch(results, b_size, int(b_start), orphan=1);">
@@ -205,6 +297,7 @@
                           <td tal:content="result/getProject_type"></td>
                           <td> <span tal:content="python:', '.join(result.getAgencies)" tal:on-error="nothing" /></td>
                           <td> <span tal:content="python:', '.join(result.getSubRegions)" tal:on-error="nothing" /></td>
+                          <td tal:content="result/getProject_status"></td>
                       </tr>
                   </tal:loop>
                 </tbody>

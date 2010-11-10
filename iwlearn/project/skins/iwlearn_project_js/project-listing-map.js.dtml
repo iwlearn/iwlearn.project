@@ -67,6 +67,8 @@ function createNewMap() {
 }
 
 function mapDataActivate() {
+    // this seems to be the only reference to ExtJs
+    // rewrite for jQuery
     store = Ext.StoreMgr.get('id');
     mapDataLoad(store);
 }

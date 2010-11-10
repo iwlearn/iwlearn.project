@@ -25,6 +25,8 @@ class ProjectDBView(BrowserView):
         self.context = context
         self.request = request
 
+
+
     @property
     def portal_catalog(self):
         return getToolByName(self.context, 'portal_catalog')
@@ -32,6 +34,18 @@ class ProjectDBView(BrowserView):
     @property
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
+
+    def updated_projects(self):
+        return self.portal_catalog(portal_type ='Project',
+                review_state='published', sort_on='modified',
+                sort_order='descending', sort_limt=4)[:4]
+
+    def new_projects(self):
+        return self.portal_catalog(portal_type ='Project',
+                review_state='published', sort_on='created',
+                sort_order='descending', sort_limt=4)[:4]
+
+
 
     def _sel(self, item, selected):
         if item == selected:

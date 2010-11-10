@@ -6,7 +6,7 @@
     <div metal:fill-slot="main">
         <tal:main-macro metal:define-macro="main">
 
-            <dl class="enableFormTabbing">
+            <dl class="enableFormTabbing" tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
                 <dt id="fieldsetlegend-about-projects">About</dt>
                 <dd id="fieldset-about-projects" class="documentDescription"
                     tal:content="here/Description">
@@ -15,9 +15,22 @@
                 <dd id="fieldset-map-project">
                 </dd>
                 <dt id="fieldsetlegend-new-projects">New Projects</dt>
-                <dd id="fieldset-new-projects">
+                <dd id="fieldset-new-projects" tal:define="results view/updated_projects">
+                  <ul>
+                    <li tal:repeat="result results">
+                        <i class="date" tal:content="python:toLocalizedTime(result.modified)"></i><br/>
+                      <a tal:attributes="href result/getURL" tal:content="result/Title|result/getId|Nothing"></a>
+                    </li>
+                  </ul>
+                </dd>
                 <dt id="fieldsetlegend-updated-projects">Recently Updated Projects</dt>
-                <dd id="fieldset-updated-projects">
+                <dd id="fieldset-updated-projects" tal:define="results view/new_projects">
+                  <ul>
+                    <li tal:repeat="result results">
+                        <i class="date" tal:content="python:toLocalizedTime(result.created)"></i><br/>
+                      <a tal:attributes="href result/getURL" tal:content="result/Title|result/getId|Nothing"></a>
+                    </li>
+                  </ul>
                 </dd>
             </dl>
             <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action=".">
@@ -79,7 +92,7 @@
                 </div>
 
                 <div class="field odd">
-                    <label  for="getAgencies">Project type</label>
+                    <label  for="getAgencies">Implementing agency</label>
                     <div class="formHelp">
                     Return projects this agency implements
                     </div>
@@ -171,8 +184,8 @@
                           <td> <a tal:attributes="href result/getURL;" tal:content="result/Title">title</a> </td>
                           <td tal:content="result/getProject_status">status</td>
                           <td tal:content="result/getProject_type"></td>
-                          <td tal:content="result/getAgencies"></td>
-                          <td tal:content="result/getSubRegions"></td>
+                          <td> <span tal:content="python:', '.join(result.getAgencies)" tal:on-error="nothing" /></td>
+                          <td> <span tal:content="python:', '.join(result.getSubRegions)" tal:on-error="nothing" /></td>
                       </tr>
                   </tal:loop>
                 </tbody>

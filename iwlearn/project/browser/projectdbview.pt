@@ -2,6 +2,19 @@
       lang="en"
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="iwlearn.project">
+<head>
+    <metal:javascript_head fill-slot="javascript_head_slot">
+
+    <tal:block tal:define="config context/@@projectmaps_config;
+                           googlemaps_key config/googlemaps_key"
+       tal:replace='structure string:<script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=${googlemaps_key}"></script>'>
+    </tal:block>
+
+        <!-- Google map START -->
+        <script type="text/javascript" src="project-listing-map.js"></script>
+        <!-- Google map END -->
+    </metal:javascript_head>
+</head>
 <body>
     <div metal:fill-slot="main">
         <tal:main-macro metal:define-macro="main">
@@ -13,6 +26,7 @@
                 </dd>
                 <dt id="fieldsetlegend-map-projects">Map</dt>
                 <dd id="fieldset-map-project">
+                <div id="projectsmap" style="height:250px; width: 900px"></div>
                 </dd>
                 <dt id="fieldsetlegend-new-projects">New Projects</dt>
                 <dd id="fieldset-new-projects" tal:define="results view/updated_projects">
@@ -34,6 +48,8 @@
                 </dd>
             </dl>
             <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action=".">
+              <fieldset>
+                <legend>Search for Projects</legend>
                 <div class="field">
                     <label for="SearchableText">Search text</label>
 
@@ -146,8 +162,9 @@
                 <div class="formControls">
                     <input type="submit" value="Search" name="submit" class="context">
                 </div>
-
+              </fieldset>
             </form>
+
             <tal:searchresults tal:define="search_results view/search_results" tal:condition="search_results">
               <table  tal:define="results search_results/results;
                          Batch python:modules['Products.CMFPlone'].Batch;

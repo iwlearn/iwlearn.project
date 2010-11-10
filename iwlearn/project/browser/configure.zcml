@@ -8,6 +8,16 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <browser:page
+      for="*"
+      name="projectmap_config"
+      class=".projectmap_configview.ProjectmapConfigView"
+      template="projectmap_configview.pt"
+      allowed_interface=".projectmap_configview.IProjectmapConfigView"
+      permission="zope.Public"
+      />
+
+
+  <browser:page
       for="..interfaces.IProjectDatabase"
       name="view"
       class=".projectdbview.ProjectDBView"

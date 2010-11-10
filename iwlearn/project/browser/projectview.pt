@@ -351,12 +351,11 @@
           </tr>
         </table>
         </dd>
-        <dt id="fieldsetlegend-gefonline-project">GEF project database</dt>
+        <dt id="fieldsetlegend-gefonline-project" tal:condition="here/getGef_project_id">GEF project database</dt>
         <dd id="fieldset-gefonline-project">
         <iframe src="http://www.gefonline.org/projectDetailsSQL.cfm?projID=1893"
                 width="100%" height="400px"
-         tal:attributes="src string:http://www.gefonline.org/projectDetailsSQL.cfm?projID=${here/getGef_project_id}"
-         tal:condition="here/getGef_project_id">
+         tal:attributes="src string:http://www.gefonline.org/projectDetailsSQL.cfm?projID=${here/getGef_project_id}">
          Sorry, you can't see this.  Your browser does not support including external HTML files as objects.
         </iframe>
         </dd>

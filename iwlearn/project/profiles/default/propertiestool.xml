@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object name="portal_properties" meta_type="Plone Properties Tool">
+ <object name="projectmap_properties" meta_type="Plone Property Sheet">
+  <property name="title">Projectmap Viewlet Properties</property>
+  <property name="map_google_api_keys" type="lines" purge="False">
+   <element value="http://iwlearn.net/ | ABQIAAAAMuFsqzpX-P_7BwMY6KQy6RRQKoEwMtiqiMloxC54fc8YGoDTahQ1EJqNzGkjxtK0HamoiL8bmFS3aw"/>
+   <element value="http://www.iwlearn.net/ | ABQIAAAAMuFsqzpX-P_7BwMY6KQy6RRWnZqCFcHt0ITwZkLU5lX_I5RUbBTSSnXbZODD1L4-fstFpVgr0aPnMg"/>
+   <element value="http://new.iwlearn.org/ | ABQIAAAAMuFsqzpX-P_7BwMY6KQy6RTF1NzeeH8vE3MY7QuxQ2xk6soKOhQ6HssTIUWS6N8HSmjlS0QthGjvcA"/>
+   <element value="http://iwlearn.org/ | ABQIAAAAMuFsqzpX-P_7BwMY6KQy6RRmym5kQ3OXADioP9hTCD1VvQk9ZhSDDx6csb_OhH6dYLWkb5YNe93aWg"/>
+   <element value="http://localhost:8080 | ABQIAAAAaKes6QWqobpCx2AOamo-shTwM0brOpm-All5BF6PoaKBxRWWERSUWbHs4SIAMkeC1KV98E2EdJKuJw"/>
+   <element value="http://iwlearn.zestsoftware.nl | ABQIAAAAUwUJvaRgwgdLoQKkhx5oehS-x42_luoutI-wmLr5xmTpwnBj9RT9LIousJ7VhuxJ_tp_jvI5sjWQoQ"/>
+  </property>
+ </object>
+</object>

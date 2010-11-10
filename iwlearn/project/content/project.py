@@ -341,17 +341,14 @@ class Project(folder.ATFolder):
 
     def getSubRegions(self):
         """ get region + subregion for indexing """
+        sr = vocabulary.get_subregions(countries=self.getCountry())
         if self.getGlobalproject():
-            return vocabulary.get_regions(
-                    countries=self.getCountry(),
-                    regions=[u'Global']).extend(
-                        vocabulary.get_subregions(
-                            countries=self.getCountry()))
+            r = vocabulary.get_regions(countries=self.getCountry(),
+                    regions=[u'Global'])
+            return r + sr
         else:
-         return vocabulary.get_regions(
-                    countries=self.getCountry()).extend(
-                    vocabulary.get_subregions(
-                        countries=self.getCountry()))
+            r = vocabulary.get_regions(countries=self.getCountry())
+            return r + sr
 
     def getAgencies(self):
         """ Returns the implementing + lead agencies of the project """

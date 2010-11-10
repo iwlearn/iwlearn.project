@@ -168,7 +168,7 @@
             </form>
 
             <table id="flexiprojects" style="display:none"></table>
-
+            <div id="xparams" />
 <script type="text/javascript">
 
             function clickCell(celDiv,id)

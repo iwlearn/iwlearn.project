@@ -7,7 +7,7 @@
   <column value="getSubRegions"/>
   <column value="getAgencies"/>
   <column value="getBasin"/>
-  <column value="getCountry "/>
+  <column value="getCountry"/>
   <column value="getProject_status"/>
   <column value="getProject_type"/>
 </object>

@@ -1,0 +1,123 @@
+function projectmapinitialize() {
+    document.getElementById("projectsmap").style.display = "none";
+}
+
+registerPloneFunction(projectmapinitialize);
+
+function addListeners(marker,hover_html,url,mapinfo) {
+    GEvent.addListener(marker, "click", function() {
+            mapinfo.innerHTML = "Redirect to IWProject URL " + url;
+            //mapinfo.style.display = "none";
+            document.location = url;
+        });
+    GEvent.addListener(marker, "mouseover", function() {
+            mapinfo.innerHTML = hover_html;
+            //alert(hover_html);
+            //mapinfo.style.display = "block";
+        });
+    GEvent.addListener(marker, "mouseout", function() {
+            //mapinfo.style.display = "none";
+            //alert(hover_html);
+            mapinfo.innerHTML = "";
+        });
+}
+
+function createMarkerPointLatLng(map,mapinfo,lat,lng,hover_html,url,region) {
+    var point = new GLatLng(lat,lng);
+    var custIcon = new GIcon(G_DEFAULT_ICON);
+    custIcon.iconSize = new GSize(32, 32);
+    //custIcon.shadowSize = new GSize(0, 0);
+    custIcon.iconAnchor = new GPoint(8, 32);
+    if (region == "Europe" || region == "Africa" || region == "Asia" || region == "Oceania" || region == "Americas") {
+        var newicon = new GIcon(custIcon,"icon-" + region + ".png");
+    }
+    else {
+        var newicon = new GIcon(custIcon,"http://maps.google.com/mapfiles/kml/paddle/wht-blank.png");
+    }
+    var marker = new GMarker(point, {icon: newicon});
+    //var marker = new GMarker(point);
+    addListeners(marker,hover_html,url,mapinfo)
+    map.addOverlay(marker);
+    return marker;
+}
+
+function createNewMap() {
+    if (GBrowserIsCompatible()) {
+        var map = new GMap2(document.getElementById("projectsmap"));
+        var mapinfo = document.getElementById("pminfo");
+
+        map.setCenter(new GLatLng(0.0,0.0),2);
+
+        map.setMapType(G_NORMAL_MAP);
+        map.addControl(new GSmallMapControl());
+
+        //GLog.write('Polygony Beg');
+        var overlay_url = "http://olda.fry-it.com/iwlearn/regional5.kmz";
+        var overlay = new GGeoXml(overlay_url);
+        map.addOverlay(overlay);
+        //GLog.write('Polygony End');
+
+        return map
+    }
+    else {
+        alert("Sorry, the Google Maps API is not compatible with this browser");
+        document.getElementById('projectsmap').style.display = "none";
+        return null;
+    }
+}
+
+function mapDataActivate() {
+    store = Ext.StoreMgr.get('id');
+    mapDataLoad(store);
+}
+
+function mapDataChanged(store, records, options) {
+    mapDataLoad(store);
+}
+
+function mapDataLoad(store) {
+    if (document.getElementById("projectsmap").style.display != "none") {
+        var map = createNewMap();
+        // if createNewMap fails it set display to none
+    }
+    if (document.getElementById("projectsmap").style.display != "none") {
+        var mapinfo = document.getElementById("pminfo");
+        var hover_html = "";
+        var lat;
+        var lng;
+        var lat_min;
+        var lat_max;
+        var lng_min;
+        var lng_max;
+        var first = true;
+        store["data"].each(function(item){
+                lat = item.get("lat");
+                lng = item.get("lng");
+                if (lat != 0.0 || lng != 0.0) {
+                    if (first){
+                        first = false;
+                        lat_min = lat;
+                        lat_max = lat;
+                        lng_min = lng;
+                        lng_max = lng;
+                    }
+                    else {
+                        if (lat_min > lat) {lat_min = lat};
+                        if (lat_max < lat) {lat_max = lat};
+                        if (lng_min > lng) {lng_min = lng};
+                        if (lng_max < lng) {lng_max = lng};
+                    }
+                    //hover_html = "" + lat + ", " + lng + " | " + item.get("region") + ": " + item.get("title");
+                    hover_html = item.get("region") + ": " + item.get("title");
+                    createMarkerPointLatLng(map,mapinfo,item.get("lat"),item.get("lng"),hover_html,item.get("url"),item.get("region"));
+                    //GLog.write('New point');
+                }
+            });
+        if (lat_min){
+            lat = (lat_min + lat_max)/2.0;
+            lng = (lng_min + lng_max)/2.0;
+            //GLog.write('Map set center ' + String(lat) + ':' + String(lng));
+            map.setCenter(new GLatLng(lat,lng),2);
+        }
+    }
+}

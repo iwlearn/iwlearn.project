@@ -1,0 +1,65 @@
+function projectmapinitialize() {
+    function addListeners(marker,html,region) {
+    GEvent.addListener(marker, "click", function() {
+        var newurl = "iw-projects?region=" + region;
+        //mapinfo.innerHTML = "Click on region " + region + " will redirect to URL " + newurl;
+        mapinfo.style.display = "none";
+        document.location = newurl;
+        });
+    GEvent.addListener(marker, "mouseover", function() {
+        mapinfo.innerHTML = html;
+        mapinfo.style.display = "block";
+        });
+    GEvent.addListener(marker, "mouseout", function() {
+        mapinfo.style.display = "none";
+        mapinfo.innerHTML = "";
+        });
+    }
+    function createMarkerPoint(point,html,region) {
+    var custIcon = new GIcon(G_DEFAULT_ICON);
+    custIcon.iconSize = new GSize(32, 32);
+    //custIcon.shadowSize = new GSize(0, 0);
+    custIcon.iconAnchor = new GPoint(8, 32);
+    var newicon = new GIcon(custIcon,"icon-" + region + ".png");
+    var marker = new GMarker(point, {icon: newicon});
+    //var marker = new GMarker(point);
+    addListeners(marker,html,region)
+    map.addOverlay(marker);
+        return marker;
+    }
+
+    if (GBrowserIsCompatible()) {
+    var map = new GMap2(document.getElementById("projectsmap"));
+    var mapinfo = document.getElementById("pminfo");
+
+    map.setCenter(new GLatLng(0.0,0.0),0);
+
+    var overlay_url = "http://olda.fry-it.com/iwlearn/regional5.kmz";
+    var kmz = new GGeoXml(overlay_url);
+    map.addOverlay(kmz);
+
+
+    var point = new GLatLng(6.280355,21.708984);
+    createMarkerPoint(point,"Africa","Africa");
+
+    var point = new GLatLng(19.443803,-102.041016);
+    createMarkerPoint(point,"Latin America and the Caribbean","Americas");
+
+    var point = new GLatLng(49.3773,16.2411);
+    createMarkerPoint(point,"Europe/Russia","Europe");
+
+    var point = new GLatLng(27.043471,90.483398);
+    createMarkerPoint(point,"Asia","Asia");
+
+    var point = new GLatLng(-13.684418,131.879883);
+    createMarkerPoint(point,"Oceania","Oceania");
+
+    map.setMapType(G_NORMAL_MAP);
+    map.addControl(new GSmallMapControl());
+    }
+    else {
+    alert("Sorry, the Google Maps API is not compatible with this browser");
+    }
+}
+
+registerPloneFunction(projectmapinitialize);

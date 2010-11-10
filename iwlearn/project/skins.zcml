@@ -7,6 +7,7 @@
   <cmf:registerDirectory name="iwlearn_project_images"/>
   <cmf:registerDirectory name="iwlearn_project_templates"/>
   <cmf:registerDirectory name="iwlearn_project_styles"/>
+  <cmf:registerDirectory name="iwlearn_project_js"/>
 
   <!-- Note: This could also be done for all folders at once
        by replacing the previous lines with this one:

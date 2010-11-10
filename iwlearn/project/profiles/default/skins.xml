@@ -15,18 +15,18 @@
       of your product (on the filesystem) as Filesystem Directory Views within
       the portal_skins tool, so that they become usable as skin layers.
       -->
- <object name="iwlearn_project_custom_images"
+ <object name="iwlearn_project_images"
     meta_type="Filesystem Directory View"
-    directory="iwlearn.project:skins/iwlearn_project_images"/>
- <object name="iwlearn_project_custom_templates"
+    directory="iwlearn.project:skins/iwlearn_project_images" />
+ <object name="iwlearn_project_templates"
     meta_type="Filesystem Directory View"
-    directory="iwlearn.project:skins/iwlearn_project_templates"/>
+    directory="iwlearn.project:skins/iwlearn_project_templates" />
  <object name="iwlearn_project_styles"
     meta_type="Filesystem Directory View"
-    directory="iwlearn.project:skins/iwlearn_project_styles"/>
+    directory="iwlearn.project:skins/iwlearn_project_styles" />
  <object name="iwlearn_project_js"
     meta_type="Filesystem Directory View"
-    directory="iwlearn.project:skins/iwlearn_project_js"/>
+    directory="iwlearn.project:skins/iwlearn_project_js" />
  <!-- A skin-path in this file corresponds to a Skin Selection in the
      'Properties' tab of the portal_skins tool, in the ZMI.
      You can define for each new skin path the layers that it holds. A new

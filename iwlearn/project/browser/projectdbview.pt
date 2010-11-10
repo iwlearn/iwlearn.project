@@ -50,7 +50,7 @@
             <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action=".">
               <fieldset>
                 <legend>Search for Projects</legend>
-                <div class="field">
+                <div class="field odd">
                     <label for="SearchableText">Search text</label>
 
                     <div class="formHelp">
@@ -159,7 +159,7 @@
                 </div>
 
 
-                <div class="formControls">
+                <div class="formControls even">
                     <input type="submit" value="Search" name="submit" class="context">
                 </div>
               </fieldset>

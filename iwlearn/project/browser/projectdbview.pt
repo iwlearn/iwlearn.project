@@ -26,7 +26,8 @@
                 </dd>
                 <dt class="selected" id="fieldsetlegend-map-projects">Map</dt>
                 <dd id="fieldset-map-project">
-
+                    <div id="projectsmap" style="height:250px; width: 900px"></div>
+                    <div id="pminfo" style="width: 900px"></div>
                 </dd>
                 <dt id="fieldsetlegend-new-projects">New Projects</dt>
                 <dd id="fieldset-new-projects" tal:define="results view/updated_projects">
@@ -47,8 +48,6 @@
                   </ul>
                 </dd>
             </dl>
-            <div id="projectsmap" style="height:250px; width: 900px"></div>
-            <div id="pminfo" style="width: 900px"></div>
             <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action=".">
               <fieldset>
                 <legend>Search for Projects</legend>
@@ -168,7 +167,7 @@
             </form>
 
             <table id="flexiprojects" style="display:none"></table>
-            <div id="xparams" />
+
 <script type="text/javascript">
 
             function clickCell(celDiv,id)
@@ -258,7 +257,7 @@ $('#projectsearchform').submit
 
 
 
-            <tal:searchresults tal:define="search_results view/search_results" tal:condition="search_results">
+            <noscript tal:define="search_results view/search_results" tal:condition="search_results">
               <table  tal:define="results search_results/results;
                          Batch python:modules['Products.CMFPlone'].Batch;
                          b_size search_results/size;
@@ -302,7 +301,7 @@ $('#projectsearchform').submit
                   </tal:loop>
                 </tbody>
               </table>
-            </tal:searchresults>
+            </noscript>
         </tal:main-macro>
     </div>
 </body>

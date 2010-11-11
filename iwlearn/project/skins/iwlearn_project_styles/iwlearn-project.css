@@ -4,6 +4,10 @@
    display: inline block;
 }
 
+#projectsearchform div.field {
+    margin-bottom:0.5em;
+    }
+
 #projectsearchform div.field.odd  {
     float:left;
     }
@@ -12,6 +16,11 @@
     float:right;
     clear:none;
     }
+
+#projectsearchform fieldset {
+    padding:0 1em;
+    }
+
 
 #projectsearchform div.formHelp  {
     display: none;
@@ -27,11 +36,10 @@
 #projectsearchform div.formControls.even {
     clear:none;
     float:right;
+    margin: 0em;
     }
 
 #projectsearchform div.formControls.even input {
-    clear:none;
-    float:right;
     width: 7em;
     }
 
@@ -50,6 +58,7 @@
 #projectsearchform option.disabled {
     color: #888888
     }
+
 
 
 .flexigrid div.hDivBox table {

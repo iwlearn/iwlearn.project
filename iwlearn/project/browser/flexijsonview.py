@@ -16,10 +16,6 @@ class IFlexiJsonView(Interface):
     FlexiJson view interface
     """
 
-    def test():
-        """ test method"""
-
-
 class FlexiJsonView(BrowserView):
     """
     FlexiJson browser view

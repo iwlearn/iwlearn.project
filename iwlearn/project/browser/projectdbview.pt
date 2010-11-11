@@ -181,17 +181,6 @@
 
 
 
-    function clickCell(celDiv,id)
-            {
-                $(celDiv).click
-                (
-                    function ()
-                        {
-                        alert(this.innerHTML);
-                        }
-                );
-            }
-
     $("#flexiprojects").flexigrid
             (
             {
@@ -204,10 +193,6 @@
                 {display: 'Region', name : 'getSubRegions', width : 200, sortable : true, align: 'left'},
                 {display: 'Status', name : 'getProject_status', width : 100, sortable : true, align: 'left'}
                 ],
-           // searchitems : [
-           //     {display: 'Title', name : 'Title'},
-           //     {display: 'Region', name : 'getSubRegions', isdefault: true}
-           //     ],
             sortname: "Title",
             sortorder: "asc",
             usepager: true,
@@ -217,7 +202,6 @@
             showTableToggleBtn: true,
             width: 900,
             onSubmit: addFormData,
-            preProcess: getData,
             height: 200
             }
             );
@@ -235,21 +219,6 @@
         return true;
     }
 
-function getData(data)
-{
-/*
-    var txt = '';
-    var p = data.params;
-
-    if (p.val1) txt += "Value 1: "+p.val1+"<br/>" ;
-    if (p.val2) txt += "Value 2: "+p.val2+"<br/>" ;
-    if (p.val3) txt += "Value 3: "+p.val3+"<br/>" ;
-    if (p.val4) txt += "Value 3: "+p.val4+"<br/>" ;
-
-    $('#xparams').html(txt);
-*/
-    return data;
-}
 
 $('#projectsearchform').submit
 (

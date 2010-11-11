@@ -171,7 +171,17 @@
 
 <script type="text/javascript">
 
-            function clickCell(celDiv,id)
+ $(document).ready(function() {
+   $("#projectsearchform").find("select").each(function(i) {
+     $(this).change(function( objEvent ){
+         $('#flexiprojects').flexOptions({newp: 1}).flexReload();
+        }) ;
+   });
+ });
+
+
+
+    function clickCell(celDiv,id)
             {
                 $(celDiv).click
                 (
@@ -182,7 +192,7 @@
                 );
             }
 
-            $("#flexiprojects").flexigrid
+    $("#flexiprojects").flexigrid
             (
             {
             url: '@@flexijson_view',

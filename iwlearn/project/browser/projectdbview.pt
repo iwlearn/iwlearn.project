@@ -62,7 +62,7 @@
                     items' contents, title and description.
                     </div>
 
-                    <input type="text" value="" size="25" name="SearchableText" id="SearchableText">
+                    <input type="text" value="" size="25" name="SearchableText" id="SearchableText" />
                 </div>
 
                 <div class="field even">
@@ -70,7 +70,7 @@
                     <div class="formHelp">
                     Return items matching this title.
                     </div>
-                    <input type="text" size="25" name="Title" id="Title">
+                    <input type="text" size="25" name="Title" id="Title" />
                 </div>
 
 
@@ -161,7 +161,8 @@
 
 
                 <div class="formControls even">
-                    <input type="submit" value="Search" name="submit" class="context">
+                    <input type="submit" value="Search" name="submit"
+                        class="context" />
                 </div>
               </fieldset>
             </form>
@@ -187,12 +188,11 @@
             url: '@@flexijson_view',
             dataType: 'json',
             colModel : [
-                {display: 'Title', name : 'Title', width : 40, sortable : true, align: 'center'},
-                {display: 'Status', name : 'getProject_status', width : 180, sortable : true, align: 'left'},
-                {display: 'Project type', name : 'getProject_type', width : 120, sortable : true, align: 'left'},
-                {display: 'Lead agency', name : 'getAgencies', width : 130, sortable : true, align: 'left'},
-                {display: 'Region', name : 'getSubRegions', width : 80, sortable : true, align: 'right'},
-                {display: 'Status', name : 'getProject_status', width : 80, sortable : true, align: 'right'}
+                {display: 'Title', name : 'Title', width : 220, sortable : true, align: 'left'},
+                {display: 'Project type', name : 'getProject_type', width : 100, sortable : true, align: 'left'},
+                {display: 'Implementing agencies', name : 'getAgencies', width : 220, sortable : true, align: 'left'},
+                {display: 'Region', name : 'getSubRegions', width : 200, sortable : true, align: 'left'},
+                {display: 'Status', name : 'getProject_status', width : 100, sortable : true, align: 'left'}
                 ],
            // searchitems : [
            //     {display: 'Title', name : 'Title'},
@@ -205,7 +205,7 @@
             useRp: true,
             rp: 15,
             showTableToggleBtn: true,
-            width: 700,
+            width: 900,
             onSubmit: addFormData,
             preProcess: getData,
             height: 200
@@ -213,16 +213,16 @@
             );
 
 
-
-
-//This function adds paramaters to the post of flexigrid. You can add a verification as well by return to false if you don't want flexigrid to submit
-function addFormData()
-    {
-
-    //passing a form object to serializeArray will get the valid data from all the objects, but, if the you pass a non-form object, you have to specify the input elements that the data will come from
-    var dt = $('#projectsearchform').serializeArray();
-    $("#flexiprojects").flexOptions({params: dt});
-    return true;
+    /*This function adds paramaters to the post of flexigrid.
+    You can add a verification as well by return to false if
+    you don't want flexigrid to submit function addFormData() */
+    function addFormData() {
+        /*passing a form object to serializeArray will get the valid data
+        from all the objects, but, if the you pass a non-form object,
+        you have to specify the input elements that the data will come from */
+        var dt = $('#projectsearchform').serializeArray();
+        $("#flexiprojects").flexOptions({params: dt});
+        return true;
     }
 
 function getData(data)

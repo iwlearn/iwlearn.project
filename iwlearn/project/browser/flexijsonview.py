@@ -100,7 +100,6 @@ class FlexiJsonView(BrowserView):
             json_result['rows'].append(
                 {"id":result.getId,"cell":[
                     a % (result.getURL(), result.Title),
-                    result.getProject_status ,
                     result.getProject_type ,
                     agency, region,
                     result.getProject_status,

@@ -51,11 +51,12 @@
     color: #888888
     }
 
-#flexiprojects table {
-    margin-left: auto;
-    margin-right: auto;
-    }
 
 .flexigrid div.hDivBox table {
     margin-bottom: 0 !important;
     }
+
+div.flexigrid {
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,0 +1,52 @@
+@charset "UTF-8";
+/* CSS Document */
+#projectsearchform {
+   display: inline block;
+}
+
+#projectsearchform div.field.odd  {
+    float:left;
+    }
+
+#projectsearchform div.field.even  {
+    float:right;
+    clear:none;
+    }
+
+#projectsearchform div.formHelp  {
+    display: none;
+    }
+
+#projectsearchform input {
+    width: 20em;
+    }
+
+#projectsearchform select {
+    width: 20em;
+    }
+#projectsearchform div.formControls.even {
+    clear:none;
+    float:right;
+    }
+
+#projectsearchform div.formControls.even input {
+    clear:none;
+    float:right;
+    width: 7em;
+    }
+
+#projectsearchform  label {
+    width:12em;
+    float: left;
+    text-align: right;
+    margin-right: 0.5em;
+    display: block
+    }
+
+#projectsearchform option {
+    padding: 0 0 0 0.5em;
+    }
+
+#projectsearchform option.disabled {
+    color: #888888
+    }

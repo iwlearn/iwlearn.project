@@ -399,7 +399,7 @@ def migrate(self):
                 migrate_project(child, obj, new, f)
             else:
                 print 'ignored: ', child.portal_type, child.id
-        parent.manage_delObjects(ids=[obj_id])
+        #parent.manage_delObjects(ids=[obj_id])
     print 'migration finished'
     f.close()
     return 'success'

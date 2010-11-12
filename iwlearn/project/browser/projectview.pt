@@ -230,14 +230,14 @@
                     <metal:block use-macro="widget_view" />
                   </td>
                 </tr>
-                <tr tal:define="field python:here.Schema()['focal_area']; accessor python:getattr(here, field.accessor)"
+                <tr tal:define="field python:here.Schema()['focal_area']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
                 tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
                   <td width="46%" bgcolor="#FAE3B0">
                     <b>Focal Area</b>
                   </td>
                   <td width="54%">
-                    <span tal:replace="structure accessor" />
+                    <metal:block use-macro="widget_view" />
                   </td>
                 </tr>
                 <tr tal:define="field python:here.Schema()['gef_project_allocation']; accessor python:getattr(here, field.accessor)"

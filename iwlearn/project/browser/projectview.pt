@@ -115,9 +115,9 @@
                       </b>
                     </td>
                     <td class="c1" width="78%" valign="top">
-                        <!--tal:put_filter_on_request define="dummy python:request.set('contentFilter', {'meta_type': ['IWSubProject']})">
-                            <metal:use_body use-macro="folderlisting_macro" />
-                        </tal:put_filter_on_request-->
+                        <tal:put_filter_on_request define="dummy python:request.set('contentFilter', {'meta_type': ['Project']})">
+                            <metal:use_body use-macro="here/folder_listing/macros/listing" />
+                        </tal:put_filter_on_request>
                     </td>
                   </tr>
                   <tr>
@@ -129,9 +129,9 @@
                       </b>
                     </td>
                     <td class="c1" width="78%" valign="top">
-                        <!--tal:put_filter_on_request define="dummy python:request.set('contentFilter', {'meta_type': ['ATLink', 'ATFile', 'ATFolder']})">
-                            <metal:use_body use-macro="folderlisting_macro" />
-                        </tal:put_filter_on_request-->
+                        <tal:put_filter_on_request define="dummy python:request.set('contentFilter', {'meta_type': ['ATLink', 'ATFile', 'ATFolder']})">
+                            <metal:use_body use-macro="here/folder_listing/macros/listing" />
+                        </tal:put_filter_on_request>
                     </td>
                   </tr>
                 </table>

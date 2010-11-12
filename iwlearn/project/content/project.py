@@ -288,7 +288,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.FloatField(
         'longitude',
         widget=atapi.DecimalWidget(
-            label=_(u"Longitude of an marker on map"),
+            label=_(u"Longitude"),
             description=_(u"Longitude of an marker on map"),
         ),
         validators=('isDecimal'),
@@ -298,7 +298,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.FloatField(
         'latitude',
         widget=atapi.DecimalWidget(
-            label=_(u"Latitude of an marker on map"),
+            label=_(u"Latitude"),
             description=_(u"Latitude of an marker on map"),
         ),
         validators=('isDecimal'),
@@ -341,21 +341,34 @@ class Project(folder.ATFolder):
 
     def getSubRegions(self):
         """ get region + subregion for indexing """
-        sr = vocabulary.get_subregions(countries=self.getCountry())
-        if self.getGlobalproject():
-            r = vocabulary.get_regions(countries=self.getCountry(),
-                    regions=[u'Global'])
-            return r + sr
+        countries=self.getCountry()
+        if countries:
+            sr = vocabulary.get_subregions(countries=countries)
+            if self.getGlobalproject():
+                r = vocabulary.get_regions(countries=countries,
+                        regions=[u'Global'])
+                return r + sr
+            else:
+                r = vocabulary.get_regions(countries=countries)
+                return r + sr
         else:
-            r = vocabulary.get_regions(countries=self.getCountry())
-            return r + sr
+            if self.getGlobalproject():
+                return [u'Global',]
+            else:
+                logger.info('no regions found for %s' % '/'.join(
+                    self.getPhysicalPath()))
+                return []
 
     def getAgencies(self):
         """ Returns the implementing + lead agencies of the project """
         agencies = []
-        for ia in self.getOther_implementing_agency():
-            agencies.append(ia.Title())
-        agencies.append(self.getLeadagency().Title())
+        ias = self.getOther_implementing_agency()
+        if ias:
+            for ia in ias:
+                agencies.append(ia.Title())
+        la = self.getLeadagency()
+        if la:
+            agencies.append(la.Title())
         return agencies
 
 

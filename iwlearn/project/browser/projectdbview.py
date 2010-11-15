@@ -11,10 +11,6 @@ class IProjectDBView(Interface):
     ProjectDB view interface
     """
 
-    def test():
-        """ test method"""
-
-
 class ProjectDBView(BrowserView):
     """
     ProjectDB browser view

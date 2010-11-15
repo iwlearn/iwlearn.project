@@ -30,19 +30,19 @@
                     <div id="pminfo" style="width: 900px"></div>
                 </dd>
                 <dt id="fieldsetlegend-new-projects">New Projects</dt>
-                <dd id="fieldset-new-projects" tal:define="results view/updated_projects">
+                <dd id="fieldset-new-projects" tal:define="results view/new_projects">
                   <ul>
-                    <li tal:repeat="result results">
-                        <i class="date" tal:content="python:toLocalizedTime(result.modified)"></i><br/>
+                     <li tal:repeat="result results">
+                        <i class="date" tal:content="python:toLocalizedTime(result.created)"></i><br/>
                       <a tal:attributes="href result/getURL" tal:content="result/Title|result/getId|Nothing"></a>
                     </li>
                   </ul>
                 </dd>
                 <dt id="fieldsetlegend-updated-projects">Recently Updated Projects</dt>
-                <dd id="fieldset-updated-projects" tal:define="results view/new_projects">
+                <dd id="fieldset-updated-projects" tal:define="results view/updated_projects">
                   <ul>
                     <li tal:repeat="result results">
-                        <i class="date" tal:content="python:toLocalizedTime(result.created)"></i><br/>
+                        <i class="date" tal:content="python:toLocalizedTime(result.modified)"></i><br/>
                       <a tal:attributes="href result/getURL" tal:content="result/Title|result/getId|Nothing"></a>
                     </li>
                   </ul>

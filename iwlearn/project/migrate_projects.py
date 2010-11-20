@@ -79,11 +79,11 @@ def get_agency_uid_map(context):
         'IFAD': {'name': 'International Fund for Agriculture and Development (IFAD)',
             'alias': ['International Fund for Agriculture and Development(IFAD)'] ,
             'tags':['Implementing Agency']},
-        'IMARPE': {'name': 'Instituto del Mar del Peru (IMARPE)',
-            'alias': ['IMARPE(Peru)'],
+        'IMARPE': {'name': 'Peru; Institute of the Sea (IMARPE)',
+            'alias': ['IMARPE(Peru)','Instituto del Mar del Peru (IMARPE)'],
             'tags':['Implementing Agency']},
-        'IFOP': {'name': 'Instituto de Fomento Pesquero (IFOP)',
-            'alias': ['IFOP(Chile)'],
+        'IFOP': {'name': 'Institute of Fishing Promotion (IFOP)',
+            'alias': ['IFOP(Chile)', 'Instituto de Fomento Pesquero (IFOP)'],
             'tags':['Implementing Agency']},
         'IADB': {'name': 'Inter-American Development Bank (IADB)',
             'alias': ['IADB','Inter-American Development Bank'],
@@ -399,7 +399,7 @@ def migrate(self):
                 migrate_project(child, obj, new, f)
             else:
                 print 'ignored: ', child.portal_type, child.id
-#        parent.manage_delObjects(ids=[obj_id])
+        #parent.manage_delObjects(ids=[obj_id])
     print 'migration finished'
     f.close()
     return 'success'

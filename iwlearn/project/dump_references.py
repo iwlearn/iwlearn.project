@@ -163,6 +163,7 @@ def migrate(self):
             migrate_person(obj, f)
         elif obj.portal_type in ['IWSubProject', 'IWProject']:
             migrate_project(obj, f, agency_map, self)
+    f.write('    print "finished setting uids"\n')
     f.close()
     print 'references saved'
     return 'success'

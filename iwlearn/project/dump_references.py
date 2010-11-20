@@ -4,6 +4,8 @@
 # parts/clientX/Extensions and execute the script as an external method
 # dump_references.py
 
+import logging
+logger = logging.getLogger('iwlearn.project')
 
 def get_implementing_agency_uid(agency, context, tags):
     sa = '"' + agency +'"'
@@ -146,7 +148,7 @@ def migrate_organization(old, f):
 
 
 def migrate(self):
-    print 'saving references'
+    logger.info('saving references')
     agency_map = get_agency_uid_map(self)
     f = open('restore_references.py', 'w')
     f.write('def migrate(self):\n')
@@ -165,5 +167,5 @@ def migrate(self):
     f.write('    print "finished setting uids"\n')
     f.write('    return "uids restored"\n')
     f.close()
-    print 'references saved'
+    logger.info('references saved')
     return 'success, references saved'

@@ -166,4 +166,4 @@ def migrate(self):
     f.write('    return "uids restored"\n')
     f.close()
     print 'references saved'
-    return 'success'
+    return 'success, references saved'

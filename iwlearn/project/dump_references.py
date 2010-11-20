@@ -151,6 +151,8 @@ def migrate(self):
     logger.info('saving references')
     agency_map = get_agency_uid_map(self)
     f = open('restore_references.py', 'w')
+    logger.info(f.name)
+    logger.info(f.fileno())
     f.write('def migrate(self):\n')
     f.write('    print "start setting uids"\n')
     f.write('    uid_tool = self.reference_catalog\n')
@@ -166,6 +168,7 @@ def migrate(self):
             migrate_project(obj, f, agency_map, self)
     f.write('    print "finished setting uids"\n')
     f.write('    return "uids restored"\n')
+    f.flush()
     f.close()
     logger.info('references saved')
     return 'success, references saved'

@@ -1,0 +1,6 @@
+
+
+            <span tal:content="view/test">test</span>
+
+
+

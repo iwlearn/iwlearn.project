@@ -25,6 +25,9 @@
       />
 
   <!-- -*- extra stuff goes here -*- -->
+
+  <include package=".browser" />
+  
 <subscriber
   for=".interfaces.IProject
        Products.Archetypes.interfaces.IObjectEditedEvent"

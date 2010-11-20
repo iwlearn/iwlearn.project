@@ -360,6 +360,9 @@
         </iframe>
         </dd>
       </dl>
+      <p tal:define="view context/@@projectchildren_view;">
+         <tal:sitemap replace="structure view" />
+      </p>
     </metal:content-core>
   </metal:content-core>
 

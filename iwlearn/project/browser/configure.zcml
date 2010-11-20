@@ -9,6 +9,16 @@
 
   <browser:page
       for="*"
+      name="projectchildren_view"
+      class=".projectchildrenview.ProjectChildrenView"
+      template="projectchildrenview.pt"
+      allowed_interface=".projectchildrenview.IProjectChildrenView"
+      permission="zope.Public"
+      />
+
+
+  <browser:page
+      for="*"
       name="flexijson_view"
       class=".flexijsonview.FlexiJsonView"
       allowed_interface=".flexijsonview.IFlexiJsonView"

@@ -36,7 +36,7 @@ class FlexiJsonView(BrowserView):
 
     def __call__(self):
         """
-        Return JSON for flexigrid, the query form loos like:
+        Return JSON for flexigrid, the query form looks like:
         {'getAgencies': '', 'rp': '15', 'sortname': 'Title', 'Title': '',
         'getProject_status': '', 'getSubRegions': '', 'SearchableText': '',
         'getProject_type': '', 'sortorder': 'asc', 'query': '',

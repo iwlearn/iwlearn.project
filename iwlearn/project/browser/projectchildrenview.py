@@ -6,17 +6,20 @@ from Products.CMFCore.utils import getToolByName
 from iwlearn.project import projectMessageFactory as _
 
 
-class IProjectView(Interface):
+class IProjectChildrenView(Interface):
     """
-    Project view interface
+    ProjectChildren view interface
     """
 
+    def test():
+        """ test method"""
 
-class ProjectView(BrowserView):
+
+class ProjectChildrenView(BrowserView):
     """
-    Project browser view
+    ProjectChildren browser view
     """
-    implements(IProjectView)
+    implements(IProjectChildrenView)
 
     def __init__(self, context, request):
         self.context = context
@@ -30,3 +33,10 @@ class ProjectView(BrowserView):
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
+    def test(self):
+        """
+        test method
+        """
+        dummy = _(u'a dummy string')
+
+        return {'dummy': dummy}

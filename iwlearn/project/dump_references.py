@@ -136,7 +136,7 @@ def migrate_person(old, f):
         f.write('])\n')
 
 def migrate_organization(old, f):
-    if old.getBrefs():
+    if old.getBRefs():
         f.write('    #organization \n')
         f.write('    obj=uid_tool.lookupObject("' + old.UID() + '")\n')
         f.write('    if obj:\n')

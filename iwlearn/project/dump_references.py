@@ -13,6 +13,7 @@ def get_implementing_agency_uid(agency, context, tags):
     assert(len(ia)==1), agency
     ia[0].getObject().setSubject(tags)
     ia[0].getObject().reindexObject(idxs=['Subject'])
+    print agency
     return ia[0].getObject().UID()
 
 #   International Fund for Agriculture and Development (IFAD) <<< to be added

@@ -78,7 +78,6 @@ def migrate_project(old, f, agency_map, context):
             lauid = agency_map[agency]['uid']
             pass
     if hit:
-        pass
         #new.setLeadagency(lauid)
         f.write('    #project leadagency \n')
         f.write('    obj=uid_tool.lookupObject("' + old.UID() + '")\n')
@@ -102,7 +101,6 @@ def migrate_project(old, f, agency_map, context):
                 hit = True
                 auids.append(agency_map[agency]['uid'])
     if hit:
-        pass
         #set other implementing agencies
         f.write('    #project implementing agencies \n')
         f.write('    obj=uid_tool.lookupObject("' + old.UID() + '")\n')
@@ -157,13 +155,14 @@ def migrate(self):
             'mxmContactsOrganization', 'mxmContactsPerson', 'IWProject',
             'IWSubProject']):
         obj=brain.getObject()
-        if obj.portal_type == 'mxmContactsOrganization':
+        if brain.portal_type == 'mxmContactsOrganization':
             migrate_organization(obj, f)
-        elif obj.portal_type == 'mxmContactsPerson':
+        elif brain.portal_type == 'mxmContactsPerson':
             migrate_person(obj, f)
-        elif obj.portal_type in ['IWSubProject', 'IWProject']:
+        elif brain.portal_type in ['IWSubProject', 'IWProject']:
             migrate_project(obj, f, agency_map, self)
     f.write('    print "finished setting uids"\n')
+    f.write('    return "uids restored"\n')
     f.close()
     print 'references saved'
     return 'success'

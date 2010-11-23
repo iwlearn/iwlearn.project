@@ -1,9 +1,13 @@
-from zope.interface import implements, Interface
+from zope.interface import implements, Interface, Attribute
 
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 
 from iwlearn.project import projectMessageFactory as _
+
+# config for the projectmap viewlet with google maps
+PROPERTY_SHEET = 'projectmap_properties'
+PROPERTY_GOOGLE_KEYS_FIELD = 'map_google_api_keys'
 
 
 class IProjectmapConfigView(Interface):
@@ -11,9 +15,8 @@ class IProjectmapConfigView(Interface):
     projectmap_config view interface
     """
 
-    def test():
-        """ test method"""
-
+    def googlemaps_key(self):
+        """ returns google maps api key for a website"""
 
 class ProjectmapConfigView(BrowserView):
     """
@@ -53,6 +56,5 @@ class ProjectmapConfigView(BrowserView):
             portal_url = portal_url[:-1]
         return None
 
-    @property
     def googlemaps_key(self):
         return self._search_key(PROPERTY_GOOGLE_KEYS_FIELD)

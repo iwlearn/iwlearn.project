@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+
+
+<body>
+
+<div metal:fill-slot="main">
+
+        <h1>
+            Search for project contacts
+        </h1>
+
+        <div class="documentDescription">
+
+        </div>
+        <form  action="" tal:attributes="action string:${here/absolute_url}/${template/id}" >
+  		<input name="SearchableText" type="text" size="40" tal:attributes="value request/SearchableText|nothing" />
+                <input type="hidden" name="portal_type" value="IWProject" />
+  		<input type="submit" class="searchButton"  value="Search" i18n:attributes="value label_search" />
+	</form>
+
+	<br/>
+
+        <div metal:define-macro="plosresultlisting" tal:condition="request/SearchableText|nothing">
+          <tal:search tal:define="searchTerm request/SearchableText;
+                                  results python:here.queryCatalog();
+                                   Batch python:modules['Products.CMFPlone'].Batch;
+                 b_size python:20;b_start python:0;b_start request/b_start | b_start;">
+           <div tal:condition="not: results">
+                <p><strong i18n:translate="description_no_results_found">No results were found.</strong></p>
+           </div>
+           <table tal:condition="results" tal:define="batch python:Batch(results, b_size, int(b_start), orphan=1);" class="listing">
+             <tal:loop repeat="result batch">
+             <tr class="even">
+               <td>
+                 <a tal:attributes="href result/getURL" tal:content="result/Title" />
+               </td>
+             </tr>
+             <tr class="odd">
+               <td>
+                <ul tal:define="contacts python:result.getObject().getProject_contacts()">
+                  <li tal:repeat="contact contacts">
+                     <a tal:attributes="href contact/absolute_url">
+                      <span tal:replace="contact/Title" > Name of contact </span>
+                     </a>
+                     <!--span tal:replace="contact/jobtitle"/> <br/>
+                     <span tal:replace="contact/organizationName"/> <br/>
+                     <span tal:replace="contact/getEmail"> ab@cd.org </span> <br/-->
+
+                  </li>
+                </ul>
+               </td>
+              </tr>
+              </tal:loop>
+              <tr>
+               <td>
+                <div metal:use-macro="here/batch_macros/macros/navigation"/>
+               </td>
+              </tr>
+             </table>
+          </tal:search>
+        </div>
+
+
+
+</div>
+
+</body>
+</html>

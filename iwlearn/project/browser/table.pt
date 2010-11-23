@@ -1,0 +1,55 @@
+<table  tal:define="results search_results/results;
+                         Batch python:modules['Products.CMFPlone'].Batch;
+                         b_size search_results/size;
+                         b_start search_results/start;
+                         fields view/get_table_fields;"
+                         class="listing"
+                         id="flexitopicresults">
+                <caption tal:condition="not: results">
+                  <strong i18n:translate="description_no_results_found">
+                    No results were found.
+                  </strong>
+                </caption>
+                <caption tal:condition="results">
+                   <strong i18n:translate="batch_x_items_matching_your_criteria">
+                        <span i18n:name="number" tal:content="python:len(results)">234</span> items matching your criteria.
+                   </strong>
+                </caption>
+                <thead>
+                    <tr>
+                      <th tal:repeat="th fields">
+                        <span tal:replace="th/label" />
+                      </th>
+                    </tr>
+                </thead>
+                <tfoot tal:define="batch python:Batch(results, b_size, int(b_start), orphan=1);">
+                    <tr> <td colspan="5"> <div metal:use-macro="here/batch_macros/macros/navigation" /> </td></tr>
+                </tfoot>
+                <tbody tal:condition="results" tal:define="batch python:Batch(results, b_size, int(b_start), orphan=1);">
+                  <tal:loop tal:repeat="result batch">
+                      <tr tal:attributes="class python:oddrow and 'even' or 'odd'"
+                          tal:define="obj_icon python:plone_view.getIcon(result);
+                                    oddrow repeat/result/odd;">
+                          <td tal:repeat="td fields" >
+                            <a tal:define="value python: getattr(result, td['name'], None);"
+                            tal:attributes="href result/getURL; title result/Description;"
+                            tal:condition="python: td['name'] == 'Title'">
+                                <img src="#"
+                                     height="16"
+                                     width="16"
+                                     tal:condition="obj_icon/url"
+                                     tal:attributes="src obj_icon/url;
+                                                     alt obj_icon/description;
+                                                     title obj_icon/title;
+                                                     width obj_icon/width;
+                                                     height obj_icon/height;"/>
+                            <span tal:replace="value"> title </span>
+                            </a>
+                            <span tal:condition="python: td['name'] != 'Title'"
+                                  tal:define="value python: getattr(result, td['name'], None);"
+                                  tal:replace="python:here.formatCatalogMetadata(value)"></span>
+                          </td>
+                      </tr>
+                  </tal:loop>
+                </tbody>
+              </table>

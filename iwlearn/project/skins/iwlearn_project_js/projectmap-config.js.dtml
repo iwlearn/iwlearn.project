@@ -1,7 +1,7 @@
 function projectmapinitialize() {
     function addListeners(marker,html,region) {
     GEvent.addListener(marker, "click", function() {
-        var newurl = "iw-projects?region=" + region;
+        var newurl = "iw-projects?getSubRegions=" + region;
         //mapinfo.innerHTML = "Click on region " + region + " will redirect to URL " + newurl;
         mapinfo.style.display = "none";
         document.location = newurl;

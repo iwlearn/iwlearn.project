@@ -4,7 +4,7 @@
     i18n_domain="plonetheme.iwlearn">
 
   <!-- File System Directory Views registration -->
-  <cmf:registerDirectory name="iwlearn_project_images"/>
+  <cmf:registerDirectory name="iwlearn_project_images" recursive="True" />
   <cmf:registerDirectory name="iwlearn_project_templates"/>
   <cmf:registerDirectory name="iwlearn_project_styles"/>
   <cmf:registerDirectory name="iwlearn_project_js"/>

@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<atcttool>
+ <topic_indexes>
+  <index
+    name="getSubRegions"
+    description="Geographical regions and subregions"
+    enabled="True"
+    friendlyName="Regions - Subregions">
+   <criteria>ATSelectionCriterion</criteria>
+   <criteria>ATListCriterion</criteria>
+   <criteria>ATSimpleStringCriterion</criteria>
+  </index>
+  <index
+    name="getAgencies"
+    description="Implementing Agencies"
+    enabled="True"
+    friendlyName="Implementing Agencies">
+   <criteria>ATSelectionCriterion</criteria>
+   <criteria>ATListCriterion</criteria>
+   <criteria>ATSimpleStringCriterion</criteria>
+  </index>
+  <index
+    name="getBasin"
+    description="Waterbody"
+    enabled="True"
+    friendlyName="Basin">
+   <criteria>ATSelectionCriterion</criteria>
+   <criteria>ATListCriterion</criteria>
+   <criteria>ATSimpleStringCriterion</criteria>
+  </index>
+  <index
+    name="getCountry"
+    description="Country"
+    enabled="True"
+    friendlyName="Country">
+   <criteria>ATSelectionCriterion</criteria>
+   <criteria>ATListCriterion</criteria>
+   <criteria>ATSimpleStringCriterion</criteria>
+  </index>
+  <index
+    name="getProject_status"
+    description="Project status"
+    enabled="True"
+    friendlyName="Project status">
+   <criteria>ATSelectionCriterion</criteria>
+   <criteria>ATListCriterion</criteria>
+   <criteria>ATSimpleStringCriterion</criteria>
+  </index>
+  <index
+    name="getProject_type"
+    description="Project type"
+    enabled="True"
+    friendlyName="Project type">
+   <criteria>ATSelectionCriterion</criteria>
+   <criteria>ATListCriterion</criteria>
+   <criteria>ATSimpleStringCriterion</criteria>
+  </index>
+ </topic_indexes>
+ <topic_metadata>
+  <metadata
+    name="getSubRegions"
+        description="Geographical regions and subregions"
+        enabled="True"
+        friendlyName="Regions - Subregions"/>
+  <metadata
+    name="getAgencies"
+        description="Implementing Agencies"
+        enabled="True"
+        friendlyName="Implementing Agencies"/>
+  <metadata
+    name="getBasin"
+        description="Waterbody"
+        enabled="True"
+        friendlyName="Basin"/>
+  <metadata
+    name="getCountry"
+    description="Country"
+    enabled="True"
+    friendlyName="Country"/>
+  <metadata
+    name="getProject_status"
+    description="Project status"
+    enabled="True"
+    friendlyName="Project status"/>
+  <metadata
+    name="getProject_type"
+    description="Project type"
+    enabled="True"
+    friendlyName="Project type"/>
+ </topic_metadata>
+</atcttool>

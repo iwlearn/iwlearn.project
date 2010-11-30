@@ -2,7 +2,7 @@
   <dl class="portlet" id="portlet-toolkit"
           tal:define="kmzfile nocall: portal/widget-contents/projectmap.kmz|nothing;"
           >
-    <div tal:define="config context/@@projectmap_config;
+    <dd tal:define="config context/@@projectmap_config;
                      googlemaps_key config/googlemaps_key">
       <tal:block replace='structure string:<script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=${googlemaps_key}"></script>'>
       </tal:block>
@@ -15,6 +15,6 @@
       <div id="pminfo" style="display: none">
     Some initial text.
       </div>
-    </div>
+    </dd>
   </dl>
 </div>

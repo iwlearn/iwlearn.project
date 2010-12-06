@@ -273,7 +273,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         widget=ReferenceBrowserWidget(
             label=_(u"Executing Agencies"),
             description=_(u"Executing Agencies"),
-            base_query={'Subject':'Executing Agency'},
+            #base_query={'Subject':'Executing Agency'},
             allow_browse=True,
             allow_sorting=True,
         ),

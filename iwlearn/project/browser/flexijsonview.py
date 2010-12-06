@@ -92,10 +92,10 @@ class FlexiJsonView(BrowserView):
                 region = ', '.join(result.getSubRegions)
             else:
                 region = ''
-            a = '<a href="%s">%s</a>'
+            a = u'<a href="%s">%s</a>'
             json_result['rows'].append(
                 {"id":result.getId,"cell":[
-                    a % (result.getURL(), result.Title),
+                    a % (result.getURL(), result.Title.encode('utf-8', 'ignore')),
                     result.getProject_type ,
                     agency, region,
                     result.getProject_status,

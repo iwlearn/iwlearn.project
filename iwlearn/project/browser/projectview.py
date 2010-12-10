@@ -32,7 +32,7 @@ class ProjectView(BrowserView):
         """
         obj = None
         listing = None
-        type_filter = {"portal_type" : ["Folder", "File", "Image"
+        type_filter = {"portal_type" : ["Folder", "File", "Image", "Link",
                                         "NewsItem", "Event", "Document",
                                         "Topic", "FeedFeederItem",
                                         "FeedfeederFolder"]}

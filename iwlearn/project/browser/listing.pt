@@ -1,0 +1,25 @@
+<ul tal:define="lis options/listing;
+                plone_view context/@@plone;
+                normalizeString nocall:context/@@plone/normalizeString;"
+    tal:condition="lis">
+    <li tal:repeat="li lis">
+        <a tal:attributes="href li/getURL;
+                        title li/Description;
+                        class string:$item_wf_state_class"
+            tal:define="obj_icon python:plone_view.getIcon(li);
+                    item_wf_state li/review_state;
+                    item_wf_state_class python:'state-' + normalizeString(item_wf_state);">
+            <img src="#"
+                 height="16"
+                 width="16"
+                 tal:condition="obj_icon/url"
+                 tal:attributes="src obj_icon/url;
+                                 alt obj_icon/description;
+                                 title obj_icon/title;
+                                 width obj_icon/width;
+                                 height obj_icon/height;" />
+            <span tal:replace="li/Title" />
+        </a>
+        <span tal:replace="structure python:view.render_subfolder_listing(li)"></span>
+    </li>
+</ul>

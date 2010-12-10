@@ -376,7 +376,7 @@ class Project(folder.ATFolder):
 
 def reindexProjectDocuments(context, event):
     """ Project documents acquire some project attributes: project_type
-        region/subregion lead/agency project_status.  This part take
+        region/subregion lead/agency project_status.  This part takes
         care about reindex all project documents.
     """
     logger.info('reindexProjectDocuments')

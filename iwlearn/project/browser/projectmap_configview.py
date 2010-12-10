@@ -1,4 +1,4 @@
-from zope.interface import implements, Interface, Attribute
+from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName

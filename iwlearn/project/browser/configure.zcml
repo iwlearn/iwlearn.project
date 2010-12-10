@@ -54,5 +54,24 @@
       permission="zope.Public"
       />
 
+    <browser:viewletManager
+     name="iwlearn.project.projectmap"
+     provides=".interfaces.IProjectMapManager"
+     class="plone.app.viewletmanager.manager.OrderedViewletManager"
+     layer="collective.geo.kml.interfaces.IGeoKmlLayer"
+     permission="zope2.View"
+     />
+
+
+
+  <browser:viewlet
+      name="iwlearn.project.kmlcontentviewlet"
+      for="collective.geo.geographer.interfaces.IGeoreferenceable"
+      class="collective.geo.kml.browser.viewlets.ContentViewlet"
+      manager="iwlearn.project.browser.interfaces.IProjectMapManager"
+      template="kmlcontentviewlet.pt"
+      layer="collective.geo.kml.interfaces.IGeoKmlLayer"
+      permission="zope2.View"
+  />
 
 </configure>

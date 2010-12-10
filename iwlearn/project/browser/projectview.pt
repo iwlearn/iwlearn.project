@@ -6,6 +6,11 @@
   <metal:content-core fill-slot="content-core">
     <metal:content-core define-macro="content-core">
      <dl class="enableFormTabbing" tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
+        <!--dt id="fieldsetlegend-project-map" tal:condition="view/is_geo_referenced">Project Map</dt>
+        <dd id="fieldset-project-map">
+            <div tal:replace="structure  provider:iwlearn.project.projectmap" />
+        </dd-->
+
         <dt id="fieldsetlegend-about-project">About</dt>
         <dd id="fieldset-about-project">
         <table border="0" cellspacing="1" width="100%"
@@ -128,10 +133,32 @@
                         Documents</font>
                       </b>
                     </td>
-                    <td class="c1" width="78%" valign="top">
-                        <tal:put_filter_on_request define="dummy python:request.set('contentFilter', {'meta_type': ['ATLink', 'ATFile', 'ATFolder']})">
+                    <td class="c1" width="78%" valign="top" id="subfolder-menu">
+                        <!--tal:put_filter_on_request define="dummy python:request.set('contentFilter', {'meta_type': ['ATLink', 'ATFile', 'ATFolder']})">
                             <metal:use_body use-macro="here/folder_listing/macros/listing" />
-                        </tal:put_filter_on_request>
+                        </tal:put_filter_on_request-->
+
+                        <span tal:replace="structure view/render_subfolder_listing"></span>
+                        <script type="text/javascript" >
+                            function initSubfolderMenu() {
+                                $('#subfolder-menu ul').hide();
+                                $('#subfolder-menu ul:first').show();
+                                $('#subfolder-menu li a').click(
+                                    function() {
+                                        var nextElement = $(this).next();
+                                        if((nextElement.is('ul')) && (nextElement.is(':visible'))) {
+                                            nextElement.slideUp('normal');
+                                            return false;
+                                            }
+                                       if((nextElement.is('ul')) && (!nextElement.is(':visible'))) {
+                                           nextElement.slideDown('normal');
+                                           return false;
+                                            }
+                                        }
+                                   );
+                           }
+                           $(document).ready(function() {initSubfolderMenu();});
+                        </script>
                     </td>
                   </tr>
                 </table>
@@ -360,9 +387,6 @@
         </iframe>
         </dd>
       </dl>
-      <p tal:define="view context/@@projectchildren_view;">
-         <tal:sitemap replace="structure view" />
-      </p>
     </metal:content-core>
   </metal:content-core>
 

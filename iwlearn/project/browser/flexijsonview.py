@@ -95,7 +95,9 @@ class FlexiJsonView(BrowserView):
             a = u'<a href="%s">%s</a>'
             json_result['rows'].append(
                 {"id":result.getId,"cell":[
-                    a % (result.getURL(), result.Title.encode('utf-8', 'ignore')),
+                    a % (result.getURL(), result.Title.decode(
+                                            'utf-8', 'ignore').encode(
+                                            'ascii', 'xmlcharrefreplace')),
                     result.getProject_type ,
                     agency, region,
                     result.getProject_status,

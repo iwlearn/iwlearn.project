@@ -121,24 +121,41 @@ class ProjectDBView(BrowserView):
         if not is_search:
             return None
         catalog = self.portal_catalog
-        ptitle = form.get('Title', None)
-        ptype = form.get('getProject_type', None)
-        pagency = form.get('getAgencies', None)
-        pstatus = form.get('getProject_status', None)
-        pbasin = form.get('getBasin', None)
-        pregion = form.get('getSubRegions', None)
-
+        query = {}
+        query['Title'] = form.get('Title', None)
+        query['getProject_type'] = form.get('getProject_type', None)
+        query['getAgencies'] = form.get('getAgencies', None)
+        query['getProject_status'] = form.get('getProject_status', None)
+        query['getBasin'] = form.get('getBasin', None)
+        query['getSubRegions'] = form.get('getSubRegions', None)
+        query['portal_type'] = 'Project'
+        dkeys = []
+        for k,v in query.iteritems():
+            if not v:
+                dkeys.append(k)
+        for k in dkeys:
+            del(query[k])
         batch_size = form.get('b_size', 20)
         batch_start = form.get('b_start', 0)
         is_search = len(form)!=0
+        sortorder = form.get('sortorder',None)
 
-        results = catalog(SearchableText=self.search_term,
-                        portal_type='Project',
-                        Title=ptitle,
-                        getProject_type=ptype,
-                        getAgencies=pagency,
-                        getProject_status=pstatus,
-                        getBasin=pbasin,
-                        getSubRegions=pregion)
+        if sortorder=='desc':
+            sort_order = 'reverse'
+        else:
+            sort_order = None
+        sort_on = None
+        sortname = form.get('sortname',None)
+        if sortname=='Title':
+            sort_on = 'sortable_title'
+        elif sortname:
+            sort_on = sortname
+        if sort_on:
+            query['sort_on'] = sort_on
+            if sort_order:
+                query['sort_order'] = sort_order
+
+
+        results = catalog(**query)
 
         return {'results': results, 'size': batch_size, 'start': batch_start}

@@ -99,6 +99,7 @@ class FlexiJsonView(BrowserView):
                     result.getProject_type ,
                     agency, region,
                     result.getProject_status,
+                    a % (result.getRemoteUrl, result.getRemoteUrl)
                     ]})
         self.request.RESPONSE.setHeader('Content-Type','application/json; charset=utf-8')
         return json.dumps(json_result)

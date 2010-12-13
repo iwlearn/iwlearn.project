@@ -49,6 +49,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u"Website of the project"),
         ),
         validators=('isURL'),
+        accessor='getRemoteUrl',
     ),
 
     atapi.BooleanField(

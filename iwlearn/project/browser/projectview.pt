@@ -134,25 +134,21 @@
                       </b>
                     </td>
                     <td class="c1" width="78%" valign="top" id="subfolder-menu">
-                        <!--tal:put_filter_on_request define="dummy python:request.set('contentFilter', {'meta_type': ['ATLink', 'ATFile', 'ATFolder']})">
-                            <metal:use_body use-macro="here/folder_listing/macros/listing" />
-                        </tal:put_filter_on_request-->
-
                         <span tal:replace="structure view/render_subfolder_listing"></span>
                         <script type="text/javascript" >
                             function initSubfolderMenu() {
                                 $('#subfolder-menu ul').hide();
                                 $('#subfolder-menu ul:first').show();
                                 $('#subfolder-menu li a').click(
-                                    function() {
+                                    function(e) {
                                         var nextElement = $(this).next();
                                         if((nextElement.is('ul')) && (nextElement.is(':visible'))) {
                                             nextElement.slideUp('normal');
-                                            return false;
+                                            e.preventDefault();
                                             }
                                        if((nextElement.is('ul')) && (!nextElement.is(':visible'))) {
                                            nextElement.slideDown('normal');
-                                           return false;
+                                           e.preventDefault();
                                             }
                                         }
                                    );

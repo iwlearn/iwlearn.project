@@ -38,7 +38,7 @@ class ProjectView(BrowserView):
                                         "FeedfeederFolder"]}
         if folder == None:
             obj = folder = self.context
-        if folder.portal_type in ["Folder","Project", "FeedfeederFolder"]:
+        if folder.portal_type in ["Folder","Project", "FeedfeederFolder", "Topic"]:
             if not obj:
                 obj = folder.getObject()
             listing = obj.getFolderContents(contentFilter=type_filter)

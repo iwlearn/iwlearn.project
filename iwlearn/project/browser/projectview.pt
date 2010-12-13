@@ -156,6 +156,11 @@
                                             }
                                         }
                                    );
+                                $('#subfolder-menu li a').dblclick(
+                                    function(e) {
+                                        window.location.replace($(this).attr("href"));
+                                });
+
                            }
                            $(document).ready(function() {initSubfolderMenu();});
                         </script>

@@ -46,7 +46,7 @@
                     <td class="c1" width="78%" valign="top">
                       <a href="#" target="_blank"
                       tal:attributes="href accessor"
-                      tal:content="python:here.getRemote_url().replace('?', ' ')" />
+                      tal:content="python:here.getRemoteUrl().replace('?', ' ')" />
                     </td>
                   </tr>
                   <tr tal:define="field python:here.Schema()['region']; accessor python:getattr(here, field.accessor)"

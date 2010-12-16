@@ -5,14 +5,20 @@
 <head>
     <metal:javascript_head fill-slot="javascript_head_slot">
 
-    <tal:block tal:define="config context/@@projectmap_config;
+    <!--tal:block tal:define="config context/@@projectmap_config;
                            googlemaps_key config/googlemaps_key"
        tal:replace='structure string:<script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=${googlemaps_key}"></script>'>
-    </tal:block>
+    </tal:block-->
 
         <!-- Google map START -->
-        <script type="text/javascript" src="project-listing-map.js"></script>
+        <!--script type="text/javascript" src="project-listing-map.js"></script-->
         <!-- Google map END -->
+ <!-- collective geo map -->
+
+      <metal:use use-macro="context/@@collectivegeo-macros/openlayers" />
+
+  <!-- collective geo map -->
+
     </metal:javascript_head>
 </head>
 <body>
@@ -24,11 +30,11 @@
                 <dd id="fieldset-about-projects" class="documentDescription"
                     tal:content="here/Description">
                 </dd>
-                <dt class="selected" id="fieldsetlegend-map-projects">Map</dt>
+                <!--dt id="fieldsetlegend-map-projects">Map</dt>
                 <dd id="fieldset-map-project">
                     <div id="projectsmap" style="height:250px; width: 900px"></div>
                     <div id="pminfo" style="width: 900px"></div>
-                </dd>
+                </dd-->
                 <dt id="fieldsetlegend-new-projects">New Projects</dt>
                 <dd id="fieldset-new-projects" tal:define="results view/new_projects">
                   <ul>
@@ -234,8 +240,12 @@ $('#projectsearchform').submit
 </script>
 
 
+<!-- Collective.geo map -->
 
-
+        <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
+        <script type="text/javascript"
+                src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
+<!-- /Collective.geo map -->
 
             <noscript tal:define="search_results view/search_results" tal:condition="search_results">
               <table  tal:define="results search_results/results;

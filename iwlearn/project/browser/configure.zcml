@@ -9,6 +9,25 @@
 
   <browser:page
       for="*"
+      name="projectdbkml_view"
+      class=".projectdbkmlview.ProjectDbKmlView"
+      template="projectdbkmlview.pt"
+      allowed_interface=".projectdbkmlview.IProjectDbKmlView"
+      permission="zope.Public"
+      />
+
+  <!--adapter
+      for=".projectdbkmlview.ProjectDbKmlView
+           zope.interface.Interface
+           zope.interface.Interface
+           zope.interface.Interface"
+      factory="collective.geo.kml.browser.kmlopenlayersview.KMLMapLayers"
+      /-->
+
+
+
+  <browser:page
+      for="*"
       name="projectchildren_view"
       class=".projectchildrenview.ProjectChildrenView"
       template="projectchildrenview.pt"

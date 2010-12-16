@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.1'
+version = '0.2'
 
 long_description = (
     read('README.txt')
@@ -45,9 +45,9 @@ setup(name='iwlearn.project',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License (GPL)',
         ],
-      keywords='',
-      author='',
-      author_email='',
+      keywords='plone geo gis kml unep project',
+      author='Christian Ledermann',
+      author_email='christian.ledermann@gmail.com',
       url='http://svn.plone.org/svn/collective/',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
@@ -56,6 +56,7 @@ setup(name='iwlearn.project',
       zip_safe=False,
       install_requires=['setuptools',
                         # -*- Extra requirements: -*-
+                        'collective.geo.kml'
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),

@@ -12,9 +12,6 @@ class IProjectDbKmlView(Interface):
     ProjectDbKml view interface
     """
 
-    def test():
-        """ test method"""
-
 
 class ProjectDbKmlView(KMLBaseDocument):
     """
@@ -27,9 +24,6 @@ class ProjectDbKmlView(KMLBaseDocument):
     def portal_catalog(self):
         return getToolByName(self.context, 'portal_catalog')
 
-    @property
-    def portal(self):
-        return getToolByName(self.context, 'portal_url').getPortalObject()
 
     @property
     def features(self):

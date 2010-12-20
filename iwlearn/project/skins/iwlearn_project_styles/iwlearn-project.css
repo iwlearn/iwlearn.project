@@ -56,10 +56,12 @@
     }
 
 #projectsearchform option.disabled {
-    color: #888888
+    color: #888888;
     }
 
-
+#projectsmap div.widget-cgmap {
+    height: 200px;
+}
 
 .flexigrid div.hDivBox table {
     margin-bottom: 0 !important;

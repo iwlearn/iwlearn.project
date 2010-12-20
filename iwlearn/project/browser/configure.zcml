@@ -16,14 +16,6 @@
       permission="zope.Public"
       />
 
-  <!--adapter
-      for=".projectdbkmlview.ProjectDbKmlView
-           zope.interface.Interface
-           zope.interface.Interface
-           zope.interface.Interface"
-      factory="collective.geo.kml.browser.kmlopenlayersview.KMLMapLayers"
-      /-->
-
 
 
 
@@ -55,6 +47,14 @@
       />
 
 
+  <adapter
+      for=".projectdbview.IProjectDBView
+           zope.interface.Interface
+           zope.interface.Interface
+           zope.interface.Interface"
+      factory=".projectmaplayer.KMLMapLayers"
+      />
+
   <browser:page
       for="..interfaces.IProject"
       name="view"
@@ -64,7 +64,7 @@
       permission="zope.Public"
       />
 
-    <browser:viewletManager
+    <!--browser:viewletManager
      name="iwlearn.project.projectmap"
      provides=".interfaces.IProjectMapManager"
      class="plone.app.viewletmanager.manager.OrderedViewletManager"
@@ -82,6 +82,6 @@
       template="kmlcontentviewlet.pt"
       layer="collective.geo.kml.interfaces.IGeoKmlLayer"
       permission="zope2.View"
-  />
+  /-->
 
 </configure>

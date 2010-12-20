@@ -9,10 +9,14 @@ from iwlearn.project.browser.utils import get_query
 
 #from collective.geo.mapwidget.interfaces import IMapView
 
-class IProjectDBView(Interface):
+from collective.geo.kml.interfaces import IKMLOpenLayersView
+
+class IProjectDBView(IKMLOpenLayersView):
     """
     ProjectDB view interface
     """
+
+
 
 class ProjectDBView(BrowserView):
     """
@@ -127,3 +131,4 @@ class ProjectDBView(BrowserView):
         results = self.portal_catalog(**query)
 
         return {'results': results, 'size': batch_size, 'start': batch_start}
+

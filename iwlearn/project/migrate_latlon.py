@@ -27,5 +27,8 @@ def migrate(self):
                 style.geostyles.data['marker_image'] = 'string:${portal_url}/marker-icon-unep.png'
             elif la == 'United Nations Office for Project Services (UNOPS)':
                 style.geostyles.data['marker_image'] = 'string:${portal_url}/marker-icon-unops.png'
-
+            elif la == 'Inter-American Development Bank (IADB)':
+                style.geostyles.data['marker_image'] = 'string:${portal_url}/marker-icon-iabd.png'
+            elif la == 'International Fund for Agriculture and Development (IFAD)':
+                style.geostyles.data['marker_image'] = 'string:${portal_url}/marker-icon-ifad.png'
     return 'finished setting coordinates'

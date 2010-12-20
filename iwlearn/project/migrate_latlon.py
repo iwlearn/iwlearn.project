@@ -1,3 +1,4 @@
+# call this script as an external procedure after aplying the interface to projects
 from collective.geo.contentlocations.interfaces import IGeoManager
 from collective.geo.settings.interfaces import IGeoCustomFeatureStyle, IGeoFeatureStyle
 
@@ -11,7 +12,10 @@ def migrate(self):
         print geo.isGeoreferenceable()
         lat =  project.getLatitude()
         lon = project.getLongitude()
-        la = project.getLeadagency().Title()
+        leadagency = project.getLeadagency()
+        la =''
+        if leadagency:
+            la = leadagency.Title()
         if lat and lon and geo.isGeoreferenceable():
             print lat, lon
             #import pdb; pdb.set_trace()

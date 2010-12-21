@@ -15,7 +15,7 @@ def migrate(self):
         leadagency = project.getLeadagency()
         la =''
         if leadagency:
-            la = leadagency.Title()
+            la = leadagency.Title().strip()
         if lat and lon and geo.isGeoreferenceable():
             print lat, lon
             #import pdb; pdb.set_trace()

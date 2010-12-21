@@ -234,13 +234,13 @@
         you have to specify the input elements that the data will come from */
         var dt = $('#projectsearchform').serializeArray();
         $("#flexiprojects").flexOptions({params: dt});
+        // refresh map
         var qs = '?';
         var params = {};
         jQuery.each(dt, function(i, field){
             qs = qs + field.name + '=' + field.value + "&";
             params[field.name] = field.value;
         });
-
         var map = cgmap.config['default-cgmap'].map;
         var kmls = map.getLayersByClass('OpenLayers.Layer.GML');
         layer = kmls[0];

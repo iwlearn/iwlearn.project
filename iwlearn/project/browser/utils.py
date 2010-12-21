@@ -3,7 +3,7 @@
 def get_query(form):
     query = {}
     form_fields = ['Title', 'getProject_type', 'getAgencies',
-            'getProject_status', 'getBasin', 'getSubRegions']
+            'getProject_status', 'getBasin', 'getSubRegions', 'SearchableText']
     for field in form_fields:
         if form.get(field, None):
             query[field] = form[field]

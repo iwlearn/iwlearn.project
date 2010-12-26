@@ -35,4 +35,5 @@ def migrate(self):
                 style.geostyles.data['marker_image'] = 'string:${portal_url}/marker-icon-iabd.png'
             elif la == 'International Fund for Agriculture and Development (IFAD)':
                 style.geostyles.data['marker_image'] = 'string:${portal_url}/marker-icon-ifad.png'
+            style.geostyles.update(style.geostyles)
     return 'finished setting coordinates'

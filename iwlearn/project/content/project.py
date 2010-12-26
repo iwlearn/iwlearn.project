@@ -132,6 +132,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u"Project Description"),
         ),
         validators=('isTidyHtmlWithCleanup',),
+        default_content_type="text/html",
         default_output_type='text/x-html-safe',
     ),
 

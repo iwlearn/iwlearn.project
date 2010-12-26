@@ -29,6 +29,85 @@ class ProjectDBView(BrowserView):
         self.request = request
 
 
+    def get_js(self):
+        js = """
+ $(document).ready(function() {
+   $("#projectsearchform").find("select").each(function(i) {
+     $(this).change(function( objEvent ){
+         $('#flexiprojects').flexOptions({newp: 1}).flexReload();
+        }) ;
+   });
+ });
+
+
+
+    $("#flexiprojects").flexigrid
+            (
+            {
+            url: '@@flexijson_view',
+            dataType: 'json',
+            colModel : [
+                {display: 'Title', name : 'Title', width : 220, sortable : true, align: 'left'},
+                {display: 'Project type', name : 'getProject_type', width : 100, sortable : true, align: 'left'},
+                {display: 'Implementing agencies', name : 'getAgencies', width : 220, sortable : true, align: 'left'},
+                {display: 'Region', name : 'getSubRegions', width : 200, sortable : true, align: 'left'},
+                {display: 'Status', name : 'getProject_status', width : 100, sortable : true, align: 'left'},
+                {display: 'URL', name : 'getRemoteUrl', width : 100, sortable : false, align: 'left', hide: true}
+                ],
+            sortname: "Title",
+            sortorder: "asc",
+            usepager: true,
+            title: 'Projects',
+            useRp: true,
+            rp: 15,
+            showTableToggleBtn: true,
+            width: 900,
+            onSubmit: addFormData,
+            height: 200
+            }
+            );
+
+
+    /*This function adds paramaters to the post of flexigrid.
+    You can add a verification as well by return to false if
+    you don't want flexigrid to submit function addFormData() */
+    function addFormData() {
+        /*passing a form object to serializeArray will get the valid data
+        from all the objects, but, if the you pass a non-form object,
+        you have to specify the input elements that the data will come from */
+        var dt = $('#projectsearchform').serializeArray();
+        $("#flexiprojects").flexOptions({params: dt});
+        // refresh map
+        var qs = '?';
+        var params = {};
+        jQuery.each(dt, function(i, field){
+            qs = qs + field.name + '=' + field.value + "&";
+            params[field.name] = field.value;
+        });
+        var map = cgmap.config['default-cgmap'].map;
+        var kmls = map.getLayersByClass('OpenLayers.Layer.GML');
+        layer = kmls[0];
+        layer.setVisibility(false);
+        layer.loaded = false;
+        layer.setUrl('%s/@@projectdbkml_view' + qs);
+        layer.refresh({ force: true, params: params });
+        layer.setVisibility(true);
+
+        return true;
+    }
+
+
+$('#projectsearchform').submit
+(
+    function ()
+        {
+            $('#flexiprojects').flexOptions({newp: 1}).flexReload();
+            return false;
+        }
+);
+        """ % self.context.absolute_url()
+        return js
+
 
     @property
     def portal_catalog(self):

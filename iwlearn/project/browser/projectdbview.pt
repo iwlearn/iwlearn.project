@@ -186,7 +186,7 @@
 
             <table id="flexiprojects" style="display:none"></table>
 
-<script type="text/javascript">
+<script type="text/javascript" tal:content="structure view/get_js">
 
  $(document).ready(function() {
    $("#projectsearchform").find("select").each(function(i) {

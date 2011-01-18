@@ -221,6 +221,7 @@ PROJECT_STATUS = [
     'Council Approved',
     'CEO Approved',
     'CEO Endorsed',
+    'IA Approved',
     'Under Implementation',
     'Project Completion',
     'Project Closure',

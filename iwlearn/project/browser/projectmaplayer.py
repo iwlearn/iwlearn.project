@@ -1,6 +1,5 @@
 #
 from collective.geo.mapwidget.browser.widget import MapLayers
-#from collective.geo.kml.browser.maplayers import KMLMapLayer
 from collective.geo.mapwidget.maplayers import MapLayer
 
 class KMLMapLayer(MapLayer):

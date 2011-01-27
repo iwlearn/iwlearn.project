@@ -2,6 +2,7 @@ from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
+from plone.memoize import view
 
 from iwlearn.project import projectMessageFactory as _
 from collective.geo.kml.browser.kmldocument import KMLBaseDocument, BrainPlacemark
@@ -26,6 +27,7 @@ class ProjectDbKmlView(KMLBaseDocument):
 
 
     @property
+    @view.memoize
     def features(self):
         query = get_query(self.request.form)
         results = self.portal_catalog(**query)

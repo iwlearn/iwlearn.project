@@ -57,7 +57,6 @@ class ProjectView(BrowserView):
     def is_geo_referenced(self):
         geo = IGeoManager(self.context)
         if geo.isGeoreferenceable():
-            pass
             return True
         else:
             return False

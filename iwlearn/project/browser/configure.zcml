@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
@@ -6,6 +7,15 @@
   <include package="plone.app.contentmenu" />
 
   <!-- -*- extra stuff goes here -*- -->
+
+  <browser:page
+      for="..interfaces.IProject"
+      name="projectkml_view"
+      class=".projectkmlview.ProjectKMLView"
+      allowed_interface=".projectkmlview.IProjectKMLView"
+      permission="zope.Public"
+      />
+
 
   <browser:page
       for="..interfaces.IProjectDatabase"
@@ -27,7 +37,7 @@
       permission="zope.Public"
       />
 
-
+  <!-- configuration for the google map portlet -->
   <browser:page
       for="*"
       name="projectmap_config"
@@ -52,7 +62,7 @@
            zope.interface.Interface
            zope.interface.Interface
            zope.interface.Interface"
-      factory=".projectmaplayer.KMLMapLayers"
+      factory=".maplayers.ProjectDbKMLMapLayers"
       />
 
   <browser:page
@@ -62,6 +72,15 @@
       template="projectview.pt"
       allowed_interface=".projectview.IProjectView"
       permission="zope.Public"
+      />
+
+
+  <adapter
+      for=".projectview.IProjectView
+           zope.interface.Interface
+           zope.interface.Interface
+           zope.interface.Interface"
+      factory=".maplayers.ProjectKMLMapLayers"
       />
 
     <!--browser:viewletManager

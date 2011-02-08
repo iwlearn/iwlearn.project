@@ -388,6 +388,12 @@
         </iframe>
         </dd>
       </dl>
+        <div id="project-map" style="height:450px; width: 800px">
+            <metal:use use-macro="context/@@collectivegeo-macros/openlayers" />
+            <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
+            <script type="text/javascript"
+                src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
+        </div>
     </metal:content-core>
   </metal:content-core>
 

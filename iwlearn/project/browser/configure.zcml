@@ -9,6 +9,16 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projectwebsites_view"
+      class=".projectwebsitesview.ProjectWebsitesView"
+      template="projectwebsitesview.pt"
+      allowed_interface=".projectwebsitesview.IProjectWebsitesView"
+      permission="zope.Public"
+      />
+
+
+  <browser:page
       for="..interfaces.IProject"
       name="projectkml_view"
       class=".projectkmlview.ProjectKMLView"

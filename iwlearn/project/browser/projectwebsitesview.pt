@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="iwlearn.project">
+<body>
+    <div metal:fill-slot="main">
+        <tal:main-macro metal:define-macro="main">
+            <h1>Project Websites</h1>
+           <table  tal:define="results view/get_websites;
+                        Batch python:modules['Products.CMFPlone'].Batch;
+                        b_size python:30; b_size request/b_size | b_size;
+                        b_start python:0;b_start request/b_start | b_start;"
+                        class='listing'>
+                <caption tal:condition="not: results">
+                  <strong i18n:translate="description_no_results_found">
+                    No results were found.
+                  </strong>
+                </caption>
+                <caption tal:condition="results">
+                   <strong i18n:translate="batch_x_project_websites">
+                        <span i18n:name="number" tal:content="python:len(results)">234</span> projects with websites
+                   </strong>
+                </caption>
+                <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Status</th>
+                      <th>Website</th>
+                      <th>Region</th>
+                    </tr>
+                </thead>
+                <tfoot tal:define="batch python:Batch(results, b_size, int(b_start), orphan=1);">
+                    <tr> <td colspan="5"> <div metal:use-macro="here/batch_macros/macros/navigation" /> </td></tr>
+                </tfoot>
+                <tbody tal:condition="results"
+                        tal:define="batch python:Batch(results, b_size, int(b_start), orphan=1);">
+                  <tal:loop tal:repeat="result batch">
+                      <tr tal:define="oddrow repeat/result/odd;"
+                            tal:attributes="class python:oddrow and 'even' or 'odd'">
+                          <td> <a tal:attributes="href result/getURL;"
+                                    tal:content="result/Title">title
+                                </a>
+                          </td>
+                          <td tal:content="result/getProject_status">status</td>
+                          <td> <a tal:attributes="href result/getRemoteUrl;"
+                                    tal:content="result/getRemoteUrl"> URL
+                                </a>
+                          </td>
+                          <td> <span tal:content="python:', '.join(result.getSubRegions)" tal:on-error="nothing" /></td>
+                      </tr>
+                  </tal:loop>
+                </tbody>
+              </table>
+        </tal:main-macro>
+    </div>
+</body>
+</html>

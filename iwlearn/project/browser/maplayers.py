@@ -57,6 +57,12 @@ class ProjectKMLMapLayer(MapLayer):
         return """
         function() { return new OpenLayers.Layer.GML('%s', '%s' + '@@kml-document',
             { format: OpenLayers.Format.KML,
+              eventListeners: { 'loadend': function(event) {
+                                 var c_lonlat = this.getDataExtent().getCenterLonLat();
+                                 this.map.setCenter(new OpenLayers.LonLat(
+                                 c_lonlat.lon, c_lonlat.lat), 5, false, false);
+                                }
+                            },
               projection: cgmap.createDefaultOptions().displayProjection,
               formatOptions: {
                   extractStyles: true,

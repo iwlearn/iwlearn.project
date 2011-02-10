@@ -3,7 +3,7 @@
                 normalizeString nocall:context/@@plone/normalizeString;"
     tal:condition="lis">
     <li tal:repeat="li lis">
-        <a tal:attributes="href li/getURL;
+        <a tal:attributes="href string:${li/getURL}/view;
                         title li/Description;
                         class string:$item_wf_state_class"
             tal:define="obj_icon python:plone_view.getIcon(li);

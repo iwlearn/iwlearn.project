@@ -5,6 +5,8 @@ from Products.CMFCore.utils import getToolByName
 
 from iwlearn.project import projectMessageFactory as _
 
+from projectdbview import ProjectDBView
+from iwlearn.project.browser.utils import get_query
 
 class IProjectWebsitesView(Interface):
     """
@@ -12,30 +14,17 @@ class IProjectWebsitesView(Interface):
     """
 
 
-class ProjectWebsitesView(BrowserView):
+class ProjectWebsitesView(ProjectDBView):
     """
     ProjectWebsites browser view
     """
     implements(IProjectWebsitesView)
 
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
-    @property
-    def portal_catalog(self):
-        return getToolByName(self.context, 'portal_catalog')
-
-    @property
-    def portal(self):
-        return getToolByName(self.context, 'portal_url').getPortalObject()
-
     def get_websites(self):
-        portal_catalog = self.portal_catalog
-        path = path = '/'.join(self.context.getPhysicalPath())
+        form = self.request.form
         results = []
-        for brain in portal_catalog(path=path, portal_type='Project',
-                review_state='published', sort_on='sortable_title'):
+        query = get_query(form)
+        for brain in self.portal_catalog(**query):
             if brain.getRemoteUrl:
                 results.append(brain)
         return results

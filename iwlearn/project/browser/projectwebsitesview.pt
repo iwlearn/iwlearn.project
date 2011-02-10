@@ -6,6 +6,127 @@
     <div metal:fill-slot="main">
         <tal:main-macro metal:define-macro="main">
             <h1>Project Websites</h1>
+
+<form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action="projectwebsites_view">
+              <fieldset>
+                <legend>Search for Projects</legend>
+                <div class="field odd">
+                    <label for="SearchableText">Search text</label>
+
+                    <div class="formHelp">
+                    For a simple text search, enter your search term
+                    here. Multiple words may be found by combining
+                    them with <strong>AND</strong> and <strong>OR</strong>.
+                    The text in this field will be matched with
+                    items' contents, title and description.
+                    </div>
+
+                    <input type="text" value="" size="25" name="SearchableText" id="SearchableText" />
+                </div>
+
+                <div class="field even">
+                    <label for="Title">Title</label>
+                    <div class="formHelp">
+                    Return items matching this title.
+                    </div>
+                    <input type="text" size="25" name="Title" id="Title" />
+                </div>
+
+
+                <div class="field odd">
+                    <label  for="getSubRegions">Region</label>
+                    <div class="formHelp">
+                    Return projects in this region
+                    </div>
+                        <select id="getSubRegions" name="getSubRegions">
+                            <tal:loop tal:repeat="opt view/get_region">
+                                <option value="Africa"
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">Africa</option>
+                            </tal:loop>
+                        </select>
+                </div>
+
+                <div class="field even">
+                    <label  for="getProject_type">Project type</label>
+                    <div class="formHelp">
+                    Return projects of this type
+                    </div>
+                        <select id="getProject_type" name="getProject_type">
+                            <tal:loop tal:repeat="opt view/get_projecttype">
+                                <option value="All"
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">All</option>
+                            </tal:loop>
+                        </select>
+                </div>
+
+                <div class="field odd">
+                    <label  for="getAgencies">Implementing agency</label>
+                    <div class="formHelp">
+                    Return projects this agency implements
+                    </div>
+                        <select id="getAgencies" name="getAgencies">
+                            <tal:loop tal:repeat="opt view/get_agency">
+                                <option value="All"
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">All</option>
+                            </tal:loop>
+                        </select>
+                </div>
+
+                <div class="field even">
+                    <label  for="getProject_status">Project status</label>
+                    <div class="formHelp">
+                    Return projects of this status
+                    </div>
+                        <select id="getProject_status" name="getProject_status">
+                            <tal:loop tal:repeat="opt view/get_status">
+                                <option value="All"
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">All</option>
+                            </tal:loop>
+                        </select>
+                </div>
+
+                <div class="field odd">
+                    <label  for="getBasin">Basin</label>
+                    <div class="formHelp">
+                    Return projects with this Basin
+                    </div>
+                        <select id="getBasin" name="getBasin">
+                            <tal:loop tal:repeat="opt view/get_basin">
+                                <option value="All"
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">All</option>
+                            </tal:loop>
+                        </select>
+                </div>
+
+
+                <div class="formControls even">
+                    <input type="submit" value="Search" name="submit"
+                        class="context" />
+                </div>
+              </fieldset>
+            </form>
+
+
            <table  tal:define="results view/get_websites;
                         Batch python:modules['Products.CMFPlone'].Batch;
                         b_size python:30; b_size request/b_size | b_size;

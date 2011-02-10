@@ -13,7 +13,6 @@
 #    * Russia - situated in Northern Asia and Eastern Europe.
 #    * Turkey - situated in Western Asia and Eastern Europe.
 
-from zope.interface import directlyProvides
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
 
@@ -389,7 +388,7 @@ BASINS = [
     'Norwegian Sea (LME)',
     'Ob',
     'Oder',
-    'Okavango (internal)',
+    'Okavango',
     'Oranje',
     'Oyashio Current (LME)',
     'Pamlico',
@@ -468,7 +467,6 @@ BASINS = [
 
 def basin_vocabulary_factory(context):
     """ combine BASINS with additional values from the index """
-    #directlyProvides(basin_vocabulary_factory, IVocabularyFactory)
     catalog = getToolByName(context, 'portal_catalog')
     basins = list(catalog.Indexes['getBasin'].uniqueValues()) + BASINS
     basins = list(set(basins))

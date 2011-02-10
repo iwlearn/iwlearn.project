@@ -91,7 +91,7 @@ class ProjectInnerKMLMapLayer(MapLayer):
               formatOptions: {
                   extractStyles: true,
                   extractAttributes: true }
-            });}""" % (self.context.Title().replace("'", "\'"), context_url)
+            });}""" % (u"Maps of: " + self.context.Title().replace("'", "\'"), context_url)
 
 
 class ProjectKMLMapLayers(MapLayers):

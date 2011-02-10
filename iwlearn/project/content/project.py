@@ -286,13 +286,14 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     ),
 
 
-    # geographical info
+    # geographical info only for historical reasons - replaced with collective.geo
 
     atapi.FloatField(
         'longitude',
         widget=atapi.DecimalWidget(
             label=_(u"Longitude"),
             description=_(u"Longitude of an marker on map"),
+            visible={'edit': 'invisible', 'view': 'invisible'},
         ),
         validators=('isDecimal'),
     ),
@@ -303,6 +304,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         widget=atapi.DecimalWidget(
             label=_(u"Latitude"),
             description=_(u"Latitude of an marker on map"),
+            visible={'edit': 'invisible', 'view': 'invisible'},
         ),
         validators=('isDecimal'),
     ),

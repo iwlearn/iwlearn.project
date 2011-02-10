@@ -13,8 +13,12 @@
 #    * Russia - situated in Northern Asia and Eastern Europe.
 #    * Turkey - situated in Western Asia and Eastern Europe.
 
-from plone.i18n.locales.countries import _countrylist
+from zope.interface import directlyProvides
+from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.vocabulary import SimpleVocabulary
 
+from plone.i18n.locales.countries import _countrylist
+from Products.CMFCore.utils import getToolByName
 
 REGION_SUBREGION_COUNTRIES ={
 u'Europe': {
@@ -461,6 +465,18 @@ BASINS = [
     'Yellow Sea',
     'Yukon',
     'Zambezi']
+
+def basin_vocabulary_factory(context):
+    """ combine BASINS with additional values from the index """
+    #directlyProvides(basin_vocabulary_factory, IVocabularyFactory)
+    catalog = getToolByName(context, 'portal_catalog')
+    basins = list(catalog.Indexes['getBasin'].uniqueValues()) + BASINS
+    basins = list(set(basins))
+    basins.sort()
+    items = [(basin,basin) for basin in basins]
+    return SimpleVocabulary.fromItems(items)
+
+
 
 
 def get_regions(countries = None, subregions=None, regions=None):

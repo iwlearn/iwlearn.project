@@ -27,12 +27,19 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <include package=".browser" />
-  
-<subscriber
-  for=".interfaces.IProject
-       Products.Archetypes.interfaces.IObjectEditedEvent"
-  handler=".content.project.reindexProjectDocuments"
-  />
+
+  <subscriber
+    for=".interfaces.IProject
+         Products.Archetypes.interfaces.IObjectEditedEvent"
+    handler=".content.project.reindexProjectDocuments"
+    />
+
+  <utility
+    component=".vocabulary.basin_vocabulary_factory"
+    name="iwlearn.project.basins"
+    provides="zope.schema.interfaces.IVocabularyFactory"
+    />
+
 
   <!-- Register the import step -->
   <genericsetup:importStep

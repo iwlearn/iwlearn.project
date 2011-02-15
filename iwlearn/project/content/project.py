@@ -104,7 +104,6 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'basin',
         required=False,
         searchable=True,
-        #vocabulary = vocabulary.BASINS,
         vocabulary_factory = u"iwlearn.project.basins",
         widget=AddRemoveWidget(
             label=_(u"Basin"),

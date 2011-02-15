@@ -222,6 +222,7 @@ PROJECT_STATUS = [
     'PIF Approved',
     'PPG Approved',
     'Council Approved',
+    'Council Endorsed'
     'CEO Approved',
     'CEO Endorsed',
     'IA Approved',
@@ -230,6 +231,7 @@ PROJECT_STATUS = [
     'Project Closure',
     'Cancelled',
     ]
+
 
 LEAD_AGENCY= [
     'African Development Bank',

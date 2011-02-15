@@ -9,6 +9,16 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <browser:page
+      for="*"
+      name="gefonlineharvest_view"
+      class=".gefonlineharvestview.GefOnlineHarvestView"
+      template="gefonlineharvestview.pt"
+      allowed_interface=".gefonlineharvestview.IGefOnlineHarvestView"
+      permission="zope.Public"
+      />
+
+
+  <browser:page
       for="..interfaces.IProjectDatabase"
       name="projectwebsites_view"
       class=".projectwebsitesview.ProjectWebsitesView"

@@ -57,7 +57,13 @@
       handler="iwlearn.project.setuphandlers.add_catalog_indexes"
       profile="iwlearn.project:default" />
 
-
+  <genericsetup:upgradeStep
+      title="Add harvest action"
+      description=""
+      source="1001"
+      destination="1002"
+      handler="iwlearn.project.setuphandlers.add_harvest_menue"
+      profile="iwlearn.project:default" />
 
 
 

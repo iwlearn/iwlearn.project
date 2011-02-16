@@ -5,11 +5,15 @@
 <body>
     <div metal:fill-slot="main">
         <tal:main-macro metal:define-macro="main">
-
-        <div tal:repeat="np view/harvest_projects">
-           <b tal:content="np" />
-        </div>
-
+        <h1>Added Projects</h1>
+        <ul>
+            <li tal:repeat="np view/harvest_projects">
+                <a target="_blank"
+                    tal:content="np/name"
+                    tal:attributes="href np/url" />
+                <!--div tal:content="structure np/description"></div-->
+            </li>
+        </ul>
         </tal:main-macro>
     </div>
 </body>

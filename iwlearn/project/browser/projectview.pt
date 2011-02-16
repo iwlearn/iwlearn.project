@@ -6,13 +6,13 @@
   <metal:content-core fill-slot="content-core">
     <metal:content-core define-macro="content-core">
      <dl class="enableFormTabbing" tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
-        <!--dt id="fieldsetlegend-project-map" tal:condition="view/is_geo_referenced">Project Map</dt>
-        <dd id="fieldset-project-map">
-            <div tal:replace="structure  provider:iwlearn.project.projectmap" />
-        </dd-->
 
         <dt id="fieldsetlegend-about-project">About</dt>
-        <dd id="fieldset-about-project">
+        <dd id="fieldset-about-project" tal:define="isAnon context/@@plone_portal_state/anonymous;">
+        <h2 tal:condition="not:isAnon" >
+         <a tal:attributes="href string:http://www.google.com/search?q=${here/title}"
+            target="_blank">Google for: <b tal:replace="here/title" /></a>
+        </h2>
         <table border="0" cellspacing="1" width="100%"
         id="AutoNumber1" cellpadding="0">
           <tr>

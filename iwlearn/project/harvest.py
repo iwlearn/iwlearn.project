@@ -122,10 +122,10 @@ GEF_PLONE_COUNTRY_MAPPING = {
     'Macedonia': 'Macedonia the former Yugoslavian Republic of',
     'Micronesia': 'Micronesia Federated States of',
     'Moldova': 'Moldova Republic of',
-    'Montenegro': 'Serbia and Montenegro',
+    #'Montenegro': 'Serbia and Montenegro',
     'Palestinian Authority': 'Palestinian Territory occupied',
     'Republic Of Korea': 'Korea Republic of',
-    'Serbia': 'Serbia and Montenegro',
+    'Serbia': 'Republic of Serbia',
     'Slovak Republic': 'Slovakia',
     'St. Kitts And Nevis': 'Saint Kitts and Nevis',
     'St. Lucia': 'Saint Lucia',
@@ -135,6 +135,10 @@ GEF_PLONE_COUNTRY_MAPPING = {
     'Timor Leste': 'Timor-Leste',
     'Vietnam': 'Viet Nam'
 }
+
+def convert_currency_to_millions(c_str):
+    if c_str:
+        return float(c_str[:-4].replace(',',''))/1000000
 
 def get_countries(c_str):
     plone_countries = [c['name'] for c in _countrylist.values()]

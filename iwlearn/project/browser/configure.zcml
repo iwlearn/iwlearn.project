@@ -9,7 +9,16 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <browser:page
+      name="is_projectdb"
+      class=".gefonlineharvestview.IsProjectDb"
       for="*"
+      attribute="is_projectdb"
+      permission="zope2.View"
+      />
+
+
+  <browser:page
+      for="..interfaces.IProjectDatabase"
       name="gefonlineharvest_view"
       class=".gefonlineharvestview.GefOnlineHarvestView"
       template="gefonlineharvestview.pt"

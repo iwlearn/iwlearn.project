@@ -4,6 +4,13 @@ from Products.CMFCore.utils import getToolByName
 PROFILE_ID = 'profile-iwlearn.project:default'
 
 # -*- coding: utf-8 -*-
+def add_harvest_menue(context, logger=None):
+    if logger is None:
+        # Called as upgrade step: define our own logger.
+        logger = logging.getLogger('iwlearn.project')
+    setup = getToolByName(context, 'portal_setup')
+    setup.runImportStepFromProfile(PROFILE_ID, 'actions')
+
 
 def add_catalog_indexes(context, logger=None):
     """Method to add our wanted indexes to the portal_catalog.

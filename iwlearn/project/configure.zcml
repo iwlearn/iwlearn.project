@@ -60,8 +60,8 @@
   <genericsetup:upgradeStep
       title="Add harvest action"
       description=""
-      source="1001"
-      destination="1002"
+      source="1002"
+      destination="1003"
       handler="iwlearn.project.setuphandlers.add_harvest_menue"
       profile="iwlearn.project:default" />
 

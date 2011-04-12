@@ -223,7 +223,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'gef_project_allocation',
         widget=atapi.DecimalWidget(
             label=_(u"GEF Allocation to project"),
-            description=_(u"GEF Allocation to project"),
+            description=_(u"GEF Allocation to project in Million $US"),
         ),
         validators=('isDecimal'),
     ),
@@ -232,7 +232,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'total_cost',
         widget=atapi.DecimalWidget(
             label=_(u"Total Cost"),
-            description=_(u"Total Cost"),
+            description=_(u"Total Cost in Million $US"),
         ),
         validators=('isDecimal'),
     ),

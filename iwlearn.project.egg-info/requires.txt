@@ -1,4 +1,5 @@
 setuptools
+collective.geo.kml
 
 [tests]
 zope.testing

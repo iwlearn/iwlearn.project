@@ -26,7 +26,9 @@ class ProjectDbKMLMapLayer(MapLayer):
               formatOptions: {
                   extractStyles: true,
                   extractAttributes: true }
-            });}""" % (self.context.Title().replace("'", "\'"), context_url)
+            });}""" % (
+            self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", ""),
+            context_url)
 
 
 class ProjectDbKMLMapLayers(MapLayers):
@@ -67,7 +69,9 @@ class ProjectKMLMapLayer(MapLayer):
               formatOptions: {
                   extractStyles: true,
                   extractAttributes: true }
-            });}""" % (self.context.Title().replace("'", "\'"), context_url)
+            });}""" % (
+            self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", ""),
+            context_url)
 
 
 class ProjectInnerKMLMapLayer(MapLayer):
@@ -91,7 +95,9 @@ class ProjectInnerKMLMapLayer(MapLayer):
               formatOptions: {
                   extractStyles: true,
                   extractAttributes: true }
-            });}""" % (u"Maps of: " + self.context.Title().replace("'", "\'"), context_url)
+            });}""" % (u"Maps of: " +
+            self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", ""),
+            context_url)
 
 
 class ProjectKMLMapLayers(MapLayers):

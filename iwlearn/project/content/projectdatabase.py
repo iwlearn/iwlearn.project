@@ -15,6 +15,7 @@ ProjectDatabaseSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
 
+
 ))
 
 # Set storage on fields copied from ATFolderSchema, making sure

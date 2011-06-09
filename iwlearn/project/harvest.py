@@ -5,7 +5,7 @@ from BeautifulSoup import BeautifulSoup
 
 from plone.i18n.locales.countries import _countrylist
 
-def get_gef_iw_project_page():
+def get_gef_iw_project_page(focalarea='I'):
     """
     http://www.gefonline.org/projectListSQL.cfm
 
@@ -21,7 +21,7 @@ def get_gef_iw_project_page():
     approvalEndDate
     approvalStartDate
     fipscode           All
-    focalsearch        I
+    focalsearch        I/M
     format             gef
     fundsearch
     iasearch           All
@@ -38,7 +38,7 @@ def get_gef_iw_project_page():
     params = urllib.urlencode({
         'Cmd':  'Map',
         'Bottom':   '-90',
-        'Top':  '85',
+        'Top':  '90',
         'Left': '-180',
         'Right':    '180',
         'OMEReports':   'All',
@@ -47,7 +47,7 @@ def get_gef_iw_project_page():
         'approvalEndDate':  '',
         'approvalStartDate':  '',
         'fipscode': 'All',
-        'focalsearch':  'I',
+        'focalsearch':  focalarea,
         'format':   'gef',
         'fundsearch':  '',
         'iasearch': 'All',

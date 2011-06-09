@@ -1,3 +1,4 @@
+import logging
 from zope.interface import implements, Interface
 from DateTime import DateTime
 from Products.Five import BrowserView
@@ -7,6 +8,7 @@ from iwlearn.project import projectMessageFactory as _
 from iwlearn.project import harvest
 from iwlearn.project.interfaces.projectdatabase import IProjectDatabase
 
+logger = logging.getLogger('iwlearn.project')
 
 class IGefOnlineHarvestView(Interface):
     """
@@ -119,6 +121,7 @@ class GefOnlineHarvestView(BrowserView):
             end_date = None
         focal_area = pinfo.get('Focal Area', None)
         operational_program = pinfo.get('Operational Program', None)
+        strategic_program = pinfo.get('Strategic Program', None)
         project_allocation = harvest.convert_currency_to_millions(
                             pinfo.get('GEF Grant',None))
         total_cost = harvest.convert_currency_to_millions(
@@ -169,13 +172,33 @@ class GefOnlineHarvestView(BrowserView):
             ob = brain.getObject()
             if ob.getGef_project_id():
                 project_ids.append(int(ob.getGef_project_id().strip()))
+        # IW Projects
         gef_project_ids = harvest.extract_gefids_from_page(
-                harvest.get_gef_iw_project_page())
+                harvest.get_gef_iw_project_page('I'))
+        logger.info('%i IW Projects found' % len(gef_project_ids) )
         for projectid in gef_project_ids:
             if projectid in project_ids:
+                logger.info('Project %i already in iwlearn.net' % projectid )
                 continue
             else:
                 pinfo = harvest.extract_project_info(projectid)
+                logger.info('Adding project %i' % projectid )
                 new_projects.append(self.create_project(pinfo, projectid))
+        # Multifocal Projects with Strategic Program IW-*
+        gef_project_ids = harvest.extract_gefids_from_page(
+                harvest.get_gef_iw_project_page('M'))
+        logger.info('%i Multifocal Projects found' % len(gef_project_ids) )
+        for projectid in gef_project_ids:
+            if projectid in project_ids:
+                logger.info('Project %i already in iwlearn.net' % projectid )
+                continue
+            else:
+                pinfo = harvest.extract_project_info(projectid)
+                logger.info('Is Project %i an IW Project?' % projectid )
+                if pinfo.get('Strategic Program', 'nnn').find('IW-') >= 0:
+                    logger.info('Adding project %i' % projectid )
+                    new_projects.append(self.create_project(pinfo, projectid))
+                else:
+                    logger.info('Project %i is not an IW project' % projectid )
         return new_projects
 

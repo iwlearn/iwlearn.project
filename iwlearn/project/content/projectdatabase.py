@@ -15,6 +15,15 @@ ProjectDatabaseSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
 
+    atapi.LinesField(
+        'exclude_ids',
+        widget=atapi.LinesWidget(
+            label=_(u"Exclude Project Ids"),
+            description=_(u"Project ids not to be harvested from gefonline (multifocal projects with no IW components)"),
+        ),
+    ),
+
+
 
 ))
 
@@ -38,5 +47,7 @@ class ProjectDatabase(folder.ATFolder):
 
 
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
+
+
 
 atapi.registerType(ProjectDatabase, PROJECTNAME)

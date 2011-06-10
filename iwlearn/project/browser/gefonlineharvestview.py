@@ -182,23 +182,35 @@ class GefOnlineHarvestView(BrowserView):
                 continue
             else:
                 pinfo = harvest.extract_project_info(projectid)
-                logger.info('Adding project %i' % projectid )
-                new_projects.append(self.create_project(pinfo, projectid))
+                if pinfo:
+                    logger.info('Adding project %i' % projectid )
+                    new_projects.append(self.create_project(pinfo, projectid))
+                else:
+                    logger.info('download failed for project %i' % projectid )
         # Multifocal Projects with Strategic Program IW-*
         gef_project_ids = harvest.extract_gefids_from_page(
                 harvest.get_gef_iw_project_page('M'))
         logger.info('%i Multifocal Projects found' % len(gef_project_ids) )
+        excluded_ids = list(self.context.getExclude_ids())
         for projectid in gef_project_ids:
             if projectid in project_ids:
                 logger.info('Project %i already in iwlearn.net' % projectid )
                 continue
+            elif str(projectid) in excluded_ids:
+                logger.info('Project %i excluded because it is not an IW project' % projectid )
+                continue
             else:
                 pinfo = harvest.extract_project_info(projectid)
-                logger.info('Is Project %i an IW Project?' % projectid )
-                if pinfo.get('Strategic Program', 'nnn').find('IW-') >= 0:
-                    logger.info('Adding project %i' % projectid )
-                    new_projects.append(self.create_project(pinfo, projectid))
+                if pinfo:
+                    logger.info('Is Project %i an IW Project?' % projectid )
+                    if pinfo.get('Strategic Program', 'nnn').find('IW-') >= 0:
+                        logger.info('Adding project %i' % projectid )
+                        new_projects.append(self.create_project(pinfo, projectid))
+                    else:
+                        logger.info('Project %i is not an IW project' % projectid )
+                        excluded_ids.append(str(projectid))
                 else:
-                    logger.info('Project %i is not an IW project' % projectid )
+                    logger.info('download failed for project %i' % projectid )
+        self.context.setExclude_ids(excluded_ids)
         return new_projects
 

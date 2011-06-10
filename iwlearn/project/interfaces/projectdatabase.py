@@ -8,3 +8,4 @@ class IProjectDatabase(Interface):
     """Database for GEF IW projects"""
 
     # -*- schema definition goes here -*-
+

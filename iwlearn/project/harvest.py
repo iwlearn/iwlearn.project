@@ -1,9 +1,12 @@
 import urllib, urllib2
 import random
+import logging
 
 from BeautifulSoup import BeautifulSoup
 
 from plone.i18n.locales.countries import _countrylist
+
+logger = logging.getLogger('iwlearn.project')
 
 def get_gef_iw_project_page(focalarea='I'):
     """
@@ -141,11 +144,10 @@ def convert_currency_to_millions(c_str):
         return float(c_str[:-4].replace(',',''))/1000000
 
 def get_countries(c_str):
-    plone_countries = [c['name'] for c in _countrylist.values()]
-    countries = []
-    if c_str.find('(') > 1:
-        cl = c_str[c_str.find('(') + 1 :c_str.find(')')].split(',')
-        _countries = [country.strip() for country in cl]
+    def extract_countries(clist):
+        plone_countries = [c['name'] for c in _countrylist.values()]
+        countries = []
+        _countries = [country.strip() for country in clist]
         for c in _countries:
             if GEF_PLONE_COUNTRY_MAPPING.has_key(c):
                 country = GEF_PLONE_COUNTRY_MAPPING[c]
@@ -153,10 +155,20 @@ def get_countries(c_str):
                 country=c
             if country in plone_countries:
                 countries.append(country)
-    elif c_str != 'Global':
-        if c_str in plone_countries:
-            countries = [c_str]
-    return list(set(countries))
+            else:
+                logger.info('Country [%s] ommitted' % country )
+        return countries
+    # main
+    if c_str.find('(') > 1:
+        cl = c_str[c_str.find('(') + 1 :c_str.find(')')].split(',')
+
+    else:
+        if c_str.find(',') > 1:
+            cl = c_str.split(',')
+        else:
+            cl = [c_str]
+
+    return list(set(extract_countries(cl)))
 
 #XXX debug only
 def get_all_projectinfo():

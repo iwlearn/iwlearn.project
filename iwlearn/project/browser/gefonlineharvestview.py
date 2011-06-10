@@ -111,7 +111,7 @@ class GefOnlineHarvestView(BrowserView):
         url = self.context.absolute_url() + '/' + pinfo['GEF Project ID']
 
         project_id = pinfo.get('GEF Project ID').strip()
-        global_project = pinfo.get('Region', '').startswith('Global')
+        global_project = (pinfo.get('Region', '').find('Global') > -1)
         countries= harvest.get_countries(pinfo.get('Country',''))
         project_status = pinfo.get('Project Status', None)
         start_date = DateTime(pinfo.get('Approval Date',None))
@@ -212,5 +212,6 @@ class GefOnlineHarvestView(BrowserView):
                 else:
                     logger.info('download failed for project %i' % projectid )
         self.context.setExclude_ids(excluded_ids)
+        logger.info('harvest complete')
         return new_projects
 

@@ -9,7 +9,7 @@
   <!-- -*- extra stuff goes here -*- -->
 
 
-
+ <include package="Products.CMFCore" file="configure.zcml" />
 
   <browser:page
       for="..interfaces.IProjectDatabase"
@@ -17,7 +17,7 @@
       class=".gefonlineharvestview.GefOnlineHarvestView"
       template="gefonlineharvestview.pt"
       allowed_interface=".gefonlineharvestview.IGefOnlineHarvestView"
-      permission="zope.Public"
+      permission="cmf.ModifyPortalContent"
       />
 
 
@@ -76,7 +76,7 @@
       class=".projectdbview.ProjectDBView"
       template="projectdbview.pt"
       allowed_interface=".projectdbview.IProjectDBView"
-      permission="zope.Public"
+      permission="zope2.View"
       />
 
 
@@ -94,7 +94,7 @@
       class=".projectview.ProjectView"
       template="projectview.pt"
       allowed_interface=".projectview.IProjectView"
-      permission="zope.Public"
+      permission="zope2.View"
       />
 
 

@@ -64,12 +64,17 @@ $(document).ready(function() {
                 map.removePopup(map.popups[0]);
         }
 
+
         function onFeatureSelect(event) {
                 var message = '';
-                var places = new Array();
+                //var places = new Array();
                 var lt = String.fromCharCode(60);
                 var gt = String.fromCharCode(62);
                 var maxp = 12;
+                var zoom_point = event.feature.geometry.getBounds().getCenterLonLat();
+                var lon = zoom_point.lon;
+                var lat = zoom_point.lat;
+
 
                 function makeLink( title, description) {
                     var a = description.indexOf('href=');
@@ -81,24 +86,30 @@ $(document).ready(function() {
                 if (event.feature.cluster.length > maxp){
                         message =  lt +'div' + gt + event.feature.cluster.length + ' projects found';
                         message += lt + 'br /' + gt;
-                        message += 'zoom in for more details'
-                        for (var i in event.feature.cluster) {
+                        message += lt + 'a href="javascript:zoomToSelectedFeature('+ lon + ','+ lat +', 2)"' + gt;
+                        message += 'zoom in for more details';
+                        message += lt +'/a' + gt;
+                        /*for (var i in event.feature.cluster) {
                                 places.push(event.feature.cluster[i].attributes['name']);
 
-                        }
+                        }*/
                 }
                 else if (event.feature.cluster.length > 1 && event.feature.cluster.length <= maxp){
                         message = lt +'div' + gt + event.feature.cluster.length + ' projects found: ';
+                        message += lt + 'br /' + gt;
+                        message += lt + 'a href="javascript:zoomToSelectedFeature('+ lon + ','+ lat +', 2)"' + gt;
+                        message += 'zoom in for more details';
+                        message += lt +'/a' + gt;
                         message += lt + 'ul' + gt;
                         for (var i in event.feature.cluster) {
-                                places.push(event.feature.cluster[i].attributes['name']);
+                                //places.push(event.feature.cluster[i].attributes['name']);
                                 message += lt + 'li' + gt;
                                 message += makeLink(event.feature.cluster[i].attributes['name'],event.feature.cluster[i].attributes['description']);
                                 message += lt + '/li' + gt;
                         }
                         message += lt + '/ul' + gt;
                 } else if (event.feature.cluster.length == 1) {
-                        places.push(event.feature.cluster[0].attributes['name']);
+                        //places.push(event.feature.cluster[0].attributes['name']);
                         message = lt +'div' + gt + makeLink(event.feature.cluster[0].attributes['name'], event.feature.cluster[0].attributes['description']);
                         message += event.feature.cluster[0].attributes['description'];
                 }
@@ -115,6 +126,28 @@ $(document).ready(function() {
         }
 
 });
+
+
+
+    /* Zoom to Selected Feature from within Popup */
+
+    function zoomToSelectedFeature(lon, lat, zoomfactor)
+    {
+        var lonlat = new OpenLayers.LonLat(lon,lat);
+        var map = cgmap.config['default-cgmap'].map;
+        // Get Current Zoom
+        currZoom = map.getZoom();
+        // New Zoom
+        newZoom = currZoom + zoomfactor;
+        // Center and Zoom
+        map.setCenter(lonlat, newZoom);
+        // Remove Popups
+        for (var i=0; i<map.popups.length; ++i)
+        {
+            map.removePopup(map.popups[i]);
+        }
+    }
+
         /*]]>*/
         </script>
 

@@ -85,14 +85,9 @@ class ProjectDBView(BrowserView):
             params[field.name] = field.value;
         });
         var map = cgmap.config['default-cgmap'].map;
-        var kmls = map.getLayersByClass('OpenLayers.Layer.GML');
+        var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
         layer = kmls[0];
-        layer.setVisibility(false);
-        layer.loaded = false;
-        layer.setUrl('%s/@@projectdbkml_view' + qs);
-        layer.refresh({ force: true, params: params });
-        layer.setVisibility(true);
-
+        layer.refresh({url: '%s/@@projectdbkml_view' + qs});
         return true;
     }
 

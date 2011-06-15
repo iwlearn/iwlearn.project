@@ -19,16 +19,51 @@ class ProjectDbKMLMapLayer(MapLayer):
         if not context_url.endswith('/'):
             context_url += '/'
 
-        return """
-        function() { return new OpenLayers.Layer.GML('%s', '%s' + '@@projectdbkml_view',
-            { format: OpenLayers.Format.KML,
-              projection: cgmap.createDefaultOptions().displayProjection,
-              formatOptions: {
-                  extractStyles: true,
-                  extractAttributes: true }
-            });}""" % (
+
+        return u"""function() {
+                return new OpenLayers.Layer.Vector("%s", {
+                    protocol: new OpenLayers.Protocol.HTTP({
+                      url: "%s@@projectdbkml_view",
+                      format: new OpenLayers.Format.KML({
+                        extractStyles: true,
+                        extractAttributes: true})
+                      }),
+                    strategies: [
+                        new OpenLayers.Strategy.Fixed(),
+                         new OpenLayers.Strategy.Cluster()
+                        ],
+                     styleMap: new OpenLayers.StyleMap({
+                        "default": new OpenLayers.Style({
+                                        pointRadius: "${radius}",
+                                        fillColor: "#ffcc66",
+                                        fillOpacity: 0.8,
+                                        strokeColor: "#cc6633",
+                                        strokeWidth: 2,
+                                        strokeOpacity: 0.8,
+                                        label:"${count}"
+                                    }, {
+                                        context: {
+                                            radius: function(feature) {
+                                                return Math.min(feature.attributes.count, 7) + 3;
+                                            }
+                                        }
+                                    }),
+                        "select": {
+                            fillColor: "#8aeeef",
+                            strokeColor: "#32a8a9"
+                            },
+                        }),
+                    eventListeners: { 'loadend': function(event) {
+                                 var extent = this.getDataExtent()
+                                 this.map.zoomToExtent(extent);
+                                }
+                            },
+                    projection: new OpenLayers.Projection("EPSG:4326")
+                  });
+                }""" % (
             self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", ""),
             context_url)
+
 
 
 class ProjectDbKMLMapLayers(MapLayers):

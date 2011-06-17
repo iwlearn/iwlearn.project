@@ -21,10 +21,12 @@
     <big><strong>Microsoft Internet Explorer is not supported as this time</strong></big>
     <br />
     if you are using IE version 8 or older, you will not see the list of
-    projects or the visualization
+    projects or the visualization.
     <br />
     <a style="color: blue;" href="http://browsehappy.com/">Please upgrade your browser </a>
     </div>
+    If you cannot upgrade your browser for any reason, you may want to switch off JavaScript
+    to see the HTML only version of this website.
 <![endif]-->
 
             <dl class="enableFormTabbing" tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">

@@ -17,11 +17,13 @@
     <div metal:fill-slot="main">
         <tal:main-macro metal:define-macro="main">
 <!--[if IE]>
-   <div style="color: red;"
+   <div style="color: red;">
     <big><strong>Microsoft Internet Explorer is not supported as this time</strong></big>
     <br />
     if you are using IE version 8 or older, you will not see the list of
     projects or the visualization
+    <br />
+    <a style="color: blue;" href="http://browsehappy.com/">Please upgrade your browser </a>
     </div>
 <![endif]-->
 

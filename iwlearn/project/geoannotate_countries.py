@@ -7,7 +7,7 @@ from plone.i18n.locales.countries import _countrylist
 
 def annotate(self):
     data = csv.DictReader(open('110m_admin_0_countries.csv', 'r'))
-    for brain in self.portal_catalog(portal_type = 'Folder', path='iwlearn/countries/'):
+    for brain in self.portal_catalog(portal_type = 'Folder', path='iwlearn/images/countries/'):
         obj=brain.getObject()
     for d in data:
         #print d['json_4326']

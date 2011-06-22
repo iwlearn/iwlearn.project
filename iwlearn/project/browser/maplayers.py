@@ -54,14 +54,14 @@ class ProjectDbKMLMapLayer(MapLayer):
                             },
                         }),
                     eventListeners: { 'loadend': function(event) {
-                                 var extent = this.getDataExtent()
+                                 var extent = this.getDataExtent();
                                  this.map.zoomToExtent(extent);
                                 }
                             },
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });
                 }""" % (
-            self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", ""),
+            self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", "&apos;"),
             context_url)
 
 
@@ -74,6 +74,65 @@ class ProjectDbKMLMapLayers(MapLayers):
     def layers(self):
         layers = super(ProjectDbKMLMapLayers, self).layers()
         layers.append(ProjectDbKMLMapLayer(self.context))
+        return layers
+
+
+class ProjectDbKMLCountryMapLayer(MapLayer):
+    """
+    a layer for one level sub objects.
+    """
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def jsfactory(self):
+        context_url = self.context.absolute_url()
+        if not context_url.endswith('/'):
+            context_url += '/'
+
+
+        return """
+        function() { return new OpenLayers.Layer.GML('%s', '%s@@projectdbcountry_view.kml',
+            { format: OpenLayers.Format.KML,
+              /*eventListeners: { 'loadend': function(event) {
+                                 var extent = this.getDataExtent();
+                                 this.map.zoomToExtent(extent);
+                                }
+                            },*/
+              projection: cgmap.createDefaultOptions().displayProjection,
+              formatOptions: {
+                  extractStyles: true,
+                  extractAttributes: true }
+            });}""" % (
+            self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", ""),
+            context_url)
+
+
+        #return u"""function() {
+                #return new OpenLayers.Layer.Vector("%s", {
+                    #protocol: new OpenLayers.Protocol.HTTP({
+                      #url: "%s@@projectdbcountry_view.kml",
+                      #format: new OpenLayers.Format.KML({
+                        #extractStyles: true,
+                        #extractAttributes: true})
+                      #}),
+                    #strategies: [new OpenLayers.Strategy.Fixed()],
+                    #eventListeners: { 'loadend': function(event) {
+                                 #var extent = this.getDataExtent();
+                                 #this.map.zoomToExtent(extent);
+                                #}
+                            #},
+                    #projection: new OpenLayers.Projection("EPSG:4326")
+                  #});
+                #}""" % (
+            #self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", "&apos;"),
+            #context_url)
+
+class ProjectDbKMLCountryMapLayers(MapLayers):
+    def layers(self):
+        layers = super(ProjectDbKMLCountryMapLayers, self).layers()
+        layers.append(ProjectDbKMLCountryMapLayer(self.context))
         return layers
 
 

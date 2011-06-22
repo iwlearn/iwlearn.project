@@ -32,127 +32,19 @@
             <dl class="enableFormTabbing" tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
                 <dt id="fieldsetlegend-map-projects">Map</dt>
                 <dd id="fieldset-map-project">
-                    <div id="projectsmap" style="height:200px; width: 900px">
+                    <div id="projectcountrymap" style="height:450px; width: 900px">
 
 <!-- Collective.geo map -->
 
         <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
         <script type="text/javascript"
                 src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
-        <script type="text/javascript" >
-        /*<![CDATA[*/
-    $(document).ready(function() {
-        var map = cgmap.config['default-cgmap'].map;
-        var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
-        kmlLayer = kmls[0];
-
-        selectControl = new OpenLayers.Control.SelectFeature(
-                [kmlLayer],
-                {
-                    clickout: true,
-                    //toggle: true,
-                    multiple: false,
-                    hover: false,
-                    //toggleKey: "ctrlKey",
-                    //multipleKey: "shiftKey"
-                }
-            );
-
-
-        map.addControl(selectControl);
-        selectControl.activate();
-        kmlLayer.events.on({"featureselected": onFeatureSelect, "featureunselected": onFeatureUnselect});
-
-        function onPopupClose(evt) {
-                map.removePopup(map.popups[0]);
-        }
-
-
-        function onFeatureSelect(event) {
-                var message = '';
-                var lt = String.fromCharCode(60);
-                var gt = String.fromCharCode(62);
-                var maxp = 12;
-                var zoom_point = event.feature.geometry.getBounds().getCenterLonLat();
-                var lon = zoom_point.lon;
-                var lat = zoom_point.lat;
-
-
-                function makeLink( title, description) {
-                    var a = description.indexOf('href=');
-                    var b = description.indexOf('"', a + 6);
-                    var href = description.substring(a, b + 1) + ' ';
-                    return lt + 'a ' + href + gt + title + lt +'/a' + gt
-                    }
-
-                if (event.feature.cluster.length > maxp){
-                        message =  lt +'div' + gt + event.feature.cluster.length + ' projects found';
-                        message += lt + 'br /' + gt;
-                        message += lt + 'a href="javascript:zoomToSelectedFeature('+ lon + ','+ lat +', 2)"' + gt;
-                        message += 'zoom in for more details';
-                        message += lt +'/a' + gt;
-
-                }
-                else if (event.feature.cluster.length > 1 && event.feature.cluster.length <= maxp){
-                        message = lt +'div' + gt + event.feature.cluster.length + ' projects found: ';
-                        message += lt + 'br /' + gt;
-                        message += lt + 'a href="javascript:zoomToSelectedFeature('+ lon + ','+ lat +', 2)"' + gt;
-                        message += 'zoom in for more details';
-                        message += lt +'/a' + gt;
-                        message += lt + 'ul' + gt;
-                        for (var i in event.feature.cluster) {
-                                message += lt + 'li' + gt;
-                                message += makeLink(event.feature.cluster[i].attributes['name'],event.feature.cluster[i].attributes['description']);
-                                message += lt + '/li' + gt;
-                        }
-                        message += lt + '/ul' + gt;
-                } else if (event.feature.cluster.length == 1) {
-                        message = lt +'div' + gt + makeLink(event.feature.cluster[0].attributes['name'], event.feature.cluster[0].attributes['description']);
-                        message += event.feature.cluster[0].attributes['description'];
-                }
-
-                message += lt + '/div' + gt;
-
-                popup = new OpenLayers.Popup.FramedCloud("id", event.feature.geometry.bounds.getCenterLonLat(), null, message, null, true, onPopupClose);
-                event.popup = popup;
-                map.addPopup(popup);
-        }
-
-        function onFeatureUnselect(event) {
-                map.removePopup(map.popups[0]);
-        }
-
-});
-
-
-
-    /* Zoom to Selected Feature from within Popup */
-
-    function zoomToSelectedFeature(lon, lat, zoomfactor)
-    {
-        var lonlat = new OpenLayers.LonLat(lon,lat);
-        var map = cgmap.config['default-cgmap'].map;
-        // Get Current Zoom
-        currZoom = map.getZoom();
-        // New Zoom
-        newZoom = currZoom + zoomfactor;
-        // Center and Zoom
-        map.setCenter(lonlat, newZoom);
-        // Remove Popups
-        for (var i=0; i<map.popups.length; ++i)
-        {
-            map.removePopup(map.popups[i]);
-        }
-    }
-
-        /*]]>*/
-        </script>
 
 <!-- /Collective.geo map -->
                     </div>
                 </dd>
 
-                <dt id="fieldsetlegend-about-projects">About</dt>
+                <!--dt id="fieldsetlegend-about-projects">About</dt>
                 <dd id="fieldset-about-projects" class="documentDescription"
                     tal:content="here/Description">
                 </dd>
@@ -174,9 +66,9 @@
                       <a tal:attributes="href result/getURL" tal:content="result/Title|result/getId|Nothing"></a>
                     </li>
                   </ul>
-                </dd>
+                </dd-->
             </dl>
-            <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action=".">
+            <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action="country_view.html">
               <fieldset>
                 <legend>Search for Projects</legend>
                 <div class="field odd">

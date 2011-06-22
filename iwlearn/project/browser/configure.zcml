@@ -50,7 +50,14 @@
       />
 
 
-
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projectdbcountry_view.kml"
+      class=".projectdbkmlview.ProjectDbKmlCountryView"
+      template="projectdbkmlview.pt"
+      allowed_interface=".projectdbkmlview.IProjectDbKmlView"
+      permission="zope.Public"
+      />
 
   <browser:page
       for="*"
@@ -79,6 +86,15 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="country_view.html"
+      class=".projectdbview.ProjectDBCountryView"
+      template="projectdbcountryview.pt"
+      allowed_interface=".projectdbview.IProjectDBView"
+      permission="zope2.View"
+      />
+
 
   <adapter
       for=".projectdbview.IProjectDBView
@@ -86,6 +102,14 @@
            zope.interface.Interface
            zope.interface.Interface"
       factory=".maplayers.ProjectDbKMLMapLayers"
+      />
+
+  <adapter
+      for=".projectdbview.ProjectDBCountryView
+           zope.interface.Interface
+           zope.interface.Interface
+           zope.interface.Interface"
+      factory=".maplayers.ProjectDbKMLCountryMapLayers"
       />
 
   <browser:page

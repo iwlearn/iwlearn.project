@@ -18,19 +18,17 @@ class IProjectDBView(IKMLOpenLayersView):
 
 
 
-class ProjectDBView(BrowserView):
+class ProjectDBBaseView(BrowserView):
     """
     ProjectDB browser view
     """
-    implements(IProjectDBView)
+
 
     def __init__(self, context, request):
         self.context = context
         self.request = request
 
-
-    def get_js(self):
-        js = """
+    js_template = """
  $(document).ready(function() {
    $("#projectsearchform").find("select").each(function(i) {
      $(this).change(function( objEvent ){
@@ -44,7 +42,7 @@ class ProjectDBView(BrowserView):
     $("#flexiprojects").flexigrid
             (
             {
-            url: '@@flexijson_view',
+            url: '%s/@@flexijson_view',
             dataType: 'json',
             colModel : [
                 {display: 'Title', name : 'Title', width : 220, sortable : true, align: 'left'},
@@ -60,7 +58,7 @@ class ProjectDBView(BrowserView):
             title: 'Projects',
             useRp: true,
             rp: 15,
-            showTableToggleBtn: true,
+            showTableToggleBtn: false,
             width: 900,
             onSubmit: addFormData,
             height: 200
@@ -85,11 +83,13 @@ class ProjectDBView(BrowserView):
             params[field.name] = field.value;
         });
         var map = cgmap.config['default-cgmap'].map;
-        var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
-        layer = kmls[0];
-        layer.refresh({url: '%s/@@projectdbkml_view' + qs});
-        return true;
-    }
+        try {
+        %s
+        } catch (e) {
+
+            alert("An exception occurred in the script. Error name: " + e.name
+            + ". Error message: " + e.message); }
+        };
 
 
 $('#projectsearchform').submit
@@ -100,7 +100,16 @@ $('#projectsearchform').submit
             return false;
         }
 );
-        """ % self.context.absolute_url()
+        """
+
+    def get_js(self):
+        refresh_js ="""
+        var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
+        layer = kmls[0];
+        layer.refresh({url: '%s' + qs});
+        return true;
+        """ % (self.context.absolute_url() + '/@@projectdbkml_view')
+        js =  self.js_template % ( self.context.absolute_url(), refresh_js)
         return js
 
 
@@ -206,3 +215,29 @@ $('#projectsearchform').submit
 
         return {'results': results, 'size': batch_size, 'start': batch_start}
 
+class ProjectDBView(ProjectDBBaseView):
+    implements(IProjectDBView)
+
+
+class IProjectDBCountryView(IKMLOpenLayersView):
+    """
+    ProjectDB country view interface
+    """
+
+class ProjectDBCountryView(ProjectDBBaseView):
+    implements(IProjectDBCountryView)
+
+    def get_js(self):
+        refresh_js = """
+        var kmls = map.getLayersByClass('OpenLayers.Layer.GML');
+        layer = kmls[0];
+        layer.setVisibility(false);
+        layer.loaded = false;
+        layer.setUrl('%s' + qs);
+        layer.refresh({ force: true, params: params });
+        layer.setVisibility(true);
+        """ % (self.context.absolute_url() + '/@@projectdbcountry_view.kml')
+
+        js =  self.js_template % (self.context.absolute_url(), refresh_js)
+
+        return js

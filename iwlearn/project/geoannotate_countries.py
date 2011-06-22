@@ -21,7 +21,7 @@ def annotate(self):
             geo = IGeoManager(child)
             #geo.setCoordinates(**q)
             geo.setCoordinates(q['type'], q['coordinates'])
-            child.setDescription('Population: %s' % d['pop_est']
+            child.setDescription('Population: %s' % d['pop_est'])
 
 def name_countries(self):
     for brain in self.portal_catalog(portal_type = 'Image', path='iwlearn/countries/'):

@@ -16,7 +16,7 @@
 <body>
     <div metal:fill-slot="main">
         <tal:main-macro metal:define-macro="main">
-<!--[if lte IE 8]>
+<!--[if lt IE 8]>
    <div style="color: red;">
     <big><strong>Microsoft Internet Explorer is not supported as this time</strong></big>
     <br />
@@ -35,7 +35,15 @@
                     <div id="projectsmap" style="height:200px; width: 900px">
 
 <!-- Collective.geo map -->
-
+        <script type="text/javascript" >
+        /*<![CDATA[*/
+        try {
+            document.namespaces;
+        } catch (e) {
+            //
+        }
+        /*]]>*/
+        </script>
         <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
         <script type="text/javascript"
                 src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>

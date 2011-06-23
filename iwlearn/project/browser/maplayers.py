@@ -95,11 +95,11 @@ class ProjectDbKMLCountryMapLayer(MapLayer):
         return """
         function() { return new OpenLayers.Layer.GML('%s', '%s@@projectdbcountry_view.kml',
             { format: OpenLayers.Format.KML,
-              /*eventListeners: { 'loadend': function(event) {
+              eventListeners: { 'loadend': function(event) {
                                  var extent = this.getDataExtent();
                                  this.map.zoomToExtent(extent);
                                 }
-                            },*/
+                            },
               projection: cgmap.createDefaultOptions().displayProjection,
               formatOptions: {
                   extractStyles: true,

@@ -1,3 +1,4 @@
+import cgi
 from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
@@ -53,9 +54,6 @@ class CountryPlacemark(BrainPlacemark):
         g = min(255, max(255 -r, 16))
         b = 64
         color = '#%x%x%x' % (r,g,b)
-        print r, g, b
-        print color
-        print len(self.projects)
         return web2kmlcolor(color.upper())
 
     @property
@@ -72,8 +70,9 @@ class CountryPlacemark(BrainPlacemark):
         desc = '<ul>'
         try:
             for project in self.projects:
-                desc += '<li><a href="%s" > %s </a></li>' % (project.getURL(),
-                                project.Title)
+                desc += '<li><a href="%s" title="%s" > %s </a></li>' % (project.getURL(),
+                                cgi.escape(project.Title),
+                                cgi.escape(project.Title[:32] + '...'))
         except Exception, err:
             desc += str(err)
         desc += '</ul>'

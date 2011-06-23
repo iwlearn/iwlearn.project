@@ -44,28 +44,25 @@
     $(document).ready(function() {
         var map = cgmap.config['default-cgmap'].map;
         var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
-        kmlLayer = kmls[0];
+        if (kmls.length > 0) {
+            var kmlLayer = kmls[0];
 
-        selectControl = new OpenLayers.Control.SelectFeature(
-                [kmlLayer],
-                {
-                    clickout: true,
-                    //toggle: true,
-                    multiple: false,
-                    hover: false,
-                    //toggleKey: "ctrlKey",
-                    //multipleKey: "shiftKey"
-                }
-            );
-
-
-        map.addControl(selectControl);
-        selectControl.activate();
-        kmlLayer.events.on({"featureselected": onFeatureSelect, "featureunselected": onFeatureUnselect});
+            selectControl = new OpenLayers.Control.SelectFeature(
+                    [kmlLayer],
+                    {
+                        clickout: true,
+                        multiple: false,
+                        hover: false,
+                    }
+                );
+            map.addControl(selectControl);
+            selectControl.activate();
+            kmlLayer.events.on({"featureselected": onFeatureSelect, "featureunselected": onFeatureUnselect});
+        };
 
         function onPopupClose(evt) {
                 map.removePopup(map.popups[0]);
-        }
+        };
 
 
         function onFeatureSelect(event) {
@@ -82,7 +79,8 @@
                     var a = description.indexOf('href=');
                     var b = description.indexOf('"', a + 6);
                     var href = description.substring(a, b + 1) + ' ';
-                    return lt + 'a ' + href + gt + title + lt +'/a' + gt
+                    name = title.substring(0,32) + '...';
+                    return lt + 'a ' + href + ' title="' + title + '" ' + gt + name + lt +'/a' + gt
                     }
 
                 if (event.feature.cluster.length > maxp){
@@ -101,9 +99,15 @@
                         message += lt +'/a' + gt;
                         message += lt + 'ul' + gt;
                         for (var i in event.feature.cluster) {
+                            try {
                                 message += lt + 'li' + gt;
-                                message += makeLink(event.feature.cluster[i].attributes['name'],event.feature.cluster[i].attributes['description']);
+
+                                    message += makeLink(event.feature.cluster[i].attributes['name'],event.feature.cluster[i].attributes['description']);
+
                                 message += lt + '/li' + gt;
+                            } catch(e) {
+                                    //
+                            };
                         }
                         message += lt + '/ul' + gt;
                 } else if (event.feature.cluster.length == 1) {
@@ -116,11 +120,11 @@
                 popup = new OpenLayers.Popup.FramedCloud("id", event.feature.geometry.bounds.getCenterLonLat(), null, message, null, true, onPopupClose);
                 event.popup = popup;
                 map.addPopup(popup);
-        }
+        };
 
         function onFeatureUnselect(event) {
                 map.removePopup(map.popups[0]);
-        }
+        };
 
 });
 
@@ -142,8 +146,8 @@
         for (var i=0; i<map.popups.length; ++i)
         {
             map.removePopup(map.popups[i]);
-        }
-    }
+        };
+    };
 
         /*]]>*/
         </script>

@@ -9,7 +9,7 @@ from iwlearn.project import projectMessageFactory as _
 from collective.geo.kml.browser.kmldocument import KMLBaseDocument, BrainPlacemark
 from collective.geo.kml.utils import web2kmlcolor
 
-from iwlearn.project.browser.utils import get_query
+from iwlearn.project.browser.utils import get_query, get_color
 
 class IProjectDbKmlView(Interface):
     """
@@ -43,17 +43,20 @@ class CountryPlacemark(BrainPlacemark):
         super(CountryPlacemark, self).__init__(context, request, document)
         self.country = country
         self.projects = []
-        for project in projects:
-            if project.getCountry:
-                if self.country in project.getCountry:
-                    self.projects.append(project)
+        if country == 'Global':
+            for project in projects:
+                if project.getSubRegions:
+                    if self.country in project.getSubRegions:
+                        self.projects.append(project)
+        else:
+            for project in projects:
+                if project.getCountry:
+                    if self.country in project.getCountry:
+                        self.projects.append(project)
 
     @property
     def polygoncolor(self):
-        r = min(255, max(5 +(10 * len(self.projects)), 16))
-        g = min(255, max(255 -r, 16))
-        b = 64
-        color = '#%x%x%x' % (r,g,b)
+        color = get_color(len(self.projects))
         return web2kmlcolor(color.upper())
 
     @property
@@ -91,6 +94,7 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
             if project.getCountry:
                 project_countries += project.getCountry
         project_countries = list(set(project_countries))
+        project_countries.append('Global')
         countries = self.portal_catalog(portal_type = 'Image', path='iwlearn/images/countries/')
         country_names = []
         for country in countries:

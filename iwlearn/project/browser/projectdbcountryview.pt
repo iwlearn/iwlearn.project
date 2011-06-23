@@ -40,6 +40,14 @@
         <script type="text/javascript"
                 src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
 
+        <a id="projectkmlurl" href="projectdbcountry_view.kml">Download KML</a>
+        <span style="margin-left: 25em;">
+        <tal:loop tal:repeat="num python:range(1, 26, 3)">
+           <span tal:content="num" tal:attributes="style python:view.color_style(num)"> </span>
+        </tal:loop>
+        </span>
+
+
 <!-- /Collective.geo map -->
                     </div>
                 </dd>

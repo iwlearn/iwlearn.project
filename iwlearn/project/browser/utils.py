@@ -1,5 +1,12 @@
 # utils
 
+
+def get_color(n):
+        r = min(255, max(5 +(10 * n), 16))
+        g = min(255, max(255 -r, 16))
+        b = 64
+        return '#%x%x%x' % (r,g,b)
+
 def get_query(form):
     query = {}
     form_fields = ['Title', 'getProject_type', 'getAgencies',

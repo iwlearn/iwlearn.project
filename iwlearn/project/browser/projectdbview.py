@@ -5,7 +5,7 @@ from Products.CMFCore.utils import getToolByName
 
 from iwlearn.project import projectMessageFactory as _
 from iwlearn.project import vocabulary
-from iwlearn.project.browser.utils import get_query
+from iwlearn.project.browser.utils import get_query, get_color
 
 #from collective.geo.mapwidget.interfaces import IMapView
 
@@ -29,6 +29,7 @@ class ProjectDBBaseView(BrowserView):
         self.request = request
 
     js_template = """
+/*<![CDATA[*/
  $(document).ready(function() {
    $("#projectsearchform").find("select").each(function(i) {
      $(this).change(function( objEvent ){
@@ -87,8 +88,10 @@ class ProjectDBBaseView(BrowserView):
         %s
         } catch (e) {
 
-            alert("An exception occurred in the script. Error name: " + e.name
-            + ". Error message: " + e.message); }
+            alert("An exception occurred. Error name: " + e.name
+            + ". Error message: " + e.message); };
+        jQuery("a#projectkmlurl").attr('href', kml_url);
+        return true;
         };
 
 
@@ -100,14 +103,15 @@ $('#projectsearchform').submit
             return false;
         }
 );
+/*]]>*/
         """
 
     def get_js(self):
         refresh_js ="""
         var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
         layer = kmls[0];
-        layer.refresh({url: '%s' + qs});
-        return true;
+        kml_url = '%s' + qs;
+        layer.refresh({url: kml_url});
         """ % (self.context.absolute_url() + '/@@projectdbkml_view')
         js =  self.js_template % ( self.context.absolute_url(), refresh_js)
         return js
@@ -230,10 +234,11 @@ class ProjectDBCountryView(ProjectDBBaseView):
     def get_js(self):
         refresh_js = """
         var kmls = map.getLayersByClass('OpenLayers.Layer.GML');
+        var kml_url = '%s' + qs;
         layer = kmls[0];
         layer.setVisibility(false);
         layer.loaded = false;
-        layer.setUrl('%s' + qs);
+        layer.setUrl(kml_url);
         layer.refresh({ force: true, params: params });
         layer.setVisibility(true);
         """ % (self.context.absolute_url() + '/@@projectdbcountry_view.kml')
@@ -241,3 +246,7 @@ class ProjectDBCountryView(ProjectDBBaseView):
         js =  self.js_template % (self.context.absolute_url(), refresh_js)
 
         return js
+
+    def color_style(self, n):
+        color = get_color(n)
+        return 'background: %s; color=#FFF; padding: 0.5em' % color

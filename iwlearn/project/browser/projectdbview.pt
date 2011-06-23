@@ -39,6 +39,7 @@
         <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
         <script type="text/javascript"
                 src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
+        <a id="projectkmlurl" href="projectdbkml_view">Download KML</a>
         <script type="text/javascript" >
         /*<![CDATA[*/
     $(document).ready(function() {

@@ -27,7 +27,21 @@
     </div>
     If you cannot upgrade your browser for any reason, you may want to switch off JavaScript
     to see the HTML only version of this website.
+
 <![endif]-->
+<!--[if IE]>
+<script type="text/javascript" >
+        /*<![CDATA[*/
+        try {
+            document.namespaces;
+        } catch (e) {
+            //
+        }
+        /*]]>*/
+</script>
+<![endif]-->
+
+
 
             <dl class="enableFormTabbing" tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
                 <dt id="fieldsetlegend-map-projects">Map</dt>
@@ -35,6 +49,7 @@
                     <div id="projectsmap" style="height:200px; width: 900px">
 
 <!-- Collective.geo map -->
+
         <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
         <script type="text/javascript"
                 src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
@@ -101,7 +116,7 @@
                         message += 'zoom in for more details';
                         message += lt +'/a' + gt;
                         message += lt + 'ul' + gt;
-                        for (var i in event.feature.cluster) {
+                        for (var i=0; i<event.feature.cluster.length; ++i ) {
                             try {
                                 message += lt + 'li' + gt;
 
@@ -183,7 +198,7 @@
                   </ul>
                 </dd>
             </dl>
-            <div class="visualClear"><br/></div>
+            <div class="visualClear">&nbsp;</div>
                 <dl class="collapsible inline">
                     <dt class="collapsibleHeader">More... </dt>
                     <dd class="collapsibleContent">

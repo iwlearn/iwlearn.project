@@ -1,4 +1,5 @@
 import cgi
+import logging
 from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
@@ -10,6 +11,9 @@ from collective.geo.kml.browser.kmldocument import KMLBaseDocument, BrainPlacema
 from collective.geo.kml.utils import web2kmlcolor
 
 from iwlearn.project.browser.utils import get_query, get_color
+
+
+logger = logging.getLogger('iwlearn.project')
 
 class IProjectDbKmlView(Interface):
     """
@@ -97,12 +101,20 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
         project_countries.append('Global')
         countries = self.portal_catalog(portal_type = 'Image', path='iwlearn/images/countries/')
         country_names = []
+        geo_annotated_countries =[]
         for country in countries:
             if ((country.Title in project_countries) and
                 country.zgeo_geometry):
+                geo_annotated_countries.append(country.Title)
                 if country.Title in country_names:
+                    logger.info('skipped: %s : %s' % (country.getId, country.Title ))
                     continue
                 else:
                     yield CountryPlacemark(country, self.request, self,
                                 country.Title, projects )
                 country_names.append(country.Title)
+        for c in project_countries:
+            if c in geo_annotated_countries:
+                continue
+            else:
+                logger.critical('country %s not in database some projects will not be shown' % c)

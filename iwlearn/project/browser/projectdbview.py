@@ -249,4 +249,4 @@ class ProjectDBCountryView(ProjectDBBaseView):
 
     def color_style(self, n):
         color = get_color(n)
-        return 'background: %s; color=#FFF; padding: 0.5em' % color
+        return 'background: %s; padding: 0.5em' % color

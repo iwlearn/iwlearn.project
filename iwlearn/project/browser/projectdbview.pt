@@ -16,12 +16,12 @@
 <body>
     <div metal:fill-slot="main">
         <tal:main-macro metal:define-macro="main">
-<!--[if lt IE 8]>
+<!--[if lte IE 8]>
    <div style="color: red;">
     <big><strong>Microsoft Internet Explorer is not supported as this time</strong></big>
     <br />
     if you are using IE version 8 or older, you will not see the list of
-    projects or the visualization.
+    projects or the visualizations.
     <br />
     <a style="color: blue;" href="http://browsehappy.com/">Please upgrade your browser </a>
     </div>
@@ -35,19 +35,13 @@
                     <div id="projectsmap" style="height:200px; width: 900px">
 
 <!-- Collective.geo map -->
-        <script type="text/javascript" >
-        /*<![CDATA[*/
-        try {
-            document.namespaces;
-        } catch (e) {
-            //
-        }
-        /*]]>*/
-        </script>
         <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
         <script type="text/javascript"
                 src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
-        <a id="projectkmlurl" href="projectdbkml_view">Download KML</a>
+        <a id="projectkmlurl" href="projectdbkml_view">
+        <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
+            alt="open in google earth" />
+        Download KML</a>
         <script type="text/javascript" >
         /*<![CDATA[*/
     $(document).ready(function() {
@@ -189,6 +183,14 @@
                   </ul>
                 </dd>
             </dl>
+            <div class="visualClear"><br/></div>
+                <dl class="collapsible inline">
+                    <dt class="collapsibleHeader">More... </dt>
+                    <dd class="collapsibleContent">
+                    <a href="projectwebsites_view">Project Websites</a>
+                    </dd>
+                </dl>
+
             <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action=".">
               <fieldset>
                 <legend>Search for Projects</legend>

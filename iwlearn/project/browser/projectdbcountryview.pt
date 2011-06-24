@@ -40,10 +40,14 @@
         <script type="text/javascript"
                 src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
 
-        <a id="projectkmlurl" href="projectdbcountry_view.kml">Download KML</a>
+        <a id="projectkmlurl" href="projectdbcountry_view.kml">
+        <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
+            alt="open in google earth" />
+        Download KML
+        </a>
         <span style="margin-left: 25em;">
         <tal:loop tal:repeat="num python:range(1, 26, 3)">
-           <span tal:content="num" tal:attributes="style python:view.color_style(num)"> </span>
+           <b tal:content="num" tal:attributes="style python:view.color_style(num)"> </b>
         </tal:loop>
         </span>
 

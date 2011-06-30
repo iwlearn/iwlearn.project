@@ -202,7 +202,10 @@
                 <dl class="collapsible inline">
                     <dt class="collapsibleHeader">More... </dt>
                     <dd class="collapsibleContent">
-                    <a href="projectwebsites_view">Project Websites</a>
+                    <ul>
+                        <li><a href="projectwebsites_view">Project Websites</a></li>
+                        <li><a href="country_view.html">Projects by country (visualization)</a></li>
+                    </ul>
                     </dd>
                 </dl>
 

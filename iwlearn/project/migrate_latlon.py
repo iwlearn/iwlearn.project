@@ -18,7 +18,6 @@ def migrate(self):
             la = leadagency.Title().strip()
         if lat and lon and geo.isGeoreferenceable():
             print lat, lon
-            #import pdb; pdb.set_trace()
             geo.setCoordinates('Point', (lon, lat))
             style.geostyles.data['use_custom_styles']=True
             if la == 'Food and Agricultural Organization (FAO)':

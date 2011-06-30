@@ -529,7 +529,7 @@ def get_subregions(regions=None, countries=None, subregions=None):
         for country in countries:
             for subregion in COUNTRYS_SUB_REGION[country]['subregion']:
                 srd[subregion] = ''
-        #import pdb; pdb.set_trace()
+
     if subregions:
         for subregion in subregions:
             srd[subregion] = ''

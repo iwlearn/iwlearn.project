@@ -97,8 +97,10 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
         for project in projects:
             if project.getCountry:
                 project_countries += project.getCountry
+            if project.getSubRegions:
+                if 'Global' in project.getSubRegions:
+                    project_countries.append('Global')
         project_countries = list(set(project_countries))
-        project_countries.append('Global')
         countries = self.portal_catalog(portal_type = 'Image', path='iwlearn/images/countries/')
         country_names = []
         geo_annotated_countries =[]

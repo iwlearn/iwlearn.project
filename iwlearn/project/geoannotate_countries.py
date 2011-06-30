@@ -30,4 +30,4 @@ def name_countries(self):
             obj = brain.getObject()
             obj.setTitle(_countrylist[cc[:2]]['name'])
             print _countrylist[cc[:2]]['name']
-    import ipdb; ipdb.set_trace()
+

@@ -9,7 +9,7 @@
   <!-- -*- extra stuff goes here -*- -->
 
 
- <include package="Products.CMFCore" file="configure.zcml" />
+ <include package="Products.CMFCore" file="permissions.zcml" />
 
   <browser:page
       for="..interfaces.IProjectDatabase"

@@ -61,7 +61,8 @@ def annotate_50m(self):
             geo.setCoordinates(q['type'], q['coordinates'])
             child.setDescription('Population: %s' % d['pop_est'])
 
-MISSING_IN_50 = ['an', 'ax', 'bv', 'cc', 'cs', 'cx', 'eh', 'fx', 'gf', 'gi', 'gp', 'mq', 're', 'sj', 'tk', 'tp', 'tv', 'um', 'xt', 'yt', 'yu']
+MISSING_IN_50 = ['an', 'ax', 'bv', 'cc', 'cs', 'cx', 'eh', 'fx', 'gf',
+'gi', 'gp', 'mq', 're', 'sj', 'tk', 'tp', 'tv', 'um', 'xt', 'yt', 'yu']
 
 def annotate_10m(self):
     data = csv.DictReader(open('10m_admin_0_countries.csv', 'r'))

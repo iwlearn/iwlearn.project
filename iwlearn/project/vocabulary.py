@@ -15,9 +15,17 @@
 
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
+from copy import copy
 
 from plone.i18n.locales.countries import _countrylist
 from Products.CMFCore.utils import getToolByName
+
+my_countrylist = copy(_countrylist)
+my_countrylist['cs'] = {u'flag': u'/++resource++country-flags/cs.gif',
+        u'name': u'Serbia and Montenegro (1992-2006)'}
+
+my_countrylist['cs'] = {u'name': u'Montenegro'}
+my_countrylist['rs'] = {u'name': u'Serbia'}
 
 REGION_SUBREGION_COUNTRIES ={
 u'Europe': {
@@ -122,7 +130,7 @@ COUNTRYS_SUB_REGION = {}
 for _r in REGION_SUBREGION_COUNTRIES:
     for _sr in REGION_SUBREGION_COUNTRIES[_r]:
         for _c in REGION_SUBREGION_COUNTRIES[_r][_sr]:
-            _country = _countrylist[_c][u'name']
+            _country = my_countrylist[_c][u'name']
             _regions = COUNTRYS_SUB_REGION.get(_country,
                 {u'region':[], u'subregion':[]})
             _regions[u'region'].append(_r)

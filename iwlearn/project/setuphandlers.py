@@ -39,7 +39,7 @@ def reindex_regions(context, logger=None):
         logger = logging.getLogger('iwlearn.project')
     logger.info("Reindexing getSubRegions")
     catalog = getToolByName(context, 'portal_catalog')
-    catalog.manage_reindexIndex(ids=[getSubRegions])
+    catalog.manage_reindexIndex(ids=['getSubRegions',])
 
 
 def add_catalog_indexes(context, logger=None):

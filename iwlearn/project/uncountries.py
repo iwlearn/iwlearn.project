@@ -92,12 +92,16 @@ def get_subregions():
 
     print REGION_SUBREGION_COUNTRIES
     COUNTRYS_SUB_REGION = {}
+    gef_countries =[]
     for _r in REGION_SUBREGION_COUNTRIES:
         for _sr in REGION_SUBREGION_COUNTRIES[_r]:
             for _c in REGION_SUBREGION_COUNTRIES[_r][_sr]:
+                gef_countries.append(_c)
                 if _c not in _countrylist:
                     print _c
-
-    import ipdb; ipdb.set_trace()
+    for pc in _countrylist:
+        if pc not in gef_countries:
+            print 'Not found in GEF:', pc, _countrylist[pc]['name']
+    #import ipdb; ipdb.set_trace()
 
 get_subregions()

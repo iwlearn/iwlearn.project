@@ -149,7 +149,7 @@ u'Oceania': {'Melanesia': ['fj', 'nc', 'pg', 'sb', 'vu'],
     'Polynesia': ['as', 'ck', 'nu', 'pf', 'pn', 'tk', 'to', 'tv', 'wf', 'ws']},
 u'Global': {},
 u'SIDS': {
-    'Small island developing States': ['ag', 'ai', 'as', 'aw', 'bb',
+    'Small island developing States': ['ag', 'ai', 'an' 'as', 'aw', 'bb',
         'bs', 'bz', 'ck', 'cu', 'cv', 'dm', 'do', 'fj', 'fm', 'gd',
         'gu', 'gw', 'gy', 'ht', 'jm', 'ki', 'km', 'kn', 'lc', 'mh',
         'mp', 'ms', 'mu', 'mv', 'nc', 'nr', 'nu', 'pf', 'pg', 'pr',
@@ -177,11 +177,11 @@ u'Americas': {
     'Central America': ['bz', 'cr', 'gt', 'hn', 'mx', 'ni', 'pa', 'sv'],
     'South America': ['ar', 'bo', 'br', 'cl', 'co', 'ec', 'fk', 'gf', 'gy',
         'pe', 'py', 'sr', 'uy', 've'],
-    'Caribbean': ['ag', 'ai', 'aw', 'bb', 'bl', 'bq', 'bs', 'cu', 'cw',
+    'Caribbean': ['ag', 'ai', 'an', 'aw', 'bb', 'bl', 'bq', 'bs', 'cu', 'cw',
         'dm', 'do', 'gd', 'gp', 'ht', 'jm', 'kn', 'ky', 'lc', 'mf', 'mq',
         'ms', 'pr', 'sx', 'tc', 'tt', 'vc', 'vg', 'vi'],
     'Northern America': ['bm', 'ca', 'gl', 'pm', 'us'],
-    'SIDS (Americas)': ['ag', 'ai', 'aw', 'bb', 'bs', 'bz', 'cu', 'dm',
+    'SIDS (Americas)': ['ag', 'ai', 'an', 'aw', 'bb', 'bs', 'bz', 'cu', 'dm',
     'do', 'gd', 'gy', 'ht', 'jm', 'kn', 'lc', 'ms', 'pr', 'sr', 'tt', 'vc', 'vg', 'vi']}
 }
 

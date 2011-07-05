@@ -17,12 +17,14 @@ REGION_SUBREGION_COUNTRIES ={
          'SIDS (Asia)':[]
     },
     u'Americas': {
-         'SIDS (Americas)':[]
+         'SIDS (Americas)':['an',],
+          'Caribbean': ['an',]
     },
     u'Antarctica': {
         u'Antarctica': [u'aq']
     },
     u'SIDS' : {
+        'Small island developing States': ['an',]
     },
     u'Global' : {
      }

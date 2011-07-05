@@ -22,12 +22,17 @@ from Products.CMFCore.utils import getToolByName
 
 my_countrylist = copy(_countrylist)
 my_countrylist['cs'] = {u'flag': u'/++resource++country-flags/cs.gif',
-        u'name': u'Serbia and Montenegro (1992-2006)'}
+        u'name': u'Serbia and Montenegro'}
 
-my_countrylist['cs'] = {u'name': u'Montenegro'}
+my_countrylist['me'] = {u'name': u'Montenegro'}
 my_countrylist['rs'] = {u'name': u'Serbia'}
+my_countrylist['bl'] = {u'name': u'Saint Barthélemy'}
+my_countrylist['bq'] = {u'name': u'Bonaire, Sint Eustatius and Saba'}
+my_countrylist['cw'] = {u'name': u'Curaçao'}
+my_countrylist['mf'] = {u'name': u'Saint Martin (French part)'}
+my_countrylist['sx'] = {u'name': u'Sint Maarten (Dutch part)'}
 
-REGION_SUBREGION_COUNTRIES ={
+REGION_SUBREGION_COUNTRIES_XXX ={
 u'Europe': {
     u'Northern Europe':
         [u'dk', u'fo', u'fi', u'is', u'no', u'sj', u'se', u'ax'],
@@ -125,6 +130,62 @@ u'Global' : {
      #u'Global' : [] #_countrylist.keys()
      }
 }
+
+REGION_SUBREGION_COUNTRIES = {
+u'Europe':
+    {'Eastern Europe': ['bg', 'by', 'cz', 'hu', 'md', 'pl', 'ro', 'ru', 'sk', 'ua'],
+    'Western Europe': ['at', 'be', 'ch', 'de', 'fr', 'li', 'lu', 'mc', 'nl'],
+#    'SIDS (Europe)': [],
+    'Southern Europe': ['ad', 'al', 'ba', 'cs', 'es', 'gi', 'gr', 'hr', 'it',
+    'me', 'mk', 'mt', 'pt', 'rs', 'si', 'sm', 'va'],
+    'Northern Europe': ['ax', 'dk', 'ee', 'fi', 'fo', 'gb', 'gg', 'ie',
+    'im', 'is', 'je', 'lt', 'lv', 'no', 'se', 'sj']},
+u'Antarctica': {u'Antarctica': [u'aq']},
+u'Oceania': {'Melanesia': ['fj', 'nc', 'pg', 'sb', 'vu'],
+    'SIDS (Oceania)': ['as', 'ck', 'fj', 'fm', 'gu', 'ki', 'mh', 'mp', 'nc',
+            'nr', 'nu', 'pf', 'pg', 'pw', 'sb', 'to', 'tv', 'vu', 'ws'],
+    'Australia and New Zealand': ['au', 'nf', 'nz'],
+    'Micronesia': ['fm', 'gu', 'ki', 'mh', 'mp', 'nr', 'pw'],
+    'Polynesia': ['as', 'ck', 'nu', 'pf', 'pn', 'tk', 'to', 'tv', 'wf', 'ws']},
+u'Global': {},
+u'SIDS': {
+    'Small island developing States': ['ag', 'ai', 'as', 'aw', 'bb',
+        'bs', 'bz', 'ck', 'cu', 'cv', 'dm', 'do', 'fj', 'fm', 'gd',
+        'gu', 'gw', 'gy', 'ht', 'jm', 'ki', 'km', 'kn', 'lc', 'mh',
+        'mp', 'ms', 'mu', 'mv', 'nc', 'nr', 'nu', 'pf', 'pg', 'pr',
+        'pw', 'sb', 'sc', 'sg', 'sr', 'st', 'tl', 'to', 'tt', 'tv',
+        'vc', 'vg', 'vi', 'vu', 'ws']},
+u'Africa': {
+    'Eastern Africa': ['bi', 'dj', 'er', 'et', 'ke', 'km', 'mg', 'mu',
+        'mw', 'mz', 're', 'rw', 'sc', 'so', 'tz', 'ug', 'yt', 'zm', 'zw'],
+    'Northern Africa': ['dz', 'eg', 'eh', 'ly', 'ma', 'sd', 'tn'],
+    'Middle Africa': ['ao', 'cd', 'cf', 'cg', 'cm', 'ga', 'gq', 'st', 'td'],
+    'Southern Africa': ['bw', 'ls', 'na', 'sz', 'za'],
+    'Western Africa': ['bf', 'bj', 'ci', 'cv', 'gh', 'gm', 'gn', 'gw',
+    'lr', 'ml', 'mr', 'ne', 'ng', 'sh', 'sl', 'sn', 'tg'],
+    'SIDS (Africa)': ['cv', 'gw', 'km', 'mu', 'sc', 'st']},
+u'Asia': {
+    'Western Asia': ['ae', 'am', 'az', 'bh', 'cy', 'ge', 'il', 'iq',
+        'jo', 'kw', 'lb', 'om', 'ps', 'qa', 'sa', 'sy', 'tr', 'ye'],
+    'Southern Asia': ['af', 'bd', 'bt', 'in', 'ir', 'lk', 'mv', 'np', 'pk'],
+    'South-Eastern Asia': ['bn', 'id', 'kh', 'la', 'mm', 'my', 'ph', 'sg',
+        'th', 'tl', 'vn'],
+    'SIDS (Asia)': ['mv', 'sg', 'tl'],
+    'Central Asia': ['cn', 'hk', 'jp', 'kg', 'kp', 'kr', 'kz', 'mn',
+        'mo', 'tj', 'tm', 'uz']},
+u'Americas': {
+    'Central America': ['bz', 'cr', 'gt', 'hn', 'mx', 'ni', 'pa', 'sv'],
+    'South America': ['ar', 'bo', 'br', 'cl', 'co', 'ec', 'fk', 'gf', 'gy',
+        'pe', 'py', 'sr', 'uy', 've'],
+    'Caribbean': ['ag', 'ai', 'aw', 'bb', 'bl', 'bq', 'bs', 'cu', 'cw',
+        'dm', 'do', 'gd', 'gp', 'ht', 'jm', 'kn', 'ky', 'lc', 'mf', 'mq',
+        'ms', 'pr', 'sx', 'tc', 'tt', 'vc', 'vg', 'vi'],
+    'Northern America': ['bm', 'ca', 'gl', 'pm', 'us'],
+    'SIDS (Americas)': ['ag', 'ai', 'aw', 'bb', 'bs', 'bz', 'cu', 'dm',
+    'do', 'gd', 'gy', 'ht', 'jm', 'kn', 'lc', 'ms', 'pr', 'sr', 'tt', 'vc', 'vg', 'vi']}
+}
+
+
 
 COUNTRYS_SUB_REGION = {}
 for _r in REGION_SUBREGION_COUNTRIES:

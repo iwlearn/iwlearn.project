@@ -33,6 +33,14 @@ def add_harvest_menue(context, logger=None):
     setup = getToolByName(context, 'portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'actions')
 
+def reindex_regions(context, logger=None):
+    if logger is None:
+        # Called as upgrade step: define our own logger.
+        logger = logging.getLogger('iwlearn.project')
+    logger.info("Reindexing getSubRegions")
+    catalog = getToolByName(context, 'portal_catalog')
+    catalog.manage_reindexIndex(ids=[getSubRegions])
+
 
 def add_catalog_indexes(context, logger=None):
     """Method to add our wanted indexes to the portal_catalog.

@@ -73,5 +73,12 @@
       handler="iwlearn.project.setuphandlers.setVersionedTypes"
       profile="iwlearn.project:default" />
 
+  <genericsetup:upgradeStep
+      title="Reindex getSubRegions"
+      description=""
+      source="1005"
+      destination="1006"
+      handler="iwlearn.project.setuphandlers.reindex_regions"
+      profile="iwlearn.project:default" />
 
 </configure>

@@ -60,6 +60,16 @@
       />
 
   <browser:page
+      for="..interfaces.IProject"
+      name="projectcountry_view.kml"
+      class=".projectkmlview.ProjectCountryKMLView"
+      allowed_interface=".projectkmlview.IProjectKMLView"
+      permission="zope.Public"
+      />
+
+
+
+  <browser:page
       for="*"
       name="flexijson_view"
       class=".flexijsonview.FlexiJsonView"

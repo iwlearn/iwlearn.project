@@ -194,6 +194,30 @@ class ProjectInnerKMLMapLayer(MapLayer):
             context_url)
 
 
+class ProjectKMLCountryMapLayer(MapLayer):
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def jsfactory(self):
+        context_url = self.context.absolute_url()
+        if not context_url.endswith('/'):
+            context_url += '/'
+
+
+        return """
+        function() { return new OpenLayers.Layer.GML('%s', '%s@@projectcountry_view.kml',
+            { format: OpenLayers.Format.KML,
+              projection: cgmap.createDefaultOptions().displayProjection,
+              visibility: false,
+              formatOptions: {
+                  extractStyles: true,
+                  extractAttributes: true }
+            });}""" % (u'Partnering countries', context_url)
+
+
+
 class ProjectKMLMapLayers(MapLayers):
     '''
     create all layers for this view.
@@ -203,6 +227,8 @@ class ProjectKMLMapLayers(MapLayers):
         layers = super(ProjectKMLMapLayers, self).layers()
         layers.append(ProjectKMLMapLayer(self.context))
         layers.append(ProjectInnerKMLMapLayer(self.context))
+        if self.context.getCountry():
+            layers.append(ProjectKMLCountryMapLayer(self.context))
         path = '/'.join(self.context.getPhysicalPath())
         portal_catalog = getToolByName(self.context, 'portal_catalog')
         for brain in portal_catalog(path=path, Subject='map-layer',

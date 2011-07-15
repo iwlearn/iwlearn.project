@@ -12,13 +12,15 @@
 #    * Kazakhstan - situated in Central Asia and Eastern Europe.
 #    * Russia - situated in Northern Asia and Eastern Europe.
 #    * Turkey - situated in Western Asia and Eastern Europe.
-
+import logging
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
 from copy import copy
 
 from plone.i18n.locales.countries import _countrylist
 from Products.CMFCore.utils import getToolByName
+
+logger = logging.getLogger('iwlearn.project')
 
 my_countrylist = copy(_countrylist)
 my_countrylist['cs'] = {u'flag': u'/++resource++country-flags/cs.gif',
@@ -191,12 +193,15 @@ COUNTRYS_SUB_REGION = {}
 for _r in REGION_SUBREGION_COUNTRIES:
     for _sr in REGION_SUBREGION_COUNTRIES[_r]:
         for _c in REGION_SUBREGION_COUNTRIES[_r][_sr]:
-            _country = my_countrylist[_c][u'name']
-            _regions = COUNTRYS_SUB_REGION.get(_country,
-                {u'region':[], u'subregion':[]})
-            _regions[u'region'].append(_r)
-            _regions[u'subregion'].append(_sr)
-            COUNTRYS_SUB_REGION[_country]=_regions
+            try:
+                _country = my_countrylist[_c][u'name']
+                _regions = COUNTRYS_SUB_REGION.get(_country,
+                    {u'region':[], u'subregion':[]})
+                _regions[u'region'].append(_r)
+                _regions[u'subregion'].append(_sr)
+                COUNTRYS_SUB_REGION[_country]=_regions
+            except KeyError:
+                logger.info("Key Error %s" %_c)
 
 
 FOCAL_AREAS = [

@@ -100,7 +100,7 @@ def get_subregions():
             for _c in REGION_SUBREGION_COUNTRIES[_r][_sr]:
                 gef_countries.append(_c)
                 if _c not in _countrylist:
-                    print _c
+                    print  'Not found in Plone:' _c
     for pc in _countrylist:
         if pc not in gef_countries:
             print 'Not found in GEF:', pc, _countrylist[pc]['name']

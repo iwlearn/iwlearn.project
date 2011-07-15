@@ -34,3 +34,17 @@ class ProjectKMLView(KMLBaseDocument):
             yield BrainPlacemark(brain, self.request, self)
 
 
+class ProjectCountryKMLView(ProjectKMLView):
+
+    @property
+    def features(self):
+        project = self.context
+        project_countries=[]
+        if project.getCountry():
+            project_countries = project.getCountry()
+        countries = self.portal_catalog(portal_type = 'Image',
+                        path='iwlearn/images/countries/')
+        for country in countries:
+            if ((country.Title in project_countries) and
+                country.zgeo_geometry):
+                yield BrainPlacemark(country, self.request, self)

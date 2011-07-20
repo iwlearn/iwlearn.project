@@ -216,6 +216,28 @@ class ProjectKMLCountryMapLayer(MapLayer):
                   extractAttributes: true }
             });}""" % (u'Partnering countries', context_url)
 
+class ProjectBasinMapLayer(MapLayer):
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def jsfactory(self):
+        context_url = self.context.absolute_url()
+        if not context_url.endswith('/'):
+            context_url += '/'
+
+
+        return """
+        function() { return new OpenLayers.Layer.GML('%s', '%s@@projectbasin_view.kml',
+            { format: OpenLayers.Format.KML,
+              projection: cgmap.createDefaultOptions().displayProjection,
+              visibility: true,
+              formatOptions: {
+                  extractStyles: true,
+                  extractAttributes: true }
+            });}""" % (u'Basin', context_url)
+
 
 
 class ProjectKMLMapLayers(MapLayers):
@@ -229,6 +251,8 @@ class ProjectKMLMapLayers(MapLayers):
         layers.append(ProjectInnerKMLMapLayer(self.context))
         if self.context.getCountry():
             layers.append(ProjectKMLCountryMapLayer(self.context))
+        if self.context.getBasin():
+            layers.append(ProjectBasinMapLayer(self.context))
         path = '/'.join(self.context.getPhysicalPath())
         portal_catalog = getToolByName(self.context, 'portal_catalog')
         for brain in portal_catalog(path=path, Subject='map-layer',

@@ -68,6 +68,16 @@
       />
 
 
+  <browser:page
+      for="..interfaces.IProject"
+      name="projectbasin_view.kml"
+      class=".projectkmlview.ProjectBasinKMLView"
+      allowed_interface=".projectkmlview.IProjectKMLView"
+      permission="zope.Public"
+      />
+
+
+
 
   <browser:page
       for="*"

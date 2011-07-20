@@ -48,3 +48,19 @@ class ProjectCountryKMLView(ProjectKMLView):
             if ((country.Title in project_countries) and
                 country.zgeo_geometry):
                 yield BrainPlacemark(country, self.request, self)
+
+class ProjectBasinKMLView(ProjectKMLView):
+
+    @property
+    def features(self):
+        project = self.context
+        project_countries=[]
+        if project.getBasin():
+            project_basins = project.getBasin()
+        basins = self.portal_catalog(portal_type = 'Document',
+                        path='iwlearn/iw-projects/basins')
+        for basin in basins:
+            if ((basin.Title in project_basins) and
+                basin.zgeo_geometry):
+                yield BrainPlacemark(basin, self.request, self)
+

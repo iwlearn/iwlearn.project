@@ -91,6 +91,8 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
 
     @property
     def features(self):
+        #bbox = self.request.form.get('bbox')
+        #import ipdb; ipdb.set_trace()
         query = get_query(self.request.form)
         projects = self.portal_catalog(**query)
         project_countries = []

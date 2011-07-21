@@ -1,69 +1,13 @@
 #
 from collective.geo.contentlocations.interfaces import IGeoManager
 from collective.geo.settings.interfaces import IGeoCustomFeatureStyle, IGeoFeatureStyle
+from collective.geo.file.browser.extractgeometry import extractfeatures_from_file
 from elementtree.ElementTree import XML
 from htmllaundry import sanitize
 
 from shapely.geometry import Point, LineString, Polygon
 from shapely.geometry import MultiPoint, MultiLineString, MultiPolygon
 
-def extractfeatures_from_file(data):
-    kmldom = XML(data)
-    ns = kmldom.tag.strip('kml')
-    points = kmldom.findall('.//%sPoint' % ns)
-    lines = kmldom.findall('.//%sLineString' % ns)
-    polygons = kmldom.findall('.//%sPolygon' % ns)
-    mpoint = []
-    mline =[]
-    mpoly = []
-    for point in points:
-        coordinates = point.findall('.//%scoordinates' % ns)
-        for coordinate in coordinates:
-            latlon = coordinate.text.strip().split(',')
-            coords = [float(c) for c in latlon]
-            try:
-                p = Point(coords)
-                mpoint.append(p)
-            except:
-                logger.info('invalid point geometry: %s' % coordinates[:10] )
-
-    for line in lines:
-        coordinates = line.findall('.//%scoordinates' % ns)
-        for coordinate in coordinates:
-            latlons = coordinate.text.split()
-            coords = []
-            for latlon in latlons:
-                coords.append([float(c) for c in latlon.split(',')])
-            try:
-                l = LineString(coords)
-                mline.append(l)
-            except:
-                logger.info('invalid linestring geometry: %s' % coordinates[:10] )
-
-    for polygon in polygons:
-        coordinates = polygon.findall('.//%scoordinates' % ns)
-        for coordinate in coordinates:
-            latlons = coordinate.text.split()
-            coords = []
-            for latlon in latlons:
-                coords.append([float(c) for c in latlon.split(',')])
-            try:
-                l = Polygon(coords)
-                mpoly.append(l)
-
-            except:
-                logger.info('invalid polygon geometry: %s' % coordinates[:10] )
-
-    result = {'MultiPoint':None, 'MultiLineString':None, 'MultiPolygon':None}
-    if mpoint:
-        result['MultiPoint'] =  MultiPoint(mpoint)
-    if mline:
-        result['MultiLineString'] = MultiLineString(mline)
-    if mpoly:
-        result['MultiPolygon'] = MultiPolygon(mpoly)
-
-
-    return result
 
 def extract_title(data):
     kmldom = XML(data)
@@ -101,6 +45,16 @@ def convert_kml_to_page(self):
         except:
             pass
         new_obj=parent[new_obj_id]
+        if parent.id =='lmes':
+            color='0000bf'
+        elif parent.id =='rivers':
+            color='56ffff'
+        elif parent.id =='lakes':
+            color='2c80d3'
+        elif parent.id =='aquifers':
+            color='c1742c'
+        else:
+            color ='00ff00'
         features = None
         try:
             features = extractfeatures_from_file(data)
@@ -112,10 +66,16 @@ def convert_kml_to_page(self):
         except:
             print 'exception in %s' % brain.getId
             pass
-
-        new_obj.setText(sanitize(text))
-        new_obj.setTitle(title)
+        if new_obj.getText():
+            print 'skipping set text for %s' % brain.getId
+        else:
+            new_obj.setText(sanitize(text))
+            new_obj.setTitle(title)
         if features:
+            style = IGeoCustomFeatureStyle(new_obj)
+            style.geostyles.data['use_custom_styles']=True
+            style.geostyles.data['polygoncolor']=color
+            style.geostyles.update(style.geostyles)
             geo = IGeoManager(new_obj)
             if features['MultiPolygon']:
                 shp = features['MultiPolygon']

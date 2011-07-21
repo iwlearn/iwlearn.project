@@ -29,9 +29,6 @@
     to see the HTML only version of this website.
 <![endif]-->
 
-            <dl class="enableFormTabbing" tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
-                <dt id="fieldsetlegend-map-projects">Map</dt>
-                <dd id="fieldset-map-project">
                     <div id="projectcountrymap" style="height:450px; width: 900px">
 
 <!-- Collective.geo map -->
@@ -54,32 +51,7 @@
 
 <!-- /Collective.geo map -->
                     </div>
-                </dd>
 
-                <!--dt id="fieldsetlegend-about-projects">About</dt>
-                <dd id="fieldset-about-projects" class="documentDescription"
-                    tal:content="here/Description">
-                </dd>
-
-                <dt id="fieldsetlegend-new-projects">New Projects</dt>
-                <dd id="fieldset-new-projects" tal:define="results view/new_projects">
-                  <ul>
-                     <li tal:repeat="result results">
-                        <i class="date" tal:content="python:toLocalizedTime(result.created)"></i><br/>
-                      <a tal:attributes="href result/getURL" tal:content="result/Title|result/getId|Nothing"></a>
-                    </li>
-                  </ul>
-                </dd>
-                <dt id="fieldsetlegend-updated-projects">Recently Updated Projects</dt>
-                <dd id="fieldset-updated-projects" tal:define="results view/updated_projects">
-                  <ul>
-                    <li tal:repeat="result results">
-                        <i class="date" tal:content="python:toLocalizedTime(result.modified)"></i><br/>
-                      <a tal:attributes="href result/getURL" tal:content="result/Title|result/getId|Nothing"></a>
-                    </li>
-                  </ul>
-                </dd-->
-            </dl>
             <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action="country_view.html">
               <fieldset>
                 <legend>Search for Projects</legend>
@@ -197,6 +169,8 @@
                         class="context" />
                 </div>
               </fieldset>
+              <input type="hidden" value="-180,-90,180,90" name="bbox" id="inputbbox" />
+
             </form>
 
             <table id="flexiprojects" style="display:none"></table>
@@ -264,7 +238,6 @@
         layer.setUrl('http://localhost:8080/iwlearn/iw-projects/@@projectdbkml_view' + qs);
         layer.refresh({ force: true, params: params });
         layer.setVisibility(true);
-
         return true;
     }
 
@@ -280,6 +253,68 @@ $('#projectsearchform').submit
 
 
 </script>
+
+           <script type="text/javascript">
+/*<![CDATA[*/
+    $(document).ready(function() {
+        var map = cgmap.config['default-cgmap'].map;
+        //var control = new OpenLayers.Control.ZoomBox();
+
+
+        //Creation of a custom panel with a ZoomBox control with the alwaysZoom option sets to true
+        OpenLayers.Control.CustomNavToolbar = OpenLayers.Class(OpenLayers.Control.Panel, {
+
+            /**
+             * Constructor: OpenLayers.Control.NavToolbar
+             * Add our two mousedefaults controls.
+             *
+             * Parameters:
+             * options - {Object} An optional object whose properties will be used
+             *     to extend the control.
+             */
+
+
+            initialize: function(options) {
+                OpenLayers.Control.Panel.prototype.initialize.apply(this, [options]);
+                this.addControls([
+                  new OpenLayers.Control.Navigation(),
+                  //Here it come
+                  new OpenLayers.Control.ZoomBox({alwaysZoom:false})
+                ]);
+                // To make the custom navtoolbar use the regular navtoolbar style
+                this.displayClass = 'olControlNavToolbar'
+            },
+
+
+
+            /**
+             * Method: draw
+             * calls the default draw, and then activates mouse defaults.
+             */
+            draw: function() {
+                var div = OpenLayers.Control.Panel.prototype.draw.apply(this, arguments);
+                this.defaultControl = this.controls[0];
+                return div;
+            }
+        });
+
+        var panel = new OpenLayers.Control.CustomNavToolbar();
+        map.addControl(panel);
+        var kmls = map.getLayersByClass('OpenLayers.Layer.GML');
+        layer = kmls[0];
+        layer.events.on({
+                moveend: function(event) {
+                    var input_string = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).toBBOX()
+                    jQuery("input#inputbbox").val(input_string);
+                  }
+            });
+
+
+
+
+});
+/*]]>*/
+            </script>
 
 
             <noscript tal:define="search_results view/search_results" tal:condition="search_results">

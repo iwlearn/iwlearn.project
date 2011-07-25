@@ -324,6 +324,7 @@
                         class="context" />
                 </div>
               </fieldset>
+              <input type="hidden" value="-180,-90,180,90" name="bbox" id="inputbbox" />
             </form>
 
             <table id="flexiprojects" style="display:none"></table>

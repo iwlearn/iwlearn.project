@@ -74,6 +74,7 @@ class ProjectDBBaseView(BrowserView):
         /*passing a form object to serializeArray will get the valid data
         from all the objects, but, if the you pass a non-form object,
         you have to specify the input elements that the data will come from */
+        jQuery("input#inputbbox").val('-180,-90,180,90')
         var dt = $('#projectsearchform').serializeArray();
         $("#flexiprojects").flexOptions({params: dt});
         // refresh map

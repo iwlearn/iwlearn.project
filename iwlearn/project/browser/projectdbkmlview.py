@@ -15,6 +15,10 @@ from iwlearn.project.browser.utils import get_query, get_color
 
 logger = logging.getLogger('iwlearn.project')
 
+def get_related_countries_uids(country):
+    for c in country.getObject().getRelatedItems():
+        yield c.UID()
+
 class IProjectDbKmlView(Interface):
     """
     ProjectDbKml view interface
@@ -41,23 +45,53 @@ class ProjectDbKmlView(KMLBaseDocument):
         for brain in results:
             yield BrainPlacemark(brain, self.request, self)
 
+class BasinPlacemark(BrainPlacemark):
+
+    def __init__(self, context, request, document, basin, projects):
+        super(BasinPlacemark, self).__init__(context, request, document)
+        self.basin = basin
+        self.projects = []
+        for project in projects:
+            if project.getBasin:
+                if self.basin in project.getBasin:
+                    self.projects.append(project)
+
+    @property
+    def description(self):
+        if self.projects:
+            desc = u'<ul>'
+            for project in self.projects:
+                title = project.Title.decode('utf-8', 'ignore').encode(
+                                            'ascii', 'xmlcharrefreplace')
+                desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (project.getURL(),
+                                cgi.escape(title),
+                                cgi.escape(title[:32] + '...'))
+            desc += u'</ul>'
+        else:
+            desc = u"<p><strong>No Gef projects involved in this basin</strong></p>"
+        return desc
+
+
+
+
 class CountryPlacemark(BrainPlacemark):
 
-    def __init__(self, context, request, document, country, projects):
+    def __init__(self, context, request, document, country, projects, substitute_for=None):
         super(CountryPlacemark, self).__init__(context, request, document)
-        self.country = country
         self.projects = []
         if country == 'Global':
             for project in projects:
                 if project.getSubRegions:
-                    if self.country in project.getSubRegions:
+                    if country in project.getSubRegions:
                         self.projects.append(project)
         else:
             for project in projects:
                 if project.getCountry:
-                    if self.country in project.getCountry:
+                    if country in project.getCountry:
                         self.projects.append(project)
-
+                    elif substitute_for:
+                        if substitute_for in project.getCountry:
+                            self.projects.append(project)
     @property
     def polygoncolor(self):
         color = get_color(len(self.projects))
@@ -70,29 +104,47 @@ class CountryPlacemark(BrainPlacemark):
 
     @property
     def name(self):
-        return self.context.Title + ' - %i Projects' % len(self.projects)
+        if callable(self.context.Title):
+            title = self.context.Title()
+        else:
+            title = self.context.Title
+        return cgi.escape(title) + ' - %i Projects' % len(self.projects)
 
     @property
     def description(self):
         desc = '<ul>'
-        try:
-            for project in self.projects:
-                desc += '<li><a href="%s" title="%s" > %s </a></li>' % (project.getURL(),
-                                cgi.escape(project.Title),
-                                cgi.escape(project.Title[:32] + '...'))
-        except Exception, err:
-            desc += str(err)
+        for project in self.projects:
+            desc += '<li><a href="%s" title="%s" > %s </a></li>' % (project.getURL(),
+                            cgi.escape(project.Title),
+                            cgi.escape(project.Title[:32] + '...'))
         desc += '</ul>'
         return desc
 
 
 
-class ProjectDbKmlCountryView(ProjectDbKmlView):
-
+class ProjectDbKmlBasinView(ProjectDbKmlView):
     @property
     def features(self):
         #bbox = self.request.form.get('bbox')
         #import ipdb; ipdb.set_trace()
+        query = get_query(self.request.form)
+        projects = self.portal_catalog(**query)
+        project_basins = []
+        for project in projects:
+            if project.getBasin:
+                project_basins += project.getBasin
+        project_basins = list(set(project_basins))
+        basins = self.portal_catalog(portal_type = 'Document',
+                path='iwlearn/iw-projects/basins')
+        for basin in basins:
+            if basin.zgeo_geometry:
+                yield BasinPlacemark(basin, self.request, self,
+                                basin.Title, projects )
+
+class ProjectDbKmlCountryView(ProjectDbKmlView):
+
+    @property
+    def features(self):
         query = get_query(self.request.form)
         projects = self.portal_catalog(**query)
         project_countries = []
@@ -103,20 +155,31 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                 if 'Global' in project.getSubRegions:
                     project_countries.append('Global')
         project_countries = list(set(project_countries))
-        countries = self.portal_catalog(portal_type = 'Image', path='iwlearn/images/countries/')
-        country_names = []
+        countries = self.portal_catalog(portal_type = 'Image',
+                    path='iwlearn/images/countries/')
         geo_annotated_countries =[]
         for country in countries:
             if ((country.Title in project_countries) and
                 country.zgeo_geometry):
-                geo_annotated_countries.append(country.Title)
-                if country.Title in country_names:
-                    logger.info('skipped: %s : %s' % (country.getId, country.Title ))
-                    continue
-                else:
+                if country.zgeo_geometry['coordinates']:
+                    geo_annotated_countries.append(country.Title)
                     yield CountryPlacemark(country, self.request, self,
-                                country.Title, projects )
-                country_names.append(country.Title)
+                                    country.Title, projects )
+                else:
+                    # the country is there but has no coordinates => cs
+                    related_countries = list(get_related_countries_uids(country))
+                    logger.debug('Country %s is not geoannotated' % country.Title)
+                    for rel_country in self.portal_catalog(portal_type = 'Image',
+                                path='iwlearn/images/countries/',
+                                UID = related_countries):
+                        geo_annotated_countries.append(rel_country.Title)
+                        geo_annotated_countries.append(country.Title)
+                        logger.debug('replacing with %s' % rel_country.Title)
+                        yield CountryPlacemark(rel_country, self.request, self,
+                                rel_country.Title, projects, country.Title)
+            elif country.Title in project_countries:
+                logger.critical('Country %s is not geoannotated and has no related items' % country.Title)
+
         for c in project_countries:
             if c in geo_annotated_countries:
                 continue

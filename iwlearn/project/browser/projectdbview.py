@@ -36,7 +36,7 @@ class ProjectDBBaseView(BrowserView):
          $('#flexiprojects').flexOptions({newp: 1}).flexReload();
         }) ;
    });
-    $("#projectsearchform").find(":checkbox").each(function(i) {
+    $("#projectsearchform").find("input:checkbox").each(function(i) {
      $(this).change(function( objEvent ){
          $('#flexiprojects').flexOptions({newp: 1}).flexReload();
         }) ;

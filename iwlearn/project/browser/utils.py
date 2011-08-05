@@ -31,5 +31,4 @@ def get_query(form):
         query['sort_on'] = sort_on
         if sort_order:
             query['sort_order'] = sort_order
-    print query
     return query

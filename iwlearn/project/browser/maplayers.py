@@ -77,6 +77,37 @@ class ProjectDbKMLMapLayers(MapLayers):
         return layers
 
 
+class ProjectDbKMLBasinMapLayer(MapLayer):
+    """
+    layer for project basins
+    """
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def jsfactory(self):
+        context_url = self.context.absolute_url()
+        if not context_url.endswith('/'):
+            context_url += '/'
+
+
+        return """
+        function() { return new OpenLayers.Layer.GML('%s', '%s@@projectbasin_view.kml',
+            { format: OpenLayers.Format.KML,
+              /*eventListeners: { 'loadend': function(event) {
+                                 var extent = this.getDataExtent();
+                                 this.map.zoomToExtent(extent);
+                                }
+                            },*/
+              projection: cgmap.createDefaultOptions().displayProjection,
+              visibility: false,
+              formatOptions: {
+                  extractStyles: true,
+                  extractAttributes: true }
+            });}""" % ( "Basins",
+            context_url)
+
 class ProjectDbKMLCountryMapLayer(MapLayer):
     """
     a layer for one level sub objects.
@@ -96,16 +127,17 @@ class ProjectDbKMLCountryMapLayer(MapLayer):
         function() { return new OpenLayers.Layer.GML('%s', '%s@@projectdbcountry_view.kml',
             { format: OpenLayers.Format.KML,
               eventListeners: { 'loadend': function(event) {
-                                 var extent = this.getDataExtent();
-                                 this.map.zoomToExtent(extent);
+                                    if (this.getVisibility()){
+                                         var extent = this.getDataExtent();
+                                         this.map.zoomToExtent(extent);
+                                    };
                                 }
                             },
               projection: cgmap.createDefaultOptions().displayProjection,
               formatOptions: {
                   extractStyles: true,
                   extractAttributes: true }
-            });}""" % (
-            self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", ""),
+            });}""" % (u"Countries",
             context_url)
 
 
@@ -133,7 +165,17 @@ class ProjectDbKMLCountryMapLayers(MapLayers):
     def layers(self):
         layers = super(ProjectDbKMLCountryMapLayers, self).layers()
         layers.append(ProjectDbKMLCountryMapLayer(self.context))
+        layers.append(ProjectDbKMLBasinMapLayer(self.context))
         return layers
+
+
+
+
+#class ProjectDbKMLBasinMapLayers(MapLayers):
+#    def layers(self):
+#        layers = super(ProjectDbKMLBasinMapLayers, self).layers()
+#        layers.append(ProjectDbKMLBasinMapLayer(self.context))
+#        return layers
 
 
 class ProjectKMLMapLayer(MapLayer):

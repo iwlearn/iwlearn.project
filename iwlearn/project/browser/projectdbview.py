@@ -36,6 +36,11 @@ class ProjectDBBaseView(BrowserView):
          $('#flexiprojects').flexOptions({newp: 1}).flexReload();
         }) ;
    });
+    $("#projectsearchform").find(":checkbox").each(function(i) {
+     $(this).change(function( objEvent ){
+         $('#flexiprojects').flexOptions({newp: 1}).flexReload();
+        }) ;
+   });
  });
 
 
@@ -237,12 +242,22 @@ class ProjectDBCountryView(ProjectDBBaseView):
         var kmls = map.getLayersByClass('OpenLayers.Layer.GML');
         var kml_url = '%s' + qs;
         layer = kmls[0];
+        var is_visible = layer.getVisibility();
         layer.setVisibility(false);
         layer.loaded = false;
         layer.setUrl(kml_url);
         layer.refresh({ force: true, params: params });
-        layer.setVisibility(true);
-        """ % (self.context.absolute_url() + '/@@projectdbcountry_view.kml')
+        layer.setVisibility(is_visible);
+        var kml_url = '%s' + qs;
+        layer = kmls[1];
+        is_visible = layer.getVisibility();
+        layer.setVisibility(false);
+        layer.loaded = false;
+        layer.setUrl(kml_url);
+        layer.refresh({ force: true, params: params });
+        layer.setVisibility(is_visible);
+        """ % (self.context.absolute_url() + '/@@projectdbcountry_view.kml',
+                self.context.absolute_url() + '/@@projectbasin_view.kml')
 
         js =  self.js_template % (self.context.absolute_url(), refresh_js)
 

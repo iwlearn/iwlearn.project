@@ -127,6 +127,9 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
     def features(self):
         #bbox = self.request.form.get('bbox')
         #import ipdb; ipdb.set_trace()
+        show_gef_basins = self.request.form.get('showgefbasins', [])
+        basin_types = self.request.form.get('basintype', [])
+        print show_gef_basins, basin_types
         query = get_query(self.request.form)
         projects = self.portal_catalog(**query)
         project_basins = []
@@ -134,12 +137,24 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
             if project.getBasin:
                 project_basins += project.getBasin
         project_basins = list(set(project_basins))
+        path = []
+        if basin_types:
+            for basin_type in basin_types:
+                path.append('iwlearn/iw-projects/basins/' + basin_type)
+        else:
+            path='iwlearn/iw-projects/basins'
         basins = self.portal_catalog(portal_type = 'Document',
-                path='iwlearn/iw-projects/basins')
+                path = path)
         for basin in basins:
             if basin.zgeo_geometry:
-                yield BasinPlacemark(basin, self.request, self,
-                                basin.Title, projects )
+                if 'with' in show_gef_basins:
+                    if basin.Title in project_basins:
+                        yield BasinPlacemark(basin, self.request, self,
+                                basin.Title, projects)
+                if 'without' in show_gef_basins:
+                    if not(basin.Title in project_basins):
+                        yield BasinPlacemark(basin, self.request, self,
+                                basin.Title, projects)
 
 class ProjectDbKmlCountryView(ProjectDbKmlView):
 

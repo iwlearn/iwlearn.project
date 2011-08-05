@@ -16,7 +16,6 @@ def get_query(form):
         if form.get(field, None):
             query[field] = form[field]
     query['portal_type'] = 'Project'
-    print form
     sortorder = form.get('sortorder',None)
     if sortorder=='desc':
         sort_order = 'reverse'
@@ -32,4 +31,5 @@ def get_query(form):
         query['sort_on'] = sort_on
         if sort_order:
             query['sort_order'] = sort_order
+    print query
     return query

@@ -54,6 +54,16 @@
 
             <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action="country_view.html">
               <fieldset>
+                <legend>Basin Layers</legend>
+                <input type="checkbox" name="showgefbasins:list" value="with" checked="checked"/> with GEF projects
+                <input type="checkbox" name="showgefbasins:list" value="without" checked="checked"/> without GEF projects
+                <br/>
+                <input type="checkbox" name="basintype:list" value="lmes" checked="checked"/> LMEs
+                <input type="checkbox" name="basintype:list" value="lakes" checked="checked"/> Lakes
+                <input type="checkbox" name="basintype:list" value="rivers" checked="checked"/> Rivers
+                <input type="checkbox" name="basintype:list" value="aquifers" checked="checked"/> Aquifers
+              </fieldset>
+              <fieldset>
                 <legend>Search for Projects</legend>
                 <div class="field odd">
                     <label for="SearchableText">Search text</label>
@@ -233,11 +243,12 @@
         var map = cgmap.config['default-cgmap'].map;
         var kmls = map.getLayersByClass('OpenLayers.Layer.GML');
         layer = kmls[0];
+        var is_visible = layer.getVisibility();
         layer.setVisibility(false);
         layer.loaded = false;
         layer.setUrl('http://localhost:8080/iwlearn/iw-projects/@@projectdbkml_view' + qs);
         layer.refresh({ force: true, params: params });
-        layer.setVisibility(true);
+        layer.setVisibility(is_visible);
         return true;
     }
 

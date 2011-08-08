@@ -313,9 +313,19 @@ $('#projectsearchform').submit
         map.addControl(panel);
         var kmls = map.getLayersByClass('OpenLayers.Layer.GML');
         layer = kmls[0];
-        layer.events.on({
+        map.events.on({
                 moveend: function(event) {
-                    var input_string = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).toBBOX()
+                    //var bounds_array = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).toArray();
+                    var b_l = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).left;
+                    var b_b = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).bottom;
+                    var b_r = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).right;
+                    var b_t = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).top;
+                    var left = Math.max(Math.floor(b_l/10)*10, -180);
+                    var bottom = Math.max(Math.floor(b_b/10)*10, -90);
+                    var right = Math.min(Math.ceil(b_r/10)*10, 180);
+                    var top = Math.min(Math.ceil(b_t/10)*10, 90);
+                    //var input_string = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).toBBOX();
+                    var input_string = '' + left +',' + bottom +',' + right + ',' + top
                     jQuery("input#inputbbox").val(input_string);
                   }
             });

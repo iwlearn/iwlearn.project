@@ -79,7 +79,7 @@ class ProjectDBBaseView(BrowserView):
         /*passing a form object to serializeArray will get the valid data
         from all the objects, but, if the you pass a non-form object,
         you have to specify the input elements that the data will come from */
-        jQuery("input#inputbbox").val('-180,-90,180,90')
+        //jQuery("input#inputbbox").val('-180,-90,180,90')
         var dt = $('#projectsearchform').serializeArray();
         $("#flexiprojects").flexOptions({params: dt});
         // refresh map
@@ -239,25 +239,21 @@ class ProjectDBCountryView(ProjectDBBaseView):
 
     def get_js(self):
         refresh_js = """
-        var kmls = map.getLayersByClass('OpenLayers.Layer.GML');
-        var kml_url = '%s' + qs;
+        var kmls = map.getLayersByName('Countries');
         layer = kmls[0];
-        var is_visible = layer.getVisibility();
-        layer.setVisibility(false);
-        layer.loaded = false;
-        layer.setUrl(kml_url);
-        layer.refresh({ force: true, params: params });
-        layer.setVisibility(is_visible);
-        var kml_url = '%s' + qs;
-        layer = kmls[1];
-        is_visible = layer.getVisibility();
-        layer.setVisibility(false);
-        layer.loaded = false;
-        layer.setUrl(kml_url);
-        layer.refresh({ force: true, params: params });
-        layer.setVisibility(is_visible);
+        kml_url = '%s' + qs;
+        layer.refresh({url: kml_url});
+        var kmls = map.getLayersByName('Basin Cluster');
+        layer = kmls[0];
+        kml_url = '%s' + qs;
+        layer.refresh({url: kml_url});
+        var kmls = map.getLayersByName('Basin Detail');
+        layer = kmls[0];
+        kml_url = '%s' + qs;
+        layer.refresh({url: kml_url});
         """ % (self.context.absolute_url() + '/@@projectdbcountry_view.kml',
-                self.context.absolute_url() + '/@@projectbasin_view.kml')
+                self.context.absolute_url() + '/@@projectbasincluster_view.kml',
+                self.context.absolute_url() + '/@@projectbasindetail_view.kml')
 
         js =  self.js_template % (self.context.absolute_url(), refresh_js)
 

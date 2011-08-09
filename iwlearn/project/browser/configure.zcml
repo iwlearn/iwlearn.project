@@ -84,6 +84,24 @@
       permission="zope.Public"
       />
 
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projectbasincluster_view.kml"
+      class=".projectdbkmlview.ProjectDbKmlBasinCusterView"
+      allowed_interface=".projectkmlview.IProjectKMLView"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projectbasindetail_view.kml"
+      class=".projectdbkmlview.ProjectDbKmlBasinDetailView"
+      allowed_interface=".projectkmlview.IProjectKMLView"
+      permission="zope.Public"
+      />
+
+
+
 
   <browser:page
       for="*"

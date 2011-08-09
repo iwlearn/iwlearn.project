@@ -9,6 +9,7 @@ def get_color(n):
 
 def get_query(form):
     query = {}
+    print form
     form_fields = ['Title', 'getProject_type', 'getAgencies',
             'getProject_status', 'getBasin', 'getSubRegions',
             'SearchableText']

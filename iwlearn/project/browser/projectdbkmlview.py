@@ -76,15 +76,21 @@ class BasinPlacemark(BrainPlacemark):
 
 class ClusteredBasinPlacemark(BasinPlacemark):
     def __init__(self, context, request, document, basin, projects):
-        super(ClusteredBasinPlacemark, self).__init__(context, request, document, basin, projects)
-        #import ipdb; ipdb.set_trace()
+        super(ClusteredBasinPlacemark, self).__init__(context, request, document, basin, [])
         shape = { 'type': context.zgeo_geometry['type'],
                 'coordinates': context.zgeo_geometry['coordinates']}
-        geom = asShape(shape).envelope
+        geom = asShape(shape).centroid
         self.geom = NullGeometry()
         self.geom.type = geom.__geo_interface__['type']
         self.geom.coordinates = geom.__geo_interface__['coordinates']
 
+    @property
+    def description(self):
+        return u""
+
+    @property
+    def name(self):
+        return u""
 
 class CountryPlacemark(BrainPlacemark):
 
@@ -161,10 +167,11 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
                     if basin.Title in project_basins:
                         yield BasinPlacemark(basin, self.request, self,
                                 basin.Title, projects)
+                        continue
                 if 'without' in show_gef_basins:
                     if not(basin.Title in project_basins):
                         yield BasinPlacemark(basin, self.request, self,
-                                basin.Title, projects)
+                                basin.Title, [])
 
 SHOW_BBOX_RATIO = 2048
 
@@ -206,10 +213,11 @@ class ProjectDbKmlBasinCusterView(ProjectDbKmlBasinView):
                         if basin.Title in project_basins:
                             yield ClusteredBasinPlacemark(basin, self.request, self,
                                     basin.Title, projects)
+                            continue
                     if 'without' in show_gef_basins:
                         if not(basin.Title in project_basins):
                             yield ClusteredBasinPlacemark(basin, self.request, self,
-                                    basin.Title, projects)
+                                    basin.Title, [])
 
 class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
     @property
@@ -249,10 +257,11 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
                         if basin.Title in project_basins:
                             yield BasinPlacemark(basin, self.request, self,
                                     basin.Title, projects)
+                            continue
                     if 'without' in show_gef_basins:
                         if not(basin.Title in project_basins):
                             yield BasinPlacemark(basin, self.request, self,
-                                    basin.Title, projects)
+                                    basin.Title, [])
 
 class ProjectDbKmlCountryView(ProjectDbKmlView):
 

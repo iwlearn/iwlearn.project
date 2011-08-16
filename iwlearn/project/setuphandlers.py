@@ -99,6 +99,6 @@ def setupVarious(context):
     logger = context.getLogger('iwlearn.project')
     site = context.getSite()
     add_catalog_indexes(site, logger)
-    setVersionedTypes(site, logger)
+    #setVersionedTypes(site, logger)
     # Add additional setup code here
 

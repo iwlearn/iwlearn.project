@@ -65,13 +65,13 @@
       handler="iwlearn.project.setuphandlers.add_harvest_menue"
       profile="iwlearn.project:default" />
 
-  <genericsetup:upgradeStep
+  <!--genericsetup:upgradeStep
       title="enable versioning"
       description=""
       source="*"
       destination="1005"
       handler="iwlearn.project.setuphandlers.setVersionedTypes"
-      profile="iwlearn.project:default" />
+      profile="iwlearn.project:default" /-->
 
   <genericsetup:upgradeStep
       title="Reindex getSubRegions"

@@ -179,7 +179,7 @@ class ProjectDbKmlBasinCusterView(ProjectDbKmlBasinView):
     @property
     def features(self):
         map_state= self.request.form.get('cgmap_state.default-cgmap', {'zoom': '0'})
-        if int(map_state['zoom']) > 5:
+        if int(map_state.get('zoom','0')) > 5:
             return
         sbbox = self.request.form.get('bbox','-180,-90,180,90')
         bbox = [float(c) for c in sbbox.split(',')]
@@ -227,7 +227,7 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
         bbox_area = MultiPoint([bbox[:2],bbox[2:]]).envelope.area
         show_gef_basins = self.request.form.get('showgefbasins', [])
         map_state= self.request.form.get('cgmap_state.default-cgmap', {'zoom': '0'})
-        if int(map_state['zoom']) > 5:
+        if int(map_state.get('zoom', '0')) > 5:
             bbox_area = 1
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)

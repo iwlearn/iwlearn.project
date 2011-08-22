@@ -36,7 +36,6 @@
         <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
         <script type="text/javascript"
                 src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
-
         <a id="projectkmlurl" href="projectdbcountry_view.kml">
         <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
             alt="open in google earth" />
@@ -48,7 +47,7 @@
         </tal:loop>
         </span>
 
-
+        <div id="map-nav-panel"></div>
 <!-- /Collective.geo map -->
                     </div>
 
@@ -289,6 +288,7 @@ $('#projectsearchform').submit
                 OpenLayers.Control.Panel.prototype.initialize.apply(this, [options]);
                 this.addControls([
                   new OpenLayers.Control.Navigation(),
+                  //new OpenLayers.Control.OverviewMap(),
                   //Here it come
                   new OpenLayers.Control.ZoomBox({alwaysZoom:false})
                 ]);
@@ -337,6 +337,8 @@ $('#projectsearchform').submit
         function onFeatureUnselect(event) {
                 for (var i=0; i<map.popups.length; ++i){
                         map.removePopup(map.popups[i]);
+                        map.popups[i].destroy();
+                        map.popups[i] = null;
                 };
 
         };
@@ -367,13 +369,19 @@ $('#projectsearchform').submit
                 this.map.setCenter(lonlat, newZoom);
             };
         };
-
-        selectControl = new OpenLayers.Control.SelectFeature(
+        /*nav = new OpenLayers.Control.NavigationHistory();
+        npPanel = new OpenLayers.Control.Panel(
+                    {div: document.getElementById("map-nav-panel")}
+                );
+        npPanel.addControls([nav.next, nav.previous]);
+        map.addControl(npPanel);
+        npPanel.activate();*/
+        var selectControl = new OpenLayers.Control.SelectFeature(
                 kmls,
                 {
                     clickout: true,
                     multiple: false,
-                    hover: false,
+                    hover: false
                 }
             );
         map.addControl(selectControl);

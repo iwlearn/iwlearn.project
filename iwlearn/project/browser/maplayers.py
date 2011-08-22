@@ -51,7 +51,7 @@ class ProjectDbKMLMapLayer(MapLayer):
                         "select": {
                             fillColor: "#8aeeef",
                             strokeColor: "#32a8a9"
-                            },
+                            }
                         }),
                     eventListeners: { 'loadend': function(event) {
                                  var extent = this.getDataExtent();
@@ -136,7 +136,7 @@ class ProjectDbKMLBasinMapLayer(MapLayer):
                         "select": {
                             fillColor: "#8aeeef",
                             strokeColor: "#32a8a9"
-                            },
+                            }
                         }),
                     /*eventListeners: { 'loadend': function(event) {
                                  var extent = this.getDataExtent();

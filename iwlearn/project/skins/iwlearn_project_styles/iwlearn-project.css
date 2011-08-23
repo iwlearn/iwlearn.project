@@ -71,3 +71,13 @@ div.flexigrid {
     margin-left: auto;
     margin-right: auto;
 }
+
+ #map-nav-panel {
+    right: 0px;
+    height: 30px;
+    width: 200px;
+}
+#map-nav-panel div {
+    float: left;
+    margin: 5px;
+}

@@ -4,7 +4,8 @@ from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
-from plone.memoize import view
+from plone.memoize import view, ram
+from time import time
 
 from iwlearn.project import projectMessageFactory as _
 from collective.geo.kml.browser.kmldocument import KMLBaseDocument, BrainPlacemark, NullGeometry
@@ -26,6 +27,13 @@ class IProjectDbKmlView(Interface):
     ProjectDbKml view interface
     """
 
+RAM_CACHE_SECONDS = 36
+
+def _search_result_cachekey(context, fun, query):
+    ckey = [query]
+    ckey.append(time() // RAM_CACHE_SECONDS)
+    return ckey
+
 
 class ProjectDbKmlView(KMLBaseDocument):
     """
@@ -38,12 +46,17 @@ class ProjectDbKmlView(KMLBaseDocument):
     def portal_catalog(self):
         return getToolByName(self.context, 'portal_catalog')
 
+    #@ram.cache(_search_result_cachekey)
+    def get_results(self, query):
+        #print query
+        return self.portal_catalog(**query)
+
 
     @property
     @view.memoize
     def features(self):
         query = get_query(self.request.form)
-        results = self.portal_catalog(**query)
+        results = self.get_results(query)
         for brain in results:
             yield BrainPlacemark(brain, self.request, self)
 
@@ -146,7 +159,7 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
         show_gef_basins = self.request.form.get('showgefbasins', [])
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
-        projects = self.portal_catalog(**query)
+        projects = self.get_results(query)
         project_basins = []
         for project in projects:
             if project.getBasin:
@@ -158,9 +171,8 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
                 path.append('iwlearn/iw-projects/basins/' + basin_type)
         else:
             path='iwlearn/iw-projects/basins'
-
-        basins = self.portal_catalog(portal_type = 'Document',
-                    path = path)
+        basin_query = {'portal_type': 'Document', 'path': path}
+        basins = self.get_results(basin_query)
         for basin in basins:
             if basin.zgeo_geometry:
                 if 'with' in show_gef_basins:
@@ -187,7 +199,7 @@ class ProjectDbKmlBasinCusterView(ProjectDbKmlBasinView):
         show_gef_basins = self.request.form.get('showgefbasins', [])
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
-        projects = self.portal_catalog(**query)
+        projects = self.get_results(query)
         project_basins = []
         for project in projects:
             if project.getBasin:
@@ -199,10 +211,10 @@ class ProjectDbKmlBasinCusterView(ProjectDbKmlBasinView):
                 path.append('iwlearn/iw-projects/basins/' + basin_type)
         else:
             path='iwlearn/iw-projects/basins'
-
-        basins = self.portal_catalog(portal_type = 'Document',
-                    path = path, zgeo_geometry = {
-                    'geometry_operator': 'intersects', 'query': sbbox})
+        basin_query = {'portal_type':'Document',
+                    'path': path, 'zgeo_geometry': {
+                    'geometry_operator': 'intersects', 'query': sbbox}}
+        basins = self.get_results(basin_query)
         for basin in basins:
             if basin.zgeo_geometry:
                 shape = { 'type': basin.zgeo_geometry['type'],
@@ -231,7 +243,7 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
             bbox_area = 1
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
-        projects = self.portal_catalog(**query)
+        projects = self.get_results(query)
         project_basins = []
         for project in projects:
             if project.getBasin:
@@ -244,9 +256,10 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
         else:
             path='iwlearn/iw-projects/basins'
 
-        basins = self.portal_catalog(portal_type = 'Document',
-                    path = path, zgeo_geometry = {
-                    'geometry_operator': 'intersects', 'query': sbbox})
+        basin_query = {'portal_type':'Document',
+                    'path': path, 'zgeo_geometry': {
+                    'geometry_operator': 'intersects', 'query': sbbox}}
+        basins = self.get_results(basin_query)
         for basin in basins:
             if basin.zgeo_geometry:
                 shape = { 'type': basin.zgeo_geometry['type'],
@@ -268,7 +281,7 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
     @property
     def features(self):
         query = get_query(self.request.form)
-        projects = self.portal_catalog(**query)
+        projects = self.get_results(query)
         project_countries = []
         for project in projects:
             if project.getCountry:
@@ -277,8 +290,9 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                 if 'Global' in project.getSubRegions:
                     project_countries.append('Global')
         project_countries = list(set(project_countries))
-        countries = self.portal_catalog(portal_type = 'Image',
-                    path='iwlearn/images/countries/')
+        cquery = {'portal_type': 'Image',
+                'path': 'iwlearn/images/countries/'}
+        countries = self.get_results(cquery)
         geo_annotated_countries =[]
         for country in countries:
             if ((country.Title in project_countries) and

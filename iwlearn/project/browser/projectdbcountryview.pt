@@ -33,9 +33,13 @@
 
 <!-- Collective.geo map -->
 
+
+
         <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
         <script type="text/javascript"
                 src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
+<span id="map-nav-panel"></span>
+
         <a id="projectkmlurl" href="projectdbcountry_view.kml">
         <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
             alt="open in google earth" />
@@ -47,10 +51,9 @@
         </tal:loop>
         </span>
 
-        <div id="map-nav-panel"></div>
 <!-- /Collective.geo map -->
                     </div>
-
+<div class="visualClear">&nbsp;</div>
             <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action="country_view.html">
               <fieldset>
                 <legend>Basin Layers</legend>
@@ -268,10 +271,7 @@ $('#projectsearchform').submit
 /*<![CDATA[*/
     $(document).ready(function() {
         var map = cgmap.config['default-cgmap'].map;
-        //var control = new OpenLayers.Control.ZoomBox();
 
-
-        //Creation of a custom panel with a ZoomBox control with the alwaysZoom option sets to true
         OpenLayers.Control.CustomNavToolbar = OpenLayers.Class(OpenLayers.Control.Panel, {
 
             /**
@@ -295,34 +295,30 @@ $('#projectsearchform').submit
                 // To make the custom navtoolbar use the regular navtoolbar style
                 this.displayClass = 'olControlNavToolbar'
             },
-
-
-
-            /**
-             * Method: draw
-             * calls the default draw, and then activates mouse defaults.
-             */
-            draw: function() {
-                var div = OpenLayers.Control.Panel.prototype.draw.apply(this, arguments);
-                this.defaultControl = this.controls[0];
-                return div;
-            }
         });
 
         var panel = new OpenLayers.Control.CustomNavToolbar();
         map.addControl(panel);
+
         map.events.on({
                 moveend: function(event) {
-                    var b_l = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).left;
-                    var b_b = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).bottom;
-                    var b_r = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).right;
-                    var b_t = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326")).top;
+                    var mapExtent = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
+                    var b_l = mapExtent.left;
+                    var b_b = mapExtent.bottom;
+                    var b_r = mapExtent.right;
+                    var b_t = mapExtent.top;
+                    if (b_l > b_r){
+                        if (mapExtent.getCenterLonLat().lon > 0){
+                            b_l = -180;
+                        }
+                    };
                     var left = Math.max(Math.floor(b_l/10)*10, -180);
                     var bottom = Math.max(Math.floor(b_b/10)*10, -90);
                     var right = Math.min(Math.ceil(b_r/10)*10, 180);
                     var top = Math.min(Math.ceil(b_t/10)*10, 90);
                     if (right < left){ right = 180; };
-                    var input_string = '' + left +',' + bottom +',' + right + ',' + top
+                    var input_string = '' + left +',' + bottom +',' + right + ',' + top;
+                    if (event.object.getZoom() < 2){ input_string = '-180,-90,180,90';};
                     if (jQuery("input#inputbbox").val() != input_string) {
                         jQuery("input#inputbbox").val(input_string);
                         jQuery('#flexiprojects').flexOptions({newp: 1}).flexReload();
@@ -369,13 +365,15 @@ $('#projectsearchform').submit
                 this.map.setCenter(lonlat, newZoom);
             };
         };
-        /*nav = new OpenLayers.Control.NavigationHistory();
-        npPanel = new OpenLayers.Control.Panel(
+
+        var navPanel = new OpenLayers.Control.NavigationHistory();
+        // parent control must be added to the map
+        map.addControl(navPanel);
+        var npPanel = new OpenLayers.Control.Panel(
                     {div: document.getElementById("map-nav-panel")}
                 );
-        npPanel.addControls([nav.next, nav.previous]);
+        npPanel.addControls([navPanel.next, navPanel.previous]);
         map.addControl(npPanel);
-        npPanel.activate();*/
         var selectControl = new OpenLayers.Control.SelectFeature(
                 kmls,
                 {
@@ -389,10 +387,6 @@ $('#projectsearchform').submit
         for (var i=0; i<kmls.length; ++i){
             kmls[i].events.on({"featureselected": onFeatureSelect, "featureunselected": onFeatureUnselect});
         };
-
-
-
-
 
 });
 /*]]>*/

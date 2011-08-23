@@ -32,7 +32,7 @@ def import_aquifers(self):
 
 def import_rivers(self):
     rivers = geojson.load(open(
-        '/home/ledermac/Documents/basins/basins.json',
+        'src/iwlearn.project/iwlearn/project/dataimport/basins.json',
         'r'))
     parent = self.portal_url.getPortalObject()['iw-projects']['basins']['rivers']
     for river in rivers['features']:
@@ -55,9 +55,39 @@ def import_rivers(self):
         geo.setCoordinates(q['type'], q['coordinates'])
 
 
+def import_lakes(self):
+    lakes = geojson.load(open(
+        'src/iwlearn.project/iwlearn/project/dataimport/lakes.json',
+        'r'))
+    parent = self.portal_url.getPortalObject()['iw-projects']['basins']['lakes']
+    for lake in lakes['features']:
+        if ((lake['properties']['TYPE']=='Lake') and ( lake['properties']['SEC_CNTRY'])):
+            rnd = str(-random.randrange(100,1000))
+            new_obj_id = idn.normalize(lake['properties']['GLWD_ID']) #+ rnd
+            print new_obj_id
+            self.portal_types.constructContent('Document', parent, new_obj_id)
+            new_obj=parent[new_obj_id]
+            if lake['properties']['LAKE_NAME']:
+                new_obj.setTitle(lake['properties']['LAKE_NAME'])
+            new_obj.setDescription("Area: %s; Perimeter: %s; Countries: %s, %s" % (
+                            lake['properties']['AREA_SKM'],
+                            lake['properties']['PERIM_KM'],
+                            lake['properties']['COUNTRY'],
+                            lake['properties']['SEC_CNTRY'],
+                            ))
+            color='2c80d3'
+            style = IGeoCustomFeatureStyle(new_obj)
+            style.geostyles.data['use_custom_styles']=True
+            style.geostyles.data['polygoncolor']=color
+            style.geostyles.update(style.geostyles)
+            geo = IGeoManager(new_obj)
+            q = asShape(lake['geometry']).simplify(0.2).__geo_interface__
+            geo.setCoordinates(q['type'], q['coordinates'])
+
+
 def import_lmes(self):
     lmes = geojson.load(open(
-        '/home/ledermac/Documents/lmes/lmes.json',
+        'src/iwlearn.project/iwlearn/project/dataimport/lmes.json',
         'r'))
     parent = self.portal_url.getPortalObject()['iw-projects']['basins']['lmes']
     for lme in lmes['features']:
@@ -80,3 +110,9 @@ def import_lmes(self):
         geo = IGeoManager(new_obj)
         q = asShape(lme['geometry']).simplify(0.2).__geo_interface__
         geo.setCoordinates(q['type'], q['coordinates'])
+
+def import_basins(self):
+    import_lmes(self)
+    import_rivers(self)
+    import_aquifers(self)
+    import_lakes(self)

@@ -215,3 +215,31 @@ class GefOnlineHarvestView(BrowserView):
         logger.info('harvest complete')
         return new_projects
 
+
+class GefOnlineUpdateView(GefOnlineHarvestView):
+
+
+    def harvest_projects(self):
+        projects = self.portal_catalog(portal_type ='Project')
+        new_projects =[]
+        for brain in projects:
+            ob = brain.getObject()
+            projectid = int(ob.getGef_project_id().strip())
+            pinfo = harvest.extract_project_info(projectid)
+            if pinfo:
+                project_status = pinfo.get('Project Status', None)
+                start_date = DateTime(pinfo.get('Approval Date',None))
+                if ob.getProject_status() != project_status:
+                    ob.update(
+                            project_status=project_status,
+                            start_date=start_date,
+                           )
+                    logger.info('Updating project %i' % projectid )
+                    new_projects.append({'name': brain.Title,
+                        'url': brain.getURL(),
+                        'description': brain.Description})
+                else:
+                    logger.info('project %i unchanged' % projectid )
+            else:
+                logger.info('download failed for project %i' % projectid )
+        return new_projects

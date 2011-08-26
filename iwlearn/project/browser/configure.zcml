@@ -21,6 +21,16 @@
       />
 
 
+
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="gefonlineupdate_view"
+      class=".gefonlineharvestview.GefOnlineUpdateView"
+      template="gefonlineharvestview.pt"
+      allowed_interface=".gefonlineharvestview.IGefOnlineHarvestView"
+      permission="cmf.ModifyPortalContent"
+      />
+
   <browser:page
       for="..interfaces.IProjectDatabase"
       name="projectwebsites_view"

@@ -48,7 +48,7 @@ class ProjectDbKmlView(KMLBaseDocument):
 
     #@ram.cache(_search_result_cachekey)
     def get_results(self, query):
-        #print query
+        print query
         return self.portal_catalog(**query)
 
 

@@ -130,6 +130,14 @@
       permission="zope2.View"
       />
 
+  <adapter
+      for=".projectdbview.IProjectDBView
+           zope.interface.Interface
+           zope.interface.Interface
+           zope.interface.Interface"
+      factory=".maplayers.ProjectDbKMLMapLayers"
+      />
+
   <browser:page
       for="..interfaces.IProjectDatabase"
       name="country_view.html"
@@ -141,20 +149,34 @@
 
 
   <adapter
-      for=".projectdbview.IProjectDBView
-           zope.interface.Interface
-           zope.interface.Interface
-           zope.interface.Interface"
-      factory=".maplayers.ProjectDbKMLMapLayers"
-      />
-
-  <adapter
       for=".projectdbview.ProjectDBCountryView
            zope.interface.Interface
            zope.interface.Interface
            zope.interface.Interface"
       factory=".maplayers.ProjectDbKMLCountryMapLayers"
       />
+
+
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="basin_view.html"
+      class=".projectdbview.ProjectDBBasinView"
+      template="projectdbbasinview.pt"
+      allowed_interface=".projectdbview.IProjectDBView"
+      permission="zope2.View"
+      />
+
+
+  <adapter
+      for=".projectdbview.ProjectDBBasinView
+           zope.interface.Interface
+           zope.interface.Interface
+           zope.interface.Interface"
+      factory=".maplayers.ProjectDbKMLBasinMapLayers"
+      />
+
+
+
 
   <browser:page
       for="..interfaces.IProject"

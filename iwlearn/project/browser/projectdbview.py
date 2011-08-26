@@ -79,7 +79,6 @@ class ProjectDBBaseView(BrowserView):
         /*passing a form object to serializeArray will get the valid data
         from all the objects, but, if the you pass a non-form object,
         you have to specify the input elements that the data will come from */
-        //jQuery("input#inputbbox").val('-180,-90,180,90')
         var dt = $('#projectsearchform').serializeArray();
         $("#flexiprojects").flexOptions({params: dt});
         // refresh map
@@ -239,21 +238,15 @@ class ProjectDBCountryView(ProjectDBBaseView):
 
     def get_js(self):
         refresh_js = """
-        var kmls = map.getLayersByName('Countries');
+        var kmls = map.getLayersByClass('OpenLayers.Layer.GML');
+        var kml_url = '%s' + qs;
         layer = kmls[0];
-        kml_url = '%s' + qs;
-        layer.refresh({url: kml_url});
-        var kmls = map.getLayersByName('Basin Cluster');
-        layer = kmls[0];
-        kml_url = '%s' + qs;
-        layer.refresh({url: kml_url});
-        var kmls = map.getLayersByName('Basin Detail');
-        layer = kmls[0];
-        kml_url = '%s' + qs;
-        layer.refresh({url: kml_url});
-        """ % (self.context.absolute_url() + '/@@projectdbcountry_view.kml',
-                self.context.absolute_url() + '/@@projectbasincluster_view.kml',
-                self.context.absolute_url() + '/@@projectbasindetail_view.kml')
+        layer.setVisibility(false);
+        layer.loaded = false;
+        layer.setUrl(kml_url);
+        layer.refresh({ force: true, params: params });
+        layer.setVisibility(true);
+        """ % (self.context.absolute_url() + '/@@projectdbcountry_view.kml')
 
         js =  self.js_template % (self.context.absolute_url(), refresh_js)
 
@@ -262,3 +255,110 @@ class ProjectDBCountryView(ProjectDBBaseView):
     def color_style(self, n):
         color = get_color(n)
         return 'background: %s; padding: 0.5em' % color
+
+
+class ProjectDBBasinView(ProjectDBBaseView):
+    implements(IProjectDBCountryView)
+
+    js_template = """
+/*<![CDATA[*/
+ $(document).ready(function() {
+   $("#projectsearchform").find("select").each(function(i) {
+     $(this).change(function( objEvent ){
+         $('#flexiprojects').flexOptions({newp: 1}).flexReload();
+        }) ;
+   });
+    $("#projectsearchform").find("input:checkbox").each(function(i) {
+     $(this).change(function( objEvent ){
+         $('#flexiprojects').flexOptions({newp: 1}).flexReload();
+        }) ;
+   });
+ });
+
+
+
+    $("#flexiprojects").flexigrid
+            (
+            {
+            url: '%s/@@flexijson_view',
+            dataType: 'json',
+            colModel : [
+                {display: 'Title', name : 'Title', width : 220, sortable : true, align: 'left'},
+                {display: 'Project type', name : 'getProject_type', width : 100, sortable : true, align: 'left'},
+                {display: 'Implementing agencies', name : 'getAgencies', width : 220, sortable : true, align: 'left'},
+                {display: 'Region', name : 'getSubRegions', width : 200, sortable : true, align: 'left'},
+                {display: 'Status', name : 'getProject_status', width : 100, sortable : true, align: 'left'},
+                {display: 'URL', name : 'getRemoteUrl', width : 100, sortable : false, align: 'left', hide: true}
+                ],
+            sortname: "Title",
+            sortorder: "asc",
+            usepager: true,
+            title: 'Projects',
+            useRp: true,
+            rp: 15,
+            showTableToggleBtn: false,
+            width: 900,
+            onSubmit: addFormData,
+            height: 200
+            }
+            );
+
+
+    /*This function adds paramaters to the post of flexigrid.
+    You can add a verification as well by return to false if
+    you don't want flexigrid to submit function addFormData() */
+    function addFormData() {
+        /*passing a form object to serializeArray will get the valid data
+        from all the objects, but, if the you pass a non-form object,
+        you have to specify the input elements that the data will come from */
+        var dt = $('#projectsearchform').serializeArray();
+        $("#flexiprojects").flexOptions({params: dt});
+        // refresh map
+        var qs = '?';
+        var params = {};
+        jQuery.each(dt, function(i, field){
+            qs = qs + field.name + '=' + field.value + "&";
+            params[field.name] = field.value;
+        });
+        var map = cgmap.config['default-cgmap'].map;
+        try {
+        %s
+        } catch (e) {
+
+            alert("An exception occurred. Error name: " + e.name
+            + ". Error message: " + e.message); };
+        jQuery("a#projectkmlurl").attr('href', kml_url);
+        return true;
+        };
+
+
+$('#projectsearchform').submit
+(
+    function ()
+        {
+            $('#flexiprojects').flexOptions({newp: 1}).flexReload();
+            return false;
+        }
+);
+/*]]>*/
+        """
+
+
+
+    def get_js(self):
+        refresh_js = """
+        var kmls = map.getLayersByName('Basin Cluster');
+        layer = kmls[0];
+        kml_url = '%s' + qs;
+        layer.refresh({url: kml_url});
+        var kmls = map.getLayersByName('Basin Detail');
+        layer = kmls[0];
+        kml_url = '%s' + qs;
+        layer.refresh({url: kml_url});
+        """ % ( self.context.absolute_url() + '/@@projectbasincluster_view.kml',
+                self.context.absolute_url() + '/@@projectbasindetail_view.kml')
+
+        js =  self.js_template % (self.context.absolute_url(), refresh_js)
+
+        return js
+

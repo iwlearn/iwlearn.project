@@ -45,16 +45,22 @@
             alt="open in google earth" />
         Download KML
         </a>
-        <span style="margin-left: 25em;">
-        <tal:loop tal:repeat="num python:range(1, 26, 3)">
-           <b tal:content="num" tal:attributes="style python:view.color_style(num)"> </b>
-        </tal:loop>
-        </span>
+
 
 <!-- /Collective.geo map -->
                     </div>
 <div class="visualClear">&nbsp;</div>
             <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action="country_view.html">
+              <fieldset>
+                <legend>Basin Layers</legend>
+                <input type="checkbox" name="showgefbasins:list" value="with" checked="checked"/> with GEF projects
+                <input type="checkbox" name="showgefbasins:list" value="without" checked="checked"/> without GEF projects
+                <br/>
+                <input type="checkbox" name="basintype:list" value="lmes" checked="checked"/> LMEs
+                <input type="checkbox" name="basintype:list" value="lakes" checked="checked"/> Lakes
+                <input type="checkbox" name="basintype:list" value="rivers" checked="checked"/> Rivers
+                <input type="checkbox" name="basintype:list" value="aquifers" checked="checked"/> Aquifers
+              </fieldset>
               <fieldset>
                 <legend>Search for Projects</legend>
                 <div class="field odd">
@@ -262,7 +268,9 @@ $('#projectsearchform').submit
     $(document).ready(function() {
         var map = cgmap.config['default-cgmap'].map;
 
-        OpenLayers.Control.CustomNavToolbar = OpenLayers.Class(OpenLayers.Control.Panel, {
+        /*OpenLayers.Control.CustomNavToolbar = OpenLayers.Class(OpenLayers.Control.Panel, {
+
+
 
             initialize: function(options) {
                 OpenLayers.Control.Panel.prototype.initialize.apply(this, [options]);
@@ -278,7 +286,73 @@ $('#projectsearchform').submit
         });
 
         var panel = new OpenLayers.Control.CustomNavToolbar();
-        map.addControl(panel);
+        map.addControl(panel); */
+
+        map.events.on({
+                moveend: function(event) {
+                    var mapExtent = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
+                    var b_l = mapExtent.left;
+                    var b_b = mapExtent.bottom;
+                    var b_r = mapExtent.right;
+                    var b_t = mapExtent.top;
+                    if (b_l > b_r){
+                        if (mapExtent.getCenterLonLat().lon > 0){
+                            b_l = -180;
+                        }
+                    };
+                    var left = Math.max(Math.floor(b_l/10)*10, -180);
+                    var bottom = Math.max(Math.floor(b_b/10)*10, -90);
+                    var right = Math.min(Math.ceil(b_r/10)*10, 180);
+                    var top = Math.min(Math.ceil(b_t/10)*10, 90);
+                    if (right < left){ right = 180; };
+                    var input_string = '' + left +',' + bottom +',' + right + ',' + top;
+                    if (event.object.getZoom() < 2){ input_string = '-180,-90,180,90';};
+                    if (jQuery("input#inputbbox").val() != input_string) {
+                        jQuery("input#inputbbox").val(input_string);
+                        jQuery('#flexiprojects').flexOptions({newp: 1}).flexReload();
+                    }
+
+                  }
+            });
+
+        var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
+
+
+        function onFeatureUnselect(event) {
+                for (var i=0; i<map.popups.length; ++i){
+                        map.removePopup(map.popups[i]);
+                        map.popups[i].destroy();
+                        map.popups[i] = null;
+                };
+
+        };
+
+        function onPopupClose(event) {
+             for (var i=0; i<map.popups.length; ++i){
+                        map.removePopup(map.popups[i]);
+                };
+        };
+        var lt = String.fromCharCode(60);
+        var gt = String.fromCharCode(62);
+
+        function onFeatureSelect(event) {
+            if (event.feature.cluster == null){
+                var feature = event.feature;
+                var content = lt + "h2" + gt + feature.attributes.name + lt + "/h2" + gt + feature.attributes.description;
+                popup = new OpenLayers.Popup.FramedCloud("chicken",
+                                         feature.geometry.getBounds().getCenterLonLat(),
+                                         new OpenLayers.Size(100,100),
+                                         content,
+                                         null, true, onPopupClose);
+                feature.popup = popup;
+                map.addPopup(popup);
+            } else {
+                var lonlat = event.feature.geometry.getBounds().getCenterLonLat();
+                var currZoom = this.map.getZoom();
+                var newZoom = currZoom + 3;
+                this.map.setCenter(lonlat, newZoom);
+            };
+        };
 
         var navPanel = new OpenLayers.Control.NavigationHistory();
         // parent control must be added to the map
@@ -288,6 +362,19 @@ $('#projectsearchform').submit
                 );
         npPanel.addControls([navPanel.next, navPanel.previous]);
         map.addControl(npPanel);
+        var selectControl = new OpenLayers.Control.SelectFeature(
+                kmls,
+                {
+                    clickout: true,
+                    multiple: false,
+                    hover: false
+                }
+            );
+        map.addControl(selectControl);
+        selectControl.activate();
+        for (var i=0; i<kmls.length; ++i){
+            kmls[i].events.on({"featureselected": onFeatureSelect, "featureunselected": onFeatureUnselect});
+        };
 
 });
 /*]]>*/

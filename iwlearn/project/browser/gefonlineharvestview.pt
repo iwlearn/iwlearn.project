@@ -5,7 +5,7 @@
 <body>
     <div metal:fill-slot="main">
         <tal:main-macro metal:define-macro="main">
-        <h1>Added Projects</h1>
+        <h1 tal:content="view/view_usage">Added Projects</h1>
         <ul>
             <li tal:repeat="np view/harvest_projects">
                 <a target="_blank"

@@ -81,4 +81,13 @@
       handler="iwlearn.project.setuphandlers.reindex_regions"
       profile="iwlearn.project:default" />
 
+
+  <genericsetup:upgradeStep
+      title="Add update form gefonline action"
+      description=""
+      source="1006"
+      destination="1007"
+      handler="iwlearn.project.setuphandlers.add_harvest_menue"
+      profile="iwlearn.project:default" />
+
 </configure>

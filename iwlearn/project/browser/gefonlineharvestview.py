@@ -24,6 +24,8 @@ class GefOnlineHarvestView(BrowserView):
     """
     implements(IGefOnlineHarvestView)
 
+    view_usage = 'Added Projects'
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -218,6 +220,8 @@ class GefOnlineHarvestView(BrowserView):
 
 class GefOnlineUpdateView(GefOnlineHarvestView):
 
+    view_usage = 'Updated Projects'
+
 
     def harvest_projects(self):
         projects = self.portal_catalog(portal_type ='Project')
@@ -228,7 +232,10 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
             pinfo = harvest.extract_project_info(projectid)
             if pinfo:
                 project_status = pinfo.get('Project Status', None)
-                start_date = DateTime(pinfo.get('Approval Date',None))
+                if pinfo.get('Approval Date', None):
+                    start_date = DateTime(pinfo.get('Approval Date'))
+                else:
+                    start_date = None
                 if ob.getProject_status() != project_status:
                     ob.update(
                             project_status=project_status,

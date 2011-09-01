@@ -1,6 +1,8 @@
 import logging
 from zope.interface import implements, Interface
 from DateTime import DateTime
+from htmllaundry import sanitize
+
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 
@@ -159,7 +161,7 @@ class GefOnlineHarvestView(BrowserView):
                         operational_programme=operational_program,
                         gef_project_allocation=str(project_allocation),
                         total_cost=str(total_cost),
-                        project_summary=description
+                        project_summary=sanitize(description)
                        )
 
         self._create_project_folders(new_project)

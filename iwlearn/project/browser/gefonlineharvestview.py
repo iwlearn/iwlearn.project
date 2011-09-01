@@ -141,7 +141,7 @@ class GefOnlineHarvestView(BrowserView):
             html = portal_transforms.convert(
                 'web_intelligent_plain_text_to_html',
                 pinfo.get('Description')).getData()
-            description += u"<hr/><br/> %s" % html
+            description += u"<hr/><br/> %s" % html.decode('utf-8', 'ignore')
         if pinfo.has_key('Implementation Status'):
             description += u"<h3>Implementation Status</h3> <p> %s </p>" % pinfo.get('Implementation Status')
 

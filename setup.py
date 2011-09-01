@@ -57,6 +57,8 @@ setup(name='iwlearn.project',
       install_requires=['setuptools',
                         # -*- Extra requirements: -*-
                         'collective.geo.kml'
+                        'Products.ATBackRef',
+                        'Products.ATExtensions',
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),

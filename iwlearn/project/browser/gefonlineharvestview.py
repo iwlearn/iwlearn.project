@@ -131,17 +131,17 @@ class GefOnlineHarvestView(BrowserView):
 
         description = ""
         if pinfo.has_key('GEF Agency'):
-            description += "<h3>GEF Agency</h3> <p> %s </p>" % pinfo.get('GEF Agency')
+            description += u"<h3>GEF Agency</h3> <p> %s </p>" % pinfo.get('GEF Agency')
 
         if pinfo.has_key('Executing Agency'):
-            description += "<h3>Executing Agency</h3> <p> %s </p>" % pinfo.get('Executing Agency')
+            description += u"<h3>Executing Agency</h3> <p> %s </p>" % pinfo.get('Executing Agency')
         if pinfo.has_key('Description'):
             html = portal_transforms.convert(
                 'web_intelligent_plain_text_to_html',
                 pinfo.get('Description')).getData()
-            description += "<hr/><br/> %s" % html
+            description += u"<hr/><br/> %s" % html
         if pinfo.has_key('Implementation Status'):
-            description += "<h3>Implementation Status</h3> <p> %s </p>" % pinfo.get('Implementation Status')
+            description += u"<h3>Implementation Status</h3> <p> %s </p>" % pinfo.get('Implementation Status')
 
         portal_types.constructContent('Project', self.context, project_id)
 

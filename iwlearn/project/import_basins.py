@@ -9,16 +9,25 @@ idn = IDNormalizer()
 
 def import_aquifers(self):
     aquifers = geojson.load(open(
-        '/home/ledermac/Documents/aquifers/aquifers.json',
+        'src/iwlearn.project/iwlearn/project/dataimport/aquifers.json',
         'r'))
     parent = self.portal_url.getPortalObject()['iw-projects']['basins']['aquifers']
     for aquifer in aquifers['features']:
         rnd = str(-random.randrange(1000,10000))
-        new_obj_id = idn.normalize(aquifer['properties']['NAME']) + rnd
+        ext = idn.normalize(aquifer['properties']['FIRST_ISAR'] + '-' +
+            aquifer['properties']['UNECE_code'] + '-' +
+            aquifer['properties']['aq_code200'] + '-' +
+            aquifer['properties']['code2011'])
+        new_obj_id = idn.normalize(aquifer['properties']['NAME']) + ext
+        if new_obj_id in parent:
+            new_obj_id = new_obj_id + rnd
         self.portal_types.constructContent('Document', parent, new_obj_id)
         new_obj=parent[new_obj_id]
         print new_obj_id
         new_obj.setTitle(aquifer['properties']['NAME'])
+        new_obj.setDescription("Area: %s; Length: %s" % (
+                        aquifer['properties']['Shape_Area'],
+                        aquifer['properties']['Shape_Leng']))
         color='c1742c'
         style = IGeoCustomFeatureStyle(new_obj)
         style.geostyles.data['use_custom_styles']=True

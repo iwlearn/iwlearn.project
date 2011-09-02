@@ -199,24 +199,32 @@ class ProjectDbKMLCountryMapLayer(MapLayer):
             });}""" % (u"Countries",
             context_url)
 
+class ProjectDbKMLCountryMapLayer2(MapLayer):
+    """
+    a layer for one level sub objects.
+    """
 
-        #return u"""function() {
-                #return new OpenLayers.Layer.Vector("%s", {
-                    #protocol: new OpenLayers.Protocol.HTTP({
-                      #url: "%s@@projectdbcountry_view.kml",
-                      #format: new OpenLayers.Format.KML({
-                        #extractStyles: true,
-                        #extractAttributes: true})
-                      #}),
-                    #strategies: [new OpenLayers.Strategy.Fixed()],
-                    #/*eventListeners: { 'loadend': function(event) {
-                                 #var extent = this.getDataExtent();
-                                 #this.map.zoomToExtent(extent);
-                                #}
-                            #},*/
-                    #projection: new OpenLayers.Projection("EPSG:4326")
-                  #});
-                #}""" % (u'Countries', context_url)
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def jsfactory(self):
+        context_url = self.context.absolute_url()
+        if not context_url.endswith('/'):
+            context_url += '/'
+        return u"""function() {
+                return new OpenLayers.Layer.Vector("%s", {
+                    protocol: new OpenLayers.Protocol.HTTP({
+                      url: "%s@@projectdbcountry_view.kml",
+                      format: new OpenLayers.Format.KML({
+                        extractStyles: true,
+                        extractAttributes: true})
+                      }),
+                    strategies: [new OpenLayers.Strategy.Fixed()],
+                    visibility: false,
+                    projection: new OpenLayers.Projection("EPSG:4326")
+                  });
+                }""" % (u'Countries', context_url)
 
 class ProjectDbKMLCountryMapLayers(MapLayers):
     def layers(self):
@@ -231,6 +239,7 @@ class ProjectDbKMLBasinMapLayers(MapLayers):
     def layers(self):
         layers = super(ProjectDbKMLBasinMapLayers, self).layers()
         layers.append(ProjectDbKMLBasinMapLayer(self.context))
+        layers.append(ProjectDbKMLCountryMapLayer2(self.context))
         return layers
 
 

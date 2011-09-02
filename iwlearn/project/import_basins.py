@@ -15,9 +15,9 @@ def import_aquifers(self):
     for aquifer in aquifers['features']:
         rnd = str(-random.randrange(1000,10000))
         ext = idn.normalize(aquifer['properties']['FIRST_ISAR'] + '-' +
-            aquifer['properties']['UNECE_code'] + '-' +
-            aquifer['properties']['aq_code200'] + '-' +
-            aquifer['properties']['code2011'])
+            str(aquifer['properties']['UNECE_code']) + '-' +
+            str(aquifer['properties']['aq_code200']) + '-' +
+            str(aquifer['properties']['code2011']))
         new_obj_id = idn.normalize(aquifer['properties']['NAME']) + ext
         if new_obj_id in parent:
             new_obj_id = new_obj_id + rnd

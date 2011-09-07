@@ -40,7 +40,7 @@
                 src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
 <span id="map-nav-panel"></span>
 
-        <a id="projectkmlurl" href="projectdbcountry_view.kml">
+        <a id="projectkmlurl" href="projectbasin_view.kml">
         <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
             alt="open in google earth" />
         Download KML
@@ -178,7 +178,7 @@
                 </div>
               </fieldset>
               <input type="hidden" value="-180,-90,180,90" name="bbox" id="inputbbox" />
-
+              <input type="hidden" value="0" name="zoomfactor" id="inputzoom" />
             </form>
 
             <table id="flexiprojects" style="display:none"></table>
@@ -265,7 +265,7 @@ $('#projectsearchform').submit
 
            <script type="text/javascript">
 /*<![CDATA[*/
-    $(document).ready(function() {
+    $(window).bind("load", function() {
         var map = cgmap.config['default-cgmap'].map;
 
         /*OpenLayers.Control.CustomNavToolbar = OpenLayers.Class(OpenLayers.Control.Panel, {
@@ -295,6 +295,9 @@ $('#projectsearchform').submit
                     var b_b = mapExtent.bottom;
                     var b_r = mapExtent.right;
                     var b_t = mapExtent.top;
+                    var zoom_factor = event.object.getZoom();
+                    if (zoom_factor < 2) {zoom_factor = 0};
+                    if (zoom_factor > 5) {zoom_factor = 6};
                     if (b_l > b_r){
                         if (mapExtent.getCenterLonLat().lon > 0){
                             b_l = -180;
@@ -307,8 +310,9 @@ $('#projectsearchform').submit
                     if (right < left){ right = 180; };
                     var input_string = '' + left +',' + bottom +',' + right + ',' + top;
                     if (event.object.getZoom() < 2){ input_string = '-180,-90,180,90';};
-                    if (jQuery("input#inputbbox").val() != input_string) {
+                    if ((jQuery("input#inputbbox").val() != input_string) || jQuery("input#inputzoom").val() != zoom_factor) {
                         jQuery("input#inputbbox").val(input_string);
+                        jQuery("input#inputzoom").val(zoom_factor);
                         jQuery('#flexiprojects').flexOptions({newp: 1}).flexReload();
                     }
 

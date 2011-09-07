@@ -59,7 +59,7 @@
         Download KML</a>
         <script type="text/javascript" >
         /*<![CDATA[*/
-    $(document).ready(function() {
+   $(window).bind("load", function() {
         var map = cgmap.config['default-cgmap'].map;
         var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
         if (kmls.length > 0) {
@@ -100,11 +100,6 @@
                     }
 
                 if (event.feature.cluster.length > maxp){
-                        /*message =  lt +'div' + gt + event.feature.cluster.length + ' projects found';
-                        message += lt + 'br /' + gt;
-                        message += lt + 'a href="javascript:zoomToSelectedFeature('+ lon + ','+ lat +', 2)"' + gt;
-                        message += 'zoom in for more details';
-                        message += lt +'/a' + gt;*/
                         var currZoom = this.map.getZoom();
                         var newZoom = currZoom + 2;
                         this.map.setCenter(zoom_point, newZoom);

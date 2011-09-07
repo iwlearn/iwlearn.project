@@ -259,7 +259,9 @@ $('#projectsearchform').submit
 
            <script type="text/javascript">
 /*<![CDATA[*/
-    $(document).ready(function() {
+
+
+   $(window).bind("load", function() {
         var map = cgmap.config['default-cgmap'].map;
 
         OpenLayers.Control.CustomNavToolbar = OpenLayers.Class(OpenLayers.Control.Panel, {

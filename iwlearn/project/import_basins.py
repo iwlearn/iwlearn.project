@@ -1,4 +1,4 @@
-# import from geojson
+#
 import geojson
 from shapely.geometry import asShape
 from plone.i18n.normalizer import IDNormalizer
@@ -46,7 +46,7 @@ def import_rivers(self):
     parent = self.portal_url.getPortalObject()['iw-projects']['basins']['rivers']
     for river in rivers['features']:
         rnd = str(-random.randrange(100,1000))
-        new_obj_id = idn.normalize(river['properties']['BCODE']) #+ rnd
+        new_obj_id = idn.normalize(river['properties']['BCODE'])
         print new_obj_id
         self.portal_types.constructContent('Document', parent, new_obj_id)
         new_obj=parent[new_obj_id]
@@ -63,6 +63,29 @@ def import_rivers(self):
         q = asShape(river['geometry']).simplify(0.2).__geo_interface__
         geo.setCoordinates(q['type'], q['coordinates'])
 
+def import_giwarivers(self):
+    rivers = geojson.load(open(
+        'src/iwlearn.project/iwlearn/project/dataimport/missing_rivers.json',
+        'r'))
+    parent = self.portal_url.getPortalObject()['iw-projects']['basins']['rivers']
+    for river in rivers['features']:
+        #rnd = str(-random.randrange(100,1000))
+        new_obj_id = 'giwalme-id-' + idn.normalize(river['properties']['GIWALME_ID'])
+        print new_obj_id
+        self.portal_types.constructContent('Document', parent, new_obj_id)
+        new_obj=parent[new_obj_id]
+        new_obj.setTitle(river['properties']['NAME'])
+        #new_obj.setDescription("Area: %s; Length: %s" % (
+        #                river['properties']['Shape_Area'],
+        #                river['properties']['Shape_Leng']))
+        color='56ffff'
+        style = IGeoCustomFeatureStyle(new_obj)
+        style.geostyles.data['use_custom_styles']=True
+        style.geostyles.data['polygoncolor']=color
+        style.geostyles.update(style.geostyles)
+        geo = IGeoManager(new_obj)
+        q = asShape(river['geometry']).simplify(0.2).__geo_interface__
+        geo.setCoordinates(q['type'], q['coordinates'])
 
 def import_lakes(self):
     lakes = geojson.load(open(
@@ -111,6 +134,29 @@ def import_lmes(self):
         new_obj.setDescription("Area: %s; Length: %s" % (
                         lme['properties']['Shape_Area'],
                         lme['properties']['Shape_Leng']))
+        color='0000bf'
+        style = IGeoCustomFeatureStyle(new_obj)
+        style.geostyles.data['use_custom_styles']=True
+        style.geostyles.data['polygoncolor']=color
+        style.geostyles.update(style.geostyles)
+        geo = IGeoManager(new_obj)
+        q = asShape(lme['geometry']).simplify(0.2).__geo_interface__
+        geo.setCoordinates(q['type'], q['coordinates'])
+
+def import_giwalmes(self):
+    lmes = geojson.load(open(
+        'src/iwlearn.project/iwlearn/project/dataimport/add_lmes.json',
+        'r'))
+    parent = self.portal_url.getPortalObject()['iw-projects']['basins']['lmes']
+    for lme in lmes['features']:
+        new_obj_id = 'giwalme-id-' + idn.normalize(lme['properties']['GIWALME_ID'])
+        self.portal_types.constructContent('Document', parent, new_obj_id)
+        new_obj=parent[new_obj_id]
+        print new_obj_id
+        new_obj.setTitle(lme['properties']['NAME'] + ' (LME)')
+        #new_obj.setDescription("Area: %s; Length: %s" % (
+        #                lme['properties']['Shape_Area'],
+        #                lme['properties']['Shape_Leng']))
         color='0000bf'
         style = IGeoCustomFeatureStyle(new_obj)
         style.geostyles.data['use_custom_styles']=True

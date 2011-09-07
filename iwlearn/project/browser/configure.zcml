@@ -97,7 +97,7 @@
   <browser:page
       for="..interfaces.IProjectDatabase"
       name="projectbasincluster_view.kml"
-      class=".projectdbkmlview.ProjectDbKmlBasinCusterView"
+      class=".projectdbkmlview.ProjectDbKmlBasinClusterView"
       allowed_interface=".projectkmlview.IProjectKMLView"
       permission="zope.Public"
       />

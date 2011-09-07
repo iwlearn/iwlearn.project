@@ -89,14 +89,16 @@ class ProjectDBBaseView(BrowserView):
             params[field.name] = field.value;
         });
         var map = cgmap.config['default-cgmap'].map;
-        try {
-        %s
-        } catch (e) {
+        if (map != null){
+            try {
+            %s
+            } catch (e) {
 
-            alert("An exception occurred. Error name: " + e.name
-            + ". Error message: " + e.message); };
-        jQuery("a#projectkmlurl").attr('href', kml_url);
-        return true;
+                alert("An exception occurred. Error name: " + e.name
+                + ". Error message: " + e.message); };
+            jQuery("a#projectkmlurl").attr('href', kml_url);
+            };
+            return true;
         };
 
 
@@ -317,17 +319,21 @@ class ProjectDBBasinView(ProjectDBBaseView):
         var qs = '?';
         var params = {};
         jQuery.each(dt, function(i, field){
-            qs = qs + field.name + '=' + field.value + "&";
-            params[field.name] = field.value;
+            if (field.name.substring(0,25) != 'cgmap_state.default-cgmap') {
+                qs = qs + field.name + '=' + field.value + "&";
+                params[field.name] = field.value;
+            };
         });
         var map = cgmap.config['default-cgmap'].map;
-        try {
-        %s
-        } catch (e) {
+        if (map != null) {
+            try {
+            %s
+            } catch (e) {
 
-            alert("An exception occurred. Error name: " + e.name
-            + ". Error message: " + e.message); };
-        jQuery("a#projectkmlurl").attr('href', kml_url);
+                alert("An exception occurred. Error name: " + e.name
+                + ". Error message: " + e.message); };
+            jQuery("a#projectkmlurl").attr('href', kml_url);
+            };
         return true;
         };
 

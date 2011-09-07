@@ -156,7 +156,7 @@ class CountryPlacemark(BrainPlacemark):
 class ProjectDbKmlBasinView(ProjectDbKmlView):
     @property
     def features(self):
-        show_gef_basins = self.request.form.get('showgefbasins', [])
+        show_gef_basins = self.request.form.get('showgefbasins', ['with', 'without'])
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
         projects = self.get_results(query)
@@ -170,7 +170,7 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
             for basin_type in basin_types:
                 path.append('iwlearn/iw-projects/basins/' + basin_type)
         else:
-            path='iwlearn/iw-projects/basins'
+            path='iwlearn/iw-projects/basins/'
         basin_query = {'portal_type': 'Document', 'path': path}
         basins = self.get_results(basin_query)
         for basin in basins:
@@ -187,16 +187,18 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
 
 SHOW_BBOX_RATIO = 2048
 
-class ProjectDbKmlBasinCusterView(ProjectDbKmlBasinView):
+class ProjectDbKmlBasinClusterView(ProjectDbKmlBasinView):
     @property
     def features(self):
-        map_state= self.request.form.get('cgmap_state.default-cgmap', {'zoom': '0'})
-        if int(map_state.get('zoom','0')) > 5:
+        #map_state= self.request.form.get('cgmap_state.default-cgmap', {'zoom': '0'})
+        #if int(map_state.get('zoom','0')) > 5:
+        #    return
+        if int(self.request.form.get('zoomfactor','0')) > 5:
             return
         sbbox = self.request.form.get('bbox','-180,-90,180,90')
         bbox = [float(c) for c in sbbox.split(',')]
         bbox_area = MultiPoint([bbox[:2],bbox[2:]]).envelope.area
-        show_gef_basins = self.request.form.get('showgefbasins', [])
+        show_gef_basins = self.request.form.get('showgefbasins', ['with', 'without'])
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
         projects = self.get_results(query)
@@ -210,7 +212,7 @@ class ProjectDbKmlBasinCusterView(ProjectDbKmlBasinView):
             for basin_type in basin_types:
                 path.append('iwlearn/iw-projects/basins/' + basin_type)
         else:
-            path='iwlearn/iw-projects/basins'
+            path='iwlearn/iw-projects/basins/'
         basin_query = {'portal_type':'Document',
                     'path': path, 'zgeo_geometry': {
                     'geometry_operator': 'intersects', 'query': sbbox}}
@@ -237,10 +239,12 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
         sbbox = self.request.form.get('bbox','-180,-90,180,90')
         bbox = [float(c) for c in sbbox.split(',')]
         bbox_area = MultiPoint([bbox[:2],bbox[2:]]).envelope.area
-        show_gef_basins = self.request.form.get('showgefbasins', [])
-        map_state= self.request.form.get('cgmap_state.default-cgmap', {'zoom': '0'})
-        if int(map_state.get('zoom', '0')) > 5:
-            bbox_area = 1
+        show_gef_basins = self.request.form.get('showgefbasins', ['with', 'without'])
+        #map_state= self.request.form.get('cgmap_state.default-cgmap', {'zoom': '0'})
+        #if int(map_state.get('zoom', '0')) > 5:
+        #    bbox_area = 1
+        if int(self.request.form.get('zoomfactor','0')) > 5:
+             bbox_area = 1
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
         projects = self.get_results(query)
@@ -254,11 +258,12 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
             for basin_type in basin_types:
                 path.append('iwlearn/iw-projects/basins/' + basin_type)
         else:
-            path='iwlearn/iw-projects/basins'
+            path='iwlearn/iw-projects/basins/'
 
         basin_query = {'portal_type':'Document',
                     'path': path, 'zgeo_geometry': {
                     'geometry_operator': 'intersects', 'query': sbbox}}
+
         basins = self.get_results(basin_query)
         for basin in basins:
             if basin.zgeo_geometry:

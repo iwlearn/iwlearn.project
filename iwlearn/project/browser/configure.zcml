@@ -206,6 +206,10 @@
       factory=".maplayers.ProjectKMLMapLayers"
       />
 
+
+
+
+
     <!--browser:viewletManager
      name="iwlearn.project.projectmap"
      provides=".interfaces.IProjectMapManager"

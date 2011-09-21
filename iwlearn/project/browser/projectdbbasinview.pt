@@ -379,6 +379,8 @@ $('#projectsearchform').submit
         for (var i=0; i<kmls.length; ++i){
             kmls[i].events.on({"featureselected": onFeatureSelect, "featureunselected": onFeatureUnselect});
         };
+        //var loadingpanel = new OpenLayers.Control.LoadingPanel();
+        //map.addControl(loadingpanel);
 
 });
 /*]]>*/

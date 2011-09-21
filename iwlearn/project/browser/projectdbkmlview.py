@@ -78,13 +78,12 @@ class BasinPlacemark(BrainPlacemark):
         if self.projects:
             desc = u'<ul>'
             for project in self.projects:
-                #title = project.Title.decode('utf-8', 'ignore').encode(
-                #                            'ascii', 'xmlcharrefreplace')
+                title = project['title'].decode('utf-8', 'ignore')
                 desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (
                         project['url'],
-                        cgi.escape(project['title'].encode(
+                        cgi.escape(title.encode(
                             'ascii', 'xmlcharrefreplace')),
-                        cgi.escape(project['title'][:32].encode(
+                        cgi.escape(title[:32].encode(
                             'ascii', 'xmlcharrefreplace') + u'...')
                         )
             desc += u'</ul>'
@@ -168,9 +167,12 @@ class CountryPlacemark(BrainPlacemark):
     def description(self):
         desc = u'<ul>'
         for project in self.projects:
+            title = project.Title.decode('utf-8', 'ignore')
             desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (project.getURL(),
-                            cgi.escape(project.Title),
-                            cgi.escape(project.Title[:32] + u'...'))
+                            cgi.escape(title.encode(
+                            'ascii', 'xmlcharrefreplace') + u'...'),
+                            cgi.escape(title[:32].encode(
+                            'ascii', 'xmlcharrefreplace') + u'...'))
         desc += u'</ul>'
         return desc
 

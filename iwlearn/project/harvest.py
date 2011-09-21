@@ -141,7 +141,10 @@ GEF_PLONE_COUNTRY_MAPPING = {
 
 def convert_currency_to_millions(c_str):
     if c_str:
-        return float(c_str[:-4].replace(',',''))/1000000
+        try:
+            return float(c_str[:-4].replace(',',''))/1000000
+        except:
+            return 0.0
 
 def get_countries(c_str):
     def extract_countries(clist):

@@ -127,7 +127,7 @@ class GefOnlineHarvestView(BrowserView):
         operational_program = pinfo.get('Operational Program', None)
         strategic_program = pinfo.get('Strategic Program', None)
         project_allocation = harvest.convert_currency_to_millions(
-                            pinfo.get('GEF Grant',None))
+                            pinfo.get('GEF Grant','0'))
         total_cost = harvest.convert_currency_to_millions(
                             pinfo.get('Project Cost', '0'))
 

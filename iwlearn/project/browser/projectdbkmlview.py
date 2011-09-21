@@ -170,7 +170,7 @@ class CountryPlacemark(BrainPlacemark):
             title = project.Title.decode('utf-8', 'ignore')
             desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (project.getURL(),
                             cgi.escape(title.encode(
-                            'ascii', 'xmlcharrefreplace') + u'...'),
+                            'ascii', 'xmlcharrefreplace')),
                             cgi.escape(title[:32].encode(
                             'ascii', 'xmlcharrefreplace') + u'...'))
         desc += u'</ul>'

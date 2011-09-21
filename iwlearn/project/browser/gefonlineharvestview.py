@@ -129,7 +129,7 @@ class GefOnlineHarvestView(BrowserView):
         project_allocation = harvest.convert_currency_to_millions(
                             pinfo.get('GEF Grant',None))
         total_cost = harvest.convert_currency_to_millions(
-                            pinfo.get('Project Cost', None))
+                            pinfo.get('Project Cost', '0'))
 
         description = ""
         if pinfo.has_key('GEF Agency'):
@@ -238,11 +238,17 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                     start_date = DateTime(pinfo.get('Approval Date'))
                 else:
                     start_date = None
+                project_allocation = harvest.convert_currency_to_millions(
+                            pinfo.get('GEF Grant',None))
+                total_cost = harvest.convert_currency_to_millions(
+                            pinfo.get('Project Cost', '0'))
                 if ob.getProject_status() != project_status:
                     ob.update(
-                            project_status=project_status,
-                            start_date=start_date,
-                           )
+                        project_status=project_status,
+                        start_date=start_date,
+                        gef_project_allocation=str(project_allocation),
+                        total_cost=str(total_cost),
+                        )
                     logger.info('Updating project %i' % projectid )
                     new_projects.append({'name': brain.Title,
                         'url': brain.getURL(),

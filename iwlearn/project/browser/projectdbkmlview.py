@@ -1,7 +1,6 @@
 import cgi
 import logging
 from zope.interface import implements, Interface
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
@@ -29,12 +28,6 @@ class IProjectDbKmlView(Interface):
     ProjectDbKml view interface
     """
 
-RAM_CACHE_SECONDS = 360
-
-def _search_result_cachekey(context, fun, query):
-    ckey = [query]
-    ckey.append(time() // RAM_CACHE_SECONDS)
-    return ckey
 
 
 class ProjectDbKmlView(KMLBaseDocument):
@@ -48,7 +41,6 @@ class ProjectDbKmlView(KMLBaseDocument):
     def portal_catalog(self):
         return getToolByName(self.context, 'portal_catalog')
 
-    #@ram.cache(_search_result_cachekey)
     def get_results(self, query):
         print query
         return self.portal_catalog(**query)
@@ -88,9 +80,13 @@ class BasinPlacemark(BrainPlacemark):
             for project in self.projects:
                 #title = project.Title.decode('utf-8', 'ignore').encode(
                 #                            'ascii', 'xmlcharrefreplace')
-                desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (project['url'],
-                                cgi.escape(project['title']),
-                                cgi.escape(project['title'][:32] + '...'))
+                desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (
+                        project['url'],
+                        cgi.escape(project['title'].encode(
+                            'ascii', 'xmlcharrefreplace')),
+                        cgi.escape(project['title'][:32].encode(
+                            'ascii', 'xmlcharrefreplace') + u'...')
+                        )
             desc += u'</ul>'
         else:
             desc = u"<p><strong>No Gef projects involved in this basin</strong></p>"
@@ -101,12 +97,6 @@ class BasinPlacemark(BrainPlacemark):
     def lead_image(self, scale='thumb', css_class="tileImage"):
         return None
 
-    def item_type(self):
-         return self.context.portal_type;
-
-    def item_url(self):
-        #feature/absolute_url;
-        return self.context.getURL()
 
 
 # do not compute the centeroid of a shape every time cache it
@@ -172,16 +162,16 @@ class CountryPlacemark(BrainPlacemark):
             title = self.context.Title()
         else:
             title = self.context.Title
-        return cgi.escape(title) + ' - %i Projects' % len(self.projects)
+        return cgi.escape(title) + u' - %i Projects' % len(self.projects)
 
     @property
     def description(self):
-        desc = '<ul>'
+        desc = u'<ul>'
         for project in self.projects:
-            desc += '<li><a href="%s" title="%s" > %s </a></li>' % (project.getURL(),
+            desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (project.getURL(),
                             cgi.escape(project.Title),
-                            cgi.escape(project.Title[:32] + '...'))
-        desc += '</ul>'
+                            cgi.escape(project.Title[:32] + u'...'))
+        desc += u'</ul>'
         return desc
 
 
@@ -198,7 +188,6 @@ def _projects_cachekey(context, fun, query):
 
 
 class ProjectDbKmlBasinView(ProjectDbKmlView):
-    template = ViewPageTemplateFile('kmldocument.pt')
 
     @ram.cache(_area_cachekey)
     def  _get_basin_area(self, shape):
@@ -214,7 +203,7 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
         for brain in brains:
             if brain.getBasin:
                 basins += brain.getBasin
-                projects.append({'title': brain.Title,
+                projects.append({'title': brain.Title.decode('utf-8', 'ignore'),
                                 'basin':brain.getBasin,
                                 'url': brain.getURL()})
         basins = list(set(basins))
@@ -235,7 +224,7 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
         basin_query = {'portal_type': 'Document', 'path': path}
         basins = self.get_results(basin_query)
         for basin in basins:
-            if basin.zgeo_geometry['coordinates']:
+            if basin.zgeo_geometry and basin.zgeo_geometry['coordinates']:
                 if 'with' in show_gef_basins:
                     if basin.Title in project_basins:
                         yield BasinPlacemark(basin, self.request, self,
@@ -253,9 +242,6 @@ class ProjectDbKmlBasinClusterView(ProjectDbKmlBasinView):
 
     @property
     def features(self):
-        #map_state= self.request.form.get('cgmap_state.default-cgmap', {'zoom': '0'})
-        #if int(map_state.get('zoom','0')) > 5:
-        #    return
         if int(self.request.form.get('zoomfactor','0')) > 5:
             return
         sbbox = self.request.form.get('bbox','-180,-90,180,90')
@@ -279,7 +265,7 @@ class ProjectDbKmlBasinClusterView(ProjectDbKmlBasinView):
             basin_query = {'portal_type':'Document', 'path': path}
         basins = self.get_results(basin_query)
         for basin in basins:
-            if basin.zgeo_geometry['coordinates']:
+            if basin.zgeo_geometry and basin.zgeo_geometry['coordinates']:
                 shape = { 'type': basin.zgeo_geometry['type'],
                             'coordinates': basin.zgeo_geometry['coordinates']}
                 basin_area = self._get_basin_area(shape)
@@ -325,7 +311,7 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
             basin_query = {'portal_type':'Document', 'path': path}
         basins = self.get_results(basin_query)
         for basin in basins:
-            if basin.zgeo_geometry['coordinates']:
+            if basin.zgeo_geometry and basin.zgeo_geometry['coordinates']:
                 shape = { 'type': basin.zgeo_geometry['type'],
                         'coordinates': basin.zgeo_geometry['coordinates']}
                 basin_area = self._get_basin_area(shape)

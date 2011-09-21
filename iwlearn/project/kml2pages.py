@@ -31,7 +31,7 @@ def extract_description(data):
 
 
 def convert_kml_to_page(self):
-    for brain in self.portal_catalog(portal_type = 'File', path='iwlearn/iw-projects/basins'):
+    for brain in self.portal_catalog(portal_type = 'File', path='iwlearn/osm'):
         obj = brain.getObject()
         data = obj.get_data()
         parent = obj.getParentNode()

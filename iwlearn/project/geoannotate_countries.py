@@ -26,7 +26,7 @@ def annotate_110(self):
             child.setDescription('Population: %s' % d['pop_est'])
 
 def name_countries(self):
-    for brain in self.portal_catalog(portal_type = 'Image', path='iwlearn/countries/'):
+    for brain in self.portal_catalog(portal_type = 'Image', path='iwlearn/images/countries/'):
         cc = brain.getId
         if cc[:2] in _countrylist:
             obj = brain.getObject()

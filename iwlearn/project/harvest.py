@@ -4,7 +4,7 @@ import logging
 
 from BeautifulSoup import BeautifulSoup
 
-from plone.i18n.locales.countries import _countrylist
+from vocabulary import my_countrylist as _countrylist
 
 logger = logging.getLogger('iwlearn.project')
 
@@ -136,7 +136,8 @@ GEF_PLONE_COUNTRY_MAPPING = {
     'Syria': 'Syrian Arab Republic',
     'Tanzania': 'Tanzania United Republic of',
     'Timor Leste': 'Timor-Leste',
-    'Vietnam': 'Viet Nam'
+    'Vietnam': 'Viet Nam',
+    'Republic of Serbia': 'Serbia'
 }
 
 def convert_currency_to_millions(c_str):

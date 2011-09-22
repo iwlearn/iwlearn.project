@@ -121,11 +121,19 @@ class ClusteredBasinPlacemark(BasinPlacemark):
 
     @property
     def description(self):
-        return u""
+        return None
 
     @property
     def name(self):
         return u""
+
+    @property
+    def use_custom_styles(self):
+        return None
+
+    def display_properties(self, document):
+        return []
+
 
 class CountryPlacemark(BrainPlacemark):
 

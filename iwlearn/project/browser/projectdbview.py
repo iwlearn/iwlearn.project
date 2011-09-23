@@ -1,3 +1,4 @@
+import cgi
 from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
@@ -159,7 +160,8 @@ $('#projectsearchform').submit
                 'disabled':None,
                 'selected':self._sel(None,selected)}]
         for item in items:
-            item_list.append({'name': item, 'value':item,
+            item_list.append({'name': cgi.escape(item),
+                    'value':cgi.escape(item),
                     'disabled': None,
                     'selected':self._sel(item,selected)})
         return item_list

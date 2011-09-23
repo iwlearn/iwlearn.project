@@ -1,5 +1,10 @@
 # utils
 
+def get_basin_color(base,n):
+    r = min(255, max(5 +(10 * n), 32))
+    if base.startswith('#'):
+        base = base[1:]
+    return ('#%x' % r) + base[2:]
 
 def get_color(n):
         r = min(255, max(5 +(10 * n), 16))

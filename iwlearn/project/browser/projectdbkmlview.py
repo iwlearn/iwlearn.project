@@ -12,7 +12,7 @@ from collective.geo.kml.browser.kmldocument import KMLBaseDocument, BrainPlacema
 from collective.geo.kml.utils import web2kmlcolor
 
 
-from iwlearn.project.browser.utils import get_query, get_color
+from iwlearn.project.browser.utils import get_query, get_color, get_basin_color
 from shapely.geometry import MultiPoint
 from shapely.geometry import asShape
 
@@ -74,6 +74,15 @@ class BasinPlacemark(BrainPlacemark):
                 self.projects.append(project)
 
     @property
+    def name(self):
+        if callable(self.context.Title):
+            title = self.context.Title().decode('utf-8', 'ignore')
+        else:
+            title = self.context.Title.decode('utf-8', 'ignore')
+        return cgi.escape(title) + u' - (%i Projects)' % len(self.projects)
+
+
+    @property
     def description(self):
         if self.projects:
             desc = u'<ul>'
@@ -96,7 +105,16 @@ class BasinPlacemark(BrainPlacemark):
     def lead_image(self, scale='thumb', css_class="tileImage"):
         return None
 
-
+    @property
+    def polygoncolor(self):
+        if self.styles:
+            color = get_basin_color(self.styles['polygoncolor'],
+                        len(self.projects))
+        else:
+            color = get_basin_color('#0022FF44',
+                    len(self.projects))
+        print color
+        return web2kmlcolor(color.upper())
 
 # do not compute the centeroid of a shape every time cache it
 def _centeroid_cachekey(context, fun, shape):
@@ -213,7 +231,8 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
         for brain in brains:
             if brain.getBasin:
                 basins += brain.getBasin
-                projects.append({'title': brain.Title.decode('utf-8', 'ignore'),
+                projects.append({'title': brain.Title.decode('utf-8', 'ignore'
+                                            ).encode('utf-8', 'ignore'),
                                 'basin':brain.getBasin,
                                 'url': brain.getURL()})
         basins = list(set(basins))

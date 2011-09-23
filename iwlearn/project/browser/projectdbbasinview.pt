@@ -51,59 +51,24 @@
                     </div>
 <div class="visualClear">&nbsp;</div>
             <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action="country_view.html">
-              <fieldset>
+              <fieldset class="basinlayers">
                 <legend>Basin Layers</legend>
-                <input type="checkbox" name="showgefbasins:list" value="with" checked="checked"/> with GEF projects
-                <input type="checkbox" name="showgefbasins:list" value="without" checked="checked"/> without GEF projects
-                <br/>
-                <input type="checkbox" name="basintype:list" value="lmes" checked="checked"/> LMEs
-                <input type="checkbox" name="basintype:list" value="lakes" checked="checked"/> Lakes
-                <input type="checkbox" name="basintype:list" value="rivers" checked="checked"/> Rivers
-                <input type="checkbox" name="basintype:list" value="aquifers" checked="checked"/> Aquifers
+                <div>
+                    <input type="checkbox" name="showgefbasins:list" value="with" checked="checked"/> with GEF projects
+                    <input type="checkbox" name="showgefbasins:list" value="without" checked="checked"/> without GEF projects
+                </div>
+                <div>
+                    <input type="checkbox" name="basintype:list" value="lmes" checked="checked"/> LMEs
+                    <input type="checkbox" name="basintype:list" value="lakes" checked="checked"/> Lakes
+                    <input type="checkbox" name="basintype:list" value="rivers" checked="checked"/> Rivers
+                    <input type="checkbox" name="basintype:list" value="aquifers" checked="checked"/> Aquifers
+                </div>
               </fieldset>
-              <fieldset>
+              <fieldset class="projectdetails">
                 <legend>Search for Projects</legend>
-                <div class="field odd">
-                    <label for="SearchableText">Search text</label>
-
-                    <div class="formHelp">
-                    For a simple text search, enter your search term
-                    here. Multiple words may be found by combining
-                    them with <strong>AND</strong> and <strong>OR</strong>.
-                    The text in this field will be matched with
-                    items' contents, title and description.
-                    </div>
-
-                    <input type="text" value="" size="25" name="SearchableText" id="SearchableText" />
-                </div>
-
-                <div class="field even">
-                    <label for="Title">Title</label>
-                    <div class="formHelp">
-                    Return items matching this title.
-                    </div>
-                    <input type="text" size="25" name="Title" id="Title" />
-                </div>
 
 
                 <div class="field odd">
-                    <label  for="getSubRegions">Region</label>
-                    <div class="formHelp">
-                    Return projects in this region
-                    </div>
-                        <select id="getSubRegions" name="getSubRegions">
-                            <tal:loop tal:repeat="opt view/get_region">
-                                <option value="Africa"
-                                    tal:attributes="value opt/value;
-                                        selected opt/selected;
-                                        disabled opt/disabled;
-                                        class opt/disabled;"
-                                    tal:content="opt/name">Africa</option>
-                            </tal:loop>
-                        </select>
-                </div>
-
-                <div class="field even">
                     <label  for="getProject_type">Project type</label>
                     <div class="formHelp">
                     Return projects of this type
@@ -120,7 +85,7 @@
                         </select>
                 </div>
 
-                <div class="field odd">
+                <div class="field even">
                     <label  for="getAgencies">Implementing agency</label>
                     <div class="formHelp">
                     Return projects this agency implements
@@ -137,7 +102,7 @@
                         </select>
                 </div>
 
-                <div class="field even">
+                <div class="field odd">
                     <label  for="getProject_status">Project status</label>
                     <div class="formHelp">
                     Return projects of this status
@@ -154,22 +119,6 @@
                         </select>
                 </div>
 
-                <div class="field odd">
-                    <label  for="getBasin">Basin</label>
-                    <div class="formHelp">
-                    Return projects with this Basin
-                    </div>
-                        <select id="getBasin" name="getBasin">
-                            <tal:loop tal:repeat="opt view/get_basin">
-                                <option value="All"
-                                    tal:attributes="value opt/value;
-                                        selected opt/selected;
-                                        disabled opt/disabled;
-                                        class opt/disabled;"
-                                    tal:content="opt/name">All</option>
-                            </tal:loop>
-                        </select>
-                </div>
 
 
                 <div class="formControls even">

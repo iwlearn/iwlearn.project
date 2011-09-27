@@ -79,7 +79,7 @@ class BasinPlacemark(BrainPlacemark):
             title = self.context.Title().decode('utf-8', 'ignore')
         else:
             title = self.context.Title.decode('utf-8', 'ignore')
-        return cgi.escape(title) + u' - (%i Projects)' % len(self.projects)
+        return cgi.escape(title) + u' - %i Projects' % len(self.projects)
 
 
     @property
@@ -113,7 +113,6 @@ class BasinPlacemark(BrainPlacemark):
         else:
             color = get_basin_color('#0022FF44',
                     len(self.projects))
-        print color
         return web2kmlcolor(color.upper())
 
 # do not compute the centeroid of a shape every time cache it
@@ -213,7 +212,7 @@ def _projects_cachekey(context, fun, query):
     ckey = [query]
     return ckey
 
-
+SHOW_BASINS=['with',]
 
 class ProjectDbKmlBasinView(ProjectDbKmlView):
 
@@ -240,7 +239,7 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
 
     @property
     def features(self):
-        show_gef_basins = self.request.form.get('showgefbasins', ['with', 'without'])
+        show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
         project, project_basins = self.get_projects_basins(query)
@@ -276,7 +275,7 @@ class ProjectDbKmlBasinClusterView(ProjectDbKmlBasinView):
         sbbox = self.request.form.get('bbox','-180,-90,180,90')
         bbox = [float(c) for c in sbbox.split(',')]
         bbox_area = MultiPoint([bbox[:2],bbox[2:]]).envelope.area
-        show_gef_basins = self.request.form.get('showgefbasins', ['with', 'without'])
+        show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
         projects, project_basins = self.get_projects_basins(query)
@@ -317,7 +316,7 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
         sbbox = self.request.form.get('bbox','-180,-90,180,90')
         bbox = [float(c) for c in sbbox.split(',')]
         bbox_area = MultiPoint([bbox[:2],bbox[2:]]).envelope.area
-        show_gef_basins = self.request.form.get('showgefbasins', ['with', 'without'])
+        show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
         #map_state= self.request.form.get('cgmap_state.default-cgmap', {'zoom': '0'})
         #if int(map_state.get('zoom', '0')) > 5:
         #    bbox_area = 1

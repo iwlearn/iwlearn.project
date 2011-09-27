@@ -30,6 +30,22 @@
     width: 20em;
     }
 
+#projectsearchform .basinlayers input{
+    width: 1em;
+    margin-left: 3em;
+    }
+
+#projectsearchform .basinlayers div{
+    margin-left: 5em;
+    }
+
+#projectsearchform .basinlayers label{
+    display: inline;
+    float: none;
+    }
+
+
+
 #projectsearchform select {
     width: 20em;
     }

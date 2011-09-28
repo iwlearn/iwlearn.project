@@ -7,6 +7,8 @@ def rename_projects(self):
         j = 0
         for child in parent.objectValues('Project'):
             j += rename_contained_projects(child)
+            if j > 50:
+                break
             child_id = child.id
             obj_id = str(int(child.getGef_project_id().strip()))
             if obj_id != child_id:

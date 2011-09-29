@@ -1,7 +1,6 @@
 # rename projects - set objectId = gef_project_id
 import logging
 logger = logging.getLogger('iwlearn.project')
-_is_renaming = False
 
 
 def rename_contained_projects(parent):
@@ -25,14 +24,9 @@ def rename_contained_projects(parent):
 
 
 def mv_projects(self):
-    if _is_renaming:
-        return 'another rename process is running'
-    else:
-        _is_renaming = True
     logger.info( 'search for projects')
     i=0
     parent = self.portal_url.getPortalObject()['iw-projects']
     i = rename_contained_projects(parent)
     logger.info('renaming complete')
-    _is_renaming = False
     return '%i projects renamed' %i

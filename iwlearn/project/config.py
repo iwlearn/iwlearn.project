@@ -9,4 +9,4 @@ ADD_PERMISSIONS = {
     'ProjectDatabase': 'iwlearn.project: Add Project Database',
 }
 
-_is_renaming = False
+

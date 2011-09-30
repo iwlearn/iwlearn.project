@@ -1,7 +1,7 @@
 # rename projects - set objectId = gef_project_id
 import logging
 logger = logging.getLogger('iwlearn.project')
-from iwlearn.project import _is_renaming
+from iwlearn.project.config import _is_renaming
 
 
 def rename_contained_projects(parent):

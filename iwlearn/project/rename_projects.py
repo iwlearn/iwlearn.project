@@ -12,12 +12,13 @@ def rename_contained_projects(parent):
         obj_id = str(int(child.getGef_project_id().strip()))
         if obj_id != child_id:
             try:
+                logger.info('Try to rename Project from %s to %s' %(child_id, obj_id ))
                 parent.manage_renameObject(child_id, obj_id)
                 transaction.commit()
-                logger.info('renamed Project %s' % obj_id )
+                logger.info('renamed Project to %s' % obj_id )
                 j += 1
             except:
-                logger.info('Failed to rename Project from %s to %s' %(child_id, obj_id ))
+                logger.info('Failed to rename Project %s' % child_id)
         else:
             logger.info('No need to rename project %s' % obj_id )
     return j

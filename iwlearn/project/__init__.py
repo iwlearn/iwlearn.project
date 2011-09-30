@@ -12,7 +12,7 @@ from Products.CMFCore import utils
 # like _(u"message") will then be extracted by i18n tools for translation.
 
 projectMessageFactory = MessageFactory('iwlearn.project')
-
+_is_renaming = False
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.

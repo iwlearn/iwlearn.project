@@ -37,5 +37,5 @@ def mv_projects(self):
     _is_renaming = False
     return '%i projects renamed' %i
 
-def __init__(*args **kwargs):
+def __init__(*args, **kwargs):
     _is_renaming = False

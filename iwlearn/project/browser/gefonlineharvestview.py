@@ -118,7 +118,10 @@ class GefOnlineHarvestView(BrowserView):
         global_project = (pinfo.get('Region', '').find('Global') > -1)
         countries= harvest.get_countries(pinfo.get('Country',''))
         project_status = pinfo.get('Project Status', None)
-        start_date = DateTime(pinfo.get('Approval Date',None))
+        try:
+            start_date = DateTime(pinfo.get('Approval Date',None))
+        except SyntaxError:
+            start_date = None
         if pinfo.has_key('Project Completion Date'):
             end_date = DateTime(pinfo.get('Project Completion Date'))
         else:

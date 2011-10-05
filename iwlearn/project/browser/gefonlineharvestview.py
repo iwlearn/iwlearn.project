@@ -120,7 +120,7 @@ class GefOnlineHarvestView(BrowserView):
         project_status = pinfo.get('Project Status', None)
         try:
             start_date = DateTime(pinfo.get('Approval Date',None))
-        except SyntaxError:
+        except:
             start_date = None
         if pinfo.has_key('Project Completion Date'):
             end_date = DateTime(pinfo.get('Project Completion Date'))

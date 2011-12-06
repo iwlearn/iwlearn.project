@@ -52,11 +52,11 @@ class ProjectDBBaseView(BrowserView):
             url: '%s/@@flexijson_view',
             dataType: 'json',
             colModel : [
-                {display: 'Title', name : 'Title', width : 220, sortable : true, align: 'left'},
-                {display: 'Project type', name : 'getProject_type', width : 100, sortable : true, align: 'left'},
-                {display: 'Implementing agencies', name : 'getAgencies', width : 220, sortable : true, align: 'left'},
-                {display: 'Region', name : 'getSubRegions', width : 200, sortable : true, align: 'left'},
-                {display: 'Status', name : 'getProject_status', width : 100, sortable : true, align: 'left'},
+                {display: 'Title', name : 'Title', width : 220, sortable : true, align: 'left', hide: false},
+                {display: 'Project type', name : 'getProject_type', width : 100, sortable : true, align: 'left', hide: false},
+                {display: 'Implementing agencies', name : 'getAgencies', width : 220, sortable : true, align: 'left', hide: false},
+                {display: 'Region', name : 'getSubRegions', width : 200, sortable : true, align: 'left', hide: false},
+                {display: 'Status', name : 'getProject_status', width : 100, sortable : true, align: 'left', hide: false},
                 {display: 'URL', name : 'getRemoteUrl', width : 100, sortable : false, align: 'left', hide: true}
                 ],
             sortname: "Title",

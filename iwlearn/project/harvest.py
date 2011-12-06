@@ -137,7 +137,7 @@ GEF_PLONE_COUNTRY_MAPPING = {
     'Tanzania': 'Tanzania United Republic of',
     'Timor Leste': 'Timor-Leste',
     'Vietnam': 'Viet Nam',
-    'Republic of Serbia': 'Serbia'
+    #'Republic of Serbia': 'Serbia'
 }
 
 def convert_currency_to_millions(c_str):

@@ -1,5 +1,9 @@
 setuptools
 collective.geo.kml
+Products.ATBackRef
+Products.ATExtensions
+collective.flexitopic
+htmllaundry
 
 [tests]
 zope.testing

@@ -201,6 +201,7 @@ iwlearn/project/import_basins.py
 iwlearn/project/kml2pages.py
 iwlearn/project/migrate_latlon.py
 iwlearn/project/migrate_projects.py
+iwlearn/project/rename_projects.py
 iwlearn/project/restore_references.py
 iwlearn/project/setuphandlers.py
 iwlearn/project/skins.zcml
@@ -215,8 +216,10 @@ iwlearn/project/browser/gefonlineharvestview.pt
 iwlearn/project/browser/gefonlineharvestview.py
 iwlearn/project/browser/interfaces.py
 iwlearn/project/browser/kmlcontentviewlet.pt
+iwlearn/project/browser/kmldocument.pt
 iwlearn/project/browser/listing.pt
 iwlearn/project/browser/maplayers.py
+iwlearn/project/browser/projectdbbasinview.pt
 iwlearn/project/browser/projectdbcountryview.pt
 iwlearn/project/browser/projectdbkmlview.pt
 iwlearn/project/browser/projectdbkmlview.py
@@ -233,6 +236,16 @@ iwlearn/project/content/__init__.py
 iwlearn/project/content/configure.zcml
 iwlearn/project/content/project.py
 iwlearn/project/content/projectdatabase.py
+iwlearn/project/dataimport/10m_admin_0_countries.csv
+iwlearn/project/dataimport/110m_admin_0_countries.csv
+iwlearn/project/dataimport/50m_admin_0_countries.csv
+iwlearn/project/dataimport/add_lmes.json
+iwlearn/project/dataimport/aquifers.json
+iwlearn/project/dataimport/basins.json
+iwlearn/project/dataimport/lakes.json
+iwlearn/project/dataimport/lmes.json
+iwlearn/project/dataimport/missing_lakes.json
+iwlearn/project/dataimport/missing_rivers.json
 iwlearn/project/interfaces/__init__.py
 iwlearn/project/interfaces/project.py
 iwlearn/project/interfaces/projectdatabase.py
@@ -249,6 +262,7 @@ iwlearn/project/profiles/default/metadata.xml
 iwlearn/project/profiles/default/portal_atct.xml
 iwlearn/project/profiles/default/portlets.xml
 iwlearn/project/profiles/default/propertiestool.xml
+iwlearn/project/profiles/default/repositorytool.xml
 iwlearn/project/profiles/default/rolemap.xml
 iwlearn/project/profiles/default/skins.xml
 iwlearn/project/profiles/default/types.xml
@@ -283,8 +297,7 @@ iwlearn/project/skins/iwlearn_project_images/flexigrid-images/prev.gif
 iwlearn/project/skins/iwlearn_project_images/flexigrid-images/up.png
 iwlearn/project/skins/iwlearn_project_images/flexigrid-images/uup.png
 iwlearn/project/skins/iwlearn_project_images/flexigrid-images/wbg.gif
-iwlearn/project/skins/iwlearn_project_js/flexigrid.js
-iwlearn/project/skins/iwlearn_project_js/flexigrid.pack.js
+iwlearn/project/skins/iwlearn_project_js/LoadingPanel.js
 iwlearn/project/skins/iwlearn_project_js/project-listing-map.js.dtml
 iwlearn/project/skins/iwlearn_project_js/projectmap-config.js.dtml
 iwlearn/project/skins/iwlearn_project_styles/flexigrid.css

@@ -53,12 +53,6 @@
             <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action="country_view.html">
               <fieldset class="basinlayers">
                 <legend>Basin Layers</legend>
-                <div>
-                    <input type="checkbox" id="withgefbasins" name="showgefbasins:list" value="with" checked="checked"/>
-                    <label for="withgefbasins">With GEF projects</label>
-                    <input type="checkbox" id="withoutgefbasins" name="showgefbasins:list" value="without"/>
-                    <label for="withoutgefbasins">Without GEF projects</label>
-                </div>
                 The visualization tool features four major transboundary water basins:
                 <div>
                     <input type="checkbox" id="basintype-lmes" name="basintype:list" value="lmes" checked="checked"/>
@@ -70,12 +64,17 @@
                     <input type="checkbox" id="basintype-aquifers" name="basintype:list" value="aquifers" checked="checked"/>
                     <label for="basintype-aquifers">Aquifers</label>
                 </div>
-                where the interventions of a specific GEF IW project is indicated.
-
+                where the interventions of a specific GEF IW project is indicated:
+                <div>
+                    <input type="checkbox" id="withgefbasins" name="showgefbasins:list" value="with" checked="checked"/>
+                    <label for="withgefbasins">With GEF projects</label>
+                    <input type="checkbox" id="withoutgefbasins" name="showgefbasins:list" value="without"/>
+                    <label for="withoutgefbasins">Without GEF projects</label>
+                </div>
                     The other visualizations feature the
                     <ul>
                         <li><a href="view">Location of project management offices</a></li>
-                        <li><a href="basin_view.html">distribution of projects by partnering countries.</a></li>
+                        <li><a href="country_view.html">distribution of projects by partnering countries.</a></li>
                     </ul>
 
                     <a href="projectwebsites_view">Project Websites</a>

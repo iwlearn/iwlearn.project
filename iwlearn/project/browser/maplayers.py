@@ -5,6 +5,17 @@ from collective.geo.mapwidget.browser.widget import MapLayers
 from collective.geo.mapwidget.maplayers import MapLayer
 from collective.geo.file.browser.maplayer import KMLFileMapLayer
 
+class GepcoMapLayer(MapLayer):
+    @property
+    def jsfactory(self):
+        return u""" function() {
+            return new OpenLayers.Layer.WMS("Gebco WMS",
+                "http://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv",
+                {layers: 'GEBCO_08_Grid',  transparent: "true", format: "image/png"},
+                {projection: new OpenLayers.Projection("EPSG:4326")});
+            } """
+
+
 class ProjectDbKMLMapLayer(MapLayer):
     """
     a layer for one level sub objects.
@@ -261,6 +272,7 @@ class ProjectDbKMLCountryMapLayers(MapLayers):
 class ProjectDbKMLBasinMapLayers(MapLayers):
     def layers(self):
         layers = super(ProjectDbKMLBasinMapLayers, self).layers()
+        #XXX layers.append(GepcoMapLayer(self.context))
         layers.append(ProjectDbKMLBasinMapLayer(self.context))
         layers.append(ProjectDbKMLCountryMapLayer2(self.context))
         return layers

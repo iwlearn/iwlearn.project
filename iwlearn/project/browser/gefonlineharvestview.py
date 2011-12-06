@@ -238,7 +238,10 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
             if pinfo:
                 project_status = pinfo.get('Project Status', None)
                 if pinfo.get('Approval Date', None):
-                    start_date = DateTime(pinfo.get('Approval Date'))
+                    try:
+                        start_date = DateTime(pinfo.get('Approval Date'))
+                    except:
+                        start_date = None
                 else:
                     start_date = None
                 project_allocation = harvest.convert_currency_to_millions(

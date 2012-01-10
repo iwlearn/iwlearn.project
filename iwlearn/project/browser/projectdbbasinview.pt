@@ -77,7 +77,11 @@
                         <li><a href="country_view.html">distribution of projects by partnering countries.</a></li>
                     </ul>
 
-                    <a href="projectwebsites_view">Project Websites</a>
+                    View the <a href="projectwebsites_view">list of IW Project Websites</a>
+                    or the geographic distribution of
+                    <a href="http://199.180.129.170/watergov/index.php/Main_Page" target="_blank">
+                    International Waters: Review of Legal and Institutional Frameworks
+                    </a>
 
               </fieldset>
               <fieldset class="projectdetails">

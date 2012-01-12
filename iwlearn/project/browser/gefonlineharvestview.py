@@ -231,9 +231,24 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
     def harvest_projects(self):
         projects = self.portal_catalog(portal_type ='Project')
         new_projects =[]
+        ratings = harvest.get_projects_ratings()
         for brain in projects:
             ob = brain.getObject()
             projectid = int(ob.getGef_project_id().strip())
+            if projectid in ratings:
+                iprating = ratings[projectid][0]
+                dorating = ratings[projectid][1]
+                if iprating != None and dorating != None:
+                    if iprating != getattr(ob, 'iprating', None) or dorating != getattr(ob, 'dorating', None):
+                        ob.update(iprating = iprating,
+                            dorating = dorating)
+                        logger.info('Updating project %i rating' % projectid )
+                elif iprating !=None and iprating != getattr(ob, 'iprating', None):
+                    ob.update(iprating = iprating)
+                    logger.info('Updating project %i rating' % projectid )
+                elif dorating !=None and dorating != getattr(ob, 'dorating', None):
+                    ob.update(dorating = dorating)
+                    logger.info('Updating project %i rating' % projectid )
             pinfo = harvest.extract_project_info(projectid)
             if pinfo:
                 project_status = pinfo.get('Project Status', None)
@@ -251,7 +266,7 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                 if ob.getProject_status() != project_status:
                     ob.update(
                         project_status=project_status,
-                        start_date=start_date,
+                        #start_date=start_date,
                         gef_project_allocation=str(project_allocation),
                         total_cost=str(total_cost),
                         )
@@ -263,4 +278,5 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                     logger.info('project %i unchanged' % projectid )
             else:
                 logger.info('download failed for project %i' % projectid )
+        logger.info('harvest complete')
         return new_projects

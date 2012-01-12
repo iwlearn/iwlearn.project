@@ -284,6 +284,26 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         multiValued=True,
     ),
 
+    atapi.IntegerField( 'iprating',
+        required = False,
+        vocabulary_factory = u"iwlearn.project.ratings",
+        widget = atapi.SelectionWidget(
+            label = u'IP Rating',
+            visible={'edit': 'invisible', 'view': 'visible'},
+        ),
+        validators=('isInt',)
+    ),
+
+
+    atapi.IntegerField( 'dorating',
+        required = False,
+        vocabulary_factory = u"iwlearn.project.ratings",
+        widget = atapi.SelectionWidget(
+            label = u'DO Rating',
+            visible={'edit': 'invisible', 'view': 'visible'},
+        ),
+        validators=('isInt',)
+    ),
 
     # geographical info only for historical reasons - replaced with collective.geo
 

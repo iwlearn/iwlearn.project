@@ -1,10 +1,25 @@
 import urllib, urllib2
 import random
 import logging
+import csv
 
 from BeautifulSoup import BeautifulSoup
 
 from vocabulary import my_countrylist as _countrylist
+
+CSV_HEADER = ['gefid', 'projecttitle', 'agency', 'country', 'region',
+        'fa', 'type', 'grantamount', 'ppgamount', 'cofinancing',
+        'ipranking', 'doranking', 'label']
+
+RATINGS ={ 'N/A' : None,
+        '': None,
+        'Highly Unsatisfactory' : 0,
+        'Unsatisfactory': 1,
+        'Moderately Unsatisfactory': 2,
+        'Moderately Satisfactory': 3,
+        'Satisfactory': 4,
+        'Highly Satisfactory': 5}
+
 
 logger = logging.getLogger('iwlearn.project')
 
@@ -112,6 +127,28 @@ def extract_project_info(gefid):
         if len(td) == 2:
             project_data[td[0].text] = td[1].text
     return project_data
+
+def get_projects_ratings():
+    url = 'http://www.thegef.org/gef/amr/2011-11/json/export.php?country=0&impinc=implementation&ag=all&fa=all&reg=all&do=all&ip=all'
+    try:
+        response = urllib2.urlopen(url)
+    except urllib2.HTTPError:
+        return {}
+    result = {}
+    reader = csv.reader(response, delimiter ='\t')
+    reader.next() # skip first line
+    header = reader.next()
+    if header != CSV_HEADER:
+        logger.error('Wrong specification of the CSV file, cannot import ratings')
+        return {}
+    for project in reader:
+        if len(project) != len(CSV_HEADER):
+            logger.error('The number of items in the line is not correct.')
+        else:
+            result[int(project[0])] = (RATINGS[project[10]], RATINGS[project[11]])
+    return result
+
+
 
 
 GEF_PLONE_COUNTRY_MAPPING = {

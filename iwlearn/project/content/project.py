@@ -341,6 +341,7 @@ schemata.finalizeATCTSchema(
     moveDiscussion=False
 )
 
+ProjectSchema['relatedItems'].widget.visible['edit'] = 'visible'
 
 class Project(folder.ATFolder):
     """GEF IW Project"""
@@ -394,6 +395,10 @@ class Project(folder.ATFolder):
         if la:
             agencies.append(la.Title())
         return agencies
+
+    def getGefRatings(self):
+        """ Returns IP and DO Ratings as a tuple """
+        return (self.getDorating(), self.getIprating())
 
 
     # -*- Your ATSchema to Python Property Bridges Here ... -*-

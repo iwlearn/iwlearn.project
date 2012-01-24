@@ -545,14 +545,14 @@ def basin_vocabulary_factory(context):
     """ combine BASINS with additional values from the index """
     catalog = getToolByName(context, 'portal_catalog')
     #basins = list(catalog.Indexes['getBasin'].uniqueValues()) + BASINS
-    #basins = list(set(basins))
-    #basins.sort()
-    #items = [(basin,basin) for basin in basins]
     path='iwlearn/iw-projects/basins/'
     query = {'portal_type': 'Document', 'path': path, 'sort_on': 'sortable_title'}
     brains = catalog(**query)
-    basins=[(brain.Title, brain.Title) for brain in brains]
-    return SimpleVocabulary.fromItems(set(basins))
+    basins=[brain.Title for brain in brains]
+    basins = list(set(basins))
+    basins.sort()
+    items = [(basin,basin) for basin in basins]
+    return SimpleVocabulary.fromItems(items)
 
 def rating_vocabulary_factory(context):
     ratings =( (u'N/A', ''),

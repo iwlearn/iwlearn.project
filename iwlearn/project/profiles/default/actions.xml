@@ -4,7 +4,7 @@
     <object name="harvest_gef_online" meta_type="CMF Action">
       <property name="title">Harvest GEF online</property>
       <property name="description"/>
-      <property name="url_expr">string:${object_url}/gefonlineharvest_view</property>
+      <property name="url_expr">string:${object_url}/@@gefonlineharvest_view</property>
       <property name="icon_expr"/>
       <property name="available_expr">python:object.meta_type in ('Project Database')</property>
       <property name="permissions">
@@ -15,7 +15,7 @@
     <object name="update_from_gef_online" meta_type="CMF Action">
       <property name="title">Update from GEF online</property>
       <property name="description"/>
-      <property name="url_expr">string:${object_url}/gefonlineupdate_view</property>
+      <property name="url_expr">string:${object_url}/@@gefonlineupdate_view</property>
       <property name="icon_expr"/>
       <property name="available_expr">python:object.meta_type in ('Project Database')</property>
       <property name="permissions">

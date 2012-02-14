@@ -1,29 +1,34 @@
 # -*- coding: utf-8 -*-
 import logging
 from Products.CMFCore.utils import getToolByName
-#from Products.CMFEditions.setuphandlers import DEFAULT_POLICIES
+try:
+    from Products.CMFEditions.setuphandlers import DEFAULT_POLICIES
+    VERSIONING = True
+except ImportError:
+    VERSIONING = False
 # The profile id of your package:
 PROFILE_ID = 'profile-iwlearn.project:default'
 
 # put your custom types in this list
 TYPES_TO_VERSION = ('Project',)
 
-#def setVersionedTypes(context, logger=None):
-    #if logger is None:
-        ## Called as upgrade step: define our own logger.
-        #logger = logging.getLogger('iwlearn.project')
-    #portal_repository = getToolByName(context, 'portal_repository')
-    #versionable_types = list(portal_repository.getVersionableContentTypes())
-    #for type_id in TYPES_TO_VERSION:
-        #if type_id not in versionable_types:
-            ## use append() to make sure we don't overwrite any
-            ## content-types which may already be under version control
-            #logger.info('Adding %s to versionable types' % type_id)
-            #versionable_types.append(type_id)
-            ## Add default versioning policies to the versioned type
-            #for policy_id in DEFAULT_POLICIES:
-                #portal_repository.addPolicyForContentType(type_id, policy_id)
-    #portal_repository.setVersionableContentTypes(versionable_types)
+def setVersionedTypes(context, logger=None):
+    if VERSIONING:
+        if logger is None:
+            # Called as upgrade step: define our own logger.
+            logger = logging.getLogger('iwlearn.project')
+        portal_repository = getToolByName(context, 'portal_repository')
+        versionable_types = list(portal_repository.getVersionableContentTypes())
+        for type_id in TYPES_TO_VERSION:
+            if type_id not in versionable_types:
+                # use append() to make sure we don't overwrite any
+                # content-types which may already be under version control
+                logger.info('Adding %s to versionable types' % type_id)
+                versionable_types.append(type_id)
+                # Add default versioning policies to the versioned type
+                for policy_id in DEFAULT_POLICIES:
+                    portal_repository.addPolicyForContentType(type_id, policy_id)
+        portal_repository.setVersionableContentTypes(versionable_types)
 
 
 def add_harvest_menue(context, logger=None):
@@ -101,6 +106,6 @@ def setupVarious(context):
     logger = context.getLogger('iwlearn.project')
     site = context.getSite()
     add_catalog_indexes(site, logger)
-    #setVersionedTypes(site, logger)
+    setVersionedTypes(site, logger)
     # Add additional setup code here
 

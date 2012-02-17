@@ -242,7 +242,7 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
         show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
-        project, project_basins = self.get_projects_basins(query)
+        projects, project_basins = self.get_projects_basins(query)
         path = []
         if basin_types:
             for basin_type in basin_types:

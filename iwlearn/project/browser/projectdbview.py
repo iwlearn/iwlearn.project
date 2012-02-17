@@ -363,8 +363,10 @@ $('#projectsearchform').submit
         layer = kmls[0];
         kml_url = '%s' + qs;
         layer.refresh({url: kml_url});
+        kml_url = '%s' + qs;
         """ % ( self.context.absolute_url() + '/@@projectbasincluster_view.kml',
-                self.context.absolute_url() + '/@@projectbasindetail_view.kml')
+                self.context.absolute_url() + '/@@projectbasindetail_view.kml',
+                self.context.absolute_url() + '/@@projectbasin_view.kml')
 
         js =  self.js_template % (self.context.absolute_url(), refresh_js)
 

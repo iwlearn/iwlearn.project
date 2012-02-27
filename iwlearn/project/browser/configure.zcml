@@ -230,4 +230,37 @@
       permission="zope2.View"
   /-->
 
+
+    <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="maintenance_view.html"
+      template="maintenance.pt"
+      permission="cmf.ModifyPortalContent"
+      />
+
+    <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projects_wo_websites.html"
+      template="no_website.pt"
+      permission="cmf.ModifyPortalContent"
+      />
+
+    <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projects_wo_contacts.html"
+      template="no_contact.pt"
+      permission="cmf.ModifyPortalContent"
+      />
+    <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projects_wo_basins.html"
+      template="no_basin.pt"
+      permission="cmf.ModifyPortalContent"
+      />
+                <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projects_wo_eas.html"
+      template="no_ea.pt"
+      permission="cmf.ModifyPortalContent"
+      />
 </configure>

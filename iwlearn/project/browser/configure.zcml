@@ -230,7 +230,7 @@
       permission="zope2.View"
   /-->
 
-
+<!-- Maintenance -->
     <browser:page
       for="..interfaces.IProjectDatabase"
       name="maintenance_view.html"

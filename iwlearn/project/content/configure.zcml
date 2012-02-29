@@ -7,6 +7,12 @@
   <!-- configure your content components here -->
 
   <!-- -*- extra stuff goes here -*- -->
+  <class class=".basin.Basin">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IBasin"
+        />
+  </class>
   <class class=".project.Project">
     <require
         permission="zope2.View"

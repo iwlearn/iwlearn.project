@@ -25,11 +25,6 @@ logger = logging.getLogger('iwlearn.project')
 
 ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
-    # -*- Your Archetypes field definitions here ... -*-
-
-
-    # overview
-
     atapi.StringField(
         'gef_project_id',
         required=False,
@@ -109,6 +104,21 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             label=_(u"Basin"),
             description=_(u"Basin"),
         ),
+    ),
+
+
+
+    atapi.ReferenceField(
+        'basins',
+        required=False,
+        widget=ReferenceBrowserWidget(
+            label=_(u"Basins"),
+            description=_(u"Basins"),
+            allow_sorting=True,
+        ),
+        relationship='basins_projects',
+        allowed_types=('Basin',), # specify portal type names here ('Example Type',)
+        multiValued=True,
     ),
 
 

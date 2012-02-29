@@ -541,6 +541,14 @@ BASINS = [
     'Yukon',
     'Zambezi']
 
+BASIN_TYPE = ['LME',
+    'River',
+    'Lake',
+    'Aquifer',
+    'Ocean']
+
+
+
 def basin_vocabulary_factory(context):
     """ combine BASINS with additional values from the index """
     catalog = getToolByName(context, 'portal_catalog')

@@ -78,7 +78,7 @@
                       </span>
                     </td>
                   </tr>
-                  <tr tal:define="field python:here.Schema()['basin']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                  <tr tal:define="field python:here.Schema()['basins']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
                   tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
                     <td class="c1" width="22%" valign="top"

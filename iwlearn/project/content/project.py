@@ -99,6 +99,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'basin',
         required=False,
         searchable=True,
+        visible={'edit': 'invisible', 'view': 'invisible'},
         vocabulary_factory = u"iwlearn.project.basins",
         widget=AddRemoveWidget(
             label=_(u"Basin"),
@@ -411,6 +412,14 @@ class Project(folder.ATFolder):
         return (self.getDorating(), self.getIprating())
 
 
+    def getBasin(self):
+        basins = self.getBasins()
+        titles = []
+        for basin in basins:
+            titles.append(basin.Title())
+        return titles
+
+
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
 
 def reindexProjectDocuments(context, event):
@@ -430,7 +439,9 @@ def reindexProjectDocuments(context, event):
             'getAgencies', 'getBasin','getCountry',
             'getProject_status', 'getProject_type'])
 
-
+    basins = context.getBasins()
+    for basin in basins:
+        basin.reindexObject()
 
 
 atapi.registerType(Project, PROJECTNAME)

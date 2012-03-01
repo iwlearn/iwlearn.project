@@ -10,5 +10,6 @@
   <column value="getCountry"/>
   <column value="getProject_status"/>
   <column value="getProject_type"/>
-  <column value="getGefRatings "/>
+  <column value="getGefRatings"/>
+  <column value="getRawProjects" />
 </object>

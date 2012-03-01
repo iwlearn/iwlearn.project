@@ -330,6 +330,6 @@ def import_basins(self):
     import_aquifers(self)
     import_lakes(self)
     import_lakes2(self)
-    rename_basins(self)
+    relate_basins(self)
     return 'basins imported and renamed, reindex getBasin'
 

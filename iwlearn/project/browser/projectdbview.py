@@ -372,3 +372,5 @@ $('#projectsearchform').submit
 
         return js
 
+class ProjectDBMapView(ProjectDBBaseView):
+    implements(IProjectDBCountryView)

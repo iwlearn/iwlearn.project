@@ -278,6 +278,16 @@ class ProjectDbKMLBasinMapLayers(MapLayers):
         return layers
 
 
+class ProjectDbMapLayers(MapLayers):
+
+    def layers(self):
+        layers = super(ProjectDbMapLayers, self).layers()
+        #XXX layers.append(GepcoMapLayer(self.context))
+        layers.append(ProjectDbKMLMapLayer(self.context))
+        layers.append(ProjectDbKMLBasinMapLayer(self.context))
+        layers.append(ProjectDbKMLCountryMapLayer2(self.context))
+        return layers
+
 class ProjectKMLMapLayer(MapLayer):
     """
     a layer for one level sub objects.

@@ -208,6 +208,25 @@
 
 
 
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="project-map-view.html"
+      class=".projectdbview.ProjectDBMapView"
+      template="projectdbmapview.pt"
+      allowed_interface=".projectdbview.IProjectDBView"
+      permission="zope2.View"
+      />
+
+
+  <adapter
+      for=".projectdbview.ProjectDBMapView
+           zope.interface.Interface
+           zope.interface.Interface
+           zope.interface.Interface"
+      factory=".maplayers.ProjectDbMapLayers"
+      />
+
+
 
 
     <!--browser:viewletManager
@@ -257,7 +276,7 @@
       template="no_basin.pt"
       permission="cmf.ModifyPortalContent"
       />
-                <browser:page
+    <browser:page
       for="..interfaces.IProjectDatabase"
       name="projects_wo_eas.html"
       template="no_ea.pt"

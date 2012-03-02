@@ -1,0 +1,407 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="iwlearn.project">
+<head>
+    <metal:javascript_head fill-slot="javascript_head_slot">
+
+ <!-- collective geo map -->
+
+      <metal:use use-macro="context/@@collectivegeo-macros/openlayers" />
+
+  <!-- collective geo map -->
+
+    </metal:javascript_head>
+</head>
+<body>
+    <div metal:fill-slot="main">
+        <tal:main-macro metal:define-macro="main">
+<!--[if lte IE 8]>
+   <div style="color: red;">
+    <big><strong>Microsoft Internet Explorer is not supported as this time</strong></big>
+    <br />
+    if you are using IE version 8 or older, you will not see the list of
+    projects or the visualization.
+    <br />
+    <a style="color: blue;" href="http://browsehappy.com/">Please upgrade your browser </a>
+    </div>
+    If you cannot upgrade your browser for any reason, you may want to switch off JavaScript
+    to see the HTML only version of this website.
+<![endif]-->
+
+                    <div id="projectcountrymap" style="height:450px; width: 900px">
+
+<!-- Collective.geo map -->
+
+
+
+        <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
+        <script type="text/javascript"
+                src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
+<span id="map-nav-panel"></span>
+
+        <a id="projectkmlurl" href="projectbasin_view.kml">
+        <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
+            alt="open in google earth" />
+        Download KML
+        </a>
+
+
+<!-- /Collective.geo map -->
+                    </div>
+<div class="visualClear">&nbsp;</div>
+            <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action="country_view.html">
+              <fieldset class="basinlayers">
+                <legend>Basin Layers</legend>
+                The visualization tool features four major transboundary water basins:
+                <div>
+                    <input type="checkbox" id="basintype-lmes" name="basintype:list" value="LME" checked="checked"/>
+                    <label for="basintype-lmes">large marine ecosystems (LMES)</label>
+                    <input type="checkbox" id="basintype-lakes" name="basintype:list" value="Lake" checked="checked"/>
+                    <label for="basintype-lakes">Lakes</label>
+                    <input type="checkbox" id="basintype-rivers" name="basintype:list" value="River" checked="checked"/>
+                    <label for="basintype-rivers">Rivers</label>
+                    <input type="checkbox" id="basintype-aquifers" name="basintype:list" value="Aquifer" checked="checked"/>
+                    <label for="basintype-aquifers">Aquifers</label>
+                </div>
+                where the interventions of a specific GEF IW project is indicated:
+                <div>
+                    <input type="checkbox" id="withgefbasins" name="showgefbasins:list" value="with" checked="checked"/>
+                    <label for="withgefbasins">With GEF projects</label>
+                    <input type="checkbox" id="withoutgefbasins" name="showgefbasins:list" value="without"/>
+                    <label for="withoutgefbasins">Without GEF projects</label>
+                </div>
+                    The other visualizations feature the
+                    <ul>
+                        <li><a href="view">Location of project management offices</a></li>
+                        <li><a href="country_view.html">distribution of projects by partnering countries.</a></li>
+                    </ul>
+
+                    View the <a href="projectwebsites_view">list of IW Project Websites</a>
+                    or the geographic distribution of
+                    <a href="http://199.180.129.170/watergov/index.php/Main_Page" target="_blank">
+                    International Waters: Review of Legal and Institutional Frameworks
+                    </a>
+
+              </fieldset>
+              <fieldset class="projectdetails">
+                <legend>Search for Projects</legend>
+
+
+                <div class="field odd">
+                    <label  for="getProject_type">Project type</label>
+                    <div class="formHelp">
+                    Return projects of this type
+                    </div>
+                        <select id="getProject_type" name="getProject_type">
+                            <tal:loop tal:repeat="opt view/get_projecttype">
+                                <option value="All"
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">All</option>
+                            </tal:loop>
+                        </select>
+                </div>
+
+                <div class="field even">
+                    <label  for="getAgencies">Implementing agency</label>
+                    <div class="formHelp">
+                    Return projects this agency implements
+                    </div>
+                        <select id="getAgencies" name="getAgencies">
+                            <tal:loop tal:repeat="opt view/get_agency">
+                                <option value="All"
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">All</option>
+                            </tal:loop>
+                        </select>
+                </div>
+
+                <div class="field odd">
+                    <label  for="getProject_status">Project status</label>
+                    <div class="formHelp">
+                    Return projects of this status
+                    </div>
+                        <select id="getProject_status" name="getProject_status">
+                            <tal:loop tal:repeat="opt view/get_status">
+                                <option value="All"
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">All</option>
+                            </tal:loop>
+                        </select>
+                </div>
+
+
+
+                <div class="formControls even">
+                    <input type="submit" value="Search" name="submit"
+                        class="context" />
+                </div>
+              </fieldset>
+              <input type="hidden" value="-180,-90,180,90" name="bbox" id="inputbbox" />
+              <input type="hidden" value="0" name="zoomfactor" id="inputzoom" />
+            </form>
+
+            <table id="flexiprojects" style="display:none"></table>
+
+<script type="text/javascript" tal:content="structure view/get_js">
+
+ $(document).ready(function() {
+   $("#projectsearchform").find("select").each(function(i) {
+     $(this).change(function( objEvent ){
+         $('#flexiprojects').flexOptions({newp: 1}).flexReload();
+        }) ;
+   });
+ });
+
+
+
+    $("#flexiprojects").flexigrid
+            (
+            {
+            url: '@@flexijson_view',
+            dataType: 'json',
+            colModel : [
+                {display: 'Title', name : 'Title', width : 220, sortable : true, align: 'left'},
+                {display: 'Project type', name : 'getProject_type', width : 100, sortable : true, align: 'left'},
+                {display: 'Implementing agencies', name : 'getAgencies', width : 220, sortable : true, align: 'left'},
+                {display: 'Region', name : 'getSubRegions', width : 200, sortable : true, align: 'left'},
+                {display: 'Status', name : 'getProject_status', width : 100, sortable : true, align: 'left'},
+                {display: 'URL', name : 'getRemoteUrl', width : 100, sortable : false, align: 'left', hide: true}
+                ],
+            sortname: "Title",
+            sortorder: "asc",
+            usepager: true,
+            title: 'Projects',
+            useRp: true,
+            rp: 15,
+            showTableToggleBtn: true,
+            width: 900,
+            onSubmit: addFormData,
+            height: 200
+            }
+            );
+
+
+    /*This function adds paramaters to the post of flexigrid.
+    You can add a verification as well by return to false if
+    you don't want flexigrid to submit function addFormData() */
+    function addFormData() {
+        /*passing a form object to serializeArray will get the valid data
+        from all the objects, but, if the you pass a non-form object,
+        you have to specify the input elements that the data will come from */
+        var dt = $('#projectsearchform').serializeArray();
+        $("#flexiprojects").flexOptions({params: dt});
+        // refresh map
+        var qs = '?';
+        var params = {};
+        jQuery.each(dt, function(i, field){
+            qs = qs + field.name + '=' + field.value + "&";
+            params[field.name] = field.value;
+        });
+        var map = cgmap.config['default-cgmap'].map;
+        var kmls = map.getLayersByClass('OpenLayers.Layer.GML');
+        layer = kmls[0];
+        var is_visible = layer.getVisibility();
+        layer.setVisibility(false);
+        layer.loaded = false;
+        layer.setUrl('http://localhost:8080/iwlearn/iw-projects/@@projectdbkml_view' + qs);
+        layer.refresh({ force: true, params: params });
+        layer.setVisibility(is_visible);
+        return true;
+    }
+
+
+$('#projectsearchform').submit
+(
+    function ()
+        {
+            $('#flexiprojects').flexOptions({newp: 1}).flexReload();
+            return false;
+        }
+);
+
+
+</script>
+
+           <script type="text/javascript">
+/*<![CDATA[*/
+    $(window).bind("load", function() {
+        var map = cgmap.config['default-cgmap'].map;
+
+        /*OpenLayers.Control.CustomNavToolbar = OpenLayers.Class(OpenLayers.Control.Panel, {
+
+
+
+            initialize: function(options) {
+                OpenLayers.Control.Panel.prototype.initialize.apply(this, [options]);
+                this.addControls([
+                  new OpenLayers.Control.Navigation(),
+                  //new OpenLayers.Control.OverviewMap(),
+                  //Here it come
+                  new OpenLayers.Control.ZoomBox({alwaysZoom:false})
+                ]);
+                // To make the custom navtoolbar use the regular navtoolbar style
+                this.displayClass = 'olControlNavToolbar'
+            },
+        });
+
+        var panel = new OpenLayers.Control.CustomNavToolbar();
+        map.addControl(panel); */
+
+        map.events.on({
+                moveend: function(event) {
+                    var mapExtent = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
+                    var b_l = mapExtent.left;
+                    var b_b = mapExtent.bottom;
+                    var b_r = mapExtent.right;
+                    var b_t = mapExtent.top;
+                    var zoom_factor = event.object.getZoom();
+                    if (zoom_factor < 2) {zoom_factor = 0};
+                    if (zoom_factor > 5) {zoom_factor = 6};
+                    if (b_l > b_r){
+                        if (mapExtent.getCenterLonLat().lon > 0){
+                            b_l = -180;
+                        }
+                    };
+                    var left = Math.max(Math.floor(b_l/10)*10, -180);
+                    var bottom = Math.max(Math.floor(b_b/10)*10, -90);
+                    var right = Math.min(Math.ceil(b_r/10)*10, 180);
+                    var top = Math.min(Math.ceil(b_t/10)*10, 90);
+                    if (right < left){ right = 180; };
+                    var input_string = '' + left +',' + bottom +',' + right + ',' + top;
+                    if (event.object.getZoom() < 2){ input_string = '-180,-90,180,90';};
+                    if ((jQuery("input#inputbbox").val() != input_string) || jQuery("input#inputzoom").val() != zoom_factor) {
+                        jQuery("input#inputbbox").val(input_string);
+                        jQuery("input#inputzoom").val(zoom_factor);
+                        jQuery('#flexiprojects').flexOptions({newp: 1}).flexReload();
+                    }
+
+                  }
+            });
+
+        var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
+
+
+        function onFeatureUnselect(event) {
+                for (var i=0; i<map.popups.length; ++i){
+                        map.removePopup(map.popups[i]);
+                        map.popups[i].destroy();
+                        map.popups[i] = null;
+                };
+
+        };
+
+        function onPopupClose(event) {
+             for (var i=0; i<map.popups.length; ++i){
+                        map.removePopup(map.popups[i]);
+                };
+        };
+        var lt = String.fromCharCode(60);
+        var gt = String.fromCharCode(62);
+
+        function onFeatureSelect(event) {
+            if (event.feature.cluster == null){
+                var feature = event.feature;
+                var content = lt + "h2" + gt + feature.attributes.name + lt + "/h2" + gt + feature.attributes.description;
+                popup = new OpenLayers.Popup.FramedCloud("chicken",
+                                         feature.geometry.getBounds().getCenterLonLat(),
+                                         new OpenLayers.Size(100,100),
+                                         content,
+                                         null, true, onPopupClose);
+                feature.popup = popup;
+                map.addPopup(popup);
+            } else {
+                var lonlat = event.feature.geometry.getBounds().getCenterLonLat();
+                var currZoom = this.map.getZoom();
+                var newZoom = currZoom + 3;
+                this.map.setCenter(lonlat, newZoom);
+            };
+        };
+
+        var navPanel = new OpenLayers.Control.NavigationHistory();
+        // parent control must be added to the map
+        map.addControl(navPanel);
+        var npPanel = new OpenLayers.Control.Panel(
+                    {div: document.getElementById("map-nav-panel")}
+                );
+        npPanel.addControls([navPanel.next, navPanel.previous]);
+        map.addControl(npPanel);
+        var selectControl = new OpenLayers.Control.SelectFeature(
+                kmls,
+                {
+                    clickout: true,
+                    multiple: false,
+                    hover: false
+                }
+            );
+        map.addControl(selectControl);
+        selectControl.activate();
+        for (var i=0; i<kmls.length; ++i){
+            kmls[i].events.on({"featureselected": onFeatureSelect, "featureunselected": onFeatureUnselect});
+        };
+        //var loadingpanel = new OpenLayers.Control.LoadingPanel();
+        //map.addControl(loadingpanel);
+
+});
+/*]]>*/
+            </script>
+
+
+            <noscript tal:define="search_results view/search_results" tal:condition="search_results">
+              <table  tal:define="results search_results/results;
+                         Batch python:modules['Products.CMFPlone'].Batch;
+                         b_size search_results/size;
+                         b_start search_results/start;
+                         searchterm view/search_term"
+                         class='listing'>
+                <caption tal:condition="not: results">
+                  <strong i18n:translate="description_no_results_found">
+                    No results were found.
+                  </strong>
+                </caption>
+                <caption tal:condition="results">
+                   <strong i18n:translate="batch_x_items_matching_your_criteria">
+                        <span i18n:name="number" tal:content="python:len(results)">234</span> items matching your criteria.
+                   </strong>
+                </caption>
+                <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Status</th>
+                      <th>Project type</th>
+                      <th>Lead agency</th>
+                      <th>Region</th>
+                      <th>Status</th>
+                    </tr>
+                </thead>
+                <tfoot tal:define="batch python:Batch(results, b_size, int(b_start), orphan=1);">
+                    <tr> <td colspan="5"> <div metal:use-macro="here/batch_macros/macros/navigation" /> </td></tr>
+                </tfoot>
+                <tbody tal:condition="results" tal:define="batch python:Batch(results, b_size, int(b_start), orphan=1);">
+                  <tal:loop tal:repeat="result batch">
+                      <tr tal:define="oddrow repeat/result/odd;"
+                            tal:attributes="class python:oddrow and 'even' or 'odd'">
+                          <td> <a tal:attributes="href result/getURL;" tal:content="result/Title">title</a> </td>
+                          <td tal:content="result/getProject_status">status</td>
+                          <td tal:content="result/getProject_type"></td>
+                          <td> <span tal:content="python:', '.join(result.getAgencies)" tal:on-error="nothing" /></td>
+                          <td> <span tal:content="python:', '.join(result.getSubRegions)" tal:on-error="nothing" /></td>
+                          <td tal:content="result/getProject_status"></td>
+                      </tr>
+                  </tal:loop>
+                </tbody>
+              </table>
+            </noscript>
+        </tal:main-macro>
+    </div>
+</body>
+</html>

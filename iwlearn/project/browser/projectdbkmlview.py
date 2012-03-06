@@ -42,7 +42,7 @@ class ProjectDbKmlView(KMLBaseDocument):
         return getToolByName(self.context, 'portal_catalog')
 
     def get_results(self, query):
-        print query
+        logger.info('Query: %s' % str(query))
         return self.portal_catalog(**query)
 
 
@@ -251,12 +251,16 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
             if basin.zgeo_geometry and basin.zgeo_geometry['coordinates']:
                 if 'with' in show_gef_basins:
                     if basin.getRawProjects:
-                        yield BasinPlacemark(basin, self.request, self,
-                                projects)
-                        continue
+                        show = False
+                        for puid in basin.getRawProjects:
+                            if puid in projects:
+                                show = True
+                        if show:
+                            yield BasinPlacemark(basin, self.request,
+                                self, projects)
+                            continue
                 if 'without' in show_gef_basins:
-                    if not(basin.getRawProjects):
-                        yield BasinPlacemark(basin, self.request, self,
+                    yield BasinPlacemark(basin, self.request, self,
                                  {})
 
 SHOW_BBOX_RATIO = 2048
@@ -274,6 +278,7 @@ class ProjectDbKmlBasinClusterView(ProjectDbKmlBasinView):
         show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
+        logger.debug('Cluster basin view project query: %s' % str(query))
         projects = self.get_projects(query)
         path = []
         if sbbox != '-180,-90,180,90':
@@ -295,13 +300,17 @@ class ProjectDbKmlBasinClusterView(ProjectDbKmlBasinView):
                 if basin_area < bbox_area/SHOW_BBOX_RATIO:
                     if 'with' in show_gef_basins:
                         if basin.getRawProjects:
-                            yield ClusteredBasinPlacemark(basin, self.request, self,
-                                    projects)
-                            continue
+                            show = False
+                            for puid in basin.getRawProjects:
+                                if puid in projects:
+                                    show = True
+                            if show:
+                                yield ClusteredBasinPlacemark(basin,
+                                    self.request, self, projects)
+                                continue
                     if 'without' in show_gef_basins:
-                        if not(basin.getRawProjects):
-                            yield ClusteredBasinPlacemark(basin, self.request, self,
-                                   {})
+                        yield ClusteredBasinPlacemark(basin, self.request,
+                                self, {})
 
 class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
 
@@ -319,6 +328,7 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
              bbox_area = 1
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
+        logger.debug('detail basin view project query: %s' % str(query))
         projects = self.get_projects(query)
         path = []
         if sbbox != '-180,-90,180,90':
@@ -339,12 +349,16 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
                 if basin_area >= bbox_area/SHOW_BBOX_RATIO:
                     if 'with' in show_gef_basins:
                         if basin.getRawProjects:
-                            yield BasinPlacemark(basin, self.request, self,
-                                   projects)
-                            continue
+                            show = False
+                            for puid in basin.getRawProjects:
+                                if puid in projects:
+                                    show = True
+                            if show:
+                                yield BasinPlacemark(basin, self.request, self,
+                                       projects)
+                                continue
                     if 'without' in show_gef_basins:
-                        if not(basin.getRawProjects):
-                            yield BasinPlacemark(basin, self.request, self,
+                        yield BasinPlacemark(basin, self.request, self,
                                     {})
 
 class ProjectDbKmlCountryView(ProjectDbKmlView):

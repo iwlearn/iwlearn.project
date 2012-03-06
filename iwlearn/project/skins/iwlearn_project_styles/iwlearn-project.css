@@ -4,11 +4,24 @@
    display: inline block;
 }
 
+#projectmapform {
+   display: inline block;
+}
+
+
 #projectsearchform div.field {
     margin-bottom:0.5em;
     }
 
+#projectmapform fieldset.projectdetail div.field {
+    margin-bottom:0.5em;
+    }
+
 #projectsearchform div.field.odd  {
+    float:left;
+    }
+
+#projectmapform fieldset.projectdetails div.field.odd  {
     float:left;
     }
 
@@ -17,7 +30,16 @@
     clear:none;
     }
 
+#projectmapform fieldset.projectdetails div.field.even  {
+    float:right;
+    clear:none;
+    }
+
 #projectsearchform fieldset {
+    padding:0 1em;
+    }
+
+#projectmapform fieldset.projectdetails {
     padding:0 1em;
     }
 
@@ -26,7 +48,16 @@
     display: none;
     }
 
+#projectmapform fieldset.projectdetails div.formHelp  {
+    display: none;
+    }
+
+
 #projectsearchform input {
+    width: 20em;
+    }
+
+#projectmapform fieldset.projectdetails select {
     width: 20em;
     }
 
@@ -34,6 +65,12 @@
     width: 1em;
     margin-left: 3em;
     }
+
+#basinlayer input{
+    width: 1em;
+    margin-left: 3em;
+    }
+
 
 #projectsearchform .basinlayers div{
     margin-left: 5em;
@@ -54,6 +91,13 @@
     float:right;
     margin: 0em;
     }
+
+#projectmapform div.formControls.even {
+    clear:none;
+    float:right;
+    margin: 0em;
+    }
+
 
 #projectsearchform div.formControls.even input {
     width: 7em;
@@ -79,6 +123,12 @@
     height: 200px;
 }
 
+#projectdbmap div.widget-cgmap {
+    height: 600px;
+}
+
+
+
 .flexigrid div.hDivBox table {
     margin-bottom: 0 !important;
     }
@@ -88,7 +138,7 @@ div.flexigrid {
     margin-right: auto;
 }
 
- #map-nav-panel {
+#map-nav-panel {
     right: 0px;
     height: 30px;
     width: 200px;

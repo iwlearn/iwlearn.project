@@ -52,7 +52,7 @@
 
   <browser:page
       for="..interfaces.IProjectDatabase"
-      name="projectdbkml_view"
+      name="projectdbpmo_view.kml"
       class=".projectdbkmlview.ProjectDbKmlView"
       template="projectdbkmlview.pt"
       allowed_interface=".projectdbkmlview.IProjectDbKmlView"

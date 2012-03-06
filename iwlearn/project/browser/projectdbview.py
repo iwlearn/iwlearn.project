@@ -120,7 +120,7 @@ $('#projectsearchform').submit
         layer = kmls[0];
         kml_url = '%s' + qs;
         layer.refresh({url: kml_url});
-        """ % (self.context.absolute_url() + '/@@projectdbkml_view')
+        """ % (self.context.absolute_url() + '/@@projectdbpmo_view.kml')
         js =  self.js_template % ( self.context.absolute_url(), refresh_js)
         return js
 
@@ -378,3 +378,60 @@ $('#projectsearchform').submit
 
 class ProjectDBMapView(ProjectDBBaseView):
     implements(IProjectDBCountryView)
+
+    def get_js(self):
+        refresh_js = """
+        function onLayerOptionsChange(event) {
+            //XXX dynamic
+            // refresh map
+            var dt = $('#projectmapform').serializeArray();
+            var qs = '?';
+            var params = {};
+            jQuery.each(dt, function(i, field){
+                if (field.name.substring(0,25) != 'cgmap_state.default-cgmap') {
+                    qs = qs + field.name + '=' + field.value + "&";
+                    params[field.name] = field.value;
+                };
+            });
+            var map = cgmap.config['default-cgmap'].map;
+            var kmls = map.getLayersByName('Countries');
+            var kml_url = '%(url)s/@@projectdbcountry_view.kml' + qs;
+            layer = kmls[0];
+            layer.refresh({url: kml_url});
+            var kmls = map.getLayersByName('Project management offices');
+            layer = kmls[0];
+            kml_url = '%(url)s/@@projectdbpmo_view.kml' + qs;
+            layer.refresh({url: kml_url});
+            onBasinLayerOptionsChange(event);
+            return true;
+
+        }
+
+        function onBasinLayerOptionsChange(event) {
+            // refresh map
+            var dt = $('#projectmapform').serializeArray();
+            var qs = '?';
+            var params = {};
+            jQuery.each(dt, function(i, field){
+                if (field.name.substring(0,25) != 'cgmap_state.default-cgmap') {
+                    qs = qs + field.name + '=' + field.value + "&";
+                    params[field.name] = field.value;
+                };
+            });
+            var map = cgmap.config['default-cgmap'].map;
+
+
+            var kmls = map.getLayersByName('Basin Cluster');
+            layer = kmls[0];
+            kml_url = '%(url)s/@@projectbasincluster_view.kml' + qs;
+            layer.refresh({url: kml_url});
+            var kmls = map.getLayersByName('Basin Detail');
+            layer = kmls[0];
+            kml_url = '%(url)s/@@projectbasindetail_view.kml' + qs;
+            layer.refresh({url: kml_url});
+            kml_url = '%(url)s/@@projectbasin_view.kml' + qs;
+            return true;
+        }
+        """ % {'url': self.context.absolute_url()}
+        return refresh_js
+

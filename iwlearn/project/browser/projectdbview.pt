@@ -53,7 +53,7 @@
         <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
         <script type="text/javascript"
                 src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
-        <a id="projectkmlurl" href="projectdbkml_view">
+        <a id="projectkmlurl" href="projectdbpmo_view.kml">
         <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
             alt="open in google earth" />
         Download KML</a>

@@ -34,7 +34,7 @@ class ProjectDbKMLMapLayer(MapLayer):
         return u"""function() {
                 return new OpenLayers.Layer.Vector("%s", {
                     protocol: new OpenLayers.Protocol.HTTP({
-                      url: "%s@@projectdbkml_view",
+                      url: "%s@@projectdbpmo_view.kml",
                       format: new OpenLayers.Format.KML({
                         extractStyles: false,
                         extractAttributes: true})
@@ -113,29 +113,6 @@ class ProjectDbKMLBasinMapLayer(MapLayer):
                         extractStyles: true,
                         extractAttributes: true}),
                       }),
-                   /*styleMap: new OpenLayers.StyleMap({
-                        "default": new OpenLayers.Style({
-                                        fillColor: "#ffcc66",
-                                        fillOpacity: 0.8,
-                                        strokeColor: "#cc6633",
-                                        strokeWidth: 2,
-                                        strokeOpacity: 0.8,
-                                        label:"${projectcount}"
-                                    }, {
-                                        context: {
-                                            projectcount: function(feature) {
-                                                var l = feature.attributes.name.length;
-                                                var a = feature.attributes.name.indexOf('[');
-                                                c = feature.attributes.name.substring(a+1, l-10);
-                                                if (c !="0"){return c} else {return ""}
-                                            }
-                                        }
-                                    }),
-                        "select": {
-                            fillColor: "#8aeeef",
-                            strokeColor: "#32a8a9"
-                            }
-                        }),*/
                     strategies: [new OpenLayers.Strategy.Fixed()],
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });
@@ -155,9 +132,9 @@ class ProjectDbKMLBasinMapLayer(MapLayer):
                      styleMap: new OpenLayers.StyleMap({
                         "default": new OpenLayers.Style({
                                         pointRadius: "${radius}",
-                                        fillColor: "#ffcc66",
+                                        fillColor: "#5566ff",
                                         fillOpacity: 0.8,
-                                        strokeColor: "#cc6633",
+                                        strokeColor: "#1122ff",
                                         strokeWidth: 2,
                                         strokeOpacity: 0.8,
                                         label:"${count}"

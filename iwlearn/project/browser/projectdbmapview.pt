@@ -29,7 +29,7 @@
     to see the HTML only version of this website.
 <![endif]-->
 
-            <form id="projectsearchformXXX" name="search" method="get"
+            <form id="projectmapform" name="search" method="get"
                 class="enableAutoFocus" action="map_view.html"
                 tal:attributes="action view/__name__">
              <fieldset class="projectdetails">
@@ -87,7 +87,7 @@
                         </select>
                 </div>
 
-                <div class="field odd">
+                <!--div class="field odd">
                     <label  for="getSubRegions">Region</label>
                     <div class="formHelp">
                     Return projects in this region
@@ -102,7 +102,7 @@
                                     tal:content="opt/name">Africa</option>
                             </tal:loop>
                         </select>
-                </div>
+                </div-->
 
                 <div class="formControls even">
                     <input type="submit" value="Search" name="submit"
@@ -111,11 +111,23 @@
               </fieldset>
               <input type="checkbox" id="show-pcu" name="show-pcu" checked="checked"/>
               <label for="show-pcu">Location of project management offices</label>
+              <div id="pmolayer">
+                <a id="projectkmlurl" href="projectbasin_view.kml">
+                    <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
+                        alt="open in google earth" />
+                    Download KML
+                </a>
+              </div>
               <br />
-              <input type="checkbox" id="show-country" name="show-country" checked="checked"/>
+              <input type="checkbox" id="show-country" name="show-country"/>
               <label for="show-country">Distribution of projects by partnering countries</label>
-              <div id="countrylayer">
-                  <div class="field">
+              <div id="countrylayer" style="display: none;">
+                <a id="projectkmlurl" href="projectbasin_view.kml">
+                    <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
+                        alt="open in google earth" />
+                    Download KML
+                </a>
+                  <!--div class="field">
                     <label  for="getSubRegions">Contry</label>
                     <div class="formHelp">
                     Return projects in this country
@@ -130,7 +142,7 @@
                                     tal:content="opt/name">Albania</option>
                             </tal:loop>
                         </select>
-                </div>
+                </div-->
               </div>
               <br />
               <input type="checkbox" id="show-basins" name="show-basins" checked="checked"/>
@@ -139,7 +151,7 @@
               <div id="basinlayer">
                 <div>
                     <input type="checkbox" id="basintype-lmes" name="basintype:list" value="LME" checked="checked"/>
-                    <label for="basintype-lmes">large marine ecosystems (LMES)</label>
+                    <label for="basintype-lmes">Large marine ecosystems (LMES)</label>
                     <input type="checkbox" id="basintype-lakes" name="basintype:list" value="Lake" checked="checked"/>
                     <label for="basintype-lakes">Lakes</label>
                     <input type="checkbox" id="basintype-rivers" name="basintype:list" value="River" checked="checked"/>
@@ -153,16 +165,21 @@
                     <input type="checkbox" id="withoutgefbasins" name="showgefbasins:list" value="without"/>
                     <label for="withoutgefbasins">Without GEF projects</label>
                 </div>
-              </div>
-
+                <!--a id="projectkmlurl" href="projectbasin_view.kml">
+                    <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
+                        alt="open in google earth" />
+                    Download KML
+                </a>
+              </div-->
+              <br />
               <input type="hidden" value="-180,-90,180,90" name="bbox" id="inputbbox" />
               <input type="hidden" value="0" name="zoomfactor" id="inputzoom" />
             </form>
 
 
 
-    <div id="projectcountrymap" style="height:450px; width: 900px">
-
+    <div id="projectdbmap" style="height:600px; width: 900px">
+    <br />
 <!-- Collective.geo map -->
 
 
@@ -172,11 +189,11 @@
                 src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
         <span id="map-nav-panel"></span>
 
-        <a id="projectkmlurl" href="projectbasin_view.kml">
+        <!--a id="projectkmlurl" href="projectbasin_view.kml">
         <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
             alt="open in google earth" />
         Download KML
-        </a>
+        </a-->
 
 
 <!-- /Collective.geo map -->
@@ -184,8 +201,10 @@
 <div class="visualClear">&nbsp;</div>
 
 
-<!--script type="text/javascript" tal:content="structure view/get_js"-->
-
+<script type="text/javascript" tal:content="structure view/get_js">
+/*<![CDATA[*/
+/*]]>*/
+</script>
 
 <script type="text/javascript">
 /*<![CDATA[*/
@@ -227,93 +246,42 @@ function onPCULayerChange(event) {
     var kmls = map.getLayersByName('Project management offices');
     layer = kmls[0];
     layer.setVisibility(is_visible);
+    if (is_visible) {
+        $("#pmolayer").show()
+    } else {
+        $("#pmolayer").hide()
+    };
 }
 
 
 
 
+$('#projectmapform').submit
+(
+    function ()
+        {
+            onLayerOptionsChange()
+            return false;
+        }
+);
+
  $(document).ready(function() {
-   $("#projectsearchform").find("select").each(function(i) {
-     $(this).change(function( objEvent ){
-         $('#flexiprojects').flexOptions({newp: 1}).flexReload();
-        }) ;
+   $("#projectmapform").find("select").each(function(i) {
+        $(this).change(onLayerOptionsChange) ;
    });
+   $("#basinlayer").find("input").each(function(i) {
+       $(this).change(onBasinLayerOptionsChange);
+    });
    $("#show-basins").change(onBasinLayerChange);
    $("#show-pcu").change(onPCULayerChange);
    $("#show-country").change(onCountryLayerChange);
  });
 
 
-
-    $("#flexiprojects").flexigrid
-            (
-            {
-            url: '@@flexijson_view',
-            dataType: 'json',
-            colModel : [
-                {display: 'Title', name : 'Title', width : 220, sortable : true, align: 'left'},
-                {display: 'Project type', name : 'getProject_type', width : 100, sortable : true, align: 'left'},
-                {display: 'Implementing agencies', name : 'getAgencies', width : 220, sortable : true, align: 'left'},
-                {display: 'Region', name : 'getSubRegions', width : 200, sortable : true, align: 'left'},
-                {display: 'Status', name : 'getProject_status', width : 100, sortable : true, align: 'left'},
-                {display: 'URL', name : 'getRemoteUrl', width : 100, sortable : false, align: 'left', hide: true}
-                ],
-            sortname: "Title",
-            sortorder: "asc",
-            usepager: true,
-            title: 'Projects',
-            useRp: true,
-            rp: 15,
-            showTableToggleBtn: true,
-            width: 900,
-            onSubmit: addFormData,
-            height: 200
-            }
-            );
-
-
-    /*This function adds paramaters to the post of flexigrid.
-    You can add a verification as well by return to false if
-    you don't want flexigrid to submit function addFormData() */
-    function addFormData() {
-        /*passing a form object to serializeArray will get the valid data
-        from all the objects, but, if the you pass a non-form object,
-        you have to specify the input elements that the data will come from */
-        var dt = $('#projectsearchform').serializeArray();
-        $("#flexiprojects").flexOptions({params: dt});
-        // refresh map
-        var qs = '?';
-        var params = {};
-        jQuery.each(dt, function(i, field){
-            qs = qs + field.name + '=' + field.value + "&";
-            params[field.name] = field.value;
-        });
-        var map = cgmap.config['default-cgmap'].map;
-        var kmls = map.getLayersByClass('OpenLayers.Layer.GML');
-        layer = kmls[0];
-        var is_visible = layer.getVisibility();
-        layer.setVisibility(false);
-        layer.loaded = false;
-        layer.setUrl('http://localhost:8080/iwlearn/iw-projects/@@projectdbkml_view' + qs);
-        layer.refresh({ force: true, params: params });
-        layer.setVisibility(is_visible);
-        return true;
-    }
-
-
-$('#projectsearchform').submit
-(
-    function ()
-        {
-            $('#flexiprojects').flexOptions({newp: 1}).flexReload();
-            return false;
-        }
-);
-
 /*]]>*/
 </script>
 
-           <script type="text/javascript">
+<script type="text/javascript">
 /*<![CDATA[*/
     $(window).bind("load", function() {
         var map = cgmap.config['default-cgmap'].map;
@@ -343,7 +311,8 @@ $('#projectsearchform').submit
                     if ((jQuery("input#inputbbox").val() != input_string) || jQuery("input#inputzoom").val() != zoom_factor) {
                         jQuery("input#inputbbox").val(input_string);
                         jQuery("input#inputzoom").val(zoom_factor);
-                        jQuery('#flexiprojects').flexOptions({newp: 1}).flexReload();
+                        onBasinLayerOptionsChange();
+                        //jQuery('#flexiprojects').flexOptions({newp: 1}).flexReload();
                     }
 
                   }
@@ -388,6 +357,63 @@ $('#projectsearchform').submit
             };
         };
 
+        function onPointLayerFeatureSelect(event) {
+                var message = '';
+                var lt = String.fromCharCode(60);
+                var gt = String.fromCharCode(62);
+                var maxp = 12;
+                var zoom_point = event.feature.geometry.getBounds().getCenterLonLat();
+                var lon = zoom_point.lon;
+                var lat = zoom_point.lat;
+                function makeLink( title, description) {
+                    var a = description.indexOf('href=');
+                    var b = description.indexOf('"', a + 6);
+                    var href = description.substring(a, b + 1) + ' ';
+                    name = title.substring(0,32) + '...';
+                    return lt + 'a ' + href + ' title="' + title + '" ' + gt + name + lt +'/a' + gt
+                    }
+
+                if (event.feature.cluster.length > maxp){
+                        var currZoom = this.map.getZoom();
+                        var newZoom = currZoom + 2;
+                        this.map.setCenter(zoom_point, newZoom);
+
+                }
+                else if (event.feature.cluster.length > 1 && event.feature.cluster.length <= maxp){
+                        message = lt +'div' + gt + event.feature.cluster.length + ' projects found: ';
+                        message += lt + 'br /' + gt;
+                        message += lt + 'a href="javascript:zoomToSelectedFeature('+ lon + ','+ lat +', 2)"' + gt;
+                        message += 'zoom in for more details';
+                        message += lt +'/a' + gt;
+                        message += lt + 'ul' + gt;
+                        for (var i=0; i<event.feature.cluster.length; ++i ) {
+                            try {
+                                message += lt + 'li' + gt;
+
+                                    message += makeLink(event.feature.cluster[i].attributes['name'],event.feature.cluster[i].attributes['description']);
+
+                                message += lt + '/li' + gt;
+                            } catch(e) {
+                                    //
+                            };
+                        }
+                        message += lt + '/ul' + gt;
+                } else if (event.feature.cluster.length == 1) {
+                        message = lt +'div' + gt + makeLink(event.feature.cluster[0].attributes['name'], event.feature.cluster[0].attributes['description']);
+                        message += event.feature.cluster[0].attributes['description'];
+                }
+
+                message += lt + '/div' + gt;
+                if (event.feature.cluster.length <= maxp){
+                    popup = new OpenLayers.Popup.FramedCloud("id", event.feature.geometry.bounds.getCenterLonLat(), null, message, null, true, onPopupClose);
+                    event.popup = popup;
+                    map.addPopup(popup);
+                };
+
+        };
+
+
+
         var navPanel = new OpenLayers.Control.NavigationHistory();
         // parent control must be added to the map
         map.addControl(navPanel);
@@ -406,15 +432,21 @@ $('#projectsearchform').submit
             );
         map.addControl(selectControl);
         selectControl.activate();
+        for (var i=1; i<kmls.length; ++i){
+            kmls[i].events.on({"featureselected": onFeatureSelect,
+                        "featureunselected": onFeatureUnselect});
+        };
+        var pkmls = map.getLayersByName('Project management offices');
         for (var i=0; i<kmls.length; ++i){
-            kmls[i].events.on({"featureselected": onFeatureSelect, "featureunselected": onFeatureUnselect});
+            kmls[i].events.on({"featureselected": onPointLayerFeatureSelect,
+                            "featureunselected": onFeatureUnselect});
         };
         //var loadingpanel = new OpenLayers.Control.LoadingPanel();
         //map.addControl(loadingpanel);
 
 });
 /*]]>*/
-            </script>
+</script>
         </tal:main-macro>
     </div>
 </body>

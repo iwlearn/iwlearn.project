@@ -151,12 +151,12 @@ $('#projectsearchform').submit
         else:
             return None
 
-    def _get_index_values(self, idx):
+    def _get_index_values(self, idx, name):
         items = list(self.portal_catalog.Indexes[
                 idx].uniqueValues())
         selected = self.request.get(idx,None)
         items.sort()
-        item_list =  [{'name': _('All'), 'value':'',
+        item_list =  [{'name': _('Select %s' % name), 'value':'',
                 'disabled':None,
                 'selected':self._sel(None,selected)}]
         for item in items:
@@ -167,16 +167,20 @@ $('#projectsearchform').submit
         return item_list
 
     def get_projecttype(self):
-        return self._get_index_values('getProject_type')
+        return self._get_index_values('getProject_type', "Project Type")
 
     def get_agency(self):
-        return self._get_index_values('getAgencies')
+        return self._get_index_values('getAgencies', "Agency")
 
     def get_status(self):
-        return self._get_index_values('getProject_status')
+        return self._get_index_values('getProject_status', "Project Status")
 
     def get_basin(self):
-        return self._get_index_values('getBasin')
+        return self._get_index_values('getBasin', "Basin")
+
+    def get_country(self):
+        return self._get_index_values('getCountry', "Country")
+
 
     def get_region(self):
         """ Returns regions/subregions select """
@@ -190,7 +194,7 @@ $('#projectsearchform').submit
                 'getSubRegions'].uniqueValues()
         selected = self.request.get('getSubRegions',None)
 
-        region_subregions = [{'name': 'All', 'value':'',
+        region_subregions = [{'name': 'Select Region', 'value':'',
                 'disabled':None,
                 'selected':self._sel(None,selected)}]
         regions = vocabulary.get_regions()

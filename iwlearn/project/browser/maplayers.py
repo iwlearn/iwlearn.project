@@ -72,7 +72,8 @@ class ProjectDbKMLMapLayer(MapLayer):
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });
                 }""" % (
-            self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", "&apos;"),
+            #self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", "&apos;"),
+            'Project management offices',
             context_url)
 
 

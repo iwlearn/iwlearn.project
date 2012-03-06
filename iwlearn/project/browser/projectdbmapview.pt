@@ -29,62 +29,10 @@
     to see the HTML only version of this website.
 <![endif]-->
 
-                    <div id="projectcountrymap" style="height:450px; width: 900px">
-
-<!-- Collective.geo map -->
-
-
-
-        <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
-        <script type="text/javascript"
-                src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
-<span id="map-nav-panel"></span>
-
-        <a id="projectkmlurl" href="projectbasin_view.kml">
-        <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
-            alt="open in google earth" />
-        Download KML
-        </a>
-
-
-<!-- /Collective.geo map -->
-                    </div>
-<div class="visualClear">&nbsp;</div>
-            <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action="country_view.html">
-              <fieldset class="basinlayers">
-                <legend>Basin Layers</legend>
-                The visualization tool features four major transboundary water basins:
-                <div>
-                    <input type="checkbox" id="basintype-lmes" name="basintype:list" value="LME" checked="checked"/>
-                    <label for="basintype-lmes">large marine ecosystems (LMES)</label>
-                    <input type="checkbox" id="basintype-lakes" name="basintype:list" value="Lake" checked="checked"/>
-                    <label for="basintype-lakes">Lakes</label>
-                    <input type="checkbox" id="basintype-rivers" name="basintype:list" value="River" checked="checked"/>
-                    <label for="basintype-rivers">Rivers</label>
-                    <input type="checkbox" id="basintype-aquifers" name="basintype:list" value="Aquifer" checked="checked"/>
-                    <label for="basintype-aquifers">Aquifers</label>
-                </div>
-                where the interventions of a specific GEF IW project is indicated:
-                <div>
-                    <input type="checkbox" id="withgefbasins" name="showgefbasins:list" value="with" checked="checked"/>
-                    <label for="withgefbasins">With GEF projects</label>
-                    <input type="checkbox" id="withoutgefbasins" name="showgefbasins:list" value="without"/>
-                    <label for="withoutgefbasins">Without GEF projects</label>
-                </div>
-                    The other visualizations feature the
-                    <ul>
-                        <li><a href="view">Location of project management offices</a></li>
-                        <li><a href="country_view.html">distribution of projects by partnering countries.</a></li>
-                    </ul>
-
-                    View the <a href="projectwebsites_view">list of IW Project Websites</a>
-                    or the geographic distribution of
-                    <a href="http://199.180.129.170/watergov/index.php/Main_Page" target="_blank">
-                    International Waters: Review of Legal and Institutional Frameworks
-                    </a>
-
-              </fieldset>
-              <fieldset class="projectdetails">
+            <form id="projectsearchformXXX" name="search" method="get"
+                class="enableAutoFocus" action="map_view.html"
+                tal:attributes="action view/__name__">
+             <fieldset class="projectdetails">
                 <legend>Search for Projects</legend>
 
 
@@ -95,7 +43,7 @@
                     </div>
                         <select id="getProject_type" name="getProject_type">
                             <tal:loop tal:repeat="opt view/get_projecttype">
-                                <option value="All"
+                                <option value="Select project type"
                                     tal:attributes="value opt/value;
                                         selected opt/selected;
                                         disabled opt/disabled;
@@ -112,7 +60,7 @@
                     </div>
                         <select id="getAgencies" name="getAgencies">
                             <tal:loop tal:repeat="opt view/get_agency">
-                                <option value="All"
+                                <option value="Select agency"
                                     tal:attributes="value opt/value;
                                         selected opt/selected;
                                         disabled opt/disabled;
@@ -129,7 +77,7 @@
                     </div>
                         <select id="getProject_status" name="getProject_status">
                             <tal:loop tal:repeat="opt view/get_status">
-                                <option value="All"
+                                <option value="Select status"
                                     tal:attributes="value opt/value;
                                         selected opt/selected;
                                         disabled opt/disabled;
@@ -139,20 +87,150 @@
                         </select>
                 </div>
 
-
+                <div class="field odd">
+                    <label  for="getSubRegions">Region</label>
+                    <div class="formHelp">
+                    Return projects in this region
+                    </div>
+                        <select id="getSubRegions" name="getSubRegions">
+                            <tal:loop tal:repeat="opt view/get_region">
+                                <option value="Africa"
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">Africa</option>
+                            </tal:loop>
+                        </select>
+                </div>
 
                 <div class="formControls even">
                     <input type="submit" value="Search" name="submit"
                         class="context" />
                 </div>
               </fieldset>
+              <input type="checkbox" id="show-pcu" name="show-pcu" checked="checked"/>
+              <label for="show-pcu">Location of project management offices</label>
+              <br />
+              <input type="checkbox" id="show-country" name="show-country" checked="checked"/>
+              <label for="show-country">Distribution of projects by partnering countries</label>
+              <div id="countrylayer">
+                  <div class="field">
+                    <label  for="getSubRegions">Contry</label>
+                    <div class="formHelp">
+                    Return projects in this country
+                    </div>
+                        <select id="getCountry" name="getGountry">
+                            <tal:loop tal:repeat="opt view/get_country">
+                                <option value="Albania"
+                                    tal:attributes="value opt/value;
+                                        selected opt/selected;
+                                        disabled opt/disabled;
+                                        class opt/disabled;"
+                                    tal:content="opt/name">Albania</option>
+                            </tal:loop>
+                        </select>
+                </div>
+              </div>
+              <br />
+              <input type="checkbox" id="show-basins" name="show-basins" checked="checked"/>
+              <label for="show-basins">Transboundary water basins</label>
+              <br />
+              <div id="basinlayer">
+                <div>
+                    <input type="checkbox" id="basintype-lmes" name="basintype:list" value="LME" checked="checked"/>
+                    <label for="basintype-lmes">large marine ecosystems (LMES)</label>
+                    <input type="checkbox" id="basintype-lakes" name="basintype:list" value="Lake" checked="checked"/>
+                    <label for="basintype-lakes">Lakes</label>
+                    <input type="checkbox" id="basintype-rivers" name="basintype:list" value="River" checked="checked"/>
+                    <label for="basintype-rivers">Rivers</label>
+                    <input type="checkbox" id="basintype-aquifers" name="basintype:list" value="Aquifer" checked="checked"/>
+                    <label for="basintype-aquifers">Aquifers</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="withgefbasins" name="showgefbasins:list" value="with" checked="checked"/>
+                    <label for="withgefbasins">With GEF projects</label>
+                    <input type="checkbox" id="withoutgefbasins" name="showgefbasins:list" value="without"/>
+                    <label for="withoutgefbasins">Without GEF projects</label>
+                </div>
+              </div>
+
               <input type="hidden" value="-180,-90,180,90" name="bbox" id="inputbbox" />
               <input type="hidden" value="0" name="zoomfactor" id="inputzoom" />
             </form>
 
-            <table id="flexiprojects" style="display:none"></table>
 
-<script type="text/javascript" tal:content="structure view/get_js">
+
+    <div id="projectcountrymap" style="height:450px; width: 900px">
+
+<!-- Collective.geo map -->
+
+
+
+        <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
+        <script type="text/javascript"
+                src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
+        <span id="map-nav-panel"></span>
+
+        <a id="projectkmlurl" href="projectbasin_view.kml">
+        <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
+            alt="open in google earth" />
+        Download KML
+        </a>
+
+
+<!-- /Collective.geo map -->
+        </div>
+<div class="visualClear">&nbsp;</div>
+
+
+<!--script type="text/javascript" tal:content="structure view/get_js"-->
+
+
+<script type="text/javascript">
+/*<![CDATA[*/
+
+function onBasinLayerChange(event) {
+    var map = cgmap.config['default-cgmap'].map;
+    var is_visible = $(this).is(':checked');
+    var kmls = map.getLayersByName('Basin Cluster');
+    layer = kmls[0];
+    layer.setVisibility(is_visible);
+    var kmls = map.getLayersByName('Basin Detail');
+    layer = kmls[0];
+    layer.setVisibility(is_visible);
+    if (is_visible) {
+        $("#basinlayer").show()
+    } else {
+        $("#basinlayer").hide()
+    };
+}
+
+
+function onCountryLayerChange(event) {
+    var map = cgmap.config['default-cgmap'].map;
+    var is_visible = $(this).is(':checked');
+    var kmls = map.getLayersByName('Countries');
+    layer = kmls[0];
+    layer.setVisibility(is_visible);
+    if (is_visible) {
+        $("#countrylayer").show()
+    } else {
+        $("#countrylayer").hide()
+    };
+}
+
+
+function onPCULayerChange(event) {
+    var map = cgmap.config['default-cgmap'].map;
+    var is_visible = $(this).is(':checked');
+    var kmls = map.getLayersByName('Project management offices');
+    layer = kmls[0];
+    layer.setVisibility(is_visible);
+}
+
+
+
 
  $(document).ready(function() {
    $("#projectsearchform").find("select").each(function(i) {
@@ -160,6 +238,9 @@
          $('#flexiprojects').flexOptions({newp: 1}).flexReload();
         }) ;
    });
+   $("#show-basins").change(onBasinLayerChange);
+   $("#show-pcu").change(onPCULayerChange);
+   $("#show-country").change(onCountryLayerChange);
  });
 
 
@@ -229,33 +310,13 @@ $('#projectsearchform').submit
         }
 );
 
-
+/*]]>*/
 </script>
 
            <script type="text/javascript">
 /*<![CDATA[*/
     $(window).bind("load", function() {
         var map = cgmap.config['default-cgmap'].map;
-
-        /*OpenLayers.Control.CustomNavToolbar = OpenLayers.Class(OpenLayers.Control.Panel, {
-
-
-
-            initialize: function(options) {
-                OpenLayers.Control.Panel.prototype.initialize.apply(this, [options]);
-                this.addControls([
-                  new OpenLayers.Control.Navigation(),
-                  //new OpenLayers.Control.OverviewMap(),
-                  //Here it come
-                  new OpenLayers.Control.ZoomBox({alwaysZoom:false})
-                ]);
-                // To make the custom navtoolbar use the regular navtoolbar style
-                this.displayClass = 'olControlNavToolbar'
-            },
-        });
-
-        var panel = new OpenLayers.Control.CustomNavToolbar();
-        map.addControl(panel); */
 
         map.events.on({
                 moveend: function(event) {
@@ -354,53 +415,6 @@ $('#projectsearchform').submit
 });
 /*]]>*/
             </script>
-
-
-            <noscript tal:define="search_results view/search_results" tal:condition="search_results">
-              <table  tal:define="results search_results/results;
-                         Batch python:modules['Products.CMFPlone'].Batch;
-                         b_size search_results/size;
-                         b_start search_results/start;
-                         searchterm view/search_term"
-                         class='listing'>
-                <caption tal:condition="not: results">
-                  <strong i18n:translate="description_no_results_found">
-                    No results were found.
-                  </strong>
-                </caption>
-                <caption tal:condition="results">
-                   <strong i18n:translate="batch_x_items_matching_your_criteria">
-                        <span i18n:name="number" tal:content="python:len(results)">234</span> items matching your criteria.
-                   </strong>
-                </caption>
-                <thead>
-                    <tr>
-                      <th>Title</th>
-                      <th>Status</th>
-                      <th>Project type</th>
-                      <th>Lead agency</th>
-                      <th>Region</th>
-                      <th>Status</th>
-                    </tr>
-                </thead>
-                <tfoot tal:define="batch python:Batch(results, b_size, int(b_start), orphan=1);">
-                    <tr> <td colspan="5"> <div metal:use-macro="here/batch_macros/macros/navigation" /> </td></tr>
-                </tfoot>
-                <tbody tal:condition="results" tal:define="batch python:Batch(results, b_size, int(b_start), orphan=1);">
-                  <tal:loop tal:repeat="result batch">
-                      <tr tal:define="oddrow repeat/result/odd;"
-                            tal:attributes="class python:oddrow and 'even' or 'odd'">
-                          <td> <a tal:attributes="href result/getURL;" tal:content="result/Title">title</a> </td>
-                          <td tal:content="result/getProject_status">status</td>
-                          <td tal:content="result/getProject_type"></td>
-                          <td> <span tal:content="python:', '.join(result.getAgencies)" tal:on-error="nothing" /></td>
-                          <td> <span tal:content="python:', '.join(result.getSubRegions)" tal:on-error="nothing" /></td>
-                          <td tal:content="result/getProject_status"></td>
-                      </tr>
-                  </tal:loop>
-                </tbody>
-              </table>
-            </noscript>
         </tal:main-macro>
     </div>
 </body>

@@ -228,7 +228,8 @@
                     items' contents, title and description.
                     </div>
 
-                    <input type="text" value="" size="25" name="SearchableText" id="SearchableText" />
+                    <input type="text" value="" size="25" name="SearchableText"
+                        id="SearchableText" placeholder="Fulltext Search" />
                 </div>
 
                 <div class="field even">
@@ -236,7 +237,8 @@
                     <div class="formHelp">
                     Return items matching this title.
                     </div>
-                    <input type="text" size="25" name="Title" id="Title" />
+                    <input type="text" size="25" name="Title" id="Title"
+                        placeholder="Search Title"/>
                 </div>
 
 

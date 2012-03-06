@@ -278,6 +278,23 @@ $('#projectmapform').submit
  });
 
 
+    /* Zoom to Selected Feature from within Popup */
+
+    function zoomToSelectedFeature(lon, lat, zoomfactor){
+        var lonlat = new OpenLayers.LonLat(lon,lat);
+        var map = cgmap.config['default-cgmap'].map;
+        // Get Current Zoom
+        currZoom = map.getZoom();
+        // New Zoom
+        newZoom = currZoom + zoomfactor;
+        // Center and Zoom
+        map.setCenter(lonlat, newZoom);
+        // Remove Popups
+        for (var i=0; i<map.popups.length; ++i){
+            map.removePopup(map.popups[i]);
+        };
+    };
+
 /*]]>*/
 </script>
 

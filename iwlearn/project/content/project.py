@@ -412,12 +412,12 @@ class Project(folder.ATFolder):
         return (self.getDorating(), self.getIprating())
 
 
-    #def getBasin(self):
-        #basins = self.getBasins()
-        #titles = []
-        #for basin in basins:
-            #titles.append(basin.Title())
-        #return titles
+    def getBasin(self):
+        basins = self.getBasins()
+        titles = []
+        for basin in basins:
+            titles.append(basin.Title())
+        return titles
 
 
     # -*- Your ATSchema to Python Property Bridges Here ... -*-

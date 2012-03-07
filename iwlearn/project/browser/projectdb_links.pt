@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+  <tal:headers
+    condition="python:request and request.response.setHeader(
+                'Content-Type', 'application/vnd.google-earth.kml+xml;charset=utf-8')"
+    />
+
+  <Document>
+    <name tal:content="view/get_name">Project Database</name>
+
+    <NetworkLink tal:repeat="link view/get_links">
+      <name tal:content="link/name">NE US Radar</name>
+      <Link>
+        <href tal:content="link/url">http://www.example.com/geotiff/NE/MergedReflectivityQComposite.kml</href>
+      </Link>
+    </NetworkLink>
+
+  </Document>
+</kml>

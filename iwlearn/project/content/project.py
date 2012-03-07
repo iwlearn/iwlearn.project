@@ -99,11 +99,11 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'basin',
         required=False,
         searchable=True,
-        visible={'edit': 'invisible', 'view': 'invisible'},
         vocabulary_factory = u"iwlearn.project.basins",
         widget=AddRemoveWidget(
             label=_(u"Basin"),
             description=_(u"Basin"),
+            visible={'edit': 'invisible', 'view': 'visible'},
         ),
     ),
 

@@ -1,5 +1,7 @@
 import cgi
 import logging
+import ZTUtils
+
 from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
@@ -28,6 +30,36 @@ class IProjectDbKmlView(Interface):
     ProjectDbKml view interface
     """
 
+
+
+class ProjectDBKMLLinkView(BrowserView):
+    """ links pmo + basins + countries together"""
+    implements(IProjectDbKmlView)
+
+
+    @property
+    def portal_catalog(self):
+        return getToolByName(self.context, 'portal_catalog')
+
+    def get_name(self):
+        return self.context.Title()
+
+    def get_links(self):
+        url = self.context.absolute_url()
+        form = self.request.form
+        form['bbox'] ='-180,-90,180,90'
+        links = []
+        qs = ZTUtils.make_query(form)
+        if form.get('show-basins', None):
+            links.append({'url': url + '/@@projectbasin_view.kml?' + qs,
+                        'name': 'Transboundary water basins'})
+        if form.get('show-pcu', None):
+            links.append({'url': url + '/@@projectdbpmo_view.kml?' + qs,
+                        'name': 'Location of project management offices'})
+        if form.get('show-country', None):
+            links.append({'url': url + '/@@projectdbcountry_view.kml?' + qs,
+                        'name': 'Distribution of projects by partnering countries'})
+        return links
 
 
 class ProjectDbKmlView(KMLBaseDocument):
@@ -143,9 +175,16 @@ class ClusteredBasinPlacemark(BasinPlacemark):
     def description(self):
         return None
 
+
     @property
     def name(self):
-        return u""
+        if callable(self.context.Title):
+            title = self.context.Title().decode('utf-8', 'ignore')
+        else:
+            title = self.context.Title.decode('utf-8', 'ignore')
+
+        return cgi.escape(title.encode('ascii','xmlcharrefreplace') +
+                    u' - %i Projects' % len(self.projects))
 
     @property
     def use_custom_styles(self):

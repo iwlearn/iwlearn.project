@@ -60,6 +60,7 @@
       />
 
 
+
   <browser:page
       for="..interfaces.IProjectDatabase"
       name="projectdbcountry_view.kml"
@@ -68,6 +69,18 @@
       allowed_interface=".projectdbkmlview.IProjectDbKmlView"
       permission="zope.Public"
       />
+
+
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projectdblinkall_view.kml"
+      class=".projectdbkmlview.ProjectDBKMLLinkView"
+      template="projectdb_links.pt"
+      allowed_interface=".projectdbkmlview.IProjectDbKmlView"
+      permission="zope.Public"
+      />
+
+
 
   <browser:page
       for="..interfaces.IProject"

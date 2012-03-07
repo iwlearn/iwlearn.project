@@ -382,7 +382,6 @@ class ProjectDBMapView(ProjectDBBaseView):
     def get_js(self):
         refresh_js = """
         function onLayerOptionsChange(event) {
-            //XXX dynamic
             // refresh map
             var dt = $('#projectmapform').serializeArray();
             var qs = '?';
@@ -402,6 +401,7 @@ class ProjectDBMapView(ProjectDBBaseView):
             layer = kmls[0];
             kml_url = '%(url)s/@@projectdbpmo_view.kml' + qs;
             layer.refresh({url: kml_url});
+
             onBasinLayerOptionsChange(event);
             return true;
 
@@ -429,7 +429,8 @@ class ProjectDBMapView(ProjectDBBaseView):
             layer = kmls[0];
             kml_url = '%(url)s/@@projectbasindetail_view.kml' + qs;
             layer.refresh({url: kml_url});
-            kml_url = '%(url)s/@@projectbasin_view.kml' + qs;
+            kml_url = '%(url)s/@@projectdblinkall_view.kml' + qs;
+            jQuery("a#projectdballkmlurl").attr('href', kml_url);
             return true;
         }
         """ % {'url': self.context.absolute_url()}

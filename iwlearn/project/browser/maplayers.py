@@ -5,6 +5,14 @@ from collective.geo.mapwidget.browser.widget import MapLayers
 from collective.geo.mapwidget.maplayers import MapLayer
 from collective.geo.file.browser.maplayer import KMLFileMapLayer
 
+
+class MapLayerBase(MapLayer):
+
+    def __init__(self, context, visible=True):
+        self.context = context
+        self.visible = str(visible).lower()
+
+
 class GepcoMapLayer(MapLayer):
     @property
     def jsfactory(self):
@@ -16,13 +24,11 @@ class GepcoMapLayer(MapLayer):
             } """
 
 
-class ProjectDbKMLMapLayer(MapLayer):
+class ProjectDbKMLMapLayer(MapLayerBase):
     """
     a layer for one level sub objects.
     """
 
-    def __init__(self, context):
-        self.context = context
 
     @property
     def jsfactory(self):
@@ -64,17 +70,18 @@ class ProjectDbKMLMapLayer(MapLayer):
                             strokeColor: "#32a8a9"
                             }
                         }),
-                    eventListeners: { 'loadend': function(event) {
+                    /*eventListeners: { 'loadend': function(event) {
                                  var extent = this.getDataExtent();
                                  this.map.zoomToExtent(extent);
                                 }
-                            },
+                            },*/
+                    visibility: %s,
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });
                 }""" % (
             #self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", "&apos;"),
             'Project management offices',
-            context_url)
+            context_url, self.visible)
 
 
 
@@ -89,13 +96,11 @@ class ProjectDbKMLMapLayers(MapLayers):
         return layers
 
 
-class ProjectDbKMLBasinMapLayer(MapLayer):
+class ProjectDbKMLBasinMapLayer(MapLayerBase):
     """
     layer for project basins
     """
 
-    def __init__(self, context):
-        self.context = context
 
     @property
     def jsfactory(self):
@@ -114,6 +119,7 @@ class ProjectDbKMLBasinMapLayer(MapLayer):
                         extractAttributes: true}),
                       }),
                     strategies: [new OpenLayers.Strategy.Fixed()],
+                    visibility: %s,
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });
                 },
@@ -155,9 +161,10 @@ class ProjectDbKMLBasinMapLayer(MapLayer):
                                  this.map.zoomToExtent(extent);
                                 }
                             },*/
+                    visibility: %s,
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });
-                }""" % (context_url ,context_url)
+                }""" % (context_url, self.visible ,context_url, self.visible)
 
 
 
@@ -179,13 +186,11 @@ class ProjectDbKMLBasinMapLayer(MapLayer):
             });}""" % ( "Basins",
             context_url)
 
-class ProjectDbKMLCountryMapLayer(MapLayer):
+class ProjectDbKMLCountryMapLayer(MapLayerBase):
     """
     a layer for one level sub objects.
     """
 
-    def __init__(self, context):
-        self.context = context
 
     @property
     def jsfactory(self):
@@ -205,19 +210,18 @@ class ProjectDbKMLCountryMapLayer(MapLayer):
                                 }
                             },
               projection: cgmap.createDefaultOptions().displayProjection,
+              visibility: %s,
               formatOptions: {
                   extractStyles: true,
                   extractAttributes: true }
             });}""" % (u"Countries",
-            context_url)
+            context_url, self.visible)
 
-class ProjectDbKMLCountryMapLayer2(MapLayer):
+class ProjectDbKMLCountryMapLayer2(MapLayerBase):
     """
     a layer for one level sub objects.
     """
 
-    def __init__(self, context):
-        self.context = context
 
     @property
     def jsfactory(self):
@@ -233,10 +237,10 @@ class ProjectDbKMLCountryMapLayer2(MapLayer):
                         extractAttributes: true})
                       }),
                     strategies: [new OpenLayers.Strategy.Fixed()],
-                    visibility: false,
+                    visibility: %s,
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });
-                }""" % (u'Countries', context_url)
+                }""" % (u'Countries', context_url, self.visible)
 
 class ProjectDbKMLCountryMapLayers(MapLayers):
     def layers(self):
@@ -261,18 +265,16 @@ class ProjectDbMapLayers(MapLayers):
     def layers(self):
         layers = super(ProjectDbMapLayers, self).layers()
         #XXX layers.append(GepcoMapLayer(self.context))
-        layers.append(ProjectDbKMLMapLayer(self.context))
-        layers.append(ProjectDbKMLBasinMapLayer(self.context))
-        layers.append(ProjectDbKMLCountryMapLayer2(self.context))
+        layers.append(ProjectDbKMLCountryMapLayer2(self.context, False))
+        layers.append(ProjectDbKMLBasinMapLayer(self.context, True))
+        layers.append(ProjectDbKMLMapLayer(self.context, False))
         return layers
 
-class ProjectKMLMapLayer(MapLayer):
+class ProjectKMLMapLayer(MapLayerBase):
     """
     a layer for one level sub objects.
     """
 
-    def __init__(self, context):
-        self.context = context
 
     @property
     def jsfactory(self):
@@ -290,21 +292,20 @@ class ProjectKMLMapLayer(MapLayer):
                                 }
                             },
               projection: cgmap.createDefaultOptions().displayProjection,
+              visibility: %s,
               formatOptions: {
                   extractStyles: true,
                   extractAttributes: true }
             });}""" % (
             self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", ""),
-            context_url)
+            context_url, self.visible)
 
 
-class ProjectInnerKMLMapLayer(MapLayer):
+class ProjectInnerKMLMapLayer(MapLayerBase):
     """
     a layer for one level sub objects.
     """
 
-    def __init__(self, context):
-        self.context = context
 
     @property
     def jsfactory(self):
@@ -316,18 +317,17 @@ class ProjectInnerKMLMapLayer(MapLayer):
         function() { return new OpenLayers.Layer.GML('%s', '%s' + '@@projectkml_view',
             { format: OpenLayers.Format.KML,
               projection: cgmap.createDefaultOptions().displayProjection,
+              visibility: %s,
               formatOptions: {
                   extractStyles: true,
                   extractAttributes: true }
             });}""" % (u"Maps of: " +
             self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", ""),
-            context_url)
+            context_url, self.visible)
 
 
-class ProjectKMLCountryMapLayer(MapLayer):
+class ProjectKMLCountryMapLayer(MapLayerBase):
 
-    def __init__(self, context):
-        self.context = context
 
     @property
     def jsfactory(self):
@@ -340,16 +340,14 @@ class ProjectKMLCountryMapLayer(MapLayer):
         function() { return new OpenLayers.Layer.GML('%s', '%s@@projectcountry_view.kml',
             { format: OpenLayers.Format.KML,
               projection: cgmap.createDefaultOptions().displayProjection,
-              visibility: false,
+              visibility: %s,
               formatOptions: {
                   extractStyles: true,
                   extractAttributes: true }
-            });}""" % (u'Partnering countries', context_url)
+            });}""" % (u'Partnering countries', context_url, self.visible)
 
-class ProjectBasinMapLayer(MapLayer):
+class ProjectBasinMapLayer(MapLayerBase):
 
-    def __init__(self, context):
-        self.context = context
 
     @property
     def jsfactory(self):
@@ -362,11 +360,11 @@ class ProjectBasinMapLayer(MapLayer):
         function() { return new OpenLayers.Layer.GML('%s', '%s@@projectbasin_view.kml',
             { format: OpenLayers.Format.KML,
               projection: cgmap.createDefaultOptions().displayProjection,
-              visibility: true,
+              visibility: %s,
               formatOptions: {
                   extractStyles: true,
                   extractAttributes: true }
-            });}""" % (u'Basin', context_url)
+            });}""" % (u'Basin', context_url, self.visible)
 
 
 

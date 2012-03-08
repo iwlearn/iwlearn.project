@@ -161,8 +161,8 @@ div.flexigrid {
     border-right-width: 0px;
 }
 #projectdb-tabs li {
-display: inline;
-padding-top: 0.5em;
+    display: inline;
+    padding-top: 0.5em;
 }
 #projectdb-tabs li a {
     background-color: transparent;

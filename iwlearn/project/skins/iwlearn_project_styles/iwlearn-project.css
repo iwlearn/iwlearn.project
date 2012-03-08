@@ -149,7 +149,7 @@ div.flexigrid {
 }
 
 
-#projectdb-tabs {
+#content ul#projectdb-tabs {
     background-color: transparent;
     padding-left: 1em;
     line-height: normal;
@@ -160,11 +160,12 @@ div.flexigrid {
     border-left-width: 0px;
     border-right-width: 0px;
 }
-#projectdb-tabs li {
+#content ul#projectdb-tabs li {
     display: inline;
+    margin-bottom: 0;
     padding-top: 0.5em;
 }
-#projectdb-tabs li a {
+#content ul#projectdb-tabs li a, #content ul#projectdb-tabs li a:link {
     background-color: transparent;
     border: 1px solid black;
     color: grey;
@@ -175,12 +176,12 @@ div.flexigrid {
     text-decoration: none;
     z-index: 1;
 }
-#projectdb-tabs .selected a {
+#content ul#projectdb-tabs a.selected  {
     background-color: grey;
     border-bottom: 1px solid black;
     color: grey;
 }
-#projectdb-tabs li a:hover {
+#content ul#projectdb-tabs li a:hover {
     background-color: blue;
     color: black;
 }

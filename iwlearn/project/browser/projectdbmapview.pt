@@ -442,7 +442,7 @@ $('#projectmapform').submit
         map.addControl(selectControl);
         selectControl.activate();
 
-        for (var i=1; i<kmls.length; ++i){
+        for (var i=0; i<kmls.length; ++i){
             if (kmls[i].name != "Project management offices") {
                 kmls[i].events.on({"featureselected": onFeatureSelect,
                             "featureunselected": onFeatureUnselect});

@@ -3,15 +3,6 @@
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="iwlearn.project">
 <head>
-    <metal:javascript_head fill-slot="javascript_head_slot">
-
- <!-- collective geo map -->
-
-      <metal:use use-macro="context/@@collectivegeo-macros/openlayers" />
-
-  <!-- collective geo map -->
-
-    </metal:javascript_head>
 </head>
 <body>
     <div metal:fill-slot="main">
@@ -40,138 +31,27 @@
         /*]]>*/
 </script>
 <![endif]-->
-
+<ul tal:define="isAnon context/@@plone_portal_state/anonymous;"
+    id="projectdb-tabs">
+<li ><a href="."
+        class="selected"
+        tal:attributes="href string:${context/absolute_url}">Project List
+</a></li>
+<li><a href="."
+    tal:attributes="href string:${context/absolute_url}/@@project-map-view.html">
+    View Map</a></li>
+<li><a href="."
+    tal:attributes="href string:${context/absolute_url}/@@projectwebsites_view">
+    Project websites</a></li>
+<li tal:condition="not:isAnon">
+    <a href="."
+    tal:attributes="href string:${context/absolute_url}/@@maintenance_view.html">
+        Maintenance</a>
+</li>
+</ul>
 
 
             <dl class="enableFormTabbing" tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
-                <dt id="fieldsetlegend-map-projects">Map</dt>
-                <dd id="fieldset-map-project">
-                    <div id="projectsmap" style="height:200px; width: 900px">
-
-<!-- Collective.geo map -->
-
-        <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
-        <script type="text/javascript"
-                src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
-        <a id="projectkmlurl" href="projectdbpmo_view.kml">
-        <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
-            alt="open in google earth" />
-        Download KML</a>
-        <script type="text/javascript" >
-        /*<![CDATA[*/
-   $(window).bind("load", function() {
-        var map = cgmap.config['default-cgmap'].map;
-        var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
-        if (kmls.length > 0) {
-            var kmlLayer = kmls[0];
-
-            selectControl = new OpenLayers.Control.SelectFeature(
-                    [kmlLayer],
-                    {
-                        clickout: true,
-                        multiple: false,
-                        hover: false
-                    }
-                );
-            map.addControl(selectControl);
-            selectControl.activate();
-            kmlLayer.events.on({"featureselected": onFeatureSelect, "featureunselected": onFeatureUnselect});
-        };
-
-        function onPopupClose(evt) {
-                map.removePopup(map.popups[0]);
-        };
-
-
-        function onFeatureSelect(event) {
-                var message = '';
-                var lt = String.fromCharCode(60);
-                var gt = String.fromCharCode(62);
-                var maxp = 12;
-                var zoom_point = event.feature.geometry.getBounds().getCenterLonLat();
-                var lon = zoom_point.lon;
-                var lat = zoom_point.lat;
-                function makeLink( title, description) {
-                    var a = description.indexOf('href=');
-                    var b = description.indexOf('"', a + 6);
-                    var href = description.substring(a, b + 1) + ' ';
-                    name = title.substring(0,32) + '...';
-                    return lt + 'a ' + href + ' title="' + title + '" ' + gt + name + lt +'/a' + gt
-                    }
-
-                if (event.feature.cluster.length > maxp){
-                        var currZoom = this.map.getZoom();
-                        var newZoom = currZoom + 2;
-                        this.map.setCenter(zoom_point, newZoom);
-
-                }
-                else if (event.feature.cluster.length > 1 && event.feature.cluster.length <= maxp){
-                        message = lt +'div' + gt + event.feature.cluster.length + ' projects found: ';
-                        message += lt + 'br /' + gt;
-                        message += lt + 'a href="javascript:zoomToSelectedFeature('+ lon + ','+ lat +', 2)"' + gt;
-                        message += 'zoom in for more details';
-                        message += lt +'/a' + gt;
-                        message += lt + 'ul' + gt;
-                        for (var i=0; i<event.feature.cluster.length; ++i ) {
-                            try {
-                                message += lt + 'li' + gt;
-
-                                    message += makeLink(event.feature.cluster[i].attributes['name'],event.feature.cluster[i].attributes['description']);
-
-                                message += lt + '/li' + gt;
-                            } catch(e) {
-                                    //
-                            };
-                        }
-                        message += lt + '/ul' + gt;
-                } else if (event.feature.cluster.length == 1) {
-                        message = lt +'div' + gt + makeLink(event.feature.cluster[0].attributes['name'], event.feature.cluster[0].attributes['description']);
-                        message += event.feature.cluster[0].attributes['description'];
-                }
-
-                message += lt + '/div' + gt;
-                if (event.feature.cluster.length <= maxp){
-                    popup = new OpenLayers.Popup.FramedCloud("id", event.feature.geometry.bounds.getCenterLonLat(), null, message, null, true, onPopupClose);
-                    event.popup = popup;
-                    map.addPopup(popup);
-                };
-
-        };
-
-        function onFeatureUnselect(event) {
-            map.removePopup(map.popups[0]);
-            event.popup.destroy();
-            event.popup = null;
-        };
-
-});
-
-
-
-    /* Zoom to Selected Feature from within Popup */
-
-    function zoomToSelectedFeature(lon, lat, zoomfactor){
-        var lonlat = new OpenLayers.LonLat(lon,lat);
-        var map = cgmap.config['default-cgmap'].map;
-        // Get Current Zoom
-        currZoom = map.getZoom();
-        // New Zoom
-        newZoom = currZoom + zoomfactor;
-        // Center and Zoom
-        map.setCenter(lonlat, newZoom);
-        // Remove Popups
-        for (var i=0; i<map.popups.length; ++i){
-            map.removePopup(map.popups[i]);
-        };
-    };
-
-        /*]]>*/
-        </script>
-
-<!-- /Collective.geo map -->
-                    </div>
-                </dd>
-
                 <dt id="fieldsetlegend-about-projects">About</dt>
                 <dd id="fieldset-about-projects" class="documentDescription"
                     tal:content="here/Description">
@@ -197,22 +77,6 @@
                 </dd>
             </dl>
             <div class="visualClear">&nbsp;</div>
-                <dl class="collapsible inline">
-                    <dt class="collapsibleHeader">More... </dt>
-                    <dd class="collapsibleContent">
-                    The main page displays the location of project management offices,
-                    while other visualizations feature the.
-                    <ul>
-                        <li><a href="country_view.html">Distribution of projects by partnering countries</a></li>
-                        <li><a href="basin_view.html">Transboundary water basins.</a></li>
-                    </ul>
-                    View the <a href="projectwebsites_view">list of IW Project Websites</a>
-                    or the geographic distribution of
-                    <a href="http://199.180.129.170/watergov/index.php/Main_Page" target="_blank">
-                        International Waters: Review of Legal and Institutional Frameworks
-                    </a>
-                    </dd>
-                </dl>
 
             <form id="projectsearchform" name="search" method="get" class="enableAutoFocus" action=".">
               <fieldset>
@@ -386,21 +250,6 @@
         you have to specify the input elements that the data will come from */
         var dt = $('#projectsearchform').serializeArray();
         $("#flexiprojects").flexOptions({params: dt});
-        // refresh map
-        var qs = '?';
-        var params = {};
-        jQuery.each(dt, function(i, field){
-            qs = qs + field.name + '=' + field.value + "&";
-            params[field.name] = field.value;
-        });
-        var map = cgmap.config['default-cgmap'].map;
-        var kmls = map.getLayersByClass('OpenLayers.Layer.GML');
-        layer = kmls[0];
-        layer.setVisibility(false);
-        layer.loaded = false;
-        layer.setUrl('http://localhost:8080/iwlearn/iw-projects/@@projectdbkml_view' + qs);
-        layer.refresh({ force: true, params: params });
-        layer.setVisibility(true);
 
         return true;
     }

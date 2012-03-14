@@ -82,24 +82,7 @@ class ProjectDBBaseView(BrowserView):
         you have to specify the input elements that the data will come from */
         var dt = $('#projectsearchform').serializeArray();
         $("#flexiprojects").flexOptions({params: dt});
-        // refresh map
-        var qs = '?';
-        var params = {};
-        jQuery.each(dt, function(i, field){
-            qs = qs + field.name + '=' + field.value + "&";
-            params[field.name] = field.value;
-        });
-        var map = cgmap.config['default-cgmap'].map;
-        if (map != null){
-            try {
-            %s
-            } catch (e) {
-
-                alert("An exception occurred. Error name: " + e.name
-                + ". Error message: " + e.message); };
-            jQuery("a#projectkmlurl").attr('href', kml_url);
-            };
-            return true;
+        return true;
         };
 
 
@@ -115,13 +98,7 @@ $('#projectsearchform').submit
         """
 
     def get_js(self):
-        refresh_js ="""
-        var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
-        layer = kmls[0];
-        kml_url = '%s' + qs;
-        layer.refresh({url: kml_url});
-        """ % (self.context.absolute_url() + '/@@projectdbpmo_view.kml')
-        js =  self.js_template % ( self.context.absolute_url(), refresh_js)
+        js =  self.js_template % self.context.absolute_url()
         return js
 
 

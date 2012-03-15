@@ -382,7 +382,7 @@ class ProjectDBMapView(ProjectDBBaseView):
             onBasinLayerOptionsChange(event);
             return true;
 
-        }
+        };
 
         function onBasinLayerOptionsChange(event) {
             // refresh map
@@ -406,10 +406,26 @@ class ProjectDBMapView(ProjectDBBaseView):
             layer = kmls[0];
             kml_url = '%(url)s/@@projectbasindetail_view.kml' + qs;
             layer.refresh({url: kml_url});
+            refreshDownloadKmlUrl(event);
+            return true;
+        };
+
+        function refreshDownloadKmlUrl(event) {
+            var dt = $('#projectmapform').serializeArray();
+            var qs = '?';
+            var params = {};
+            jQuery.each(dt, function(i, field){
+                if (field.name.substring(0,25) != 'cgmap_state.default-cgmap') {
+                    qs = qs + field.name + '=' + field.value + "&";
+                    params[field.name] = field.value;
+                };
+            });
             kml_url = '%(url)s/@@projectdblinkall_view.kml' + qs;
             jQuery("a#projectdballkmlurl").attr('href', kml_url);
-            return true;
-        }
+        };
+
+
+
         """ % {'url': self.context.absolute_url()}
         return refresh_js
 

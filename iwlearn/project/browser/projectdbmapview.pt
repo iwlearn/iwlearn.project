@@ -227,6 +227,7 @@ function onBasinLayerChange(event) {
     } else {
         $("#basinlayer").hide()
     };
+    refreshDownloadKmlUrl(event);
 }
 
 
@@ -236,6 +237,7 @@ function onCountryLayerChange(event) {
     var kmls = map.getLayersByName('Countries');
     layer = kmls[0];
     layer.setVisibility(is_visible);
+    refreshDownloadKmlUrl(event);
 }
 
 
@@ -245,6 +247,7 @@ function onPCULayerChange(event) {
     var kmls = map.getLayersByName('Project management offices');
     layer = kmls[0];
     layer.setVisibility(is_visible);
+    refreshDownloadKmlUrl(event);
 }
 
 

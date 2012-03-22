@@ -1,17 +1,17 @@
 """Definition of the Project content type
 """
+import logging
 
 from zope.interface import implements
-import logging
+
 
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 from Products.CMFCore.utils import getToolByName
-from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from Products.AddRemoveWidget import AddRemoveWidget
 from Products.ATExtensions.widget.url import UrlWidget
-
+from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 
 
 
@@ -24,6 +24,19 @@ from iwlearn.project import vocabulary
 logger = logging.getLogger('iwlearn.project')
 
 ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
+
+
+    atapi.ImageField('logo_image',
+        max_size = (64,64),
+        sizes = { 'thumb' : (128,128),
+                'tile' : (64,64),
+                'icon' : (32,32),
+                'listing' : (16.16)},
+        widget=atapi.ImageWidget(label=_(u'Logo'),
+                        description=_(u'The project logo')),
+        validators=('isNonEmptyFile'),
+    ),
+
 
     atapi.StringField(
         'gef_project_id',
@@ -294,6 +307,23 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         allowed_types=('ContactOrganization',), # specify portal type names here ('Example Type',)
         multiValued=True,
     ),
+
+
+    atapi.ReferenceField(
+        'other_partners',
+        required=False,
+        widget=ReferenceBrowserWidget(
+            label=_(u"Other Partners"),
+            description=_(u"Other agencies or institutions involved in the project"),
+            allow_browse=True,
+            allow_sorting=True,
+        ),
+        relationship='other_partner_project',
+        allowed_types=('ContactOrganization',), # specify portal type names here ('Example Type',)
+        multiValued=True,
+    ),
+
+
 
     atapi.IntegerField( 'iprating',
         required = False,

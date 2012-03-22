@@ -163,6 +163,10 @@
                     </td>
                   </tr>
                 </table>
+                <img class="thumbnail"
+                    tal:condition=" context/logo_image"
+                    tal:on-error="nothing"
+                    tal:attributes="src string:${context/absolute_url}/logo_image" alt="Project Logo" />
               </div>
             </td>
             <td width="35%" valign="top">
@@ -368,6 +372,23 @@
                   </td>
                 </tr>
                 <tr tal:define="field python:here.Schema()['executing_agency']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                  <td valign="top" width="46%" bgcolor="#C7D8A8">
+                    <b>
+                      <font size="2" face="Arial">Executing
+                      Agencies</font>
+                    </b>
+                  </td>
+                  <td valign="top" width="54%">
+                    <metal:block use-macro="widget_view" />
+                  </td>
+                </tr>
+                <tr tal:define="field python:here.Schema()['other_partners'];
+                        accessor python:getattr(here, field.accessor);
+                        mode string:view;
+                        widget_view python:here.widget(field.getName(),
+                            mode=mode, use_label=1);"
                 tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
                   <td valign="top" width="46%" bgcolor="#C7D8A8">

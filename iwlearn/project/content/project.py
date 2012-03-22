@@ -27,11 +27,11 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
 
     atapi.ImageField('logo_image',
-        max_size = (64,64),
-        sizes = { 'thumb' : (128,128),
-                'tile' : (64,64),
-                'icon' : (32,32),
-                'listing' : (16.16)},
+        max_size = (64, 64),
+        sizes = { 'thumb' : (128, 128),
+                'tile' : (64, 64),
+                'icon' : (32, 32),
+                'listing' : (16, 16)},
         widget=atapi.ImageWidget(label=_(u'Logo'),
                         description=_(u'The project logo')),
         validators=('isNonEmptyFile'),

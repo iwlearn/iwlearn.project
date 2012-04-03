@@ -10,6 +10,33 @@ from collective.geo.settings.interfaces import IGeoCustomFeatureStyle, IGeoFeatu
 import random
 idn = IDNormalizer()
 
+def import_oceans(self):
+    oceans = geojson.load(open(
+        'src/iwlearn.project/iwlearn/project/dataimport/oceans.json',
+        'r'))
+    parent = self.portal_url.getPortalObject()['iw-projects']['basins']['oceans']
+    for ocean in oceans['features']:
+        mpoly = []
+        geom = asShape(ocean['geometry'])
+        for g in geom.geoms:
+            if g.area > 5:
+                mpoly.append(g)
+        mp = MultiPolygon(mpoly).simplify(0.2)
+        q = mp.__geo_interface__
+        new_obj_id = idn.normalize(ocean['properties']['NAME'])
+        print new_obj_id
+        self.portal_types.constructContent('Basin', parent, new_obj_id)
+        new_obj=parent[new_obj_id]
+        new_obj.setTitle(ocean['properties']['NAME'])
+        new_obj.setBasin_type('Ocean')
+        color='aa22ff'
+        style = IGeoCustomFeatureStyle(new_obj)
+        style.geostyles.data['use_custom_styles']=True
+        style.geostyles.data['polygoncolor']=color
+        style.geostyles.update(style.geostyles)
+        geo = IGeoManager(new_obj)
+        geo.setCoordinates(q['type'], q['coordinates'])
+
 def import_aquifers(self):
     aquifers = geojson.load(open(
         'src/iwlearn.project/iwlearn/project/dataimport/aquifers.json',

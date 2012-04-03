@@ -249,7 +249,8 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                 elif dorating !=None and dorating != getattr(ob, 'dorating', None):
                     ob.update(dorating = dorating)
                     logger.info('Updating project %i rating' % projectid )
-            pinfo = harvest.extract_project_info(projectid)
+            pinfo = None
+            #pinfo = harvest.extract_project_info(projectid)
             if pinfo:
                 project_status = pinfo.get('Project Status', None)
                 if pinfo.get('Approval Date', None):

@@ -156,6 +156,8 @@
               <br />
               <div id="basinlayer">
                 <div>
+                    <input type="checkbox" id="basintype-ocean" name="basintype:list" value="Ocean" checked="checked"/>
+                    <label for="basintype-oceans">Open Oceans</label>
                     <input type="checkbox" id="basintype-lmes" name="basintype:list" value="LME" checked="checked"/>
                     <label for="basintype-lmes">Large marine ecosystems (LMES)</label>
                     <input type="checkbox" id="basintype-lakes" name="basintype:list" value="Lake" checked="checked"/>

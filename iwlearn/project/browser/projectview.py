@@ -1,3 +1,4 @@
+import random
 from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
@@ -60,3 +61,11 @@ class ProjectView(BrowserView):
             return True
         else:
             return False
+
+
+    def rnd_picture(self):
+        results = self.portal_catalog(portal_type=['Image'],
+                        path='/'.join(self.context.getPhysicalPath()),
+                        review_state=['published',])
+        if results:
+            return random.choice(results)

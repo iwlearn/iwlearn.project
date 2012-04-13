@@ -11,34 +11,51 @@
 
  <include package="Products.CMFCore" file="permissions.zcml" />
 
-  <browser:page
-      for="..interfaces.IProjectDatabase"
-      name="gefonlineharvest_view"
-      class=".gefonlineharvestview.GefOnlineHarvestView"
-      template="gefonlineharvestview.pt"
-      allowed_interface=".gefonlineharvestview.IGefOnlineHarvestView"
-      permission="cmf.ModifyPortalContent"
-      />
+<!-- Project profile -->
+
 
 
 
   <browser:page
-      for="..interfaces.IProjectDatabase"
-      name="gefonlineupdate_view"
-      class=".gefonlineharvestview.GefOnlineUpdateView"
-      template="gefonlineharvestview.pt"
-      allowed_interface=".gefonlineharvestview.IGefOnlineHarvestView"
-      permission="cmf.ModifyPortalContent"
+      for="..interfaces.IProject"
+      name="view"
+      class=".projectview.ProjectView"
+      template="projectview.pt"
+      allowed_interface=".projectview.IProjectView"
+      permission="zope2.View"
       />
 
+
   <browser:page
-      for="..interfaces.IProjectDatabase"
-      name="projectwebsites_view"
-      class=".projectwebsitesview.ProjectWebsitesView"
-      template="projectwebsitesview.pt"
-      allowed_interface=".projectwebsitesview.IProjectWebsitesView"
-      permission="zope.Public"
+      for="..interfaces.IProject"
+      name="projectmapview.html"
+      class=".projectview.ProjectView"
+      template="projectmapview.pt"
+      allowed_interface=".projectview.IProjectView"
+      permission="zope2.View"
       />
+
+
+  <browser:page
+      for="..interfaces.IProject"
+      name="gefonlineview.html"
+      class=".projectview.ProjectView"
+      template="projectgefview.pt"
+      allowed_interface=".projectview.IProjectView"
+      permission="zope2.View"
+      />
+
+
+  <adapter
+      for=".projectview.IProjectView
+           zope.interface.Interface
+           zope.interface.Interface
+           zope.interface.Interface"
+      factory=".maplayers.ProjectKMLMapLayers"
+      />
+
+
+<!-- Project Profile KMLs -->
 
 
   <browser:page
@@ -48,38 +65,6 @@
       allowed_interface=".projectkmlview.IProjectKMLView"
       permission="zope.Public"
       />
-
-
-  <browser:page
-      for="..interfaces.IProjectDatabase"
-      name="projectdbpmo_view.kml"
-      class=".projectdbkmlview.ProjectDbKmlView"
-      template="projectdbkmlview.pt"
-      allowed_interface=".projectdbkmlview.IProjectDbKmlView"
-      permission="zope.Public"
-      />
-
-
-
-  <browser:page
-      for="..interfaces.IProjectDatabase"
-      name="projectdbcountry_view.kml"
-      class=".projectdbkmlview.ProjectDbKmlCountryView"
-      template="projectdbkmlview.pt"
-      allowed_interface=".projectdbkmlview.IProjectDbKmlView"
-      permission="zope.Public"
-      />
-
-
-  <browser:page
-      for="..interfaces.IProjectDatabase"
-      name="projectdblinkall_view.kml"
-      class=".projectdbkmlview.ProjectDBKMLLinkView"
-      template="projectdb_links.pt"
-      allowed_interface=".projectdbkmlview.IProjectDbKmlView"
-      permission="zope.Public"
-      />
-
 
 
   <browser:page
@@ -99,47 +84,15 @@
       permission="zope.Public"
       />
 
-  <browser:page
-      for="..interfaces.IProjectDatabase"
-      name="projectbasin_view.kml"
-      class=".projectdbkmlview.ProjectDbKmlBasinView"
-      allowed_interface=".projectkmlview.IProjectKMLView"
-      permission="zope.Public"
-      />
+
+<!-- Project DB -->
 
   <browser:page
       for="..interfaces.IProjectDatabase"
-      name="projectbasincluster_view.kml"
-      class=".projectdbkmlview.ProjectDbKmlBasinClusterView"
-      allowed_interface=".projectkmlview.IProjectKMLView"
-      permission="zope.Public"
-      />
-
-  <browser:page
-      for="..interfaces.IProjectDatabase"
-      name="projectbasindetail_view.kml"
-      class=".projectdbkmlview.ProjectDbKmlBasinDetailView"
-      allowed_interface=".projectkmlview.IProjectKMLView"
-      permission="zope.Public"
-      />
-
-
-
-
-  <browser:page
-      for="*"
-      name="flexijson_view"
-      class=".flexijsonview.FlexiJsonView"
-      allowed_interface=".flexijsonview.IFlexiJsonView"
-      permission="zope.Public"
-      />
-
-  <!-- configuration for the google map portlet -->
-  <browser:page
-      for="*"
-      name="projectmap_config"
-      class=".projectmap_configview.ProjectmapConfigView"
-      allowed_interface=".projectmap_configview.IProjectmapConfigView"
+      name="projectwebsites_view"
+      class=".projectwebsitesview.ProjectWebsitesView"
+      template="projectwebsitesview.pt"
+      allowed_interface=".projectwebsitesview.IProjectWebsitesView"
       permission="zope.Public"
       />
 
@@ -153,13 +106,37 @@
       permission="zope2.View"
       />
 
+
+
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="project-map-view.html"
+      class=".projectdbview.ProjectDBMapView"
+      template="projectdbmapview.pt"
+      allowed_interface=".projectdbview.IProjectDBView"
+      permission="zope2.View"
+      />
+
+
   <adapter
+      for=".projectdbview.ProjectDBMapView
+           zope.interface.Interface
+           zope.interface.Interface
+           zope.interface.Interface"
+      factory=".maplayers.ProjectDbMapLayers"
+      />
+
+
+  <!--adapter
       for=".projectdbview.IProjectDBView
            zope.interface.Interface
            zope.interface.Interface
            zope.interface.Interface"
       factory=".maplayers.ProjectDbKMLMapLayers"
-      />
+      /-->
+
+
+<!-- DEPRECATED Project DB views -->
 
   <browser:page
       for="..interfaces.IProjectDatabase"
@@ -200,46 +177,72 @@
 
 
 
+<!-- Project DB KMLs -->
 
   <browser:page
-      for="..interfaces.IProject"
-      name="view"
-      class=".projectview.ProjectView"
-      template="projectview.pt"
-      allowed_interface=".projectview.IProjectView"
-      permission="zope2.View"
+      for="..interfaces.IProjectDatabase"
+      name="projectbasin_view.kml"
+      class=".projectdbkmlview.ProjectDbKmlBasinView"
+      allowed_interface=".projectkmlview.IProjectKMLView"
+      permission="zope.Public"
       />
 
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projectbasincluster_view.kml"
+      class=".projectdbkmlview.ProjectDbKmlBasinClusterView"
+      allowed_interface=".projectkmlview.IProjectKMLView"
+      permission="zope.Public"
+      />
 
-  <adapter
-      for=".projectview.IProjectView
-           zope.interface.Interface
-           zope.interface.Interface
-           zope.interface.Interface"
-      factory=".maplayers.ProjectKMLMapLayers"
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projectbasindetail_view.kml"
+      class=".projectdbkmlview.ProjectDbKmlBasinDetailView"
+      allowed_interface=".projectkmlview.IProjectKMLView"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projectdbpmo_view.kml"
+      class=".projectdbkmlview.ProjectDbKmlView"
+      template="projectdbkmlview.pt"
+      allowed_interface=".projectdbkmlview.IProjectDbKmlView"
+      permission="zope.Public"
       />
 
 
 
   <browser:page
       for="..interfaces.IProjectDatabase"
-      name="project-map-view.html"
-      class=".projectdbview.ProjectDBMapView"
-      template="projectdbmapview.pt"
-      allowed_interface=".projectdbview.IProjectDBView"
-      permission="zope2.View"
+      name="projectdbcountry_view.kml"
+      class=".projectdbkmlview.ProjectDbKmlCountryView"
+      template="projectdbkmlview.pt"
+      allowed_interface=".projectdbkmlview.IProjectDbKmlView"
+      permission="zope.Public"
       />
 
 
-  <adapter
-      for=".projectdbview.ProjectDBMapView
-           zope.interface.Interface
-           zope.interface.Interface
-           zope.interface.Interface"
-      factory=".maplayers.ProjectDbMapLayers"
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projectdblinkall_view.kml"
+      class=".projectdbkmlview.ProjectDBKMLLinkView"
+      template="projectdb_links.pt"
+      allowed_interface=".projectdbkmlview.IProjectDbKmlView"
+      permission="zope.Public"
       />
 
+<!-- Project DB json list view -->
 
+
+  <browser:page
+      for="*"
+      name="flexijson_view"
+      class=".flexijsonview.FlexiJsonView"
+      allowed_interface=".flexijsonview.IFlexiJsonView"
+      permission="zope.Public"
+      />
 
 
     <!--browser:viewletManager
@@ -262,7 +265,30 @@
       permission="zope2.View"
   /-->
 
-<!-- Maintenance -->
+<!-- Project DB Maintenance -->
+
+ <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="gefonlineharvest_view"
+      class=".gefonlineharvestview.GefOnlineHarvestView"
+      template="gefonlineharvestview.pt"
+      allowed_interface=".gefonlineharvestview.IGefOnlineHarvestView"
+      permission="cmf.ModifyPortalContent"
+      />
+
+
+
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="gefonlineupdate_view"
+      class=".gefonlineharvestview.GefOnlineUpdateView"
+      template="gefonlineharvestview.pt"
+      allowed_interface=".gefonlineharvestview.IGefOnlineHarvestView"
+      permission="cmf.ModifyPortalContent"
+      />
+
+
+
     <browser:page
       for="..interfaces.IProjectDatabase"
       name="maintenance_view.html"
@@ -295,4 +321,14 @@
       template="no_ea.pt"
       permission="cmf.ModifyPortalContent"
       />
+
+  <!-- configuration for the google map portlet -->
+  <browser:page
+      for="*"
+      name="projectmap_config"
+      class=".projectmap_configview.ProjectmapConfigView"
+      allowed_interface=".projectmap_configview.IProjectmapConfigView"
+      permission="zope.Public"
+      />
+
 </configure>

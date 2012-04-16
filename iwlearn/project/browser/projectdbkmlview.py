@@ -1,29 +1,51 @@
 import cgi
 import logging
 import ZTUtils
+from time import time
+from operator import itemgetter
+
+from shapely.geometry import MultiPoint
+from shapely.geometry import asShape
+import pygal
 
 from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 from plone.memoize import view, ram, instance
-from time import time
 
-from iwlearn.project import projectMessageFactory as _
+
 from collective.geo.kml.browser.kmldocument import KMLBaseDocument, BrainPlacemark, NullGeometry
 from collective.geo.kml.utils import web2kmlcolor
 
-
+from iwlearn.project import projectMessageFactory as _
 from iwlearn.project.browser.utils import get_query, get_color, get_basin_color
-from shapely.geometry import MultiPoint
-from shapely.geometry import asShape
+from iwlearn.project.vocabulary import RATINGS
+
+
 
 logger = logging.getLogger('iwlearn.project')
 logger.setLevel(logging.DEBUG)
 
+
+
 def get_related_countries_uids(country):
-    for c in country.getObject().getRelatedItems():
-        yield c.UID()
+    for c in country.getRawRelatedItems:
+        yield c
+
+def init_ratings():
+    rl = [['NA', 0], ['HU', 0], ['U', 0], ['MU', 0], ['MS', 0], ['S', 0],
+            ['HS', 0]]
+    return rl
+
+
+def acronym(agency):
+    if agency.find('(') > -1:
+        return agency[agency.find('(') +1 : agency.find(')')]
+    else:
+        return agency
+
+
 
 class IProjectDbKmlView(Interface):
     """
@@ -119,18 +141,89 @@ class BasinPlacemark(BrainPlacemark):
 
     @property
     def description(self):
+
         if self.projects:
             desc = u'<ul>'
+            countries = {}
+            agencies = {}
+            doRating = init_ratings()
+            ipRating = init_ratings()
             for project in self.projects:
+                for country in project['countries']:
+                    ci = countries.get(country, 0)
+                    countries[country] = ci + 1
+                for agency in project['agencies']:
+                    ca = agencies.get(agency, 0)
+                    agencies[agency]= ca + 1
+                if project['ratings'][0] == None:
+                    doRating[0][1] = doRating[0][1] + 1
+                else:
+                    dor = project['ratings'][0]
+                    doRating[dor+1][1] = doRating[dor+1][1] + 1
+
+                if project['ratings'][1] == None:
+                    ipRating[0][1] = ipRating[0][1] + 1
+                else:
+                    ipr = project['ratings'][1]
+                    ipRating[ipr+1][1] = ipRating[ipr+1][1] + 1
+
+
                 title = project['title'].decode('utf-8', 'ignore')
                 desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (
                         project['url'],
                         cgi.escape(title.encode(
                             'ascii', 'xmlcharrefreplace')),
-                        cgi.escape(title[:32].encode(
+                        cgi.escape(title[:48].encode(
                             'ascii', 'xmlcharrefreplace') + u'...')
                         )
             desc += u'</ul>'
+
+            chart = pygal.Pie(width=150, height=180,
+                    explicit_size=True,
+                    disable_xml_declaration=True,
+                    show_legend=True)
+            chart.title = 'DO Rating'
+            values = doRating
+            for value in values:
+                chart.add(value[0], value[1])
+            desc += chart.render()
+
+            chart = pygal.Pie(width=150, height=180,
+                    explicit_size=True,
+                    disable_xml_declaration=True,
+                    show_legend=True)
+            chart.title = 'IP Rating'
+            values = ipRating
+            for value in values:
+                chart.add(value[0], value[1])
+            desc += chart.render()
+
+            desc += '<br />'
+
+            chart = pygal.Pie(width=150, height=150,
+                    explicit_size=True,
+                    disable_xml_declaration=True,
+                    show_legend=False)
+            chart.title = 'Countries'
+            values = countries.items()
+            values.sort()
+            for value in values:
+                chart.add(value[0], value[1])
+            #desc += chart.render()
+
+
+            chart = pygal.Pie(width=150, height=150,
+                    explicit_size=True,
+                    disable_xml_declaration=True,
+                    show_legend=True)
+            chart.title = 'Agencies'
+            values = agencies.items()
+            values.sort()
+            for value in values:
+                chart.add(acronym(value[0]), value[1])
+            desc += chart.render()
+
+
         else:
             desc = u"<p><strong>No Gef projects involved in this basin</strong></p>"
         return desc
@@ -251,7 +344,7 @@ def _area_cachekey(context, fun, shape):
 
 # fetch projects once only
 def _projects_cachekey(context, fun, query):
-    ckey = [query]
+    ckey = [query, time() // (600)]
     return ckey
 
 SHOW_BASINS=['with',]
@@ -263,16 +356,20 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
         logger.debug('area of: %s' % shape['type'] )
         return asShape(shape).envelope.area
 
-    @ram.cache(_projects_cachekey)
+    #@ram.cache(_projects_cachekey)
     def get_projects(self, query):
         logger.debug('get projects')
         brains = self.get_results(query)
         projects = {}
         for brain in brains:
             if brain.getBasin:
-                projects[brain.UID] = {'title': brain.Title.decode('utf-8', 'ignore'
+                projects[brain.UID] = {'title':
+                                    brain.Title.decode('utf-8', 'ignore'
                                             ).encode('utf-8', 'ignore'),
-                                'basin':brain.getBasin,
+                                'basin': brain.getBasin,
+                                'countries' : brain.getCountry,
+                                'agencies': brain.getAgencies,
+                                'ratings': brain.getGefRatings,
                                 'url': brain.getURL()}
         return projects
 
@@ -403,6 +500,27 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
 class ProjectDbKmlCountryView(ProjectDbKmlView):
 
 
+    def get_countries(self):
+        cquery = {'portal_type': 'Image',
+                'path': 'iwlearn/images/countries/'}
+        countries = self.get_results(cquery)
+        geo_annotated_countries = {}
+        for country in countries:
+            if country.zgeo_geometry:
+                if country.zgeo_geometry['coordinates']:
+                    geo_annotated_countries[country.Title] = country.zgeo_geometry
+                else:
+                    # the country is there but has no coordinates => cs
+                    related_countries = list(get_related_countries_uids(country))
+                    logger.debug('Country %s is not geoannotated' % country.Title)
+                    geo_annotated_countries[country.Title] = []
+                    for rel_country in self.portal_catalog(UID = related_countries):
+                        geo_annotated_countries[rel_country.Title] = rel_country.zgeo_geometry
+                        geo_annotated_countries[country.Title].append(rel_country.Title)
+                        logger.debug('replacing with %s' % rel_country.Title)
+        return geo_annotated_countries
+
+
     @property
     def features(self):
         query = get_query(self.request.form)
@@ -415,6 +533,10 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                 if 'Global' in project.getSubRegions:
                     project_countries.append('Global')
         project_countries = list(set(project_countries))
+
+        # XXX use self.get_countries() instead
+        # and modify CountryPlacemark accordingly
+
         cquery = {'portal_type': 'Image',
                 'path': 'iwlearn/images/countries/'}
         countries = self.get_results(cquery)

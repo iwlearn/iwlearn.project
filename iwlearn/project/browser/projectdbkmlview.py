@@ -30,8 +30,8 @@ logger.setLevel(logging.DEBUG)
 
 
 def get_related_countries_uids(country):
-    for c in country.getRawRelatedItems:
-        yield c
+    for c in country.getObject().getRelatedItems():
+        yield c.UID()
 
 def init_ratings():
     rl = [['NA', 0], ['HU', 0], ['U', 0], ['MU', 0], ['MS', 0], ['S', 0],

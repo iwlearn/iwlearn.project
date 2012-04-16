@@ -6,19 +6,13 @@ import csv
 from BeautifulSoup import BeautifulSoup
 
 from vocabulary import my_countrylist as _countrylist
+from vocabulary import RATINGS
 
 CSV_HEADER = ['gefid', 'projecttitle', 'agency', 'country', 'region',
         'fa', 'type', 'grantamount', 'ppgamount', 'cofinancing',
         'ipranking', 'doranking', 'label']
 
-RATINGS ={ 'N/A' : None,
-        '': None,
-        'Highly Unsatisfactory' : 0,
-        'Unsatisfactory': 1,
-        'Moderately Unsatisfactory': 2,
-        'Moderately Satisfactory': 3,
-        'Satisfactory': 4,
-        'Highly Satisfactory': 5}
+
 
 
 logger = logging.getLogger('iwlearn.project')

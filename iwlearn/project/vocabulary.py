@@ -549,6 +549,16 @@ BASIN_TYPE = ['LME',
 
 
 
+RATINGS ={ 'N/A' : None,
+        '': None,
+        'Highly Unsatisfactory' : 0,
+        'Unsatisfactory': 1,
+        'Moderately Unsatisfactory': 2,
+        'Moderately Satisfactory': 3,
+        'Satisfactory': 4,
+        'Highly Satisfactory': 5}
+
+
 def basin_vocabulary_factory(context):
     """ combine BASINS with additional values from the index """
     catalog = getToolByName(context, 'portal_catalog')

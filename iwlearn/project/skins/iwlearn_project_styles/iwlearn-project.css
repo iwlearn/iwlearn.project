@@ -185,3 +185,14 @@ div.flexigrid {
     background-color: blue;
     color: black;
 }
+
+
+#content div.project-collumn-wrapper div.c3 {
+    float: left;
+}
+
+
+#content div.project-collumn-wrapper div.c4 {
+    float: right;
+}
+

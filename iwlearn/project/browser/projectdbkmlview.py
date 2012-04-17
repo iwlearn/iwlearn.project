@@ -595,8 +595,16 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                 if 'Global' in project.getSubRegions:
                     project_countries.append('Global')
         project_countries = list(set(project_countries))
-        logger.debug(" project countries %s" % str(project_countries))
         countries = self.get_countries()
+        for ct, cv in countries.iteritems():
+            if cv.get('replaces', False):
+                for c in cv['replaces']:
+                    if ((c in project_countries) and
+                            (ct not project_countries)):
+                        project_countries.append(ct)
+
+        logger.debug(" project countries %s" % str(project_countries))
+
         processed_countries = []
         for ct, cv in countries.iteritems():
             if cv.get('replaces', False):

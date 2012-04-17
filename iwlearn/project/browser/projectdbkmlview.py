@@ -149,23 +149,23 @@ class BasinPlacemark(BrainPlacemark):
             doRating = init_ratings()
             ipRating = init_ratings()
             for project in self.projects:
-                for country in project['countries']:
-                    ci = countries.get(country, 0)
-                    countries[country] = ci + 1
-                for agency in project['agencies']:
-                    ca = agencies.get(agency, 0)
-                    agencies[agency]= ca + 1
-                if project['ratings'][0] == None:
-                    doRating[0][1] = doRating[0][1] + 1
-                else:
-                    dor = project['ratings'][0]
-                    doRating[dor+1][1] = doRating[dor+1][1] + 1
+                #for country in project['countries']:
+                    #ci = countries.get(country, 0)
+                    #countries[country] = ci + 1
+                #for agency in project['agencies']:
+                    #ca = agencies.get(agency, 0)
+                    #agencies[agency]= ca + 1
+                #if project['ratings'][0] == None:
+                    #doRating[0][1] = doRating[0][1] + 1
+                #else:
+                    #dor = project['ratings'][0]
+                    #doRating[dor+1][1] = doRating[dor+1][1] + 1
 
-                if project['ratings'][1] == None:
-                    ipRating[0][1] = ipRating[0][1] + 1
-                else:
-                    ipr = project['ratings'][1]
-                    ipRating[ipr+1][1] = ipRating[ipr+1][1] + 1
+                #if project['ratings'][1] == None:
+                    #ipRating[0][1] = ipRating[0][1] + 1
+                #else:
+                    #ipr = project['ratings'][1]
+                    #ipRating[ipr+1][1] = ipRating[ipr+1][1] + 1
 
 
                 title = project['title'].decode('utf-8', 'ignore')
@@ -178,50 +178,50 @@ class BasinPlacemark(BrainPlacemark):
                         )
             desc += u'</ul>'
 
-            chart = pygal.Pie(width=150, height=180,
-                    explicit_size=True,
-                    disable_xml_declaration=True,
-                    show_legend=True)
-            chart.title = 'DO Rating'
-            values = doRating
-            for value in values:
-                chart.add(value[0], value[1])
-            desc += chart.render()
-
-            chart = pygal.Pie(width=150, height=180,
-                    explicit_size=True,
-                    disable_xml_declaration=True,
-                    show_legend=True)
-            chart.title = 'IP Rating'
-            values = ipRating
-            for value in values:
-                chart.add(value[0], value[1])
-            desc += chart.render()
-
-            desc += '<br />'
-
-            chart = pygal.Pie(width=150, height=150,
-                    explicit_size=True,
-                    disable_xml_declaration=True,
-                    show_legend=False)
-            chart.title = 'Countries'
-            values = countries.items()
-            values.sort()
-            for value in values:
-                chart.add(value[0], value[1])
+            #chart = pygal.Pie(width=150, height=180,
+                    #explicit_size=True,
+                    #disable_xml_declaration=True,
+                    #show_legend=True)
+            #chart.title = 'DO Rating'
+            #values = doRating
+            #for value in values:
+                #chart.add(value[0], value[1])
             #desc += chart.render()
 
+            #chart = pygal.Pie(width=150, height=180,
+                    #explicit_size=True,
+                    #disable_xml_declaration=True,
+                    #show_legend=True)
+            #chart.title = 'IP Rating'
+            #values = ipRating
+            #for value in values:
+                #chart.add(value[0], value[1])
+            #desc += chart.render()
 
-            chart = pygal.Pie(width=150, height=150,
-                    explicit_size=True,
-                    disable_xml_declaration=True,
-                    show_legend=True)
-            chart.title = 'Agencies'
-            values = agencies.items()
-            values.sort()
-            for value in values:
-                chart.add(acronym(value[0]), value[1])
-            desc += chart.render()
+            #desc += '<br />'
+
+            #chart = pygal.Pie(width=150, height=150,
+                    #explicit_size=True,
+                    #disable_xml_declaration=True,
+                    #show_legend=False)
+            #chart.title = 'Countries'
+            #values = countries.items()
+            #values.sort()
+            #for value in values:
+                #chart.add(value[0], value[1])
+            ##desc += chart.render()
+
+
+            #chart = pygal.Pie(width=150, height=150,
+                    #explicit_size=True,
+                    #disable_xml_declaration=True,
+                    #show_legend=True)
+            #chart.title = 'Agencies'
+            #values = agencies.items()
+            #values.sort()
+            #for value in values:
+                #chart.add(acronym(value[0]), value[1])
+            #desc += chart.render()
 
 
         else:
@@ -289,9 +289,16 @@ class ClusteredBasinPlacemark(BasinPlacemark):
 
 class CountryPlacemark(BrainPlacemark):
 
-    def __init__(self, context, request, document, country, projects, substitute_for=None):
-        super(CountryPlacemark, self).__init__(context, request, document)
+    def __init__(self, context, request, document, country, projects):
+        #super(CountryPlacemark, self).__init__(context, request, document)
+        self.context = context
+        self.request = request
+        self.geom = NullGeometry()
+        self.geom.type =  context['geometry']['type']
+        self.geom.coordinates =  context['geometry']['coordinates']
+        self.country = country
         self.projects = []
+        self.styles = None
         if country == 'Global':
             for project in projects:
                 if project.getSubRegions:
@@ -302,8 +309,11 @@ class CountryPlacemark(BrainPlacemark):
                 if project.getCountry:
                     if country in project.getCountry:
                         self.projects.append(project)
-                    elif substitute_for:
+                    for substitute_for in context.get('replaces', []):
                         if substitute_for in project.getCountry:
+                            logger.debug('%s in: "%s" assinged to "%s"'
+                                % (project.Title,
+                                    substitute_for, country))
                             self.projects.append(project)
     @property
     def polygoncolor(self):
@@ -314,14 +324,27 @@ class CountryPlacemark(BrainPlacemark):
     def use_custom_styles(self):
         return True
 
+    @property
+    def item_type(self):
+        return 'Country'
+
+    @property
+    def item_url(self):
+        return self.context['url']
+
+    @property
+    def author(self):
+        return {
+            'name': '',
+            'uri': '',
+            'email': ''}
+
+    def display_properties(self, document):
+        return []
 
     @property
     def name(self):
-        if callable(self.context.Title):
-            title = self.context.Title()
-        else:
-            title = self.context.Title
-        return cgi.escape(title) + u' - %i Projects' % len(self.projects)
+        return cgi.escape(self.country ) + u' - %i Projects' % len(self.projects)
 
     @property
     def description(self):
@@ -331,10 +354,15 @@ class CountryPlacemark(BrainPlacemark):
             desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (project.getURL(),
                             cgi.escape(title.encode(
                             'ascii', 'xmlcharrefreplace')),
-                            cgi.escape(title[:32].encode(
+                            cgi.escape(title[:48].encode(
                             'ascii', 'xmlcharrefreplace') + u'...'))
         desc += u'</ul>'
         return desc
+
+    def lead_image(self, scale='', css_class=''):
+        return '''<img src="%s/image_thumb" alt="%s"
+        class="tileImage" />''' %( self.context['url'], self.country)
+
 
 
 # do not compute the area of a shape every time cache it
@@ -342,7 +370,7 @@ def _area_cachekey(context, fun, shape):
     ckey = [shape]
     return ckey
 
-# fetch projects once only
+# fetch projects once every 10 minutes only
 def _projects_cachekey(context, fun, query):
     ckey = [query, time() // (600)]
     return ckey
@@ -356,7 +384,7 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
         logger.debug('area of: %s' % shape['type'] )
         return asShape(shape).envelope.area
 
-    #@ram.cache(_projects_cachekey)
+    @ram.cache(_projects_cachekey)
     def get_projects(self, query):
         logger.debug('get projects')
         brains = self.get_results(query)
@@ -457,9 +485,6 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
         bbox = [float(c) for c in sbbox.split(',')]
         bbox_area = MultiPoint([bbox[:2],bbox[2:]]).envelope.area
         show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
-        #map_state= self.request.form.get('cgmap_state.default-cgmap', {'zoom': '0'})
-        #if int(map_state.get('zoom', '0')) > 5:
-        #    bbox_area = 1
         if int(self.request.form.get('zoomfactor','0')) > 5:
              bbox_area = 1
         basin_types = self.request.form.get('basintype', [])
@@ -497,10 +522,36 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
                         yield BasinPlacemark(basin, self.request, self,
                                     {})
 
+# fetch projects once every hour only
+def _country_cachekey(method, self, **args):
+    ckey = [time() // (3600)]
+    return ckey
+
 class ProjectDbKmlCountryView(ProjectDbKmlView):
 
-
+    @ram.cache(_country_cachekey)
     def get_countries(self):
+        def _related_countries():
+            related_countries = list(get_related_countries_uids(country))
+            logger.debug('Country %s is not geoannotated' % country.Title)
+            #geo_annotated_countries[country.Title] = {'replaces': []}
+            is_related = False
+            for rel_country in self.portal_catalog(UID = related_countries):
+                if rel_country.Title in geo_annotated_countries:
+                    replaces = geo_annotated_countries[
+                            rel_country.Title].get('replaces', [])
+                else:
+                    replaces = []
+                replaces.append(country.Title)
+                geo_annotated_countries[rel_country.Title] = {
+                            'geometry': rel_country.zgeo_geometry,
+                            'replaces': replaces,
+                            'url': rel_country.getURL()}
+                is_related = True
+                logger.debug('%s  replaces %s' % (rel_country.Title, str(replaces)))
+            return is_related
+            # - end local functions -
+
         cquery = {'portal_type': 'Image',
                 'path': 'iwlearn/images/countries/'}
         countries = self.get_results(cquery)
@@ -508,16 +559,25 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
         for country in countries:
             if country.zgeo_geometry:
                 if country.zgeo_geometry['coordinates']:
-                    geo_annotated_countries[country.Title] = country.zgeo_geometry
+                    if country.Title in geo_annotated_countries:
+                        replaces = geo_annotated_countries[
+                                country.Title].get('replaces', [])
+                    else:
+                        replaces = []
+                    geo_annotated_countries[country.Title] = {
+                                    'geometry': country.zgeo_geometry,
+                                    'replaces': replaces,
+                                    'url': country.getURL() }
+                    continue
                 else:
                     # the country is there but has no coordinates => cs
-                    related_countries = list(get_related_countries_uids(country))
-                    logger.debug('Country %s is not geoannotated' % country.Title)
-                    geo_annotated_countries[country.Title] = []
-                    for rel_country in self.portal_catalog(UID = related_countries):
-                        geo_annotated_countries[rel_country.Title] = rel_country.zgeo_geometry
-                        geo_annotated_countries[country.Title].append(rel_country.Title)
-                        logger.debug('replacing with %s' % rel_country.Title)
+                    if _related_countries():
+                        continue
+            else:
+                if _related_countries():
+                    continue
+            logger.debug('Country %s is not geoannotated and has no related items' % country.Title)
+
         return geo_annotated_countries
 
 
@@ -534,37 +594,31 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                     project_countries.append('Global')
         project_countries = list(set(project_countries))
 
-        # XXX use self.get_countries() instead
-        # and modify CountryPlacemark accordingly
-
-        cquery = {'portal_type': 'Image',
-                'path': 'iwlearn/images/countries/'}
-        countries = self.get_results(cquery)
-        geo_annotated_countries =[]
-        for country in countries:
-            if ((country.Title in project_countries) and
-                country.zgeo_geometry):
-                if country.zgeo_geometry['coordinates']:
-                    geo_annotated_countries.append(country.Title)
-                    yield CountryPlacemark(country, self.request, self,
-                                    country.Title, projects )
-                else:
-                    # the country is there but has no coordinates => cs
-                    related_countries = list(get_related_countries_uids(country))
-                    logger.debug('Country %s is not geoannotated' % country.Title)
-                    for rel_country in self.portal_catalog(portal_type = 'Image',
-                                path='iwlearn/images/countries/',
-                                UID = related_countries):
-                        geo_annotated_countries.append(rel_country.Title)
-                        geo_annotated_countries.append(country.Title)
-                        logger.debug('replacing with %s' % rel_country.Title)
-                        yield CountryPlacemark(rel_country, self.request, self,
-                                rel_country.Title, projects, country.Title)
-            elif country.Title in project_countries:
-                logger.critical('Country %s is not geoannotated and has no related items' % country.Title)
+        countries = self.get_countries()
+        processed_countries = []
+        for ct, cv in countries.iteritems():
+            if cv.get('replaces', False):
+                processed_countries += cv['replaces']
+            if (ct in project_countries) and cv.get('geometry', False):
+                processed_countries.append(ct)
+                yield CountryPlacemark(cv, self.request, self,
+                                    ct, projects )
+            #elif (ct in project_countries) and cv.get('replace', False):
+                ## the country is there but has no coordinates => cs
+                #related_countries = cv['replace']
+                #logger.debug('Country %s is not geoannotated' % ct)
+                #for rel_country in related_countries:
+                    #processed_countries.append(rel_country)
+                    #processed_countries.append(ct)
+                    #logger.debug('replacing with %s' % ct)
+                    #yield CountryPlacemark(countries[rel_country],
+                            #self.request, self, rel_country,
+                            #projects, ct)
+            elif ct in project_countries:
+                logger.critical('Country %s is not geoannotated and has no related items' % ct)
 
         for c in project_countries:
-            if c in geo_annotated_countries:
+            if c in processed_countries:
                 continue
             else:
-                logger.critical('country %s not in database some projects will not be shown' % c)
+                logger.error('country %s not in database some projects will not be shown' % c)

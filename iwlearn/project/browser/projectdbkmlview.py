@@ -600,7 +600,7 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
             if cv.get('replaces', False):
                 for c in cv['replaces']:
                     if ((c in project_countries) and
-                            (ct not project_countries)):
+                            (ct not in project_countries)):
                         project_countries.append(ct)
 
         logger.debug(" project countries %s" % str(project_countries))

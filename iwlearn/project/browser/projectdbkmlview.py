@@ -128,7 +128,8 @@ class BasinPlacemark(BrainPlacemark):
                 if project_uid in projects:
                     self.projects.append(projects[project_uid])
                 else:
-                    logger.debug('Project UID %s not found' % project_uid)
+                    if projects:
+                        logger.debug('Project UID %s not found' % project_uid)
 
     @property
     def name(self):
@@ -299,6 +300,8 @@ class CountryPlacemark(BrainPlacemark):
         self.country = country
         self.projects = []
         self.styles = None
+        if context.get('replaces', False):
+            logger.debug('"%s" replaces "%s"' %(country, str(context['replaces'])))
         if country == 'Global':
             for project in projects:
                 if project.getSubRegions:
@@ -534,7 +537,6 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
         def _related_countries():
             related_countries = list(get_related_countries_uids(country))
             logger.debug('Country %s is not geoannotated' % country.Title)
-            #geo_annotated_countries[country.Title] = {'replaces': []}
             is_related = False
             for rel_country in self.portal_catalog(UID = related_countries):
                 if rel_country.Title in geo_annotated_countries:
@@ -603,17 +605,6 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                 processed_countries.append(ct)
                 yield CountryPlacemark(cv, self.request, self,
                                     ct, projects )
-            #elif (ct in project_countries) and cv.get('replace', False):
-                ## the country is there but has no coordinates => cs
-                #related_countries = cv['replace']
-                #logger.debug('Country %s is not geoannotated' % ct)
-                #for rel_country in related_countries:
-                    #processed_countries.append(rel_country)
-                    #processed_countries.append(ct)
-                    #logger.debug('replacing with %s' % ct)
-                    #yield CountryPlacemark(countries[rel_country],
-                            #self.request, self, rel_country,
-                            #projects, ct)
             elif ct in project_countries:
                 logger.critical('Country %s is not geoannotated and has no related items' % ct)
 

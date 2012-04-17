@@ -299,9 +299,6 @@ class CountryPlacemark(BrainPlacemark):
         self.country = country
         self.projects = []
         self.styles = None
-        logger.debug('placemark for: %s' % country)
-        if context.get('replaces', False):
-            logger.debug('"%s" replaces "%s"' %(country, str(context['replaces'])))
         if country == 'Global':
             for project in projects:
                 if project.getSubRegions:
@@ -538,7 +535,9 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
             related_countries = list(get_related_countries_uids(country))
             logger.debug('Country %s is not geoannotated' % country.Title)
             is_related = False
-            for rel_country in self.portal_catalog(UID = related_countries):
+            for rel_country in self.portal_catalog(UID = related_countries,
+                            portal_type = 'Image',
+                            path='iwlearn/images/countries/'):
                 if rel_country.Title in geo_annotated_countries:
                     replaces = geo_annotated_countries[
                             rel_country.Title].get('replaces', [])
@@ -603,7 +602,6 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                             (ct not in project_countries)):
                         project_countries.append(ct)
 
-        logger.debug(" project countries %s" % str(project_countries))
 
         processed_countries = []
         for ct, cv in countries.iteritems():

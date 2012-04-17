@@ -1,3 +1,4 @@
+import logging
 from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
@@ -6,6 +7,13 @@ from Products.CMFCore.utils import getToolByName
 from iwlearn.project import projectMessageFactory as _
 
 from collective.geo.kml.browser.kmldocument import KMLBaseDocument, BrainPlacemark
+
+logger = logging.getLogger('iwlearn.project')
+
+def get_related_countries_uids(country):
+    for c in country.getObject().getRelatedItems():
+        yield c.UID()
+
 
 class IProjectKMLView(Interface):
     """
@@ -44,10 +52,23 @@ class ProjectCountryKMLView(ProjectKMLView):
             project_countries = project.getCountry()
         countries = self.portal_catalog(portal_type = 'Image',
                         path='iwlearn/images/countries/')
+
         for country in countries:
             if ((country.Title in project_countries) and
                 country.zgeo_geometry):
-                yield BrainPlacemark(country, self.request, self)
+                if country.zgeo_geometry['coordinates']:
+                    yield BrainPlacemark(country, self.request, self)
+                    continue
+            if country.Title in project_countries:
+                # the country is there but has no coordinates => cs
+                related_countries = list(get_related_countries_uids(country))
+                logger.debug('Country %s is not geoannotated' % country.Title)
+                for rel_country in self.portal_catalog(portal_type = 'Image',
+                            path='iwlearn/images/countries/',
+                            UID = related_countries):
+                    logger.debug('replacing with %s' % rel_country.Title)
+                    yield  BrainPlacemark(rel_country, self.request, self)
+
 
 class ProjectBasinKMLView(ProjectKMLView):
 

@@ -291,7 +291,6 @@ class ClusteredBasinPlacemark(BasinPlacemark):
 class CountryPlacemark(BrainPlacemark):
 
     def __init__(self, context, request, document, country, projects):
-        #super(CountryPlacemark, self).__init__(context, request, document)
         self.context = context
         self.request = request
         self.geom = NullGeometry()
@@ -300,6 +299,7 @@ class CountryPlacemark(BrainPlacemark):
         self.country = country
         self.projects = []
         self.styles = None
+        logger.debug('placemark for: %s' % country)
         if context.get('replaces', False):
             logger.debug('"%s" replaces "%s"' %(country, str(context['replaces'])))
         if country == 'Global':
@@ -595,7 +595,7 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                 if 'Global' in project.getSubRegions:
                     project_countries.append('Global')
         project_countries = list(set(project_countries))
-
+        logger.debug(" project countries %s" % str(project_countries))
         countries = self.get_countries()
         processed_countries = []
         for ct, cv in countries.iteritems():

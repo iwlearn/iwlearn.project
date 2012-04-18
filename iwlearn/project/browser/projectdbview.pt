@@ -313,6 +313,7 @@ $('#projectsearchform').submit
                 </tbody>
               </table>
             </noscript>
+            <div id="projectdbcharts" tal:content="structure view/get_chart"></div>
         </tal:main-macro>
     </div>
 </body>

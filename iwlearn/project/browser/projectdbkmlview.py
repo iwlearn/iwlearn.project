@@ -6,7 +6,6 @@ from operator import itemgetter
 
 from shapely.geometry import MultiPoint
 from shapely.geometry import asShape
-import pygal
 
 from zope.interface import implements, Interface
 
@@ -33,17 +32,8 @@ def get_related_countries_uids(country):
     for c in country.getObject().getRelatedItems():
         yield c.UID()
 
-def init_ratings():
-    rl = [['NA', 0], ['HU', 0], ['U', 0], ['MU', 0], ['MS', 0], ['S', 0],
-            ['HS', 0]]
-    return rl
 
 
-def acronym(agency):
-    if agency.find('(') > -1:
-        return agency[agency.find('(') +1 : agency.find(')')]
-    else:
-        return agency
 
 
 
@@ -145,29 +135,7 @@ class BasinPlacemark(BrainPlacemark):
 
         if self.projects:
             desc = u'<ul>'
-            countries = {}
-            agencies = {}
-            doRating = init_ratings()
-            ipRating = init_ratings()
             for project in self.projects:
-                #for country in project['countries']:
-                    #ci = countries.get(country, 0)
-                    #countries[country] = ci + 1
-                #for agency in project['agencies']:
-                    #ca = agencies.get(agency, 0)
-                    #agencies[agency]= ca + 1
-                #if project['ratings'][0] == None:
-                    #doRating[0][1] = doRating[0][1] + 1
-                #else:
-                    #dor = project['ratings'][0]
-                    #doRating[dor+1][1] = doRating[dor+1][1] + 1
-
-                #if project['ratings'][1] == None:
-                    #ipRating[0][1] = ipRating[0][1] + 1
-                #else:
-                    #ipr = project['ratings'][1]
-                    #ipRating[ipr+1][1] = ipRating[ipr+1][1] + 1
-
 
                 title = project['title'].decode('utf-8', 'ignore')
                 desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (
@@ -179,50 +147,7 @@ class BasinPlacemark(BrainPlacemark):
                         )
             desc += u'</ul>'
 
-            #chart = pygal.Pie(width=150, height=180,
-                    #explicit_size=True,
-                    #disable_xml_declaration=True,
-                    #show_legend=True)
-            #chart.title = 'DO Rating'
-            #values = doRating
-            #for value in values:
-                #chart.add(value[0], value[1])
-            #desc += chart.render()
 
-            #chart = pygal.Pie(width=150, height=180,
-                    #explicit_size=True,
-                    #disable_xml_declaration=True,
-                    #show_legend=True)
-            #chart.title = 'IP Rating'
-            #values = ipRating
-            #for value in values:
-                #chart.add(value[0], value[1])
-            #desc += chart.render()
-
-            #desc += '<br />'
-
-            #chart = pygal.Pie(width=150, height=150,
-                    #explicit_size=True,
-                    #disable_xml_declaration=True,
-                    #show_legend=False)
-            #chart.title = 'Countries'
-            #values = countries.items()
-            #values.sort()
-            #for value in values:
-                #chart.add(value[0], value[1])
-            ##desc += chart.render()
-
-
-            #chart = pygal.Pie(width=150, height=150,
-                    #explicit_size=True,
-                    #disable_xml_declaration=True,
-                    #show_legend=True)
-            #chart.title = 'Agencies'
-            #values = agencies.items()
-            #values.sort()
-            #for value in values:
-                #chart.add(acronym(value[0]), value[1])
-            #desc += chart.render()
 
 
         else:

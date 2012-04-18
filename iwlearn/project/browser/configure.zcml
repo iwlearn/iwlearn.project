@@ -87,15 +87,6 @@
 
 <!-- Project DB -->
 
-  <browser:page
-      for="..interfaces.IProjectDatabase"
-      name="projectwebsites_view"
-      class=".projectwebsitesview.ProjectWebsitesView"
-      template="projectwebsitesview.pt"
-      allowed_interface=".projectwebsitesview.IProjectWebsitesView"
-      permission="zope.Public"
-      />
-
 
   <browser:page
       for="..interfaces.IProjectDatabase"
@@ -115,6 +106,16 @@
       template="projectdbmapview.pt"
       allowed_interface=".projectdbview.IProjectDBView"
       permission="zope2.View"
+      />
+
+
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projectwebsites_view"
+      class=".projectwebsitesview.ProjectWebsitesView"
+      template="projectwebsitesview.pt"
+      allowed_interface=".projectwebsitesview.IProjectWebsitesView"
+      permission="zope.Public"
       />
 
 
@@ -243,6 +244,18 @@
       allowed_interface=".flexijsonview.IFlexiJsonView"
       permission="zope.Public"
       />
+
+
+
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="chart_view.html"
+      class=".projectdbview.ProjectDBChartView"
+      allowed_interface=".projectdbview.IProjectDBView"
+      permission="zope2.View"
+      />
+
+
 
 
     <!--browser:viewletManager

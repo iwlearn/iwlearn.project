@@ -1,4 +1,5 @@
 import cgi
+import pygal
 from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
@@ -49,7 +50,7 @@ class ProjectDBBaseView(BrowserView):
     $("#flexiprojects").flexigrid
             (
             {
-            url: '%s/@@flexijson_view',
+            url: '%(url)s/@@flexijson_view',
             dataType: 'json',
             colModel : [
                 {display: 'Title', name : 'Title', width : 220, sortable : true, align: 'left', hide: false},
@@ -82,6 +83,21 @@ class ProjectDBBaseView(BrowserView):
         you have to specify the input elements that the data will come from */
         var dt = $('#projectsearchform').serializeArray();
         $("#flexiprojects").flexOptions({params: dt});
+        var qs = '%(url)s/chart_view.html?';
+        var params = {};
+        jQuery.each(dt, function(i, field){
+                qs = qs + field.name + '=' + field.value + "&";
+                params[field.name] = field.value;
+        });
+
+
+        $.get(qs,
+                function(data) {
+                  $('#projectdbcharts').html(data);
+            });
+
+
+
         return true;
         };
 
@@ -98,7 +114,7 @@ $('#projectsearchform').submit
         """
 
     def get_js(self):
-        js =  self.js_template % self.context.absolute_url()
+        js =  self.js_template % {'url': self.context.absolute_url()}
         return js
 
 
@@ -199,9 +215,9 @@ $('#projectsearchform').submit
 
     def search_results(self):
         form = self.request.form
-        is_search = len(form)!=0
-        if not is_search:
-            return None
+        #is_search = len(form)!=0
+        #if not is_search:
+        #    return None
         batch_size = form.get('b_size', 20)
         batch_start = form.get('b_start', 0)
         query = get_query(form)
@@ -209,8 +225,113 @@ $('#projectsearchform').submit
 
         return {'results': results, 'size': batch_size, 'start': batch_start}
 
+
+    def init_ratings(self):
+        rl = [['NA', 0], ['HU', 0], ['U', 0], ['MU', 0], ['MS', 0], ['S', 0],
+                ['HS', 0]]
+        return rl
+
+
+    def acronym(self, agency):
+        if agency.find('(') > -1:
+            return agency[agency.find('(') +1 : agency.find(')')]
+        else:
+            return agency
+
+
+
+    def get_chart(self):
+        desc = u''
+        countries = {}
+        agencies = {}
+        doRating = self.init_ratings()
+        ipRating = self.init_ratings()
+        results = self.search_results()
+        regions = vocabulary.get_regions()
+        regionsd = {}
+        if results:
+            for project in results['results']:
+                for country in project.getCountry:
+                    ci = countries.get(country, 0)
+                    countries[country] = ci + 1
+                for agency in project.getAgencies:
+                    ca = agencies.get(agency, 0)
+                    agencies[agency]= ca + 1
+                if project.getGefRatings:
+                    if project.getGefRatings[0] == None:
+                        doRating[0][1] = doRating[0][1] + 1
+                    else:
+                        dor = project.getGefRatings[0]
+                        doRating[dor+1][1] = doRating[dor+1][1] + 1
+
+                    if project.getGefRatings[1] == None:
+                        ipRating[0][1] = ipRating[0][1] + 1
+                    else:
+                        ipr = project.getGefRatings[1]
+                        ipRating[ipr+1][1] = ipRating[ipr+1][1] + 1
+                if project.getSubRegions:
+                    for rsr in project.getSubRegions:
+                        if rsr in regions:
+                            cr = regionsd.get(rsr, 0)
+                            regionsd[rsr] = cr + 1
+
+
+            chart = pygal.Pie(width=150, height=180,
+                    explicit_size=True,
+                    disable_xml_declaration=True,
+                    show_legend=True)
+            chart.title = 'DO Rating'
+            values = doRating
+            for value in values:
+                chart.add(value[0], value[1])
+            desc += chart.render()
+
+            chart = pygal.Pie(width=150, height=180,
+                    explicit_size=True,
+                    disable_xml_declaration=True,
+                    show_legend=True)
+            chart.title = 'IP Rating'
+            values = ipRating
+            for value in values:
+                chart.add(value[0], value[1])
+            desc += chart.render()
+
+            chart = pygal.Pie(width=150, height=180,
+                    explicit_size=True,
+                    disable_xml_declaration=True,
+                    show_legend=True)
+            chart.title = 'Regions'
+            values = regionsd.items()
+            values.sort()
+            for value in values:
+                chart.add(value[0], value[1])
+            desc += chart.render()
+
+
+            chart = pygal.Pie(width=150, height=180,
+                    explicit_size=True,
+                    disable_xml_declaration=True,
+                    show_legend=True)
+            chart.title = 'Agencies'
+            values = agencies.items()
+            values.sort()
+            for value in values:
+                chart.add(self.acronym(value[0]), value[1])
+            desc += chart.render()
+            return desc
+
+
+
+
 class ProjectDBView(ProjectDBBaseView):
     implements(IProjectDBView)
+
+
+class ProjectDBChartView(ProjectDBView):
+
+    def __call__(self):
+        self.request.response.setHeader('X-Theme-Disabled', 'True')
+        return self.get_chart()
 
 
 class IProjectDBCountryView(IKMLOpenLayersView):

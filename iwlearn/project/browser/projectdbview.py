@@ -244,11 +244,16 @@ $('#projectsearchform').submit
         desc = u''
         countries = {}
         agencies = {}
+        for a in list(self.portal_catalog.Indexes['getAgencies'].uniqueValues()):
+           agencies[a] = 0
         doRating = self.init_ratings()
         ipRating = self.init_ratings()
         results = self.search_results()
         regions = vocabulary.get_regions()
         regionsd = {}
+        for r in regions:
+            regionsd[r] = 0
+
         if results:
             for project in results['results']:
                 for country in project.getCountry:
@@ -296,7 +301,7 @@ $('#projectsearchform').submit
                 chart.add(value[0], value[1])
             desc += chart.render()
 
-            chart = pygal.Pie(width=200, height=180,
+            chart = pygal.Pie(width=220, height=180,
                     explicit_size=True,
                     disable_xml_declaration=True,
                     show_legend=True)

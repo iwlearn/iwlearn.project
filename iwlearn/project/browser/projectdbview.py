@@ -296,7 +296,7 @@ $('#projectsearchform').submit
                 chart.add(value[0], value[1])
             desc += chart.render()
 
-            chart = pygal.Pie(width=150, height=180,
+            chart = pygal.Pie(width=200, height=180,
                     explicit_size=True,
                     disable_xml_declaration=True,
                     show_legend=True)
@@ -308,7 +308,7 @@ $('#projectsearchform').submit
             desc += chart.render()
 
 
-            chart = pygal.Pie(width=150, height=180,
+            chart = pygal.Pie(width=180, height=180,
                     explicit_size=True,
                     disable_xml_declaration=True,
                     show_legend=True)

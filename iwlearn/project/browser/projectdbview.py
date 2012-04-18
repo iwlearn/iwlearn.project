@@ -83,7 +83,7 @@ class ProjectDBBaseView(BrowserView):
         you have to specify the input elements that the data will come from */
         var dt = $('#projectsearchform').serializeArray();
         $("#flexiprojects").flexOptions({params: dt});
-        var qs = '%(url)s/chart_view.html?';
+        var qs = '%(url)s/@@chart_view.html?';
         var params = {};
         jQuery.each(dt, function(i, field){
                 qs = qs + field.name + '=' + field.value + "&";

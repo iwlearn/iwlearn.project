@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.3'
+version = '0.8'
 
 long_description = (
     read('README.txt')
@@ -61,6 +61,7 @@ setup(name='iwlearn.project',
                         'Products.ATExtensions',
                         'collective.flexitopic',
                         'htmllaundry',
+                        'pygal',
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),

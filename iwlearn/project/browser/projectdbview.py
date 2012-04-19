@@ -281,7 +281,7 @@ $('#projectsearchform').submit
                             regionsd[rsr] = cr + 1
 
 
-            chart = pygal.Pie(width=150, height=180,
+            chart = pygal.Pie(width=150, height=200,
                     explicit_size=True,
                     disable_xml_declaration=True,
                     show_legend=True)
@@ -291,7 +291,7 @@ $('#projectsearchform').submit
                 chart.add(value[0], value[1])
             desc += chart.render()
 
-            chart = pygal.Pie(width=150, height=180,
+            chart = pygal.Pie(width=150, height=200,
                     explicit_size=True,
                     disable_xml_declaration=True,
                     show_legend=True)
@@ -301,7 +301,7 @@ $('#projectsearchform').submit
                 chart.add(value[0], value[1])
             desc += chart.render()
 
-            chart = pygal.Pie(width=220, height=180,
+            chart = pygal.Pie(width=220, height=200,
                     explicit_size=True,
                     disable_xml_declaration=True,
                     show_legend=True)
@@ -313,7 +313,7 @@ $('#projectsearchform').submit
             desc += chart.render()
 
 
-            chart = pygal.Pie(width=180, height=180,
+            chart = pygal.Pie(width=180, height=200,
                     explicit_size=True,
                     disable_xml_declaration=True,
                     show_legend=True)

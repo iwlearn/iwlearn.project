@@ -4,6 +4,7 @@ Products.ATBackRef
 Products.ATExtensions
 collective.flexitopic
 htmllaundry
+pygal
 
 [tests]
 zope.testing

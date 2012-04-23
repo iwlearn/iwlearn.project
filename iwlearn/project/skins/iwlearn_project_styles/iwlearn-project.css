@@ -11,6 +11,7 @@
 
 #projectsearchform div.field {
     margin-bottom:0.5em;
+    clear: none;
     }
 
 #projectmapform fieldset.projectdetail div.field {
@@ -26,7 +27,7 @@
     }
 
 #projectsearchform div.field.even  {
-    float:right;
+    float:left;
     clear:none;
     }
 
@@ -51,12 +52,14 @@
 #projectmapform fieldset.projectdetails div.formHelp  {
     display: none;
     }
-
-
+#projectsearchform input, #projectsearchform input#title,#projectsearchform select {
+	width: 13em;	
+}
+/*
 #projectsearchform input {
     width: 20em;
     }
-
+*/
 #projectmapform fieldset.projectdetails select {
     width: 20em;
     }
@@ -82,10 +85,11 @@
     }
 
 
-
+/*
 #projectsearchform select {
     width: 20em;
     }
+    */
 #projectsearchform div.formControls.even {
     clear:none;
     float:right;
@@ -104,7 +108,7 @@
     }
 
 #projectsearchform  label {
-    width:12em;
+    width:11em;
     float: left;
     text-align: right;
     margin-right: 0.5em;
@@ -151,31 +155,42 @@ div.flexigrid {
 
 #content ul#projectdb-tabs {
     background-color: transparent;
-    padding-left: 1em;
+    /*padding-left: 1em;*/
     line-height: normal;
     margin: 0;
     list-style: none;
-    border: 1px solid black;
+    /*border: 1px solid black;
     border-top-width: 0px;
     border-left-width: 0px;
-    border-right-width: 0px;
+    border-right-width: 0px;*/
+    padding: 0.3em 0 0 0.3em;
+	
 }
 #content ul#projectdb-tabs li {
     display: inline;
     margin-bottom: 0;
-    padding-top: 0.5em;
+    padding-top: 0;
 }
 #content ul#projectdb-tabs li a, #content ul#projectdb-tabs li a:link {
-    background-color: transparent;
-    border: 1px solid black;
-    color: grey;
+    border-top-right-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    -webkit-border-top-right-radius: 0.5em;
+    -webkit-border-top-left-radius: 0.5em;
+    -moz-border-radius-topleft: 0.5em;
+    -moz-border-radius-topright: 0.5em;
+    background-color: #d0d0d0;
+    border: 0;
+    text-transform: uppercase;
+    color: #666666;
     height: auto;
-    margin-right: 0.5em;
-    padding: 0em 1em;
+    display: inline-block;
+    margin-right: 0;
+    padding: 0.7em 1em;
     line-height: normal;
     text-decoration: none;
     z-index: 1;
 }
+/*
 #content ul#projectdb-tabs a.selected  {
     background-color: grey;
     border-bottom: 1px solid black;
@@ -185,8 +200,22 @@ div.flexigrid {
     background-color: blue;
     color: black;
 }
-
-
+*/
+#content ul#projectdb-tabs a.selected,#content ul#projectdb-tabs li a:hover {
+	background-color: #436fe6;	
+	color: #ffffff !important;
+}
+#content ul.formTabs {
+	border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-top-left-radius: 0;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-topright: 0;
+}
+#content div.project-collumn-wrapper div.c3, #content div.project-collumn-wrapper div.c4 {
+width:50%;
+}
 #content div.project-collumn-wrapper div.c3 {
     float: left;
 }
@@ -195,4 +224,6 @@ div.flexigrid {
 #content div.project-collumn-wrapper div.c4 {
     float: right;
 }
-
+#flexiprojects a:link, #flexiprojects a:visited {
+	color: #205C90;
+}

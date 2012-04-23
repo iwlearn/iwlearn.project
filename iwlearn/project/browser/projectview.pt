@@ -57,6 +57,20 @@
                               <span tal:replace="structure accessor" />
                             </td>
                           </tr>
+                          <!-- moved project description here -->
+								  <tr tal:define="field python:here.Schema()['project_summary']; accessor python:getattr(here, field.accessor)"
+		                      tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+									  <td class="c1" width="22%" bgcolor="#E9F1F7">
+										<b>
+										  <font size="2" face="Arial">Project
+										  Description:</font>
+										</b>
+									  </td>
+									
+									  <td class="c1" width="78%">
+										<spal tal:replace="structure here/project_summary" />
+									  </td>
+								  </tr>
                           <tr tal:define="field python:here.Schema()['remote_url']; accessor python:getattr(here, field.accessor)"
                           tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
@@ -432,7 +446,7 @@
                       </table>
                     </div>
                 </div>
-                <table border="0" cellspacing="3" width="100%"
+                <!-- <table border="0" cellspacing="3" width="100%"
                 id="AutoNumber4">
                   <tr>
                     <td width="100%" valign="top" colspan="2">
@@ -454,7 +468,7 @@
                             <spal tal:replace="structure here/project_summary" />
                           </td>
                         </tr>
-                      </table>
+                      </table> -->
 
 
             <div tal:replace="structure provider:plone.belowcontentbody" />

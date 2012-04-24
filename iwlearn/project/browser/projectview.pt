@@ -47,24 +47,20 @@
                           <tr tal:define="field python:here.Schema()['gef_project_id']; accessor python:getattr(here, field.accessor)"
                           tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
-                            <td class="c1" width="22%" bgcolor="#E9F1F7"
+                            <td class="c1 prjlabel"
                             valign="top">
-                              <b>
-                                <font size="2" face="Arial">GEF ID</font>
-                              </b>
+                              GEF ID:
                             </td>
                             <td class="c1" width="78%" valign="top">
-                              <span tal:replace="structure accessor" />
+                              <strong><span tal:replace="structure accessor" /></strong>
                             </td>
                           </tr>
                           <!-- moved project description here -->
 								  <tr tal:define="field python:here.Schema()['project_summary']; accessor python:getattr(here, field.accessor)"
 		                      tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
-									  <td class="c1" width="22%" bgcolor="#E9F1F7">
-										<b>
-										  <font size="2" face="Arial">Project
-										  Description:</font>
-										</b>
+									  <td class="c1 prjlabel">
+										Project
+										  Description:
 									  </td>
 									
 									  <td class="c1" width="78%">
@@ -74,12 +70,10 @@
                           <tr tal:define="field python:here.Schema()['remote_url']; accessor python:getattr(here, field.accessor)"
                           tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
-                            <td class="c1" width="22%" bgcolor="#E9F1F7"
+                            <td class="c1 prjlabel"
                             valign="top" whitespace="wrap">
-                              <b>
-                                <font size="2" face="Arial">Project Website
-                                URL</font>
-                              </b>
+                              Project Website
+                                URL:
                             </td>
                             <td class="c1" width="78%" valign="top">
                               <a href="#" target="_blank"
@@ -90,11 +84,9 @@
                           <tr tal:define="field python:here.Schema()['region']; accessor python:getattr(here, field.accessor)"
                           tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
-                            <td class="c1" width="22%" bgcolor="#E9F1F7"
+                            <td class="c1 prjlabel"
                             valign="top">
-                              <b>
-                                <font face="Arial" size="2">Region</font>
-                              </b>
+                              Region:
                             </td>
                             <td class="c1" width="78%" valign="top">
                               <span tal:replace="structure accessor" />
@@ -105,10 +97,8 @@
 
                             <td class="c1" width="22%" valign="top"
                             bgcolor="#E9F1F7">
-                              <b>
-                                <font face="Arial" size="2">
-                                Sub-Region</font>
-                              </b>
+                              
+                                Sub-Region:
                             </td>
                             <td class="c1" width="78%" valign="top">
                               <span>
@@ -121,9 +111,7 @@
 
                             <td class="c1" width="22%" valign="top"
                             bgcolor="#E9F1F7">
-                              <b>
-                                <font face="Arial" size="2">Basin</font>
-                              </b>
+                              Basin:
                             </td>
                             <td class="c1" width="78%" valign="top">
                               <span>
@@ -132,12 +120,10 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="c1" width="22%" bgcolor="#E9F1F7"
+                            <td class="c1 prjlabel"
                             valign="top">
-                              <b>
-                                <font size="2" face="Arial">Project
-                                Contacts</font>
-                              </b>
+                              Project
+                                Contacts:
                             </td>
                             <td class="c1" width="78%" valign="top">
                                 <ul tal:define="contacts here/getProject_contacts">
@@ -151,11 +137,9 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="c1" width="22%" bgcolor="#E9F1F7"
+                            <td class="c1 prjlabel"
                             valign="top">
-                              <b>
-                                <font size="2" face="Arial">Tranche Funding</font>
-                              </b>
+                              Tranche Funding:
                             </td>
                             <td class="c1" width="78%" valign="top">
                                 <tal:put_filter_on_request define="dummy python:request.set('contentFilter', {'meta_type': ['Project']})">
@@ -164,12 +148,10 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="c1" width="22%" bgcolor="#E9F1F7"
+                            <td class="c1 prjlabel"
                             valign="top">
-                              <b>
-                                <font size="2" face="Arial">Project
-                                Documents</font>
-                              </b>
+                              Project
+                                Documents:
                             </td>
                             <td class="c1" width="78%" valign="top" id="subfolder-menu">
                                 <span tal:replace="structure view/render_subfolder_listing"></span>
@@ -215,10 +197,10 @@
                             </td>
                         </tr>
                         <tr>
-                          <td width="100%" bgcolor="#624A7F" colspan="2">
-                          &#160;
+                          <td width="100%" class="summarylabel" colspan="2">
+                          
                           <b>
-                            <font color="#FFFFFF" size="2" face="Arial">
+                            <font face="Arial">
                             General Information:</font>
                           </b></td>
                         </tr>
@@ -227,7 +209,7 @@
 
                           <td width="46%" bgcolor="#BEB0D0">
                             <b>
-                              <font face="Arial" size="2">Project
+                              <font face="Arial">Project
                               Type</font>
                             </b>
                           </td>
@@ -240,7 +222,7 @@
 
                           <td width="46%" bgcolor="#BEB0D0">
                             <b>
-                              <font size="2" face="Arial">Project
+                              <font face="Arial">Project
                               Status</font>
                             </b>
                           </td>
@@ -256,7 +238,7 @@
 
                           <td width="46%" bgcolor="#BEB0D0">
                             <b>
-                              <font size="2" face="Arial">Start Date</font>
+                              <font face="Arial">Start Date</font>
                             </b>
                           </td>
                           <td width="54%">
@@ -272,7 +254,7 @@
 
                           <td width="46%" bgcolor="#BEB0D0">
                             <b>
-                              <font size="2" face="Arial">End Date</font>
+                              <font face="Arial">End Date</font>
                             </b>
                           </td>
                           <td width="54%">
@@ -280,12 +262,12 @@
                           </td>
                         </tr>
                         <tr>
-                          <td width="100%" colspan="2">&#160;</td>
+                          <td width="100%" colspan="2" class="summarybottom">&#160;</td>
                         </tr>
                         <tr>
-                          <td width="100%" colspan="2" bgcolor="#CC6600">
+                          <td width="100%" colspan="2" class="summarylabel">
                             <b>
-                              <font size="2" face="Arial" color="#FFFFFF">
+                              <font face="Arial">
                               GEF characteristic:</font>
                             </b>
                           </td>
@@ -367,12 +349,12 @@
                           </td>
                         </tr>
                         <tr>
-                          <td width="100%" colspan="2">&#160;</td>
+                          <td width="100%" colspan="2" class="summarybottom">&#160;</td>
                         </tr>
                         <tr>
-                          <td width="100%" colspan="2" bgcolor="#57722E">
-                            <b>&#160;
-                            <font color="#FFFFFF">Partners:</font></b>
+                          <td width="100%" colspan="2" class="summarylabel">
+                            <b>
+                            <font>Partners:</font></b>
                           </td>
                         </tr>
                         <tr tal:define="field python:here.Schema()['country']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
@@ -380,7 +362,7 @@
 
                           <td width="46%" bgcolor="#C7D8A8">
                             <b>
-                              <font size="2" face="Arial">Countries:</font>
+                              <font face="Arial">Countries:</font>
                             </b>
                           </td>
                           <td width="54%">
@@ -392,7 +374,7 @@
 
                           <td width="46%" bgcolor="#C7D8A8">
                             <b>
-                              <font size="2" face="Arial">Lead Implementing
+                              <font face="Arial">Lead Implementing
                               Agency</font>
                             </b>
                           </td>
@@ -405,7 +387,7 @@
 
                           <td valign="top" width="46%" bgcolor="#C7D8A8">
                             <b>
-                              <font size="2" face="Arial">Other
+                              <font face="Arial">Other
                               Implementing Agency</font>
                             </b>
                           </td>
@@ -418,7 +400,7 @@
 
                           <td valign="top" width="46%" bgcolor="#C7D8A8">
                             <b>
-                              <font size="2" face="Arial">Executing
+                              <font face="Arial">Executing
                               Agencies</font>
                             </b>
                           </td>
@@ -435,7 +417,7 @@
 
                           <td valign="top" width="46%" bgcolor="#C7D8A8">
                             <b>
-                              <font size="2" face="Arial">Executing
+                              <font face="Arial">Executing
                               Agencies</font>
                             </b>
                           </td>
@@ -458,7 +440,7 @@
                         <tr>
                           <td width="100%" bgcolor="#94B9DC">
                             <b>
-                              <font size="2" face="Arial">Project
+                              <font face="Arial">Project
                               Description:</font>
                             </b>
                           </td>

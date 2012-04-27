@@ -36,7 +36,7 @@
                    The concept of "integrated coastal zone management" (ICZM) supports regional transboundary level programmes, such as the GEF-Gulf of Guinea Large Marine Ecosystem (GOG-LME) Programme, for inter-governmental bodies. Also, recent economic studies have placed a higher value on coastal zones than any other sector of the environment. In the Gulf of Guinea coastal area, 80 million inhabitants are directly dependent on the fisheries, habitat, and energy resources of the region
             </div>
             <div id="content-core">
-                <div id="project-map" style="height:600px; width:900px">
+                <div id="project-map" style="height:600px; ">
                     <metal:use use-macro="context/@@collectivegeo-macros/openlayers" />
                     <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
                     <script type="text/javascript"

@@ -173,7 +173,7 @@ width:50%;
 }*/
 #content div.project-collumn-wrapper div.c3 {
     float: left;
-    width: 68%;
+    width: 67%;
 }
 
 
@@ -242,4 +242,7 @@ width:50%;
 #projectdbcharts {
 	padding:  1em;
 	text-align: center;	
+}
+.project-header-image img {
+	max-width: 100%;
 }

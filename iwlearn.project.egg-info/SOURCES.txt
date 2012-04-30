@@ -312,7 +312,6 @@ iwlearn/project/skins/iwlearn_project_images/flexigrid-images/prev.gif
 iwlearn/project/skins/iwlearn_project_images/flexigrid-images/up.png
 iwlearn/project/skins/iwlearn_project_images/flexigrid-images/uup.png
 iwlearn/project/skins/iwlearn_project_images/flexigrid-images/wbg.gif
-iwlearn/project/skins/iwlearn_project_js/LoadingPanel.js
 iwlearn/project/skins/iwlearn_project_js/project-listing-map.js.dtml
 iwlearn/project/skins/iwlearn_project_js/projectmap-config.js.dtml
 iwlearn/project/skins/iwlearn_project_styles/flexigrid.css

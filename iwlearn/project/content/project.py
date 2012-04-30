@@ -450,7 +450,8 @@ class Project(folder.ATFolder):
         basins = self.getBasins()
         titles = []
         for basin in basins:
-            titles.append(basin.Title())
+            if basin is not None:
+                 titles.append(basin.Title())
         return titles
 
 

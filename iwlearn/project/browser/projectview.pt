@@ -35,6 +35,12 @@
                 tal:content="here/Description">
                    The concept of "integrated coastal zone management" (ICZM) supports regional transboundary level programmes, such as the GEF-Gulf of Guinea Large Marine Ecosystem (GOG-LME) Programme, for inter-governmental bodies. Also, recent economic studies have placed a higher value on coastal zones than any other sector of the environment. In the Gulf of Guinea coastal area, 80 million inhabitants are directly dependent on the fisheries, habitat, and energy resources of the region
             </div>
+            <div class="project-header-image" tal:condition="context/project_header_image| nothing" >
+                <img
+                    tal:on-error="nothing"
+                    tal:attributes="src string:${context/absolute_url}/project_header_image"
+                    alt="Project Header" />
+            </div>
             <div id="content-core">
                 <h2 tal:condition="not:isAnon" tal:define="isAnon context/@@plone_portal_state/anonymous;" >
                  <a tal:attributes="href string:http://www.google.com/search?q=${here/title}"
@@ -56,17 +62,17 @@
                             </td>
                           </tr>
                           <!-- moved project description here -->
-								  <tr tal:define="field python:here.Schema()['project_summary']; accessor python:getattr(here, field.accessor)"
-		                      tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
-									  <td class="c1 prjlabel">
-										Project
-										  Description:
-									  </td>
-									
-									  <td class="c1" width="78%">
-										<spal tal:replace="structure here/project_summary" />
-									  </td>
-								  </tr>
+                                  <tr tal:define="field python:here.Schema()['project_summary']; accessor python:getattr(here, field.accessor)"
+                              tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+                                      <td class="c1 prjlabel">
+                                        Project
+                                          Description:
+                                      </td>
+
+                                      <td class="c1" width="78%">
+                                        <spal tal:replace="structure here/project_summary" />
+                                      </td>
+                                  </tr>
                           <tr tal:define="field python:here.Schema()['remote_url']; accessor python:getattr(here, field.accessor)"
                           tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
@@ -97,7 +103,7 @@
 
                             <td class="c1" width="22%" valign="top"
                             bgcolor="#E9F1F7">
-                              
+
                                 Sub-Region:
                             </td>
                             <td class="c1" width="78%" valign="top">
@@ -198,7 +204,7 @@
                         </tr>
                         <tr>
                           <td width="100%" class="summarylabel" colspan="2">
-                          
+
                           <b>
                             <font face="Arial">
                             General Information:</font>

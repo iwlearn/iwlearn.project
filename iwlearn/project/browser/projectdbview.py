@@ -523,7 +523,6 @@ class ProjectDBMapView(ProjectDBBaseView):
             });
             var map = cgmap.config['default-cgmap'].map;
 
-
             var kmls = map.getLayersByName('Basin Cluster');
             layer = kmls[0];
             kml_url = '%(url)s/@@projectbasincluster_view.kml' + qs;

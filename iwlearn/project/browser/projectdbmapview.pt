@@ -304,7 +304,7 @@ $('#projectmapform').submit
 
         map.events.on({
                 moveend: function(event) {
-                    var mapExtent = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
+                    /*var mapExtent = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
                     var b_l = mapExtent.left;
                     var b_b = mapExtent.bottom;
                     var b_r = mapExtent.right;
@@ -328,7 +328,10 @@ $('#projectmapform').submit
                         jQuery("input#inputbbox").val(input_string);
                         jQuery("input#inputzoom").val(zoom_factor);
                         onBasinLayerOptionsChange();
-                    }
+                    */
+                    var kmls = map.getLayersByName('Basin Cluster');
+                    layer = kmls[0];
+                    layer.redraw();
 
                   }
             });
@@ -356,6 +359,8 @@ $('#projectmapform').submit
         function onFeatureSelect(event) {
             if (event.feature.cluster == null){
                 var feature = event.feature;
+                //event.feature.layer.name
+                //event.feature.data.name
                 var content = lt + "h2" + gt + feature.attributes.name + lt + "/h2" + gt + feature.attributes.description;
                 popup = new OpenLayers.Popup.FramedCloud("chicken",
                                          feature.geometry.getBounds().getCenterLonLat(),

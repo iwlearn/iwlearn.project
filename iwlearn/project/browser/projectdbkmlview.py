@@ -127,7 +127,7 @@ class BasinPlacemark(BrainPlacemark):
             title = self.context.Title().decode('utf-8', 'ignore')
         else:
             title = self.context.Title.decode('utf-8', 'ignore')
-        return cgi.escape(title) + u' - %i Projects' % len(self.projects)
+        return cgi.escape(title) + u'\t- %i Projects' % len(self.projects)
 
 
     @property
@@ -180,10 +180,12 @@ class ClusteredBasinPlacemark(BasinPlacemark):
         super(ClusteredBasinPlacemark, self).__init__(context, request, document, [])
         shape = { 'type': context.zgeo_geometry['type'],
                 'coordinates': context.zgeo_geometry['coordinates']}
-        geom = self._get_simplified_geometry(shape)
+        #geom = self._get_simplified_geometry(shape)
         self.geom = NullGeometry()
-        self.geom.type = geom.__geo_interface__['type']
-        self.geom.coordinates = geom.__geo_interface__['coordinates']
+        #self.geom.type = geom.__geo_interface__['type']
+        #self.geom.coordinates = geom.__geo_interface__['coordinates']
+        self.geom.type = shape['type']
+        self.geom.coordinates = shape['coordinates']
 
     @ram.cache(_centeroid_cachekey)
     def _get_simplified_geometry(self, shape):
@@ -269,7 +271,7 @@ class CountryPlacemark(BrainPlacemark):
 
     @property
     def name(self):
-        return cgi.escape(self.country ) + u' - %i Projects' % len(self.projects)
+        return cgi.escape(self.country ) + u'\t- %i Projects' % len(self.projects)
 
     @property
     def description(self):
@@ -359,25 +361,24 @@ class ProjectDbKmlBasinClusterView(ProjectDbKmlBasinView):
 
     @property
     def features(self):
-        if int(self.request.form.get('zoomfactor','0')) > 5:
-            return
-        sbbox = self.request.form.get('bbox','-180,-90,180,90')
-        bbox = [float(c) for c in sbbox.split(',')]
-        bbox_area = MultiPoint([bbox[:2],bbox[2:]]).envelope.area
+        #if int(self.request.form.get('zoomfactor','0')) > 5:
+        #    return
+        #sbbox = self.request.form.get('bbox','-180,-90,180,90')
+        #bbox = [float(c) for c in sbbox.split(',')]
+        #bbox_area = MultiPoint([bbox[:2],bbox[2:]]).envelope.area
         show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
         logger.debug('Cluster basin view project query: %s' % str(query))
         projects = self.get_projects(query)
         path = []
-        if sbbox != '-180,-90,180,90':
-            basin_query = {'portal_type':'Basin',
-                    'zgeo_geometry': {
-                        'geometry_operator': 'intersects',
-                            'query': sbbox}}
-        else:
-            basin_query = {'portal_type':'Basin'}
-
+        #if sbbox != '-180,-90,180,90':
+        #    basin_query = {'portal_type':'Basin',
+        #            'zgeo_geometry': {
+        #                'geometry_operator': 'intersects',
+        #                    'query': sbbox}}
+        #else:
+        basin_query = {'portal_type':'Basin'}
         if basin_types:
             basin_query['getBasin_type'] = basin_types
         basins = self.get_results(basin_query)
@@ -386,7 +387,7 @@ class ProjectDbKmlBasinClusterView(ProjectDbKmlBasinView):
                 shape = { 'type': basin.zgeo_geometry['type'],
                             'coordinates': basin.zgeo_geometry['coordinates']}
                 basin_area = self._get_basin_area(shape)
-                if basin_area < bbox_area/SHOW_BBOX_RATIO:
+                if basin_area < 15.0:
                     if 'with' in show_gef_basins:
                         if basin.getRawProjects:
                             show = False
@@ -406,46 +407,42 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
 
     @property
     def features(self):
-        sbbox = self.request.form.get('bbox','-180,-90,180,90')
-        bbox = [float(c) for c in sbbox.split(',')]
-        bbox_area = MultiPoint([bbox[:2],bbox[2:]]).envelope.area
+        #sbbox = self.request.form.get('bbox','-180,-90,180,90')
+        #bbox = [float(c) for c in sbbox.split(',')]
+        #bbox_area = MultiPoint([bbox[:2],bbox[2:]]).envelope.area
         show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
-        if int(self.request.form.get('zoomfactor','0')) > 5:
-             bbox_area = 1
+        #if int(self.request.form.get('zoomfactor','0')) > 5:
+        #     bbox_area = 1
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
         logger.debug('detail basin view project query: %s' % str(query))
         projects = self.get_projects(query)
         path = []
-        if sbbox != '-180,-90,180,90':
-            basin_query = {'portal_type':'Basin',
-                    'zgeo_geometry': {
-                        'geometry_operator': 'intersects',
-                        'query': sbbox}}
-        else:
-            basin_query = {'portal_type':'Basin'}
+        #if sbbox != '-180,-90,180,90':
+        #    basin_query = {'portal_type':'Basin',
+        #            'zgeo_geometry': {
+        #                'geometry_operator': 'intersects',
+        #                'query': sbbox}}
+        #else:
+        basin_query = {'portal_type':'Basin'}
         if basin_types:
             basin_query['getBasin_type'] = basin_types
         basins = self.get_results(basin_query)
         for basin in basins:
             if basin.zgeo_geometry and basin.zgeo_geometry['coordinates']:
-                shape = { 'type': basin.zgeo_geometry['type'],
-                        'coordinates': basin.zgeo_geometry['coordinates']}
-                basin_area = self._get_basin_area(shape)
-                if basin_area >= bbox_area/SHOW_BBOX_RATIO:
-                    if 'with' in show_gef_basins:
-                        if basin.getRawProjects:
-                            show = False
-                            for puid in basin.getRawProjects:
-                                if puid in projects:
-                                    show = True
-                            if show:
-                                yield BasinPlacemark(basin, self.request, self,
-                                       projects)
-                                continue
-                    if 'without' in show_gef_basins:
-                        yield BasinPlacemark(basin, self.request, self,
-                                    {})
+                if 'with' in show_gef_basins:
+                    if basin.getRawProjects:
+                        show = False
+                        for puid in basin.getRawProjects:
+                            if puid in projects:
+                                show = True
+                        if show:
+                            yield BasinPlacemark(basin, self.request, self,
+                                   projects)
+                            continue
+                if 'without' in show_gef_basins:
+                    yield BasinPlacemark(basin, self.request, self,
+                                {})
 
 # fetch projects once every hour only
 def _country_cachekey(method, self, **args):

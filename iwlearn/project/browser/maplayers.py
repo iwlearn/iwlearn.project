@@ -145,6 +145,24 @@ class ProjectDbKMLBasinMapLayer(MapLayerBase):
                                         strokeOpacity: 0.8,
                                         label:"${count}"
                                     }, {
+                                        rules: [
+                                            new OpenLayers.Rule({
+                                                    context: function(feature) {
+                                                        return feature;
+                                                    },
+                                                    filter: new OpenLayers.Filter({
+                                                        evaluate: function(feature) {
+                                                            var isvisible = ((
+                                                                (feature.cluster[0].geometry.getBounds().getSize().w *feature.cluster[0].geometry.getBounds().getSize().h)
+                                                                /
+                                                                (feature.layer.getExtent().getSize().w * feature.layer.getExtent().getSize().h)
+                                                                ) *10240);
+
+                                                            return (isvisible < 2)
+                                                        }
+                                                    })
+                                                })
+                                        ],
                                         context: {
                                             radius: function(feature) {
                                                 return Math.min(feature.attributes.count, 7) + 3;

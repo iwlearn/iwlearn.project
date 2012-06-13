@@ -17,11 +17,11 @@
                      tal:content="result/Title" />
                 </dt>
                 <dd>
-                    <span tal:replace="result/Description"/>
                     <img class="thumbnail"
                         style="float: left;"
                         tal:attributes="src string:${result/getURL}/logo_image"
                         alt="Project Logo" />
+                    <span tal:replace="result/Description"/>
                     <p class="documentByLine">
                         <span tal:define="tags result/Subject|nothing"
                             tal:condition="tags">

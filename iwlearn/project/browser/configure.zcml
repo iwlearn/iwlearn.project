@@ -111,6 +111,16 @@
 
   <browser:page
       for="..interfaces.IProjectDatabase"
+      name="project-list-view.html"
+      class=".projectdbview.ProjectDBListView"
+      template="projectdblistview.pt"
+      allowed_interface=".projectdbview.IProjectDBListView"
+      permission="zope2.View"
+      />
+
+
+  <browser:page
+      for="..interfaces.IProjectDatabase"
       name="projectwebsites_view"
       class=".projectwebsitesview.ProjectWebsitesView"
       template="projectwebsitesview.pt"

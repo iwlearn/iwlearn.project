@@ -174,8 +174,6 @@
                     <label for="withoutgefbasins">Without GEF projects</label>
                 </div>
               <br />
-              <input type="hidden" value="-180,-90,180,90" name="bbox" id="inputbbox" />
-              <input type="hidden" value="0" name="zoomfactor" id="inputzoom" />
               <a id="projectdballkmlurl" href="projectbasin_view.kml">
                     <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
                         alt="open in google earth" />
@@ -205,6 +203,7 @@
         </div>
 <div class="visualClear">&nbsp;</div>
 
+<div id="featureprojectdetails"> click on the map to get details </div>
 
 <script type="text/javascript" tal:content="structure view/get_js">
 /*<![CDATA[*/
@@ -304,31 +303,6 @@ $('#projectmapform').submit
 
         map.events.on({
                 moveend: function(event) {
-                    /*var mapExtent = event.object.getExtent().transform(map.getProjectionObject(), new OpenLayers.Projection("EPSG:4326"));
-                    var b_l = mapExtent.left;
-                    var b_b = mapExtent.bottom;
-                    var b_r = mapExtent.right;
-                    var b_t = mapExtent.top;
-                    var zoom_factor = event.object.getZoom();
-                    if (zoom_factor < 2) {zoom_factor = 0};
-                    if (zoom_factor > 5) {zoom_factor = 6};
-                    if (b_l > b_r){
-                        if (mapExtent.getCenterLonLat().lon > 0){
-                            b_l = -180;
-                        }
-                    };
-                    var left = Math.max(Math.floor(b_l/10)*10, -180);
-                    var bottom = Math.max(Math.floor(b_b/10)*10, -90);
-                    var right = Math.min(Math.ceil(b_r/10)*10, 180);
-                    var top = Math.min(Math.ceil(b_t/10)*10, 90);
-                    if (right < left){ right = 180; };
-                    var input_string = '' + left +',' + bottom +',' + right + ',' + top;
-                    if (event.object.getZoom() < 2){ input_string = '-180,-90,180,90';};
-                    if ((jQuery("input#inputbbox").val() != input_string) || jQuery("input#inputzoom").val() != zoom_factor) {
-                        jQuery("input#inputbbox").val(input_string);
-                        jQuery("input#inputzoom").val(zoom_factor);
-                        onBasinLayerOptionsChange();
-                    */
                     var kmls = map.getLayersByName('Basin Cluster');
                     layer = kmls[0];
                     layer.redraw();
@@ -359,16 +333,15 @@ $('#projectmapform').submit
         function onFeatureSelect(event) {
             if (event.feature.cluster == null){
                 var feature = event.feature;
-                //event.feature.layer.name
-                //event.feature.data.name
-                var content = lt + "h2" + gt + feature.attributes.name + lt + "/h2" + gt + feature.attributes.description;
+                /*var content = lt + "h2" + gt + feature.attributes.name + lt + "/h2" + gt + feature.attributes.description;
                 popup = new OpenLayers.Popup.FramedCloud("chicken",
                                          feature.geometry.getBounds().getCenterLonLat(),
                                          new OpenLayers.Size(100,100),
                                          content,
-                                         null, true, onPopupClose);
-                feature.popup = popup;
-                map.addPopup(popup);
+                                         null, true, onPopupClose);*/
+                refreshFeatureDetails(feature.layer.name, feature.data.name.split('\t')[0]);
+                //feature.popup = popup;
+                //map.addPopup(popup);
             } else {
                 var lonlat = event.feature.geometry.getBounds().getCenterLonLat();
                 var currZoom = this.map.getZoom();

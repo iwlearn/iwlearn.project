@@ -1,0 +1,45 @@
+<tal:results tal:define="results view/search_results">
+    <h2>
+       <span tal:omit-tag="" tal:content="view/feature_name">Nile </span> &mdash;
+       <span tal:omit-tag=""
+            tal:content="python:len(results)">234</span>  projects
+    </h2>
+    <div tal:condition="not: results" i18n:domain="plone">
+        <p><strong i18n:translate="description_no_results_found">No results were found.</strong></p>
+    </div>
+    <div tal:condition="results">
+        <dl class="searchResults"  i18n:domain="plone">
+            <tal:loop repeat="result results">
+                <dt>
+                   <a
+                     href="#"
+                     tal:attributes="href result/getURL;"
+                     tal:content="result/Title" />
+                </dt>
+                <dd>
+                    <span tal:replace="result/Description"/>
+                    <img class="thumbnail"
+                        style="float: left;"
+                        tal:attributes="src string:${result/getURL}/logo_image"
+                        alt="Project Logo" />
+                    <p class="documentByLine">
+                        <span tal:define="tags result/Subject|nothing"
+                            tal:condition="tags">
+                            <tal:filedunder i18n:translate="label_filed_under">Filed under:</tal:filedunder>
+                                <span tal:repeat="tag tags">
+                                    <a href=""
+                                       class="link-tag"
+                                       rel="tag"
+                                       tal:attributes="href string:${context/@@plone_portal_state/navigation_root_url}/search?Subject%3Alist=${tag}"
+                                       tal:content="tag">
+                                       Tag
+                                    </a><tal:separator condition="not: repeat/tag/end">,</tal:separator>
+                                </span>
+                        </span>
+                    </p>
+                    <div class="visualClear">&nbsp;</div>
+                </dd>
+            </tal:loop>
+        </dl>
+    </div>
+</tal:results>

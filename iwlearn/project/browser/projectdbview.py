@@ -549,8 +549,65 @@ class ProjectDBMapView(ProjectDBBaseView):
             jQuery("a#projectdballkmlurl").attr('href', kml_url);
         };
 
+        function refreshFeatureDetails(layerName, featureName) {
+            var dt = $('#projectmapform').serializeArray();
+            var qs = '?';
+            var params = {};
+            jQuery.each(dt, function(i, field){
+                if (field.name.substring(0,25) != 'cgmap_state.default-cgmap') {
+                    qs = qs + field.name + '=' + field.value + "&";
+                    params[field.name] = field.value;
+                };
+            });
+            if (layerName == "Countries") {
+                qs = qs + 'getCountry=' + featureName
+            }
+            if (layerName == "Basin Detail") {
+                qs = qs + 'getBasin=' + featureName
+            }
+            var url = '%(url)s/@@project-list-view.html' + qs;
+            jQuery.get(url,
+                function(data) {
+                  jQuery('#featureprojectdetails').html(data);
+            });
+        };
 
 
         """ % {'url': self.context.absolute_url()}
         return refresh_js
+
+
+class IProjectDBListView(Interface):
+    """ Marker Interface """
+
+class ProjectDBListView(BrowserView):
+    """ Returns html snippet for project map view when a feature
+    is clicked"""
+    implements(IProjectDBListView)
+
+
+    @property
+    def portal_catalog(self):
+        return getToolByName(self.context, 'portal_catalog')
+
+    @property
+    def portal(self):
+        return getToolByName(self.context, 'portal_url').getPortalObject()
+
+
+    def search_results(self):
+        form = self.request.form
+        query = get_query(form)
+        results = self.portal_catalog(**query)
+        return results
+
+    def feature_name(self):
+        form = self.request.form
+        if 'getCountry' in form:
+            return form['getCountry']
+        elif 'getBasin' in form:
+            return form['getBasin']
+        else:
+            return 'N/A'
+
 

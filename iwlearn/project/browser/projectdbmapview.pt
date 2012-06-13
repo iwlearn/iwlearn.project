@@ -181,7 +181,7 @@
                 </a>
             </form>
 
-    <div id="projectdbmap" style="height:100%; width: 100%">
+    <div id="projectdbmap" style="width: 100%">
     <br />
 <!-- Collective.geo map -->
 
@@ -191,19 +191,15 @@
         <script type="text/javascript"
                 src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
         <span id="map-nav-panel"></span>
+        <div id="featureprojectdetails"> click on the map to get details </div>
 
-        <!--a id="projectkmlurl" href="projectbasin_view.kml">
-        <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
-            alt="open in google earth" />
-        Download KML
-        </a-->
 
 
 <!-- /Collective.geo map -->
         </div>
 <div class="visualClear">&nbsp;</div>
 
-<div id="featureprojectdetails"> click on the map to get details </div>
+
 
 <script type="text/javascript" tal:content="structure view/get_js">
 /*<![CDATA[*/

@@ -7,6 +7,7 @@
     <div tal:condition="not: results" i18n:domain="plone">
         <p><strong i18n:translate="description_no_results_found">No results were found.</strong></p>
     </div>
+    <div class="visualClear">&nbsp;</div>
     <div tal:condition="results">
         <dl class="searchResults"  i18n:domain="plone">
             <tal:loop repeat="result results">

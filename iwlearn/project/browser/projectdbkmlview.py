@@ -134,19 +134,19 @@ class BasinPlacemark(BrainPlacemark):
     def description(self):
 
         if self.projects:
-            desc = u'<ul>'
-            for project in self.projects:
-
-                title = project['title'].decode('utf-8', 'ignore')
-                desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (
-                        project['url'],
-                        cgi.escape(title.encode(
-                            'ascii', 'xmlcharrefreplace')),
-                        cgi.escape(title[:48].encode(
-                            'ascii', 'xmlcharrefreplace') + u'...')
-                        )
-            desc += u'</ul>'
-
+            #desc = u'<ul>'
+            #for project in self.projects:
+            #    title = project['title'].decode('utf-8', 'ignore')
+            #    desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (
+            #            project['url'],
+            #            cgi.escape(title.encode(
+            #                'ascii', 'xmlcharrefreplace')),
+            #            cgi.escape(title[:48].encode(
+            #                'ascii', 'xmlcharrefreplace') + u'...')
+            #            )
+            #desc += u'</ul>'
+            url = '@@project-map-view.html'
+            desc ='<a href="%s#projectdetaillist">  More information below the map </a>' %url
 
 
 
@@ -168,6 +168,13 @@ class BasinPlacemark(BrainPlacemark):
             color = get_basin_color('#0022FF44',
                     len(self.projects))
         return web2kmlcolor(color.upper())
+
+    def display_properties(self, document):
+        return []
+
+    @property
+    def item_url(self):
+        return None
 
 # do not compute the centeroid of a shape every time cache it
 def _centeroid_cachekey(context, fun, shape):
@@ -246,6 +253,15 @@ class CountryPlacemark(BrainPlacemark):
     def polygoncolor(self):
         color = get_color(len(self.projects))
         return web2kmlcolor(color.upper())
+
+
+    @property
+    def marker_image(self):
+        return self.context['url']
+
+    @property
+    def marker_image_size(self):
+        return 0.7
 
     @property
     def use_custom_styles(self):
@@ -410,6 +426,7 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
         #sbbox = self.request.form.get('bbox','-180,-90,180,90')
         #bbox = [float(c) for c in sbbox.split(',')]
         #bbox_area = MultiPoint([bbox[:2],bbox[2:]]).envelope.area
+
         show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
         #if int(self.request.form.get('zoomfactor','0')) > 5:
         #     bbox_area = 1
@@ -523,7 +540,6 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                     if ((c in project_countries) and
                             (ct not in project_countries)):
                         project_countries.append(ct)
-
 
         processed_countries = []
         for ct, cv in countries.iteritems():

@@ -597,6 +597,11 @@ class ProjectDBListView(BrowserView):
 
     def search_results(self):
         form = self.request.form
+        if 'getCountry' in form:
+            if form['getCountry'] == 'Global':
+                form.pop('getCountry')
+                form['getSubRegions'] = 'Global'
+
         query = get_query(form)
         results = self.portal_catalog(**query)
         return results
@@ -607,6 +612,8 @@ class ProjectDBListView(BrowserView):
             return form['getCountry']
         elif 'getBasin' in form:
             return form['getBasin']
+        elif 'getSubRegions' in form:
+            return form['getSubRegions']
         else:
             return 'N/A'
 

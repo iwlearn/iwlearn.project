@@ -329,15 +329,15 @@ $('#projectmapform').submit
         function onFeatureSelect(event) {
             if (event.feature.cluster == null){
                 var feature = event.feature;
-                /*var content = lt + "h2" + gt + feature.attributes.name + lt + "/h2" + gt + feature.attributes.description;
+                var content = lt + "h2" + gt + feature.attributes.name + lt + "/h2" + gt + feature.attributes.description;
                 popup = new OpenLayers.Popup.FramedCloud("chicken",
                                          feature.geometry.getBounds().getCenterLonLat(),
                                          new OpenLayers.Size(100,100),
                                          content,
-                                         null, true, onPopupClose);*/
+                                         null, true, onPopupClose);
                 refreshFeatureDetails(feature.layer.name, feature.data.name.split('\t')[0]);
-                //feature.popup = popup;
-                //map.addPopup(popup);
+                feature.popup = popup;
+                map.addPopup(popup);
             } else {
                 var lonlat = event.feature.geometry.getBounds().getCenterLonLat();
                 var currZoom = this.map.getZoom();

@@ -1,5 +1,5 @@
 <tal:results tal:define="results view/search_results">
-    <h2>
+    <h2> <a name="projectdetaillist" />
        <span tal:omit-tag="" tal:content="view/feature_name">Nile </span> &mdash;
        <span tal:omit-tag=""
             tal:content="python:len(results)">234</span>  projects

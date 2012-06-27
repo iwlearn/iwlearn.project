@@ -212,6 +212,7 @@ iwlearn/project/uncountries.py
 iwlearn/project/unitesomalia.py
 iwlearn/project/vocabulary.py
 iwlearn/project/browser/__init__.py
+iwlearn/project/browser/colorwheel.py
 iwlearn/project/browser/configure.zcml
 iwlearn/project/browser/flexijsonview.py
 iwlearn/project/browser/gefonlineharvestview.pt
@@ -231,6 +232,7 @@ iwlearn/project/browser/projectdbbasinview.pt
 iwlearn/project/browser/projectdbcountryview.pt
 iwlearn/project/browser/projectdbkmlview.pt
 iwlearn/project/browser/projectdbkmlview.py
+iwlearn/project/browser/projectdblistview.pt
 iwlearn/project/browser/projectdbmapview.pt
 iwlearn/project/browser/projectdbview.pt
 iwlearn/project/browser/projectdbview.py
@@ -312,6 +314,7 @@ iwlearn/project/skins/iwlearn_project_images/flexigrid-images/prev.gif
 iwlearn/project/skins/iwlearn_project_images/flexigrid-images/up.png
 iwlearn/project/skins/iwlearn_project_images/flexigrid-images/uup.png
 iwlearn/project/skins/iwlearn_project_images/flexigrid-images/wbg.gif
+iwlearn/project/skins/iwlearn_project_js/LoadingPanel.js
 iwlearn/project/skins/iwlearn_project_js/project-listing-map.js.dtml
 iwlearn/project/skins/iwlearn_project_js/projectmap-config.js.dtml
 iwlearn/project/skins/iwlearn_project_styles/flexigrid.css

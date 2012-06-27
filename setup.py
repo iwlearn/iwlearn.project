@@ -56,7 +56,7 @@ setup(name='iwlearn.project',
       zip_safe=False,
       install_requires=['setuptools',
                         # -*- Extra requirements: -*-
-                        'collective.geo.kml',
+                        'collective.geo.fastkml',
                         'Products.ATBackRef',
                         'Products.ATExtensions',
                         'collective.flexitopic',

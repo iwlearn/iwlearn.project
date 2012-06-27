@@ -345,6 +345,17 @@
       permission="cmf.ModifyPortalContent"
       />
 
+    <browser:page
+        name="update_colors_form.html"
+        for="..interfaces.IProjectDatabase"
+        class=".updatecolors.UpdateColors"
+        permission="cmf.ModifyPortalContent" />
+
+    <adapter
+        for="..interfaces.IProjectDatabase"
+        provides=".updatecolors.IColorForm"
+        factory=".updatecolors.Color" />
+
   <!-- configuration for the google map portlet -->
   <browser:page
       for="*"

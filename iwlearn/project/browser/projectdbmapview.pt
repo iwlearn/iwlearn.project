@@ -299,10 +299,11 @@ $('#projectmapform').submit
 
         map.events.on({
                 moveend: function(event) {
-                    var kmls = map.getLayersByName('Basin Cluster');
-                    layer = kmls[0];
-                    layer.redraw();
-
+                    if (event.zoomChanged) {
+                        var kmls = map.getLayersByName('Basin Cluster');
+                        layer = kmls[0];
+                        layer.redraw();
+                    }
                   }
             });
 
@@ -332,7 +333,7 @@ $('#projectmapform').submit
                 var content = lt + "h2" + gt + feature.attributes.name + lt + "/h2" + gt + feature.attributes.description;
                 popup = new OpenLayers.Popup.FramedCloud("chicken",
                                          feature.geometry.getBounds().getCenterLonLat(),
-                                         new OpenLayers.Size(100,100),
+                                         new OpenLayers.Size(500,500),
                                          content,
                                          null, true, onPopupClose);
                 refreshFeatureDetails(feature.layer.name, feature.data.name.split('\t')[0]);

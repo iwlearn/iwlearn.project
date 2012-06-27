@@ -280,7 +280,8 @@ class CountryPlacemark(BrainPlacemark):
 
     @property
     def item_url(self):
-        return self.context['url']
+        #return self.context['url']
+        return None
 
     @property
     def author(self):
@@ -298,15 +299,17 @@ class CountryPlacemark(BrainPlacemark):
 
     @property
     def description(self):
-        desc = u'<ul>'
-        for project in self.projects:
-            title = project.Title.decode('utf-8', 'ignore')
-            desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (project.getURL(),
-                            cgi.escape(title.encode(
-                            'ascii', 'xmlcharrefreplace')),
-                            cgi.escape(title[:48].encode(
-                            'ascii', 'xmlcharrefreplace') + u'...'))
-        desc += u'</ul>'
+        #desc = u'<ul>'
+        #for project in self.projects:
+        #    title = project.Title.decode('utf-8', 'ignore')
+        #    desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (project.getURL(),
+        #                    cgi.escape(title.encode(
+        #                    'ascii', 'xmlcharrefreplace')),
+        #                    cgi.escape(title[:48].encode(
+        #                    'ascii', 'xmlcharrefreplace') + u'...'))
+        #desc += u'</ul>'
+        url = '@@project-map-view.html'
+        desc ='<a href="%s#projectdetaillist">  More information below the map </a>' %url
         return desc
 
     def lead_image(self, scale='', css_class=''):

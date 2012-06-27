@@ -46,7 +46,7 @@ def get_color(base,n):
     #hsv = list(colorsys.rgb_to_hsv(r, g, b))
     #nh = ((1-h)/20)*n + h
     #nl = ((1-l)/20)*n + l
-    nl = 1.0 - min((n/40.0), 1.0)
+    nl = 1.0 - min(((n+3)/40.0), 1.0)
     #ns = ((1-s)/40)*n + s
     #nhsv = [((1 -v)/20)*n +v for v in hsv]
     #if n==0:

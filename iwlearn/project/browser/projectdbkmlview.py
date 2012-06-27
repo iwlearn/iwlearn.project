@@ -14,11 +14,12 @@ from Products.CMFCore.utils import getToolByName
 from plone.memoize import view, ram, instance
 
 
-from collective.geo.kml.browser.kmldocument import KMLBaseDocument, BrainPlacemark, NullGeometry
+from collective.geo.kml.browser.kmldocument import BrainPlacemark, NullGeometry
+from collective.geo.fastkml.browser.kmldocument import FastKMLBaseDocument
 from collective.geo.kml.utils import web2kmlcolor
 
 from iwlearn.project import projectMessageFactory as _
-from iwlearn.project.browser.utils import get_query, get_color, get_basin_color
+from iwlearn.project.browser.utils import get_query, get_color
 from iwlearn.project.vocabulary import RATINGS
 
 
@@ -74,7 +75,7 @@ class ProjectDBKMLLinkView(BrowserView):
         return links
 
 
-class ProjectDbKmlView(KMLBaseDocument):
+class ProjectDbKmlView(FastKMLBaseDocument):
     """
     ProjectDbKml browser view
     """
@@ -162,7 +163,7 @@ class BasinPlacemark(BrainPlacemark):
     @property
     def polygoncolor(self):
         if self.styles:
-            color = get_basin_color(self.styles['polygoncolor'],
+            color = get_color(self.styles['polygoncolor'],
                         len(self.projects))
         else:
             color = get_basin_color('#0022FF44',
@@ -232,7 +233,10 @@ class CountryPlacemark(BrainPlacemark):
         self.geom.coordinates =  context['geometry']['coordinates']
         self.country = country
         self.projects = []
-        self.styles = None
+        try:
+            self.styles = self.context.collective_geo_styles
+        except:
+            self.styles = None
         if country == 'Global':
             for project in projects:
                 if project.getSubRegions:
@@ -251,7 +255,10 @@ class CountryPlacemark(BrainPlacemark):
                             self.projects.append(project)
     @property
     def polygoncolor(self):
-        color = get_color(len(self.projects))
+        if self.styles:
+            color = get_color(self.styles['polygoncolor'], len(self.projects))
+        else:
+            color = get_color("#a52a2a3c", len(self.projects))
         return web2kmlcolor(color.upper())
 
 

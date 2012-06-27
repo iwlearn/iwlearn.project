@@ -33,9 +33,8 @@ def rgba_to_hexcolor(r,g,b,a=0.7):
     return "#%x%x%x%x" %(r,g,b,a)
 
 
-def get_basin_color(base,n):
+def get_color(base,n):
     #return ('#%x%x' % (r,g)) + base[4:]
-
     #r,g,b,a = hexcolor_to_rgba(base)
     #h,s,v = colorsys.rgb_to_hsv(r, g, b)
     #ns = ((1-s)/20)*n + s
@@ -44,22 +43,20 @@ def get_basin_color(base,n):
     #r,g,b = colorsys.hsv_to_rgb(nh, s, v)
     r,g,b,a = hexcolor_to_rgba(base)
     h,l,s = colorsys.rgb_to_hls(r, g, b)
-    nh = ((1-h)/20)*n + h
-    nl = ((1-l)/20)*n + l
-    ns = ((1-s)/20)*n + s
-    if n==0:
-        #l = l/2
-        s = s/2
-    r,g,b = colorsys.hls_to_rgb(nh, l, s)
+    #hsv = list(colorsys.rgb_to_hsv(r, g, b))
+    #nh = ((1-h)/20)*n + h
+    #nl = ((1-l)/20)*n + l
+    nl = 1.0 - min((n/40.0), 1.0)
+    #ns = ((1-s)/40)*n + s
+    #nhsv = [((1 -v)/20)*n +v for v in hsv]
+    #if n==0:
+    #    l = l/2
+    #    s = s/2
+    r,g,b = colorsys.hls_to_rgb(h, nl, s)
+    #r,g,b = colorsys.hsv_to_rgb(hsv[0], nhsv[1], hsv[2])
     return rgba_to_hexcolor(r,g,b,a)
 
 
-
-def get_color(n):
-        r = min(255, max(5 +(10 * n), 16))
-        g = min(255, max(255 -r, 16))
-        b = 64
-        return '#%x%x%x' % (r,g,b)
 
 def get_query(form):
     query = {}

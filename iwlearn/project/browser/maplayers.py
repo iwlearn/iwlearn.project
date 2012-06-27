@@ -26,7 +26,7 @@ class GepcoMapLayer(MapLayer):
 
 class ProjectDbKMLMapLayer(MapLayerBase):
     """
-    a layer for one level sub objects.
+    a layer with the PCU locations oof projects.
     """
 
 
@@ -206,7 +206,7 @@ class ProjectDbKMLBasinMapLayer(MapLayerBase):
 
 class ProjectDbKMLCountryMapLayer(MapLayerBase):
     """
-    a layer for one level sub objects.
+    a layer countries in which projects are active.
     """
 
 

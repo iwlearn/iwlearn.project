@@ -374,7 +374,17 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
                                 self, projects)
                             continue
                 if 'without' in show_gef_basins:
-                    yield BasinPlacemark(basin, self.request, self,
+                    has_projects = False
+                    if basin.getRawProjects:
+                        for puid in basin.getRawProjects:
+                            if puid in projects:
+                                has_projects = True
+                    if has_projects:
+                            if 'with' in show_gef_basins:
+                                yield BasinPlacemark(basin, self.request,
+                                                    self, projects)
+                    else:
+                        yield BasinPlacemark(basin, self.request, self,
                                  {})
 
 SHOW_BBOX_RATIO = 2048
@@ -422,8 +432,18 @@ class ProjectDbKmlBasinClusterView(ProjectDbKmlBasinView):
                                     self.request, self, projects)
                                 continue
                     if 'without' in show_gef_basins:
-                        yield ClusteredBasinPlacemark(basin, self.request,
-                                self, {})
+                        has_projects = False
+                        if basin.getRawProjects:
+                            for puid in basin.getRawProjects:
+                                if puid in projects:
+                                    has_projects = True
+                        if has_projects:
+                            if 'with' in show_gef_basins:
+                                yield ClusteredBasinPlacemark(basin, self.request,
+                                    self, projects)
+                        else:
+                            yield ClusteredBasinPlacemark(basin, self.request,
+                                    self, {})
 
 class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
 
@@ -465,8 +485,18 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
                                    projects)
                             continue
                 if 'without' in show_gef_basins:
-                    yield BasinPlacemark(basin, self.request, self,
-                                {})
+                    has_projects = False
+                    if basin.getRawProjects:
+                        for puid in basin.getRawProjects:
+                            if puid in projects:
+                                has_projects = True
+                    if has_projects:
+                        if 'with' in show_gef_basins:
+                            yield BasinPlacemark(basin, self.request, self,
+                               projects)
+                    else:
+                        yield BasinPlacemark(basin, self.request, self,
+                            {})
 
 # fetch projects once every hour only
 def _country_cachekey(method, self, **args):

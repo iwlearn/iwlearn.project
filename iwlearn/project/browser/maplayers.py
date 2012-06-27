@@ -174,11 +174,6 @@ class ProjectDbKMLBasinMapLayer(MapLayerBase):
                             strokeColor: "#32a8a9"
                             }
                         }),
-                    /*eventListeners: { 'loadend': function(event) {
-                                 var extent = this.getDataExtent();
-                                 this.map.zoomToExtent(extent);
-                                }
-                            },*/
                     visibility: %s,
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });

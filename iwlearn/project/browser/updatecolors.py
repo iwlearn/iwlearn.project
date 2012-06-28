@@ -171,6 +171,7 @@ class ColorUpdateForm(form.Form):
                 if getattr(self.context, k) != v:
                     setattr(self.context, k, v)
             self.set_colors()
+        self.request.response.redirect(self.context.absolute_url() + '/@@project-map-view.html')
         return
 
 UpdateColors = wrap_form(ColorUpdateForm)

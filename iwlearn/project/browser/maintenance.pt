@@ -32,6 +32,7 @@
       <li><a href="@@projects_wo_eas.html">Projects without executing agency</a></li>
       <li><a href="@@gefonlineharvest_view">Harvest new projects fron GEF online</a></li>
       <li><a href="@@gefonlineupdate_view">Update existing projects from GEF online and thegef.org</a></li>
+      <li><a href="@@update_colors_form.html">Set basin colors</a></li>
     </ul>
         </tal:main-macro>
     </div>

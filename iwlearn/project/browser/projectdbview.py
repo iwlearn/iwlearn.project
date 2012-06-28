@@ -482,7 +482,7 @@ $('#projectsearchform').submit
 class ProjectDBMapView(ProjectDBBaseView):
     implements(IProjectDBCountryView)
 
-    box_ = '''<div style="border: 2px solid #%s; background-color: #%s;
+    box_ = '''<div style="border: 3px solid #%s; background-color: #%s;
             width: 16px; height: 16px; display: inline-block;">&nbsp;</div>'''
 
 

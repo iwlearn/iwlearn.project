@@ -482,6 +482,36 @@ $('#projectsearchform').submit
 class ProjectDBMapView(ProjectDBBaseView):
     implements(IProjectDBCountryView)
 
+    box_ = '''<div style="border: 2px solid #%s; background-color: #%s;
+            width: 16px; height: 16px; display: inline-block;">&nbsp;</div>'''
+
+
+    def ocean_box(self):
+        bc = self.context.getOo_border()
+        fc = self.context.getOo_fill()
+        return  self.box_ % (bc[:6].upper(), fc[:6].upper())
+
+    def lme_box(self):
+        bc = self.context.getLme_border()
+        fc = self.context.getLme_fill()
+        return  self.box_ % (bc[:6].upper(), fc[:6].upper())
+
+    def river_box(self):
+        bc = self.context.getRiver_border()
+        fc = self.context.getRiver_fill()
+        return  self.box_ % (bc[:6].upper(), fc[:6].upper())
+
+    def lake_box(self):
+        bc = self.context.getLake_border()
+        fc = self.context.getLake_fill()
+        return  self.box_ % (bc[:6].upper(), fc[:6].upper())
+
+    def gw_box(self):
+        bc = self.context.getGw_border()
+        fc = self.context.getGw_fill()
+        return  self.box_ % (bc[:6].upper(), fc[:6].upper())
+
+
     def get_js(self):
         refresh_js = """
         function onLayerOptionsChange(event) {

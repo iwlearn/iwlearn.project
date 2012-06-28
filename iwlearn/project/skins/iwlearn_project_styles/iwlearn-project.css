@@ -48,6 +48,11 @@
     padding:0 1em;
     }
 
+#queryformcontainer {
+    width:30%;
+    float:right;
+    }
+
 
 #projectsearchform div.formHelp  {
     display: none;
@@ -57,7 +62,7 @@
     display: none;
     }
 #projectsearchform input, #projectsearchform input#title,#projectsearchform select {
-	width: 13em;	
+    width: 13em;
 }
 /*
 #projectsearchform input {
@@ -88,6 +93,15 @@
     float: none;
     }
 
+#projectmapform .projectdetails label{
+    display: none;
+    }
+
+#projectmapform fieldset {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    }
 
 /*
 #projectsearchform select {
@@ -132,7 +146,9 @@
 }
 
 #projectdbmap div.widget-cgmap {
-    height: 600px;
+    /*height: 600px;*/
+    width: 70%;
+    float:left;
 }
 
 
@@ -160,7 +176,7 @@ div.flexigrid {
 
 
 #content ul.formTabs {
-	border-top-right-radius: 0;
+    border-top-right-radius: 0;
     border-top-left-radius: 0;
     -webkit-border-top-right-radius: 0;
     -webkit-border-top-left-radius: 0;
@@ -185,64 +201,64 @@ width:50%;
     border-left: 1px solid #cccccc;
 }
 #flexiprojects a:link, #flexiprojects a:visited {
-	color: #205C90;
+    color: #205C90;
 }
 .prjlabel {
-	width: 22%;
-	background-color: #efefef;
-	color: #666666;
-	font-weight: bold;
-	vertical-align: top;
-	border-right: 1px solid #cccccc;
+    width: 22%;
+    background-color: #efefef;
+    color: #666666;
+    font-weight: bold;
+    vertical-align: top;
+    border-right: 1px solid #cccccc;
 }
 .c1 {
-	padding: 1em;	
+    padding: 1em;
 }
 #content #subfolder-menu ul {
-	list-style-type: none;	
-	padding: 0px;
-	margin: 0px;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
 }
 #subfolder-menu li {
-	
-	padding-left: 15px;
+
+    padding-left: 15px;
 }
 
 .portaltype-project #content-core,.portaltype-project-database #content > div {
-	margin-left: 0;
-    margin-right: 0;	
+    margin-left: 0;
+    margin-right: 0;
     padding-bottom: 0;
 }
 
 .summarylabel {
-	
-	line-height: 28px;
-	border: 1px solid #cccccc;
-	color: #000000;
+
+    line-height: 28px;
+    border: 1px solid #cccccc;
+    color: #000000;
 }
 #AutoNumber2 td {
-	padding:0 1em;
-	background-color: #ffffff;	
-	border-left:  1px solid #cccccc;
-	border-right:   1px solid #cccccc;
-	vertical-align: top;
+    padding:0 1em;
+    background-color: #ffffff;
+    border-left:  1px solid #cccccc;
+    border-right:   1px solid #cccccc;
+    vertical-align: top;
 }
 #AutoNumber2 td.summarybottom {
-		border-left:  0;
-	border-right:   0;
-	border-top: 1px solid #cccccc;
-	background-color: #efefef;
+    border-left:  0;
+    border-right:   0;
+    border-top: 1px solid #cccccc;
+    background-color: #efefef;
 }
 #AutoNumber2 {
-	border-bottom:  1px solid #cccccc;
+    border-bottom:  1px solid #cccccc;
 }
 #content table#AutoNumber3 {
-	margin-bottom: 0;	
+    margin-bottom: 0;
 }
 #projectdbcharts {
-	padding:  1em;
-	text-align: center;	
+    padding:  1em;
+    text-align: center;
 }
 .project-header-image img {
-	max-width: 100%;
+    max-width: 100%;
 }

@@ -23,7 +23,78 @@ ProjectDatabaseSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         ),
     ),
 
+    atapi.StringField( 'country_fill',
+        title=u"Country Fillcolor",
+        description=u"",
+        default =u"7fff00cc",
+        required=True),
 
+    atapi.StringField( 'country_border',
+        title=u"Country Outline Color",
+        description=u"",
+        default =u"ff0000cc",
+        required=True),
+
+
+    atapi.StringField('oo_fill',
+        title=u"Oceans Fillcolor",
+        description=u"",
+        default =u"ff0000cc",
+        required=True),
+
+    atapi.StringField('oo_border',
+        title=u"Oceans Outline Color",
+        description=u"",
+        default =u"ff0000cc",
+        required=True),
+
+    atapi.StringField('lme_fill',
+        title=u"LME Fillcolor",
+        description=u"",
+        default =u"0000bfcc",
+        required=True),
+
+    atapi.StringField('lme_border',
+        title=u"LME Outline Color",
+        description=u"",
+        default =u"ff0000cc",
+        required=True),
+
+    atapi.StringField('lake_fill',
+        title=u"Lake Fillcolor",
+        description=u"",
+        default =u"2c80d3cc",
+        required=True),
+
+    atapi.StringField('lake_border',
+        title=u"Lake Outline Color",
+        description=u"",
+        default =u"ff0000cc",
+        required=True),
+
+    atapi.StringField('river_fill',
+        title=u"River Fillcolor",
+        description=u"",
+        default =u"56ffffcc",
+        required=True),
+
+    atapi.StringField('river_border',
+        title=u"River Outline Color",
+        description=u"",
+        default =u"ff0000cc",
+        required=True),
+
+    atapi.StringField('gw_fill',
+        title=u"Aquifer Fillcolor",
+        description=u"c1742ccc",
+        default =u"",
+        required=True),
+
+    atapi.StringField('gw_border',
+        title=u"Aquifer Outline Color",
+        description=u"",
+        default =u"ff0000cc",
+        required=True),
 
 ))
 

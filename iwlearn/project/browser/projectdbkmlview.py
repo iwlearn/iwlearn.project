@@ -234,7 +234,7 @@ class CountryPlacemark(BrainPlacemark):
         self.country = country
         self.projects = []
         try:
-            self.styles = self.context.collective_geo_styles
+            self.styles = context['styles']
         except:
             self.styles = None
         if country == 'Global':
@@ -525,6 +525,7 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                 replaces.append(country.Title)
                 geo_annotated_countries[rel_country.Title] = {
                             'geometry': rel_country.zgeo_geometry,
+                            'style': country.collective_geo_styles,
                             'replaces': replaces,
                             'url': rel_country.getURL()}
                 is_related = True
@@ -546,6 +547,7 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                         replaces = []
                     geo_annotated_countries[country.Title] = {
                                     'geometry': country.zgeo_geometry,
+                                    'style': country.collective_geo_styles,
                                     'replaces': replaces,
                                     'url': country.getURL() }
                     continue

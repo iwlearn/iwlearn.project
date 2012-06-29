@@ -59,6 +59,12 @@
     <!-- /Collective.geo map -->
      </div>
      <div id="queryformcontainer">
+        <div id="mapformsplitter">
+        <b>&#187;</b>
+        &#171;
+        </div>
+        <div>
+           <img id="exp-collapse-form" src="fullscreencollapse_icon.png" />
             <form id="projectmapform" name="search" method="get"
                 class="enableAutoFocus" action="map_view.html"
                 tal:attributes="action view/__name__">
@@ -192,6 +198,7 @@
                 </div>
               </fieldset>
             </form>
+        </div>
      </div>
 
     <span id="map-nav-panel"></span>
@@ -206,6 +213,45 @@
 
 <script type="text/javascript" tal:content="structure view/get_js">
 /*<![CDATA[*/
+/*]]>*/
+</script>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+
+function expand_map_area(event) {
+    $('#projectdbmap').width('70%');
+    $('#queryformcontainer').width('29%');
+    $('#projectmapform').show();
+    var map = cgmap.config['default-cgmap'].map;
+    map.updateSize();
+    $("#mapformsplitter").unbind('click', expand_map_area).click(colapse_map_area);
+    $('#exp-collapse-form').unbind('click', expand_map_area).click(colapse_map_area);
+    $('#exp-collapse-form').attr('src', 'fullscreencollapse_icon.png');
+    $("#mapformsplitter").css('cursor', 'e-resize');
+    $('#exp-collapse-form').css('cursor', 'ne-resize');
+};
+
+
+function colapse_map_area(event) {
+    var map = cgmap.config['default-cgmap'].map;
+    $('#projectdbmap').width('96%');
+    $('#queryformcontainer').width('3%');
+    $('#projectmapform').hide();
+    map.updateSize();
+    $("#mapformsplitter").unbind('click', colapse_map_area).click(expand_map_area);
+    $('#exp-collapse-form').unbind('click', colapse_map_area).click(expand_map_area);
+    $('#exp-collapse-form').attr('src', 'fullscreenexpand_icon.png');
+    $("#mapformsplitter").css('cursor', 'w-resize');
+    $('#exp-collapse-form').css('cursor', 'sw-resize');
+};
+
+$('#mapformsplitter').click (function(event) {
+    colapse_map_area(event);
+});
+$('#exp-collapse-form').click (function(event) {
+    colapse_map_area(event);
+});
 /*]]>*/
 </script>
 

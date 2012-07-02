@@ -70,7 +70,13 @@
                 tal:attributes="action view/__name__">
               <h5>Display</h5>
               <input type="checkbox" id="show-pcu" name="show-pcu" />
-              <label for="show-pcu">Location of project management offices</label>
+              <label for="show-pcu">
+                Location of project management offices
+                <div style="border: 2px solid #cc6633; background-color: #ffcc66;
+                border-radius: 9px; text-align: center;
+                width: 16px; height: 16px; display: inline-block;"
+                title="Number of projects nearby">4</div>
+              </label>
               <br />
               <input type="checkbox" id="show-country" name="show-country"/>
               <label for="show-country">Distribution of projects by partnering countries

@@ -26,7 +26,7 @@ class GepcoMapLayer(MapLayer):
 
 class ProjectDbKMLMapLayer(MapLayerBase):
     """
-    a layer with the PCU locations oof projects.
+    a layer with the PCU locations of projects.
     """
 
 
@@ -76,6 +76,7 @@ class ProjectDbKMLMapLayer(MapLayerBase):
                                 }
                             },*/
                     visibility: %s,
+                    displayInLayerSwitcher: false,
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });
                 }""" % (
@@ -120,6 +121,7 @@ class ProjectDbKMLBasinMapLayer(MapLayerBase):
                       }),
                     strategies: [new OpenLayers.Strategy.Fixed()],
                     visibility: %s,
+                    displayInLayerSwitcher: false,
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });
                 },
@@ -175,6 +177,7 @@ class ProjectDbKMLBasinMapLayer(MapLayerBase):
                             }
                         }),
                     visibility: %s,
+                    displayInLayerSwitcher: false,
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });
                 }""" % (context_url, self.visible ,context_url, self.visible)
@@ -224,6 +227,7 @@ class ProjectDbKMLCountryMapLayer(MapLayerBase):
                             },
               projection: cgmap.createDefaultOptions().displayProjection,
               visibility: %s,
+              displayInLayerSwitcher: false,
               formatOptions: {
                   extractStyles: true,
                   extractAttributes: true }
@@ -251,6 +255,7 @@ class ProjectDbKMLCountryMapLayer2(MapLayerBase):
                       }),
                     strategies: [new OpenLayers.Strategy.Fixed()],
                     visibility: %s,
+                    displayInLayerSwitcher: false,
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });
                 }""" % (u'Countries', context_url, self.visible)

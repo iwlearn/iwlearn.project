@@ -34,10 +34,6 @@ def get_related_countries_uids(country):
         yield c.UID()
 
 
-
-
-
-
 class IProjectDbKmlView(Interface):
     """
     ProjectDbKml view interface
@@ -74,6 +70,19 @@ class ProjectDBKMLLinkView(BrowserView):
                         'name': 'Distribution of projects by partnering countries'})
         return links
 
+class UTFSafeBrainPlacemark(BrainPlacemark):
+    """ make sure title/description is valid utf-8 """
+
+    @property
+    def name(self):
+        return self.context.Title.decode('utf-8', 'ignore')
+
+
+    @property
+    def description(self):
+        return self.context.Description.decode('utf-8', 'ignore')
+
+
 
 class ProjectDbKmlView(FastKMLBaseDocument):
     """
@@ -96,9 +105,11 @@ class ProjectDbKmlView(FastKMLBaseDocument):
         query = get_query(self.request.form)
         results = self.get_results(query)
         for brain in results:
-            yield BrainPlacemark(brain, self.request, self)
+            yield UTFSafeBrainPlacemark(brain, self.request, self)
 
-class BasinPlacemark(BrainPlacemark):
+
+
+class BasinPlacemark(UTFSafeBrainPlacemark):
 
     def __init__(self, context, request, document, projects):
         self.context = context
@@ -223,7 +234,7 @@ class ClusteredBasinPlacemark(BasinPlacemark):
         return []
 
 
-class CountryPlacemark(BrainPlacemark):
+class CountryPlacemark(UTFSafeBrainPlacemark):
 
     def __init__(self, context, request, document, country, projects):
         self.context = context
@@ -525,7 +536,7 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                 replaces.append(country.Title)
                 geo_annotated_countries[rel_country.Title] = {
                             'geometry': rel_country.zgeo_geometry,
-                            'style': country.collective_geo_styles,
+                            'styles': country.collective_geo_styles,
                             'replaces': replaces,
                             'url': rel_country.getURL()}
                 is_related = True
@@ -547,7 +558,7 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                         replaces = []
                     geo_annotated_countries[country.Title] = {
                                     'geometry': country.zgeo_geometry,
-                                    'style': country.collective_geo_styles,
+                                    'styles': country.collective_geo_styles,
                                     'replaces': replaces,
                                     'url': country.getURL() }
                     continue

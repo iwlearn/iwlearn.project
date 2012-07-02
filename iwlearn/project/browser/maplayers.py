@@ -283,6 +283,10 @@ class ProjectDbMapLayers(MapLayers):
         layers.append(ProjectDbKMLMapLayer(self.context, False))
         return layers
 
+########################################################################
+# Project profile
+########################################################################
+
 class ProjectKMLMapLayer(MapLayerBase):
     """
     a layer for one level sub objects.

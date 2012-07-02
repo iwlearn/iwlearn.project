@@ -73,7 +73,8 @@
               <label for="show-pcu">Location of project management offices</label>
               <br />
               <input type="checkbox" id="show-country" name="show-country"/>
-              <label for="show-country">Distribution of projects by partnering countries</label>
+              <label for="show-country">Distribution of projects by partnering countries
+                        <span tal:replace="structure view/country_box" /> </label>
                   <!--div class="field">
                     <label  for="getSubRegions">Contry</label>
                     <div class="formHelp">

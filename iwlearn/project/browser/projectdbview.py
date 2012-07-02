@@ -511,6 +511,10 @@ class ProjectDBMapView(ProjectDBBaseView):
         fc = self.context.getGw_fill()
         return  self.box_ % (bc[:6].upper(), fc[:6].upper())
 
+    def country_box(self):
+        bc = self.context.getCountry_border()
+        fc = self.context.getCountry_fill()
+        return  self.box_ % (bc[:6].upper(), fc[:6].upper())
 
     def get_js(self):
         refresh_js = """

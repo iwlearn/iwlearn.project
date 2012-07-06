@@ -244,6 +244,7 @@ iwlearn/project/browser/projectview.pt
 iwlearn/project/browser/projectview.py
 iwlearn/project/browser/projectwebsitesview.pt
 iwlearn/project/browser/projectwebsitesview.py
+iwlearn/project/browser/updatecolors.py
 iwlearn/project/browser/utils.py
 iwlearn/project/content/__init__.py
 iwlearn/project/content/basin.py

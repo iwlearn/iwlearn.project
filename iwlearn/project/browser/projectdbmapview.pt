@@ -79,7 +79,7 @@
               </label>
               <br />
               <input type="checkbox" id="show-country" name="show-country"/>
-              <label for="show-country">Distribution of projects by partnering countries
+              <label for="show-country">Project distribution by partnering countries
                         <span tal:replace="structure view/country_box" /> </label>
                   <!--div class="field">
                     <label  for="getSubRegions">Contry</label>

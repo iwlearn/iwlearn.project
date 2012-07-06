@@ -1,5 +1,5 @@
 setuptools
-collective.geo.kml
+collective.geo.fastkml
 Products.ATBackRef
 Products.ATExtensions
 collective.flexitopic

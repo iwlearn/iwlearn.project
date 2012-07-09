@@ -207,14 +207,15 @@
             </form>
         </div>
      </div>
+   </div>
 
+<div class="visualClear">&nbsp;</div>
     <span id="map-nav-panel"></span>
             <a id="projectdballkmlurl" href="projectbasin_view.kml">
                     <img src=" http://www.google.com/earth/images/google_earth_feed.gif"
                         alt="open in google earth" />
                     Download KML
                 </a>
-<div class="visualClear">&nbsp;</div>
 <div id="featureprojectdetails"> click on the map to get details </div>
 
 
@@ -228,7 +229,7 @@
 
 function expand_map_area(event) {
     $('#projectdbmap').width('70%');
-    $('#queryformcontainer').width('28%');
+    //$('#queryformcontainer').width('28%');
     $('#projectmapform').show();
     var map = cgmap.config['default-cgmap'].map;
     map.updateSize();
@@ -243,7 +244,7 @@ function expand_map_area(event) {
 function colapse_map_area(event) {
     var map = cgmap.config['default-cgmap'].map;
     $('#projectdbmap').width('96%');
-    $('#queryformcontainer').width('3%');
+    //$('#queryformcontainer').width('2%');
     $('#projectmapform').hide();
     map.updateSize();
     $("#mapformsplitter").unbind('click', colapse_map_area).click(expand_map_area);

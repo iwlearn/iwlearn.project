@@ -70,18 +70,6 @@ class ProjectDBKMLLinkView(BrowserView):
                         'name': 'Distribution of projects by partnering countries'})
         return links
 
-class UTFSafeBrainPlacemark(BrainPlacemark):
-    """ make sure title/description is valid utf-8 """
-
-    @property
-    def name(self):
-        return self.context.Title.decode('utf-8', 'ignore')
-
-
-    @property
-    def description(self):
-        return self.context.Description.decode('utf-8', 'ignore')
-
 
 
 class ProjectDbKmlView(FastKMLBaseDocument):
@@ -105,11 +93,11 @@ class ProjectDbKmlView(FastKMLBaseDocument):
         query = get_query(self.request.form)
         results = self.get_results(query)
         for brain in results:
-            yield UTFSafeBrainPlacemark(brain, self.request, self)
+            yield BrainPlacemark(brain, self.request, self)
 
 
 
-class BasinPlacemark(UTFSafeBrainPlacemark):
+class BasinPlacemark(BrainPlacemark):
 
     def __init__(self, context, request, document, projects):
         self.context = context
@@ -136,10 +124,10 @@ class BasinPlacemark(UTFSafeBrainPlacemark):
     @property
     def name(self):
         if callable(self.context.Title):
-            title = self.context.Title().decode('utf-8', 'ignore')
+            title = self.context.Title() #.decode('utf-8', 'ignore')
         else:
-            title = self.context.Title.decode('utf-8', 'ignore')
-        return cgi.escape(title) + u'\t- %i Projects' % len(self.projects)
+            title = self.context.Title #.decode('utf-8', 'ignore')
+        return cgi.escape(title) + '\t- %i Projects' % len(self.projects)
 
 
     @property
@@ -219,12 +207,12 @@ class ClusteredBasinPlacemark(BasinPlacemark):
     @property
     def name(self):
         if callable(self.context.Title):
-            title = self.context.Title().decode('utf-8', 'ignore')
+            title = self.context.Title() #.decode('utf-8', 'ignore')
         else:
-            title = self.context.Title.decode('utf-8', 'ignore')
+            title = self.context.Title #.decode('utf-8', 'ignore')
 
-        return cgi.escape(title.encode('ascii','xmlcharrefreplace') +
-                    u' - %i Projects' % len(self.projects))
+        return cgi.escape(title +
+                    '\t- %i Projects' % len(self.projects))
 
     @property
     def use_custom_styles(self):
@@ -234,7 +222,7 @@ class ClusteredBasinPlacemark(BasinPlacemark):
         return []
 
 
-class CountryPlacemark(UTFSafeBrainPlacemark):
+class CountryPlacemark(BrainPlacemark):
 
     def __init__(self, context, request, document, country, projects):
         self.context = context
@@ -306,7 +294,7 @@ class CountryPlacemark(UTFSafeBrainPlacemark):
 
     @property
     def name(self):
-        return cgi.escape(self.country ) + u'\t- %i Projects' % len(self.projects)
+        return cgi.escape(self.country ) + '\t- %i Projects' % len(self.projects)
 
     @property
     def description(self):
@@ -356,8 +344,7 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
         for brain in brains:
             if brain.getBasin:
                 projects[brain.UID] = {'title':
-                                    brain.Title.decode('utf-8', 'ignore'
-                                            ).encode('utf-8', 'ignore'),
+                                    brain.Title,
                                 'basin': brain.getBasin,
                                 'countries' : brain.getCountry,
                                 'agencies': brain.getAgencies,
@@ -408,23 +395,12 @@ class ProjectDbKmlBasinClusterView(ProjectDbKmlBasinView):
 
     @property
     def features(self):
-        #if int(self.request.form.get('zoomfactor','0')) > 5:
-        #    return
-        #sbbox = self.request.form.get('bbox','-180,-90,180,90')
-        #bbox = [float(c) for c in sbbox.split(',')]
-        #bbox_area = MultiPoint([bbox[:2],bbox[2:]]).envelope.area
         show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
         logger.debug('Cluster basin view project query: %s' % str(query))
         projects = self.get_projects(query)
         path = []
-        #if sbbox != '-180,-90,180,90':
-        #    basin_query = {'portal_type':'Basin',
-        #            'zgeo_geometry': {
-        #                'geometry_operator': 'intersects',
-        #                    'query': sbbox}}
-        #else:
         basin_query = {'portal_type':'Basin'}
         if basin_types:
             basin_query['getBasin_type'] = basin_types
@@ -464,24 +440,12 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
 
     @property
     def features(self):
-        #sbbox = self.request.form.get('bbox','-180,-90,180,90')
-        #bbox = [float(c) for c in sbbox.split(',')]
-        #bbox_area = MultiPoint([bbox[:2],bbox[2:]]).envelope.area
-
         show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
-        #if int(self.request.form.get('zoomfactor','0')) > 5:
-        #     bbox_area = 1
         basin_types = self.request.form.get('basintype', [])
         query = get_query(self.request.form)
         logger.debug('detail basin view project query: %s' % str(query))
         projects = self.get_projects(query)
         path = []
-        #if sbbox != '-180,-90,180,90':
-        #    basin_query = {'portal_type':'Basin',
-        #            'zgeo_geometry': {
-        #                'geometry_operator': 'intersects',
-        #                'query': sbbox}}
-        #else:
         basin_query = {'portal_type':'Basin'}
         if basin_types:
             basin_query['getBasin_type'] = basin_types

@@ -65,7 +65,6 @@
 /* contains the searchform right of the map */
 #queryformcontainer {
     width: auto;
-    /*float: right;*/
     display: inline-block;
     border-left: solid grey 1em;
     }

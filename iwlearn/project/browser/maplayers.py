@@ -396,8 +396,9 @@ class ProjectKMLMapLayers(MapLayers):
     '''
 
     def layers(self):
+        #add basemaps
         layers = super(ProjectKMLMapLayers, self).layers()
-        layers.append(ProjectKMLMapLayer(self.context))
+        #XXX check if the project has maplayers befor adding this layer
         layers.append(ProjectInnerKMLMapLayer(self.context))
         if self.context.getCountry():
             layers.append(ProjectKMLCountryMapLayer(self.context))
@@ -410,5 +411,7 @@ class ProjectKMLMapLayers(MapLayers):
             object = brain.getObject()
             if object.content_type == 'application/vnd.google-earth.kml+xml':
                 layers.append(KMLFileMapLayer(self.context,object))
+        # PCU Location
+        layers.append(ProjectKMLMapLayer(self.context))
         return layers
 

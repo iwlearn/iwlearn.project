@@ -204,6 +204,13 @@
                         class="context" />
                 </div>
               </fieldset>
+              <!-- disclaimer -->
+              <a id="disclaimer" href="#" >Disclaimer</a>        
+					<div id="disclaimerdialog" title="Disclaimer">
+						<p>Maps and documents made available in the GEF IW:LEARN portfolio visualization tool are not legally recorded maps nor surveys and are not intended to be used as such. The visualization and mapping are created as part of a Geographic Information System (GIS) that compiles records, information, and data from various data sources which may contain errors. Additionally, maps and documents prepared by the GEF IW:LEARN from multiple sources, even if derived from data that is error free, may not be reliable due to differences in the databases or computer programs of the source materials. None of the maps or documents in the IW:LEARN portfolio visualization tool should be used for navigational, tracking or any other purpose requiring exacting measurement of distance or direction or precision in the depiction of geographic features.<br/><br/>
+      Availability of the visualization tool is not guaranteed. Applications, servers and network connections may be unavailable at any time for maintenance or unscheduled outages. Outages may be of long duration. Do not create dependencies on these services for critical needs. For any issues and concerns, please contact info@iwlearn.org. </p>
+					</div>     
+					<!-- end disclaimer -->
             </form>
         </div>
      </div>
@@ -226,6 +233,20 @@
 
 <script type="text/javascript">
 /*<![CDATA[*/
+
+/* disclaimer */
+$(function() {
+		$( "#disclaimerdialog" ).dialog({
+			autoOpen: false,
+			modal: true
+		});
+
+		$( "#disclaimer" ).click(function() {
+			$( "#disclaimerdialog" ).dialog( "open" );
+			return false;
+		});
+});
+/* end disclaimer*/
 
 function expand_map_area(event) {
     $('#projectdbmap').width('70%');

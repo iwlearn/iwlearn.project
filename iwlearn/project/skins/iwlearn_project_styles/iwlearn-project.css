@@ -291,3 +291,6 @@ width:50%;
 .project-header-image img {
     max-width: 100%;
 }
+.ui-dialog .ui-dialog-titlebar {
+background:none;
+}

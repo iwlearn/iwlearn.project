@@ -294,3 +294,20 @@ width:50%;
 .ui-dialog .ui-dialog-titlebar {
 background:none;
 }
+
+/* loading panel for map */
+ .olControlLoadingPanel {
+            background-image:url(spinner.gif);
+            margin-left: 30%;
+            margin-top: 20%;
+            position: relative;
+            width: 30%;
+            height: 30%;
+            background-position:center;
+            background-repeat:no-repeat;
+            background-color:white;
+            border: solid 1em;
+            border-color: grey;
+            border-radius: 3em;
+            display: none;
+        }

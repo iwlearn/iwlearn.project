@@ -8,6 +8,7 @@
  <!-- collective geo map -->
 
       <metal:use use-macro="context/@@collectivegeo-macros/openlayers" />
+      <script type="text/javascript" tal:attributes="src string:$portal_url/LoadingPanel.js"></script>
 
   <!-- collective geo map -->
 
@@ -103,8 +104,8 @@
               <br />
               <div id="basinlayer">
                 <fieldset>
-                    <legend>Basin Type</legend>
-                    <input type="checkbox" id="basintype-ocean" name="basintype:list" value="Ocean" checked="checked"/>
+                    <!--legend>Basin Type</legend-->
+                    <input type="checkbox" id="basintype-ocean" name="basintype:list" value="Ocean"/>
                     <label for="basintype-oceans">Open Oceans <span tal:replace="structure view/ocean_box" /></label>
                     <br />
                     <input type="checkbox" id="basintype-lmes" name="basintype:list" value="LME" checked="checked"/>
@@ -511,8 +512,10 @@ $('#projectmapform').submit
             pmo_kmls[i].events.on({"featureselected": onPointLayerFeatureSelect,
                             "featureunselected": onFeatureUnselect});
         };
-        //var loadingpanel = new OpenLayers.Control.LoadingPanel();
-        //map.addControl(loadingpanel);
+        var loadingPanel = new OpenLayers.Control.LoadingPanel();
+        map.addControl(loadingPanel);
+        //loadingPanel.activate();
+        //map.addControl( new OpenLayers.Control.LoadingPanel());
 
 });
 /*]]>*/

@@ -75,10 +75,12 @@ class ProjectBasinKMLView(ProjectKMLView):
     @property
     def features(self):
         project = self.context
-        project_countries=[]
+        project_countries = []
+        project_basins = None
         if project.getBasin():
             project_basins = project.getRawBasins()
-        basins = self.portal_catalog(UID=project_basins)
-        for basin in basins:
-            yield BrainPlacemark(basin, self.request, self)
+        if project_basins:
+            basins = self.portal_catalog(UID=project_basins)
+            for basin in basins:
+                yield BrainPlacemark(basin, self.request, self)
 

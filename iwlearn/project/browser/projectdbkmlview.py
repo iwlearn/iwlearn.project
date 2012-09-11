@@ -328,6 +328,15 @@ def _projects_cachekey(context, fun, query):
     return ckey
 
 SHOW_BASINS=['with',]
+DEFAULT_BASINS=[
+    'LME',
+    'Lake',
+    'River',
+    'Aquifer',
+    #'Ocean',
+    ]
+
+
 
 class ProjectDbKmlBasinView(ProjectDbKmlView):
 
@@ -355,7 +364,7 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
     @property
     def features(self):
         show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
-        basin_types = self.request.form.get('basintype', [])
+        basin_types = self.request.form.get('basintype', DEFAULT_BASINS)
         query = get_query(self.request.form)
         projects = self.get_projects(query)
         basin_query = {'portal_type': 'Basin'}
@@ -396,7 +405,7 @@ class ProjectDbKmlBasinClusterView(ProjectDbKmlBasinView):
     @property
     def features(self):
         show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
-        basin_types = self.request.form.get('basintype', [])
+        basin_types = self.request.form.get('basintype', DEFAULT_BASINS)
         query = get_query(self.request.form)
         logger.debug('Cluster basin view project query: %s' % str(query))
         projects = self.get_projects(query)
@@ -441,7 +450,7 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
     @property
     def features(self):
         show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
-        basin_types = self.request.form.get('basintype', [])
+        basin_types = self.request.form.get('basintype', DEFAULT_BASINS)
         query = get_query(self.request.form)
         logger.debug('detail basin view project query: %s' % str(query))
         projects = self.get_projects(query)

@@ -129,7 +129,7 @@
                     <label for="withoutgefbasins">Without GEF projects</label>
                 </fieldset>
             </div>
-            <h5>OR</h5>
+            <h5>Refine List</h5>
              <fieldset class="projectdetails">
                 <legend>Search for Projects</legend>
                 <div class="field">
@@ -200,18 +200,18 @@
                         </select>
                 </div-->
 
-                <div class="formControls">
+                <!--div class="formControls">
                     <input type="submit" value="Search" name="submit"
                         class="context" />
-                </div>
+                </div-->
               </fieldset>
               <!-- disclaimer -->
-              <a id="disclaimer" href="#" >Disclaimer</a>        
-					<div id="disclaimerdialog" title="Disclaimer">
-						<p>Maps and documents made available in the GEF IW:LEARN portfolio visualization tool are not legally recorded maps nor surveys and are not intended to be used as such. The visualization and mapping are created as part of a Geographic Information System (GIS) that compiles records, information, and data from various data sources which may contain errors. Additionally, maps and documents prepared by the GEF IW:LEARN from multiple sources, even if derived from data that is error free, may not be reliable due to differences in the databases or computer programs of the source materials. None of the maps or documents in the IW:LEARN portfolio visualization tool should be used for navigational, tracking or any other purpose requiring exacting measurement of distance or direction or precision in the depiction of geographic features.<br/><br/>
+              <a id="disclaimer" href="#" >Disclaimer</a>
+                    <div id="disclaimerdialog" title="Disclaimer">
+                        <p>Maps and documents made available in the GEF IW:LEARN portfolio visualization tool are not legally recorded maps nor surveys and are not intended to be used as such. The visualization and mapping are created as part of a Geographic Information System (GIS) that compiles records, information, and data from various data sources which may contain errors. Additionally, maps and documents prepared by the GEF IW:LEARN from multiple sources, even if derived from data that is error free, may not be reliable due to differences in the databases or computer programs of the source materials. None of the maps or documents in the IW:LEARN portfolio visualization tool should be used for navigational, tracking or any other purpose requiring exacting measurement of distance or direction or precision in the depiction of geographic features.<br/><br/>
       Availability of the visualization tool is not guaranteed. Applications, servers and network connections may be unavailable at any time for maintenance or unscheduled outages. Outages may be of long duration. Do not create dependencies on these services for critical needs. For any issues and concerns, please contact <a href="mailto:info@iwlearn.org">info@iwlearn.org</a>. </p>
-					</div>     
-					<!-- end disclaimer -->
+                    </div>
+                    <!-- end disclaimer -->
             </form>
         </div>
      </div>
@@ -237,15 +237,15 @@
 
 /* disclaimer */
 $(function() {
-		$( "#disclaimerdialog" ).dialog({
-			autoOpen: false,
-			modal: true
-		});
+        $( "#disclaimerdialog" ).dialog({
+            autoOpen: false,
+            modal: true
+        });
 
-		$( "#disclaimer" ).click(function() {
-			$( "#disclaimerdialog" ).dialog( "open" );
-			return false;
-		});
+        $( "#disclaimer" ).click(function() {
+            $( "#disclaimerdialog" ).dialog( "open" );
+            return false;
+        });
 });
 /* end disclaimer*/
 
@@ -512,10 +512,7 @@ $('#projectmapform').submit
             pmo_kmls[i].events.on({"featureselected": onPointLayerFeatureSelect,
                             "featureunselected": onFeatureUnselect});
         };
-        var loadingPanel = new OpenLayers.Control.LoadingPanel();
-        map.addControl(loadingPanel);
-        //loadingPanel.activate();
-        //map.addControl( new OpenLayers.Control.LoadingPanel());
+        map.addControl( new OpenLayers.Control.LoadingPanel({'title': 'Loading. Please wait'}));
 
 });
 /*]]>*/

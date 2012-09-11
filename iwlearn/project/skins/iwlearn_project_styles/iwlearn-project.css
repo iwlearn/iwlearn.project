@@ -309,5 +309,7 @@ background:none;
             border: solid 1em;
             border-color: grey;
             border-radius: 3em;
+            text-align: center;
+            font-weight:bold;
             display: none;
         }

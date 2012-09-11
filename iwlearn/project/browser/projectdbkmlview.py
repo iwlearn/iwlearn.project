@@ -151,7 +151,7 @@ class BasinPlacemark(BrainPlacemark):
 
 
         else:
-            desc = u"<p><strong>No Gef projects involved in this basin</strong></p>"
+            desc = "<p><strong>No Gef projects involved in this basin</strong></p>"
         return desc
 
     # Avoid getObject

@@ -251,7 +251,6 @@ $(function() {
 
 function expand_map_area(event) {
     $('#projectdbmap').width('70%');
-    //$('#queryformcontainer').width('28%');
     $('#projectmapform').show();
     var map = cgmap.config['default-cgmap'].map;
     map.updateSize();
@@ -266,7 +265,6 @@ function expand_map_area(event) {
 function colapse_map_area(event) {
     var map = cgmap.config['default-cgmap'].map;
     $('#projectdbmap').width('96%');
-    //$('#queryformcontainer').width('2%');
     $('#projectmapform').hide();
     map.updateSize();
     $("#mapformsplitter").unbind('click', colapse_map_area).click(expand_map_area);
@@ -494,10 +492,16 @@ $('#projectmapform').submit
                 kmls,
                 {
                     clickout: true,
+                    toggle: true,
                     multiple: false,
                     hover: false
                 }
             );
+        selectControl.handlers.feature.stopDown = false;
+        /*selectControl.handlers['feature'].stopDown = false;
+        selectControl.handlers['feature'].stopUp = false;
+        selectControl.handlers['feature'].stopClick = false;
+        */
         map.addControl(selectControl);
         selectControl.activate();
 
@@ -512,6 +516,9 @@ $('#projectmapform').submit
             pmo_kmls[i].events.on({"featureselected": onPointLayerFeatureSelect,
                             "featureunselected": onFeatureUnselect});
         };
+        /*for (var i=0; i<kmls.length; ++i){
+             kmls[i].events.fallThrough = true;
+        };*/
         map.addControl( new OpenLayers.Control.LoadingPanel({'title': 'Loading. Please wait'}));
 
 });

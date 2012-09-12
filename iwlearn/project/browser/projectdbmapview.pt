@@ -19,15 +19,13 @@
         <tal:main-macro metal:define-macro="main">
 <!--[if lte IE 8]>
    <div style="color: red;">
-    <big><strong>Microsoft Internet Explorer is not supported as this time</strong></big>
+    <big><strong>Microsoft Internet Explorer is not supported as this time.</strong></big>
     <br />
-    if you are using IE version 8 or older, you will not see the list of
+    If you are using IE version 8 or older, you will not see the list of
     projects or the visualization.
     <br />
     <a style="color: blue;" href="http://browsehappy.com/">Please upgrade your browser </a>
     </div>
-    If you cannot upgrade your browser for any reason, you may want to switch off JavaScript
-    to see the HTML only version of this website.
 <![endif]-->
 
 <ul tal:define="isAnon context/@@plone_portal_state/anonymous;"
@@ -48,7 +46,10 @@
         Maintenance</a>
 </li>
 </ul>
-
+  <p>The GEF IW Portfolio Visualization Tool provides an on-the-fly mapping
+  of project results and achievements of 20 years of GEF IW project interventions
+  in a spatially presented and user-friendly tool.
+  </p>
   <div id="projectmapcontainer">
     <div id="projectdbmap">
     <!-- Collective.geo map -->
@@ -60,12 +61,13 @@
     <!-- /Collective.geo map -->
      </div>
      <div id="queryformcontainer">
-        <div id="mapformsplitter">
+        <div id="mapformsplitter" title="click to collapse/expand map view">
         <b>&#187;</b>
         &#171;
         </div>
         <div>
-           <img id="exp-collapse-form" src="fullscreencollapse_icon.png" />
+           <img id="exp-collapse-form" src="fullscreencollapse_icon.png"
+           title="click to collapse/expand map view"/>
             <form id="projectmapform" name="search" method="get"
                 class="enableAutoFocus" action="map_view.html"
                 tal:attributes="action view/__name__">
@@ -207,11 +209,75 @@
               </fieldset>
               <!-- disclaimer -->
               <a id="disclaimer" href="#" >Disclaimer</a>
-                    <div id="disclaimerdialog" title="Disclaimer">
-                        <p>Maps and documents made available in the GEF IW:LEARN portfolio visualization tool are not legally recorded maps nor surveys and are not intended to be used as such. The visualization and mapping are created as part of a Geographic Information System (GIS) that compiles records, information, and data from various data sources which may contain errors. Additionally, maps and documents prepared by the GEF IW:LEARN from multiple sources, even if derived from data that is error free, may not be reliable due to differences in the databases or computer programs of the source materials. None of the maps or documents in the IW:LEARN portfolio visualization tool should be used for navigational, tracking or any other purpose requiring exacting measurement of distance or direction or precision in the depiction of geographic features.<br/><br/>
-      Availability of the visualization tool is not guaranteed. Applications, servers and network connections may be unavailable at any time for maintenance or unscheduled outages. Outages may be of long duration. Do not create dependencies on these services for critical needs. For any issues and concerns, please contact <a href="mailto:info@iwlearn.org">info@iwlearn.org</a>. </p>
-                    </div>
-                    <!-- end disclaimer -->
+              <div id="disclaimerdialog" title="Disclaimer">
+                <p>Maps and documents made available in the GEF
+IW:LEARN portfolio visualization tool are not legally recorded maps nor
+surveys and are not intended to be used as such. The visualization and
+mapping are created as part of a Geographic Information System (GIS) that
+compiles records, information, and data from various data sources which
+may contain errors. Additionally, maps and documents prepared by the GEF
+IW:LEARN from multiple sources, even if derived from data that is error free,
+may not be reliable due to differences in the databases or computer programs
+of the source materials. None of the maps or documents in the IW:LEARN
+portfolio visualization tool should be used for navigational, tracking
+or any other purpose requiring exacting measurement of distance or
+direction or precision in the depiction of geographic features.<br/><br/>
+Availability of the visualization tool is not guaranteed. Applications,
+servers and network connections may be unavailable at any time for
+maintenance or unscheduled outages. Outages may be of long duration.
+Do not create dependencies on these services for critical needs. For any
+issues and concerns, please contact
+<a href="mailto:info@iwlearn.org">info@iwlearn.org</a>.
+                </p>
+              </div>
+              <!-- end disclaimer -->
+              <a id="datasources" href="#" >Data sources</a>
+              <div id="datasourcesdialog" title="Data sources">
+                <h3>Individual GEF IW project information</h3>
+                <p>
+                Project information in the GEF IW Visualization Tool is
+                sourced mainly from the <a href="http://iwlearn.net/iwprojects">
+                IW:LEARN Project database</a>. Locations and other
+                geographic references are mainly derived from project
+                documents in the GEF database, publications and information
+                submitted by GEF IW projects directly or from relevant
+                project and partner websites.
+                </p>
+                <h3>Geographic boundaries</h3>
+                <p>
+                The maps used for the GEF IW Visualization Tool are for
+                reference only. The boundaries, colors, denominations and
+                any other information shown on these maps do not imply,
+                on the part of IW:LEARN, its implementing agencies and
+                partners, any judgment on the legal status of any
+                territory, or any endorsement or acceptance of such boundaries.
+                </p>
+                <dl>
+                  <dt>LMEs</dt>
+                  <dd>Watersheds of the World published by the World Resources
+                  Institute <a href="http://www.wri.org/publication/watersheds-of-the-world">(http://www.wri.org/publication/watersheds-of-the-world)</a>,
+                  GIWA Large Marine Ecosystem/Basin Delineation
+                  <a href="http://www.unep.org/dewa/giwa">(http://www.unep.org/dewa/giwa)</a>
+                  </dd>
+                  <dt>Transboundary aquifers</dt>
+                  <dd>International Groundwater Resources Assessment Centre
+                  <a href="http://www.igrac.net">(http://www.igrac.net)</a>
+                  </dd>
+                  <dt>Transboundary lakes</dt>
+                  <dd>World Wildlife Fund, Conservation Science Data and Tools
+                  <a href="http://worldwildlife.org/pages/conservation-science-data-and-tools">(http://worldwildlife.org/pages/conservation-science-data-and-tools)</a>
+                  </dd>
+                  <dt>Transboundary river basins</dt>
+                  <dd>
+                  Transboundary Freshwater Dispute Database, Department of
+                  Geosciences, Oregon State University
+                  <a href="http://www.transboundarywaters.orst.edu">(http://www.transboundarywaters.orst.edu)</a>,
+                  Watersheds of the World published by the World Resources
+                  Institute
+                  <a href="http://www.wri.org/publication/watersheds-of-the-world">(http://www.wri.org/publication/watersheds-of-the-world)</a>
+                  </dd>
+                </dl>
+              </div>
             </form>
         </div>
      </div>
@@ -224,7 +290,7 @@
                         alt="open in google earth" />
                     Download KML
                 </a>
-<div id="featureprojectdetails"> click on the map to get details </div>
+<div id="featureprojectdetails"> </div>
 
 
 <script type="text/javascript" tal:content="structure view/get_js">
@@ -247,6 +313,19 @@ $(function() {
             return false;
         });
 });
+
+$(function() {
+        $( "#datasourcesdialog" ).dialog({
+            autoOpen: false,
+            modal: true
+        });
+
+        $( "#datasources" ).click(function() {
+            $( "#datasourcesdialog" ).dialog( "open" );
+            return false;
+        });
+});
+
 /* end disclaimer*/
 
 function expand_map_area(event) {

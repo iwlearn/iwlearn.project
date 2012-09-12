@@ -288,6 +288,13 @@ width:50%;
     padding:  1em;
     text-align: center;
 }
+
+#disclaimer, #datasources {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 110%;
+}
+
 .project-header-image img {
     max-width: 100%;
 }

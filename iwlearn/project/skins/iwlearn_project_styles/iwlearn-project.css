@@ -67,6 +67,7 @@
     width: auto;
     display: inline-block;
     border-left: solid grey 1em;
+    max-width: 28%;
     }
 
 /* spliter to show/hide the shearchform */
@@ -302,9 +303,7 @@ width:50%;
 .ui-dialog .ui-dialog-titlebar {
 background:none;
 }
-#queryformcontainer {
-	width: 28%;
-}
+
 /* loading panel for map */
  .olControlLoadingPanel {
             background-image:url(spinner.gif);

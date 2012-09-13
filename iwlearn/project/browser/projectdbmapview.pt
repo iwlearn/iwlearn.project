@@ -71,8 +71,8 @@
             <form id="projectmapform" name="search" method="get"
                 class="enableAutoFocus" action="map_view.html"
                 tal:attributes="action view/__name__">
-                <p style="font-weight:bold;">Select layer(s) and/or additional project classification filters to display the corresponding GEF IW Portfolio datasets. Click on a coordinate or a polygon, the list of relevant projects will show up.</p>
-                <p style="color:blue;font-weight:bold;font-style:italic;">Note: It may take a few seconds for the display to refresh after layers and filters selection as data streams live from the Project Database. Please refrain from navigating the map while data is loading. </p>
+                <p>Select layer(s) and/or additional project classification filters to display the corresponding GEF IW Portfolio datasets. Click on a coordinate or a polygon, the list of relevant projects will show up.</p>
+                
               <h5>Display</h5>
               <input type="checkbox" id="show-pcu" name="show-pcu" />
               <label for="show-pcu">

@@ -71,11 +71,11 @@
             <form id="projectmapform" name="search" method="get"
                 class="enableAutoFocus" action="map_view.html"
                 tal:attributes="action view/__name__">
+              <h5>Display</h5>
               <div class="formHelp">Select layer(s) and/or additional filters
               and click on a coordinate or polygon to list the projects
               in that area
               </div>
-              <h5>Display</h5>
               <input type="checkbox" id="show-pcu" name="show-pcu" />
               <label for="show-pcu">
                 Project management offices

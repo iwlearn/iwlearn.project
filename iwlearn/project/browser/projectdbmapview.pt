@@ -71,8 +71,10 @@
             <form id="projectmapform" name="search" method="get"
                 class="enableAutoFocus" action="map_view.html"
                 tal:attributes="action view/__name__">
-              <div class="formHelp">Select layer(s) and/or additional project classification filters to display the corresponding GEF IW Portfolio datasets. Click on a coordinate or a polygon, the list of relevant projects will show up.</div>
-
+              <div class="formHelp">Select layer(s) and/or additional filters
+              and click on a coordinate or polygon to list the projects
+              in that area
+              </div>
               <h5>Display</h5>
               <input type="checkbox" id="show-pcu" name="show-pcu" />
               <label for="show-pcu">
@@ -82,13 +84,13 @@
                 width: 16px; height: 16px; display: inline-block;"
                 title="Number of projects nearby">4</div>
               </label>
-              <div class="formHelp">displays the geographical location of the PMOs.</div>
+              <div class="formHelp">The geographical location of the PMOs.</div>
               <input type="checkbox" id="show-country" name="show-country"/>
               <label for="show-country">Projects by partnering countries
                 <span tal:replace="structure view/country_box" /> </label>
-                <div class="formHelp">shows the level involvement of each
-                country on GEF IW projects ranging from FEW (lighter shading)
-                vs. MANY projects (darker shading).</div>
+                <div class="formHelp">Show the countries involved in GEF IW projects.
+                Darker shadings indicate a higher number of projects.
+                </div>
               <input type="checkbox" id="show-basins" name="show-basins" checked="checked"/>
               <label for="show-basins">Transboundary water basins</label>
               <br />

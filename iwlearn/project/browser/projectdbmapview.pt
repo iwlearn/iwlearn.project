@@ -71,8 +71,8 @@
             <form id="projectmapform" name="search" method="get"
                 class="enableAutoFocus" action="map_view.html"
                 tal:attributes="action view/__name__">
-                <p>Select layer(s) and/or additional project classification filters to display the corresponding GEF IW Portfolio datasets. Click on a coordinate or a polygon, the list of relevant projects will show up.</p>
-                
+              <div class="formHelp">Select layer(s) and/or additional project classification filters to display the corresponding GEF IW Portfolio datasets. Click on a coordinate or a polygon, the list of relevant projects will show up.</div>
+
               <h5>Display</h5>
               <input type="checkbox" id="show-pcu" name="show-pcu" />
               <label for="show-pcu">
@@ -81,11 +81,14 @@
                 border-radius: 9px; text-align: center;
                 width: 16px; height: 16px; display: inline-block;"
                 title="Number of projects nearby">4</div>
-              </label> displays the geographical location of the PMOs.
+              </label>
+              <div class="formHelp">displays the geographical location of the PMOs.</div>
               <br />
               <input type="checkbox" id="show-country" name="show-country"/>
               <label for="show-country">Projects by partnering countries
-                        <span tal:replace="structure view/country_box" /> </label> shows the level involvement of each country on GEF IW projects ranging from FEW (lighter shading) vs. MANY projects (darker shading).
+                <span tal:replace="structure view/country_box" /> </label>
+                <div class="formHelp">shows the level involvement of each country on GEF IW projects ranging from FEW (lighter shading) vs. MANY projects (darker shading).</div>
+
                   <!--div class="field">
                     <label  for="getSubRegions">Contry</label>
                     <div class="formHelp">

@@ -298,10 +298,13 @@ width:50%;
 .project-header-image img {
     max-width: 100%;
 }
+.ui-dialog {font-size: 1em;}
 .ui-dialog .ui-dialog-titlebar {
 background:none;
 }
-
+#queryformcontainer {
+	width: 28%;
+}
 /* loading panel for map */
  .olControlLoadingPanel {
             background-image:url(spinner.gif);

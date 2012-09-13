@@ -83,29 +83,12 @@
                 title="Number of projects nearby">4</div>
               </label>
               <div class="formHelp">displays the geographical location of the PMOs.</div>
-              <br />
               <input type="checkbox" id="show-country" name="show-country"/>
               <label for="show-country">Projects by partnering countries
                 <span tal:replace="structure view/country_box" /> </label>
-                <div class="formHelp">shows the level involvement of each country on GEF IW projects ranging from FEW (lighter shading) vs. MANY projects (darker shading).</div>
-
-                  <!--div class="field">
-                    <label  for="getSubRegions">Contry</label>
-                    <div class="formHelp">
-                    Return projects in this country
-                    </div>
-                        <select id="getCountry" name="getGountry">
-                            <tal:loop tal:repeat="opt view/get_country">
-                                <option value="Albania"
-                                    tal:attributes="value opt/value;
-                                        selected opt/selected;
-                                        disabled opt/disabled;
-                                        class opt/disabled;"
-                                    tal:content="opt/name">Albania</option>
-                            </tal:loop>
-                        </select>
-                </div-->
-              <br />
+                <div class="formHelp">shows the level involvement of each
+                country on GEF IW projects ranging from FEW (lighter shading)
+                vs. MANY projects (darker shading).</div>
               <input type="checkbox" id="show-basins" name="show-basins" checked="checked"/>
               <label for="show-basins">Transboundary water basins</label>
               <br />

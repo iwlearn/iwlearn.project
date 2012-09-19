@@ -83,7 +83,7 @@ class GefOnlineHarvestView(BrowserView):
 
         Id = 'photos'
         title='Photos'
-        description='Photos an other media'
+        description='Photos and other media'
         object.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
 

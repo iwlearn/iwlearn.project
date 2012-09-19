@@ -71,7 +71,6 @@ class GefOnlineHarvestView(BrowserView):
         description='Maps and Graphics'
         object.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
-
         Id = 'data_sets'
         title='Datasets'
         description='measurement, statistical data'
@@ -82,7 +81,10 @@ class GefOnlineHarvestView(BrowserView):
         description='presentations, participants list, meeting reports...'
         object.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
-
+        Id = 'photos'
+        title='Photos'
+        description='Photos an other media'
+        object.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
 
     def create_project(self, pinfo, gpid):
@@ -197,7 +199,6 @@ class GefOnlineHarvestView(BrowserView):
         # Multifocal Projects with Strategic Program IW-*
         gef_project_ids = harvest.extract_gefids_from_page(
                 harvest.get_gef_iw_project_page('M'))
-        import ipdb; ipdb.set_trace()
         logger.info('%i Multifocal Projects found' % len(gef_project_ids) )
         excluded_ids = list(self.context.getExclude_ids())
         for projectid in gef_project_ids:

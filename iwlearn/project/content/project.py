@@ -197,6 +197,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             show_hm=False,
         ),
         validators=('isValidDate'),
+        accessor='start',
     ),
 
    atapi.DateTimeField(
@@ -207,6 +208,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             show_hm=False,
         ),
         validators=('isValidDate'),
+        accessor='end',
     ),
 
 
@@ -372,6 +374,48 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         ),
         validators=('isDecimal'),
     ),
+
+# project result ratings:
+
+    atapi.IntegerField( 'csim_committees',
+        label=_(u"Establishment of country-specific inter-ministerial committees"),
+        description=_(u""),
+        required = False,
+        validators=('isInt',)
+    ),
+
+    atapi.IntegerField( 'regional_frameworks',
+        label=_(u"Regional legal agreements and cooperation frameworks"),
+        description=_(u""),
+        required = False,
+        validators=('isInt',)
+    ),
+    atapi.IntegerField( 'rmis',
+        label=_(u"Regional Management Institutions"),
+        description=_(u""),
+        required = False,
+        validators=('isInt',)
+    ),
+    atapi.IntegerField( 'reforms',
+        label=_(u"National/Local reforms"),
+        description=_(u""),
+        required = False,
+        validators=('isInt',)
+    ),
+    atapi.IntegerField( 'tda_priorities',
+        label=_(u"Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes"),
+        description=_(u""),
+        required = False,
+        validators=('isInt',)
+    ),
+
+    atapi.IntegerField( 'sap_devel',
+        label=_(u"Development of Strategic Action Plan (SAP)"),
+        description=_(u""),
+        required = False,
+        validators=('isInt',)
+    ),
+
 
 
 ))

@@ -46,31 +46,23 @@ def get_gef_iw_project_page(focalarea='I'):
 
     returns a list of all gef IW projects
     """
-    url = 'http://www.gefonline.org/projectListSQL.cfm'
+    url = 'http://www.thegef.org/gef/project_list'
     params = urllib.urlencode({
-        'Cmd':  'Map',
-        'Bottom':   '-90',
-        'Top':  '90',
-        'Left': '-180',
-        'Right':    '180',
-        'OMEReports':   'All',
-        'Random':   str(random.randint(100000000, 999999999)),
-        'Search':   'dbsearch',
-        'approvalEndDate':  '',
-        'approvalStartDate':  '',
-        'fipscode': 'All',
-        'focalsearch':  focalarea,
-        'format':   'gef',
-        'fundsearch':  '',
-        'iasearch': 'All',
-        'keysearch':  '',
-        'name': 'gef',
-        'operator': 'less',
-        'opsearch': 'All',
-        'trustfundsearch':  'All',
-        'typesearch':   'All'
+    'keyword': '',
+    'countryCode': '',
+    'focalAreaCode': focalarea,
+    'agencyCode': 'all',
+    'projectType': 'all',
+    'fundingSource': 'all',
+    'approvalFYFrom': 'all',
+    'approvalFYTo': 'all',
+    'ltgt': 'lt',
+    'ltgtAmt': '',
+    'op': 'Search',
+    'form_build_id': 'form-26c88fd842bfad90ee72e829b421c391', # 'form-' + str(random.randint(100000000, 999999999)),
+    'form_id': 'prjsearch_searchfrm',
         })
-    response = urllib2.urlopen(url, data=params)
+    response = urllib2.urlopen(url + '?' + params)
     data = response.read()
     return data
 
@@ -80,7 +72,7 @@ def extract_gefids_from_page(data):
     and extracts the project ids.
     returns a list of all projectids (integer) on the page
     """
-    prurl = 'projectDetailsSQL.cfm?projID='
+    prurl = 'http://www.thegef.org/gef/project_detail?projID='
     id_list = []
     soup = BeautifulSoup(data)
     for td in soup.findAll('td'):
@@ -109,7 +101,7 @@ def extract_project_info(gefid):
     http://www.gefonline.org/projectDetailsSQL.cfm?projID=####
     and returns a dict of the extracted information
     """
-    url = 'http://www.gefonline.org/projectDetailsSQL.cfm?projID=%i' % gefid
+    url = 'http://www.thegef.org/gef/project_detail?projID=%i' % gefid
     try:
         response = urllib2.urlopen(url)
     except urllib2.HTTPError:

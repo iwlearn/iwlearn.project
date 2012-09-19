@@ -127,7 +127,7 @@ class GefOnlineHarvestView(BrowserView):
         else:
             end_date = None
         focal_area = pinfo.get('Focal Area', None)
-        operational_program = pinfo.get('Operational Program', None)
+        operational_program = pinfo.get('Operational Program', [])
         strategic_program = pinfo.get('Strategic Program', None)
         project_allocation = harvest.convert_currency_to_millions(
                             pinfo.get('GEF Grant','0'))
@@ -197,6 +197,7 @@ class GefOnlineHarvestView(BrowserView):
         # Multifocal Projects with Strategic Program IW-*
         gef_project_ids = harvest.extract_gefids_from_page(
                 harvest.get_gef_iw_project_page('M'))
+        import ipdb; ipdb.set_trace()
         logger.info('%i Multifocal Projects found' % len(gef_project_ids) )
         excluded_ids = list(self.context.getExclude_ids())
         for projectid in gef_project_ids:

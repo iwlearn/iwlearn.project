@@ -23,6 +23,11 @@
                         tal:attributes="src string:${result/getURL}/logo_image"
                         alt="Project Logo" />
                     <span tal:replace="result/Description"/>
+                    <p>
+                    <span tal:replace="result/getProject_status "/>:
+                    <span  tal:on-error="nothing" tal:replace="python:result.start.strftime('%Y-%m')"/> -
+                    <span  tal:on-error="nothing" tal:replace="python:result.end.strftime('%Y-%m')"/>
+                    </p>
                     <p class="documentByLine">
                         <span tal:define="tags result/Subject|nothing"
                             tal:condition="tags">

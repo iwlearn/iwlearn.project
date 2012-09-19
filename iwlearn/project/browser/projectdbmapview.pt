@@ -175,23 +175,6 @@
                         </select>
                 </div>
 
-                <!--div class="field odd">
-                    <label  for="getSubRegions">Region</label>
-                    <div class="formHelp">
-                    Return projects in this region
-                    </div>
-                        <select id="getSubRegions" name="getSubRegions">
-                            <tal:loop tal:repeat="opt view/get_region">
-                                <option value="Africa"
-                                    tal:attributes="value opt/value;
-                                        selected opt/selected;
-                                        disabled opt/disabled;
-                                        class opt/disabled;"
-                                    tal:content="opt/name">Africa</option>
-                            </tal:loop>
-                        </select>
-                </div-->
-
                 <!--div class="formControls">
                     <input type="submit" value="Search" name="submit"
                         class="context" />
@@ -223,50 +206,54 @@ issues and concerns, please contact
               <!-- end disclaimer -->
               &nbsp;&nbsp;&nbsp;&nbsp; <a id="datasources" href="#" >Data sources</a>
               <div id="datasourcesdialog" title="Data sources">
-                <h3>Individual GEF IW project information</h3>
-                <p>
-                Project information in the GEF IW Visualization Tool is
-                sourced mainly from the <a href="http://iwlearn.net/iwprojects">
-                IW:LEARN Project database</a>. Locations and other
-                geographic references are mainly derived from project
-                documents in the GEF database, publications and information
-                submitted by GEF IW projects directly or from relevant
-                project and partner websites.
-                </p>
-                <h3>Geographic boundaries</h3>
-                <p>
-                The maps used for the GEF IW Visualization Tool are for
-                reference only. The boundaries, colors, denominations and
-                any other information shown on these maps do not imply,
-                on the part of IW:LEARN, its implementing agencies and
-                partners, any judgment on the legal status of any
-                territory, or any endorsement or acceptance of such boundaries.
-                </p>
-                <dl>
-                  <dt>LMEs</dt>
-                  <dd>Watersheds of the World published by the World Resources
-                  Institute <a href="http://www.wri.org/publication/watersheds-of-the-world">(http://www.wri.org/publication/watersheds-of-the-world)</a>,
-                  GIWA Large Marine Ecosystem/Basin Delineation
-                  <a href="http://www.unep.org/dewa/giwa">(http://www.unep.org/dewa/giwa)</a>
-                  </dd>
-                  <dt>Transboundary aquifers</dt>
-                  <dd>International Groundwater Resources Assessment Centre
-                  <a href="http://www.igrac.net">(http://www.igrac.net)</a>
-                  </dd>
-                  <dt>Transboundary lakes</dt>
-                  <dd>World Wildlife Fund, Conservation Science Data and Tools
-                  <a href="http://worldwildlife.org/pages/conservation-science-data-and-tools">(http://worldwildlife.org/pages/conservation-science-data-and-tools)</a>
-                  </dd>
-                  <dt>Transboundary river basins</dt>
-                  <dd>
-                  Transboundary Freshwater Dispute Database, Department of
-                  Geosciences, Oregon State University
-                  <a href="http://www.transboundarywaters.orst.edu">(http://www.transboundarywaters.orst.edu)</a>,
-                  Watersheds of the World published by the World Resources
-                  Institute
-                  <a href="http://www.wri.org/publication/watersheds-of-the-world">(http://www.wri.org/publication/watersheds-of-the-world)</a>
-                  </dd>
-                </dl>
+<h3>Individual GEF IW project information</h3>
+<p>
+Project information in the GEF IW Visualization Tool is
+sourced mainly from the <a href="http://iwlearn.net/iwprojects">
+IW:LEARN Project database</a>. Locations and other
+geographic references are mainly derived from project
+documents in the GEF database, publications and information
+submitted by GEF IW projects directly or from relevant
+project and partner websites.
+</p>
+<h3>Geographic boundaries</h3>
+<p>
+The maps used for the GEF IW Visualization Tool are for
+reference only. The boundaries, colors, denominations and
+any other information shown on these maps do not imply,
+on the part of IW:LEARN, its implementing agencies and
+partners, any judgment on the legal status of any
+territory, or any endorsement or acceptance of such boundaries.
+</p>
+<dl>
+  <dt>LMEs</dt>
+  <dd>Watersheds of the World published by the World Resources
+  Institute <a href="http://www.wri.org/publication/watersheds-of-the-world">
+  (http://www.wri.org/publication/watersheds-of-the-world)</a>,
+  GIWA Large Marine Ecosystem/Basin Delineation
+  <a href="http://www.unep.org/dewa/giwa">(http://www.unep.org/dewa/giwa)</a>
+  </dd>
+  <dt>Transboundary aquifers</dt>
+  <dd>International Groundwater Resources Assessment Centre
+  <a href="http://www.igrac.net">(http://www.igrac.net)</a>
+  </dd>
+  <dt>Transboundary lakes</dt>
+  <dd>World Wildlife Fund, Conservation Science Data and Tools
+  <a href="http://worldwildlife.org/pages/conservation-science-data-and-tools">
+  (http://worldwildlife.org/pages/conservation-science-data-and-tools)</a>
+  </dd>
+  <dt>Transboundary river basins</dt>
+  <dd>
+  Transboundary Freshwater Dispute Database, Department of
+  Geosciences, Oregon State University
+  <a href="http://www.transboundarywaters.orst.edu">
+  (http://www.transboundarywaters.orst.edu)</a>,
+  Watersheds of the World published by the World Resources
+  Institute
+  <a href="http://www.wri.org/publication/watersheds-of-the-world">
+  (http://www.wri.org/publication/watersheds-of-the-world)</a>
+  </dd>
+</dl>
               </div>
             </form>
         </div>

@@ -149,7 +149,7 @@
 
 <!-- DEPRECATED Project DB views -->
 
-  <browser:page
+  <!--browser:page
       for="..interfaces.IProjectDatabase"
       name="country_view.html"
       class=".projectdbview.ProjectDBCountryView"
@@ -184,7 +184,7 @@
            zope.interface.Interface
            zope.interface.Interface"
       factory=".maplayers.ProjectDbKMLBasinMapLayers"
-      />
+      /-->
 
 
 

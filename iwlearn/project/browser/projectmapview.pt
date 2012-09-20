@@ -75,7 +75,6 @@
                                          new OpenLayers.Size(500,500),
                                          content,
                                          null, true, onPopupClose);
-                refreshFeatureDetails(feature.layer.name, feature.data.name.split('\t')[0]);
                 feature.popup = popup;
                 map.addPopup(popup);
             } else {

@@ -184,57 +184,7 @@ class ProjectDbKMLBasinMapLayer(MapLayerBase):
 
 
 
-
-
-        XXX= """
-        function() { return new OpenLayers.Layer.GML('%s', '%s@@projectbasin_view.kml',
-            { format: OpenLayers.Format.KML,
-              /*eventListeners: { 'loadend': function(event) {
-                                 var extent = this.getDataExtent();
-                                 this.map.zoomToExtent(extent);
-                                }
-                            },*/
-              projection: cgmap.createDefaultOptions().displayProjection,
-              visibility: false,
-              formatOptions: {
-                  extractStyles: true,
-                  extractAttributes: true }
-            });}""" % ( "Basins",
-            context_url)
-
 class ProjectDbKMLCountryMapLayer(MapLayerBase):
-    """
-    a layer countries in which projects are active.
-    """
-
-
-    @property
-    def jsfactory(self):
-        context_url = self.context.absolute_url()
-        if not context_url.endswith('/'):
-            context_url += '/'
-
-
-        return """
-        function() { return new OpenLayers.Layer.GML('%s', '%s@@projectdbcountry_view.kml',
-            { format: OpenLayers.Format.KML,
-              eventListeners: { 'loadend': function(event) {
-                                    if (this.getVisibility()){
-                                         var extent = this.getDataExtent();
-                                         this.map.zoomToExtent(extent);
-                                    };
-                                }
-                            },
-              projection: cgmap.createDefaultOptions().displayProjection,
-              visibility: %s,
-              displayInLayerSwitcher: false,
-              formatOptions: {
-                  extractStyles: true,
-                  extractAttributes: true }
-            });}""" % (u"Countries",
-            context_url, self.visible)
-
-class ProjectDbKMLCountryMapLayer2(MapLayerBase):
     """
     a layer for one level sub objects.
     """
@@ -274,7 +224,7 @@ class ProjectDbKMLBasinMapLayers(MapLayers):
         layers = super(ProjectDbKMLBasinMapLayers, self).layers()
         #XXX layers.append(GepcoMapLayer(self.context))
         layers.append(ProjectDbKMLBasinMapLayer(self.context))
-        layers.append(ProjectDbKMLCountryMapLayer2(self.context))
+        layers.append(ProjectDbKMLCountryMapLayer(self.context))
         return layers
 
 
@@ -283,7 +233,7 @@ class ProjectDbMapLayers(MapLayers):
     def layers(self):
         layers = super(ProjectDbMapLayers, self).layers()
         #XXX layers.append(GepcoMapLayer(self.context))
-        layers.append(ProjectDbKMLCountryMapLayer2(self.context, False))
+        layers.append(ProjectDbKMLCountryMapLayer(self.context, False))
         layers.append(ProjectDbKMLBasinMapLayer(self.context, True))
         layers.append(ProjectDbKMLMapLayer(self.context, False))
         return layers
@@ -294,7 +244,7 @@ class ProjectDbMapLayers(MapLayers):
 
 class ProjectKMLMapLayer(MapLayerBase):
     """
-    a layer for one level sub objects.
+    PCU Location
     """
 
 
@@ -305,20 +255,26 @@ class ProjectKMLMapLayer(MapLayerBase):
             context_url += '/'
 
         return """
-        function() { return new OpenLayers.Layer.GML('%s', '%s' + '@@kml-document',
-            { format: OpenLayers.Format.KML,
-              eventListeners: { 'loadend': function(event) {
+            function() {
+                return new OpenLayers.Layer.Vector("%s", {
+                    protocol: new OpenLayers.Protocol.HTTP({
+                      url: "%s@@kml-document",
+                      format: new OpenLayers.Format.KML({
+                        extractStyles: true,
+                        extractAttributes: true}),
+                      }),
+                    strategies: [new OpenLayers.Strategy.Fixed()],
+                    eventListeners: { 'loadend': function(event) {
                                  var c_lonlat = this.getDataExtent().getCenterLonLat();
                                  this.map.setCenter(new OpenLayers.LonLat(
                                  c_lonlat.lon, c_lonlat.lat), 5, false, false);
                                 }
                             },
-              projection: cgmap.createDefaultOptions().displayProjection,
-              visibility: %s,
-              formatOptions: {
-                  extractStyles: true,
-                  extractAttributes: true }
-            });}""" % (
+                    visibility: %s,
+                    displayInLayerSwitcher: false,
+                    projection: new OpenLayers.Projection("EPSG:4326")
+                  });
+                }""" % (
             self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", ""),
             context_url, self.visible)
 
@@ -327,7 +283,7 @@ class ProjectInnerKMLMapLayer(MapLayerBase):
     """
     a layer for one level sub objects.
     """
-
+    #XXX ?
 
     @property
     def jsfactory(self):
@@ -335,17 +291,22 @@ class ProjectInnerKMLMapLayer(MapLayerBase):
         if not context_url.endswith('/'):
             context_url += '/'
 
-        return """
-        function() { return new OpenLayers.Layer.GML('%s', '%s' + '@@projectkml_view',
-            { format: OpenLayers.Format.KML,
-              projection: cgmap.createDefaultOptions().displayProjection,
-              visibility: %s,
-              formatOptions: {
-                  extractStyles: true,
-                  extractAttributes: true }
-            });}""" % (u"Maps of: " +
+        return u"""function() {
+                return new OpenLayers.Layer.Vector("%s", {
+                    protocol: new OpenLayers.Protocol.HTTP({
+                      url: "%s@@projectkml_view",
+                      format: new OpenLayers.Format.KML({
+                        extractStyles: true,
+                        extractAttributes: true})
+                      }),
+                    strategies: [new OpenLayers.Strategy.Fixed()],
+                    visibility: %s,
+                    projection: new OpenLayers.Projection("EPSG:4326")
+                  });
+                }""" %  (u"Maps of: " +
             self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", ""),
             context_url, self.visible)
+
 
 
 class ProjectKMLCountryMapLayer(MapLayerBase):
@@ -358,15 +319,21 @@ class ProjectKMLCountryMapLayer(MapLayerBase):
             context_url += '/'
 
 
-        return """
-        function() { return new OpenLayers.Layer.GML('%s', '%s@@projectcountry_view.kml',
-            { format: OpenLayers.Format.KML,
-              projection: cgmap.createDefaultOptions().displayProjection,
-              visibility: %s,
-              formatOptions: {
-                  extractStyles: true,
-                  extractAttributes: true }
-            });}""" % (u'Partnering countries', context_url, self.visible)
+        return u"""function() {
+                return new OpenLayers.Layer.Vector("%s", {
+                    protocol: new OpenLayers.Protocol.HTTP({
+                      url: "%s@@projectcountry_view.kml",
+                      format: new OpenLayers.Format.KML({
+                        extractStyles: true,
+                        extractAttributes: true})
+                      }),
+                    strategies: [new OpenLayers.Strategy.Fixed()],
+                    visibility: %s,
+                    projection: new OpenLayers.Projection("EPSG:4326")
+                  });
+                }""" % (u'Partnering countries', context_url, self.visible)
+
+
 
 class ProjectBasinMapLayer(MapLayerBase):
 
@@ -377,16 +344,20 @@ class ProjectBasinMapLayer(MapLayerBase):
         if not context_url.endswith('/'):
             context_url += '/'
 
+        return u"""function() {
+                return new OpenLayers.Layer.Vector("%s", {
+                    protocol: new OpenLayers.Protocol.HTTP({
+                      url: "%s@@projectbasin_view.kml",
+                      format: new OpenLayers.Format.KML({
+                        extractStyles: true,
+                        extractAttributes: true})
+                      }),
+                    strategies: [new OpenLayers.Strategy.Fixed()],
+                    visibility: %s,
+                    projection: new OpenLayers.Projection("EPSG:4326")
+                  });
+                }""" % (u'Basin', context_url, self.visible)
 
-        return """
-        function() { return new OpenLayers.Layer.GML('%s', '%s@@projectbasin_view.kml',
-            { format: OpenLayers.Format.KML,
-              projection: cgmap.createDefaultOptions().displayProjection,
-              visibility: %s,
-              formatOptions: {
-                  extractStyles: true,
-                  extractAttributes: true }
-            });}""" % (u'Basin', context_url, self.visible)
 
 
 
@@ -399,7 +370,7 @@ class ProjectKMLMapLayers(MapLayers):
         #add basemaps
         layers = super(ProjectKMLMapLayers, self).layers()
         #XXX check if the project has maplayers befor adding this layer
-        layers.append(ProjectInnerKMLMapLayer(self.context))
+        #layers.append(ProjectInnerKMLMapLayer(self.context))
         if self.context.getCountry():
             layers.append(ProjectKMLCountryMapLayer(self.context))
         if self.context.getBasin():

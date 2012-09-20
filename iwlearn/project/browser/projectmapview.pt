@@ -41,6 +41,77 @@
                     <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
                     <script type="text/javascript"
                         src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
+
+<!-- can be removed after upgrade to cg 2.5 /ol 2.12 -->
+<script type="text/javascript">
+/*<![CDATA[*/
+    $(window).bind("load", function() {
+        var map = cgmap.config['default-cgmap'].map;
+        var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
+
+        function onFeatureUnselect(event) {
+                for (var i=0; i<map.popups.length; ++i){
+                        map.removePopup(map.popups[i]);
+                        map.popups[i].destroy();
+                        map.popups[i] = null;
+                };
+
+        };
+
+        function onPopupClose(event) {
+             for (var i=0; i<map.popups.length; ++i){
+                        map.removePopup(map.popups[i]);
+                };
+        };
+        var lt = String.fromCharCode(60);
+        var gt = String.fromCharCode(62);
+
+        function onFeatureSelect(event) {
+            if (event.feature.cluster == null){
+                var feature = event.feature;
+                var content = lt + "h2" + gt + feature.attributes.name + lt + "/h2" + gt + feature.attributes.description;
+                popup = new OpenLayers.Popup.FramedCloud("chicken",
+                                         feature.geometry.getBounds().getCenterLonLat(),
+                                         new OpenLayers.Size(500,500),
+                                         content,
+                                         null, true, onPopupClose);
+                refreshFeatureDetails(feature.layer.name, feature.data.name.split('\t')[0]);
+                feature.popup = popup;
+                map.addPopup(popup);
+            } else {
+                var lonlat = event.feature.geometry.getBounds().getCenterLonLat();
+                var currZoom = this.map.getZoom();
+                var newZoom = currZoom + 3;
+                this.map.setCenter(lonlat, newZoom);
+            };
+        };
+
+        var selectControl = new OpenLayers.Control.SelectFeature(
+                kmls,
+                {
+                    clickout: true,
+                    toggle: true,
+                    multiple: false,
+                    hover: false
+                }
+            );
+        selectControl.handlers.feature.stopDown = false;
+        map.addControl(selectControl);
+        selectControl.activate();
+
+        for (var i=0; i<kmls.length; ++i){
+                kmls[i].events.on({"featureselected": onFeatureSelect,
+                            "featureunselected": onFeatureUnselect});
+        };
+
+
+});
+/*]]>*/
+</script>
+
+
+
+
                 </div>
 
                 <div tal:replace="structure provider:plone.belowcontentbody" />

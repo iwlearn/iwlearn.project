@@ -59,7 +59,7 @@ def get_gef_iw_project_page(focalarea='I'):
     'ltgt': 'lt',
     'ltgtAmt': '',
     'op': 'Search',
-    'form_build_id': 'form-26c88fd842bfad90ee72e829b421c391', # 'form-' + str(random.randint(100000000, 999999999)),
+    'form_build_id': 'form-' + str(random.randint(100000000, 999999999)),
     'form_id': 'prjsearch_searchfrm',
         })
     response = urllib2.urlopen(url + '?' + params)

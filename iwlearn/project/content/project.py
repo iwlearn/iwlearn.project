@@ -498,6 +498,31 @@ class Project(folder.ATFolder):
                  titles.append(basin.Title())
         return titles
 
+    def get_normalized_ratings(self):
+        def norm4ratings(rating):
+            if rating != None:
+                return ((float(rating) + 1.0) / 4.0) * 10
+            else:
+                return None
+
+        ratings = []
+        if self.getDorating() != None:
+            ratings.append(((float(self.getDorating()) + 1.0) / 6.0) * 10.0)
+        else:
+            ratings.append(None)
+        if self.getIprating() != None:
+            ratings.append(((float(self.getIprating()) + 1.0) / 6.0) * 10.0)
+        else:
+            ratings.append(None)
+
+        ratings.append(norm4ratings(self.getCsim_committees()))
+        ratings.append(norm4ratings(self.getRegional_frameworks()))
+        ratings.append(norm4ratings(self.getRmis()))
+        ratings.append(norm4ratings(self.getReforms()))
+        ratings.append(norm4ratings(self.getTda_priorities()))
+        ratings.append(norm4ratings(self.getSap_devel()))
+        return ratings
+
 
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
 

@@ -108,9 +108,6 @@
 /*]]>*/
 </script>
 
-
-
-
                 </div>
 
                 <div tal:replace="structure provider:plone.belowcontentbody" />

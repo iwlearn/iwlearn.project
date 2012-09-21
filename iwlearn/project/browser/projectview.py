@@ -1,4 +1,6 @@
 import random
+
+import pygal
 from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
@@ -69,3 +71,26 @@ class ProjectView(BrowserView):
                         review_state=['published',])
         if results:
             return random.choice(results)
+
+
+    def get_rating_chart(self):
+        chart = pygal.Bar(width=400, height=200,
+                    explicit_size=True,
+                    disable_xml_declaration=True,
+                    show_legend=True)
+        ratings = self.context.get_normalized_ratings()
+        chart.add('Rating', ratings)
+        notapplicable =[None, None]
+        for rating in ratings[2:]:
+            if rating == 0:
+               notapplicable.append(5)
+            else:
+                notapplicable.append(None)
+        chart.add('N/A', notapplicable)
+        chart.range = [0, 10]
+        chart.x_labels = ['DO', 'IP', 'IMC', 'RF', 'RMI', 'LR', 'TDA', 'SAP']
+        return chart.render()
+
+
+
+

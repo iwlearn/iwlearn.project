@@ -99,7 +99,9 @@ class ProjectDbKMLMapLayers(MapLayers):
 
 class ProjectDbKMLBasinMapLayer(MapLayerBase):
     """
-    layer for project basins
+    Basins with (and/or without) projects.
+    the detail layer comprises all projects and is rendered as polygons,
+    the clusterlayer is renders points of the smaller basins in clusters
     """
 
 
@@ -186,7 +188,7 @@ class ProjectDbKMLBasinMapLayer(MapLayerBase):
 
 class ProjectDbKMLCountryMapLayer(MapLayerBase):
     """
-    a layer for one level sub objects.
+    countries with projects
     """
 
 
@@ -281,7 +283,7 @@ class ProjectKMLMapLayer(MapLayerBase):
 
 class ProjectInnerKMLMapLayer(MapLayerBase):
     """
-    a layer for one level sub objects.
+    Geo annotated content of a project
     """
     #XXX ?
 
@@ -310,7 +312,7 @@ class ProjectInnerKMLMapLayer(MapLayerBase):
 
 
 class ProjectKMLCountryMapLayer(MapLayerBase):
-
+    """ Projects partnering countries """
 
     @property
     def jsfactory(self):
@@ -336,7 +338,7 @@ class ProjectKMLCountryMapLayer(MapLayerBase):
 
 
 class ProjectBasinMapLayer(MapLayerBase):
-
+    """ Basins of a project """
 
     @property
     def jsfactory(self):

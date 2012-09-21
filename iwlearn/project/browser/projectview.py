@@ -87,7 +87,7 @@ class ProjectView(BrowserView):
             else:
                 notapplicable.append(None)
         chart.add('N/A', notapplicable)
-        #chart.range = [0, 10]
+        chart.range = [0, 10]
         chart.x_labels = ['DO', 'IP', 'IMC', 'RF', 'RMI', 'LR', 'TDA', 'SAP']
         return chart.render()
 

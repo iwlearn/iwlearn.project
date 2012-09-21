@@ -434,7 +434,7 @@
                       </table>
                     </div>
                 </div>
-              <div class="visualClear" tal:condition="not:isAnon" tal:define="isAnon context/@@plone_portal_state/anonymous;">&nbsp;</div>
+              <!--div class="visualClear" tal:condition="not:isAnon" tal:define="isAnon context/@@plone_portal_state/anonymous;">&nbsp;</div>
               <div tal:content="structure view/get_rating_chart" tal:condition="not:isAnon" tal:define="isAnon context/@@plone_portal_state/anonymous;" />
               <dl tal:condition="not:isAnon" tal:define="isAnon context/@@plone_portal_state/anonymous;" >
                   <h3>Legend</h3>
@@ -454,7 +454,7 @@
                   <dd>Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes</dd>
                   <dt>SAP</dt>
                   <dd>Development of Strategic Action Plan (SAP)</dd>
-              </dl>
+              </dl-->
             <div tal:replace="structure provider:plone.belowcontentbody" />
         </div>
     </metal:main-macro>

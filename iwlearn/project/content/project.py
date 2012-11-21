@@ -44,13 +44,28 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     atapi.StringField(
         'gef_project_id',
-        required=False,
+        required=True,
         searchable=False,
         widget=atapi.StringWidget(
             label=_(u"GEF Project Id"),
             description=_(u"GEF Project Id"),
         ),
+        validators=('isInt',)
     ),
+
+
+    atapi.StringField(
+        'wb_project_id',
+        required=False,
+        searchable=False,
+        widget=atapi.StringWidget(
+            label=_(u"IBRD PO ID"),
+            description=_(u"Worldbank Project Id"),
+        ),
+         validators=('isInt',)
+    ),
+
+
 
     atapi.StringField(
         'remote_url',
@@ -197,7 +212,6 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             show_hm=False,
         ),
         validators=('isValidDate'),
-        accessor='start',
     ),
 
    atapi.DateTimeField(
@@ -208,11 +222,23 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             show_hm=False,
         ),
         validators=('isValidDate'),
-        accessor='end',
     ),
 
 
     # GEF characteristic
+
+    atapi.StringField(
+        'gef_phase',
+        required=True,
+        searchable=False,
+        default=u'GEF-5',
+        vocabulary = vocabulary.GEF_PHASE,
+        widget=atapi.SelectionWidget(
+            label=_(u"GEF Phase"),
+            description=_(u"GEF replenishment phase"),
+        ),
+    ),
+
 
     atapi.LinesField(
         'strategic_priority',

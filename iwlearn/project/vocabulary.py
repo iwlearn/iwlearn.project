@@ -277,9 +277,10 @@ STRATEGIC_PRIORITIES = [
 
 
 PROJECT_TYPES = [
-    'Enabling Activity',
-    'Medium Sized Project',
-    'Full Size Project',
+    ('EA', 'Enabling Activity'),
+    ('MSP', 'Medium Sized Project'),
+    ('FSP', 'Full Size Project'),
+    ('PFD', 'PFD'),
     ]
 
 PROJECT_STATUS = [
@@ -557,6 +558,18 @@ RATINGS ={ 'N/A' : None,
         'Moderately Satisfactory': 3,
         'Satisfactory': 4,
         'Highly Satisfactory': 5}
+
+GEF_PHASE = [
+    'Pilot',
+    'GEF-1',
+    'GEF-2',
+    'GEF-3',
+    'GEF-4',
+    'GEF-5',
+#    'GEF-6',
+    ]
+
+
 
 
 def basin_vocabulary_factory(context):

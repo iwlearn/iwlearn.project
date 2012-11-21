@@ -135,11 +135,10 @@ class GefOnlineHarvestView(BrowserView):
                             pinfo.get('GEF Grant','0'))
         total_cost = harvest.convert_currency_to_millions(
                             pinfo.get('Project Cost', '0'))
-
+        wb_project_id = pinfo.get('IBRD PO ID', None)
         description = ""
         if pinfo.has_key('GEF Agency'):
             description += u"<h3>GEF Agency</h3> <p> %s </p>" % pinfo.get('GEF Agency')
-
         if pinfo.has_key('Executing Agency'):
             description += u"<h3>Executing Agency</h3> <p> %s </p>" % pinfo.get('Executing Agency')
         if pinfo.has_key('Description'):
@@ -158,6 +157,7 @@ class GefOnlineHarvestView(BrowserView):
         new_project.update(
                         title=name,
                         gef_project_id=project_id,
+                        wb_project_id = wb_project_id,
                         globalproject=global_project,
                         country=countries,
                         project_status=project_status,
@@ -252,7 +252,8 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                     ob.update(dorating = dorating)
                     logger.info('Updating project %i rating' % projectid )
             pinfo = None
-            #pinfo = harvest.extract_project_info(projectid)
+            #XXX comment out to skip updateing from gef online
+            pinfo = harvest.extract_project_info(projectid)
             if pinfo:
                 project_status = pinfo.get('Project Status', None)
                 if pinfo.get('Approval Date', None):
@@ -266,13 +267,16 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                             pinfo.get('GEF Grant','0'))
                 total_cost = harvest.convert_currency_to_millions(
                             pinfo.get('Project Cost', '0'))
-                if ob.getProject_status() != project_status:
-                    ob.update(
-                        project_status=project_status,
-                        #start_date=start_date,
-                        gef_project_allocation=str(project_allocation),
-                        total_cost=str(total_cost),
-                        )
+                wb_project_id = pinfo.get('IBRD PO ID', None)
+                if wb_project_id:
+                    ob.update(wb_project_id=wb_project_id)
+                #if ob.getProject_status() != project_status:
+                #    ob.update(
+                #        project_status=project_status,
+                #        #start_date=start_date,
+                #        gef_project_allocation=str(project_allocation),
+                #        total_cost=str(total_cost),
+                #        )
                     logger.info('Updating project %i' % projectid )
                     new_projects.append({'name': brain.Title,
                         'url': brain.getURL(),

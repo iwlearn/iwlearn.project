@@ -220,6 +220,21 @@ class GefOnlineHarvestView(BrowserView):
                         excluded_ids.append(str(projectid))
                 else:
                     logger.info('download failed for project %i' % projectid )
+        if self.context.getInclude_ids():
+            included_ids = [int(id) for id in self.context.getInclude_ids()]
+        else:
+            included_ids = []
+        for projectid in included_ids:
+            if projectid in excluded_ids:
+                excluded_ids.remove(projectid)
+            if projectid in project_ids:
+                logger.info('Project %i already in iwlearn.net' % projectid )
+                continue
+            else:
+                pinfo = harvest.extract_project_info(projectid)
+                if pinfo:
+                    logger.info('Adding project %i' % projectid )
+                    new_projects.append(self.create_project(pinfo, projectid))
         self.context.setExclude_ids(excluded_ids)
         logger.info('harvest complete')
         return new_projects

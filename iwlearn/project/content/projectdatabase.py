@@ -19,9 +19,22 @@ ProjectDatabaseSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'exclude_ids',
         widget=atapi.LinesWidget(
             label=_(u"Exclude Project Ids"),
-            description=_(u"Project ids not to be harvested from gefonline (multifocal projects with no IW components)"),
+            description=_(u"""Project ids not to be harvested from gefonline
+            (multifocal projects with no IW components)"""),
         ),
     ),
+
+    atapi.LinesField(
+        'include_ids',
+        widget=atapi.LinesWidget(
+            label=_(u"Include Project Ids"),
+            description=_(u"""Force these project ids to be harvested
+            from gefonline
+            (projects which cannot be identified as IW by 'Focal Area'
+            or 'Strategic Program')"""),
+        ),
+    ),
+
 
     atapi.StringField( 'country_fill',
         label=u"Country Fillcolor",

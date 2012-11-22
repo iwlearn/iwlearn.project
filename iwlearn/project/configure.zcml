@@ -95,4 +95,12 @@
       handler="iwlearn.project.setuphandlers.add_harvest_menue"
       profile="iwlearn.project:default" />
 
+  <genericsetup:upgradeStep
+      title="Update Project Types to EA, MSP, FSP"
+      description=""
+      source="*"
+      destination="1009"
+      handler="iwlearn.project.setuphandlers.update_project_types"
+      profile="iwlearn.project:default" />
+
 </configure>

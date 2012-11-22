@@ -12,6 +12,40 @@ PROFILE_ID = 'profile-iwlearn.project:default'
 # put your custom types in this list
 TYPES_TO_VERSION = ('Project',)
 
+
+def reindex_projects(context, logger=None):
+    if logger is None:
+        # Called as upgrade step: define our own logger.
+        logger = logging.getLogger('iwlearn.project')
+    catalog = getToolByName(context, 'portal_catalog')
+    brains = catalog(portal_type = 'Project')
+    for brain in brains:
+            obj = brain.getObject()
+            logger.info( 'reindex: ' + '/'.join(obj.getPhysicalPath()))
+            obj.reindexObject()
+
+def update_project_types(context, logger=None):
+    if logger is None:
+        # Called as upgrade step: define our own logger.
+        logger = logging.getLogger('iwlearn.project')
+    catalog = getToolByName(context, 'portal_catalog')
+    brains = catalog(portal_type = 'Project')
+    logger.info( 'Update project types')
+    for brain in brains:
+        obj = brain.getObject()
+        if obj.getProject_type() == 'Enabling Activity':
+            obj.g=setProject_type('EA')
+        elif obj.getProject_type() == 'Medium Sized Project':
+            obj.g=setProject_type('MSP')
+        elif obj.getProject_type() == 'Full Size Project':
+            obj.g=setProject_type('FSP')
+        else:
+            continue
+        logger.info( 'reindex: ' + '/'.join(obj.getPhysicalPath()))
+        obj.reindexObject()
+    logger.info( 'Project types updated')
+
+
 def setVersionedTypes(context, logger=None):
     if VERSIONING:
         if logger is None:

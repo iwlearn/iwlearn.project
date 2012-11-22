@@ -132,7 +132,7 @@ class GefOnlineHarvestView(BrowserView):
         operational_program = harvest.split_semicolon(
                     pinfo.get('Operational Program', ''))
         strategic_program = harvest.split_semicolon(
-                    pinfo.get('Strategic Program', '')))
+                    pinfo.get('Strategic Program', ''))
         project_allocation = harvest.convert_currency_to_millions(
                             pinfo.get('GEF Grant','0'))
         total_cost = harvest.convert_currency_to_millions(
@@ -293,7 +293,7 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                 operational_program = harvest.split_semicolon(
                             pinfo.get('Operational Program', ''))
                 strategic_program = harvest.split_semicolon(
-                            pinfo.get('Strategic Program', '')))
+                            pinfo.get('Strategic Program', ''))
                 if wb_project_id:
                     ob.update(wb_project_id=wb_project_id)
                 if operational_program:

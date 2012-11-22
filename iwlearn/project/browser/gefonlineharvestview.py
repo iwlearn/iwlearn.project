@@ -233,8 +233,13 @@ class GefOnlineHarvestView(BrowserView):
             else:
                 pinfo = harvest.extract_project_info(projectid)
                 if pinfo:
-                    logger.info('Adding project %i' % projectid )
-                    new_projects.append(self.create_project(pinfo, projectid))
+                    if 'GEF Project ID' in pinfo:
+                        logger.info('Adding project %i' % projectid )
+                        new_projects.append(self.create_project(pinfo, projectid))
+                    else:
+                        logger.info('download incomplete for project %i' % projectid )
+                else:
+                    logger.info('download failed for project %i' % projectid )
         self.context.setExclude_ids(excluded_ids)
         logger.info('harvest complete')
         return new_projects

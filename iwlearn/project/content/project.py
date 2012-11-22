@@ -244,11 +244,11 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'strategic_priority',
         required=False,
         searchable=True,
-        vocabulary = vocabulary.STRATEGIC_PRIORITIES,
-        widget=atapi.InAndOutWidget(
-            label=_(u"GEF Strategic Priority"),
-            description=_(u"GEF Strategic Priority"),
-        ),
+        #vocabulary = vocabulary.STRATEGIC_PRIORITIES,
+        #widget=atapi.InAndOutWidget(
+        #    label=_(u"GEF Strategic Priority"),
+        #    description=_(u"GEF Strategic Priority"),
+        #),
     ),
 
     atapi.LinesField(
@@ -268,11 +268,11 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'operational_programme',
         required=False,
         searchable=True,
-        vocabulary = vocabulary.OPERATIONAL_PROGRAMMES,
-        widget=atapi.InAndOutWidget(
-            label=_(u"GEF Operational Programme"),
-            description=_(u"GEF Operational Programme"),
-        ),
+        #vocabulary = vocabulary.OPERATIONAL_PROGRAMMES,
+        #widget=atapi.InAndOutWidget(
+        #    label=_(u"GEF Operational Programme"),
+        #    description=_(u"GEF Operational Programme"),
+        #),
     ),
 
     atapi.FixedPointField(

@@ -235,7 +235,7 @@ def get_all_projectinfo():
         operational_programmes.append(info.get('Operational Program', ''))
         focal_areas.append(info.get('Focal Area',''))
         strategic_programs.append(info.get('Strategic Program', ''))
-    return [set(info_keys), set(countries),
+    return [set(info_keys), set(countries), set(operational_programmes),
         set(project_statuses), set(focal_areas), set(strategic_programs)]
 
 

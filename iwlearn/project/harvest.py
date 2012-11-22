@@ -241,6 +241,14 @@ def get_all_projectinfo():
 
 GEF_COUNTRIES=[u'Afghanistan', u'Africa', u'Albania', u'Algeria', u'Angola', u'Antigua And Barbuda', u'Argentina', u'Armenia', u'Asia/Pacific', u'Azerbaijan', u'Bahamas', u'Bangladesh', u'Barbados', u'Belarus', u'Belize', u'Benin', u'Bolivia', u'Bosnia-Herzegovina', u'Botswana', u'Brazil', u'Bulgaria', u'Burkina Faso', u'Burundi', u'Cambodia', u'Cameroon', u'Cape Verde', u'Central African Republic', u'Chad', u'Chile', u'China', u'Colombia', u'Comoros', u'Congo', u'Congo DR', u'Cook Islands', u'Costa Rica', u"Cote d'Ivoire", u'Croatia', u'Cuba', u'Czech Republic', u'Djibouti', u'Dominica', u'Dominican Republic', u'Ecuador', u'Egypt', u'El Salvador', u'Equatorial Guinea', u'Eritrea', u'Estonia', u'Ethiopia', u'Fiji', u'Gabon', u'Gambia', u'Georgia', u'Ghana', u'Global', u'Grenada', u'Guatemala', u'Guinea', u'Guinea-Bissau', u'Guyana', u'Haiti', u'Honduras', u'Hungary', u'India', u'Indonesia', u'Iran', u'Jamaica', u'Jordan', u'Kazakhstan', u'Kenya', u'Kiribati', u'Korea DPR', u'Kyrgyzstan', u'Lao PDR', u'Latin America and Caribbean', u'Latvia', u'Lebanon', u'Lesotho', u'Liberia', u'Libya', u'Lithuania', u'Macedonia', u'Madagascar', u'Malaysia', u'Maldives', u'Mali', u'Marshall Islands', u'Mauritania', u'Mauritius', u'Mexico', u'Micronesia', u'Moldova', u'Mongolia', u'Montenegro', u'Morocco', u'Mozambique', u'Namibia', u'Nauru', u'Nicaragua', u'Niger', u'Nigeria', u'Niue', u'Palau', u'Palestinian Authority', u'Panama', u'Papua New Guinea', u'Paraguay', u'Peru', u'Philippines', u'Poland', u'Republic Of Korea', u'Romania', u'Russian Federation', u'Rwanda', u'Samoa', u'Sao Tome and Principe', u'Saudi Arabia', u'Senegal', u'Serbia', u'Serbia and Montenegro', u'Seychelles', u'Sierra Leone', u'Slovak Republic', u'Slovenia', u'Solomon Islands', u'South Africa', u'Sri Lanka', u'St. Kitts And Nevis', u'St. Lucia', u'St. Vincent and Grenadines', u'Sudan', u'Suriname', u'Syria', u'Tajikistan', u'Tanzania', u'Thailand', u'Timor Leste', u'Togo', u'Tokelau', u'Tonga', u'Trinidad and Tobago', u'Tunisia', u'Turkey', u'Turkmenistan', u'Tuvalu', u'Uganda', u'Ukraine', u'Uruguay', u'Uzbekistan', u'Vanuatu', u'Venezuela', u'Vietnam', u'Yemen', u'Zambia', u'Zimbabwe']
 
+def split_semicolon(v):
+    if v:
+        return [u.strip() for u in v.split(';') if u.strip()]
+    else:
+        return []
+
+
+
 def compare_countries():
 
     plone_countries = [c['name'] for c in _countrylist.values()]

@@ -129,8 +129,10 @@ class GefOnlineHarvestView(BrowserView):
         else:
             end_date = None
         focal_area = pinfo.get('Focal Area', None)
-        operational_program = pinfo.get('Operational Program', [])
-        strategic_program = pinfo.get('Strategic Program', None)
+        operational_program = harvest.split_semicolon(
+                    pinfo.get('Operational Program', ''))
+        strategic_program = harvest.split_semicolon(
+                    pinfo.get('Strategic Program', '')))
         project_allocation = harvest.convert_currency_to_millions(
                             pinfo.get('GEF Grant','0'))
         total_cost = harvest.convert_currency_to_millions(
@@ -288,8 +290,16 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                 total_cost = harvest.convert_currency_to_millions(
                             pinfo.get('Project Cost', '0'))
                 wb_project_id = pinfo.get('IBRD PO ID', None)
+                operational_program = harvest.split_semicolon(
+                            pinfo.get('Operational Program', ''))
+                strategic_program = harvest.split_semicolon(
+                            pinfo.get('Strategic Program', '')))
                 if wb_project_id:
                     ob.update(wb_project_id=wb_project_id)
+                if operational_program:
+                    ob.update(operational_program=operational_program)
+                if wb_project_id:
+                    ob.update(strategic_program=strategic_program)
                 #if ob.getProject_status() != project_status:
                 #    ob.update(
                 #        project_status=project_status,

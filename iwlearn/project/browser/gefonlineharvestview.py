@@ -298,7 +298,7 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                 if wb_project_id:
                     ob.update(wb_project_id=wb_project_id)
                 if operational_program:
-                    ob.update(operational_program=operational_program)
+                    ob.update(operational_programme=operational_program)
                 if strategic_program:
                     ob.update(strategic_priority=strategic_program)
                 #if ob.getProject_status() != project_status:

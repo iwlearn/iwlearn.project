@@ -138,6 +138,16 @@
       />
 
 
+  <browser:page
+      for="*"
+      name="export.csv"
+      class=".exportcsvview.ExportCSVView"
+      allowed_interface=".exportcsvview.IExportCSVView"
+      permission="zope2.View"
+      />
+
+
+
   <!--adapter
       for=".projectdbview.IProjectDBView
            zope.interface.Interface

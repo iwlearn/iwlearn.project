@@ -34,11 +34,11 @@ def update_project_types(context, logger=None):
     for brain in brains:
         obj = brain.getObject()
         if obj.getProject_type() == 'Enabling Activity':
-            obj.g=setProject_type('EA')
+            obj.setProject_type('EA')
         elif obj.getProject_type() == 'Medium Sized Project':
-            obj.g=setProject_type('MSP')
+            obj.setProject_type('MSP')
         elif obj.getProject_type() == 'Full Size Project':
-            obj.g=setProject_type('FSP')
+            obj.setProject_type('FSP')
         else:
             continue
         logger.info( 'reindex: ' + '/'.join(obj.getPhysicalPath()))

@@ -294,6 +294,7 @@ PROJECT_STATUS = [
     'Under Implementation',
     '---',
     'CEO PIF Clearance',
+    'CEO PIF Rejection',
     'PIF Approved',
     'PPG Approved',
     'Council Approved',

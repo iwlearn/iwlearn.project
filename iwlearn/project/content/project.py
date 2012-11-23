@@ -502,13 +502,13 @@ class Project(folder.ATFolder):
     def getAgencies(self):
         """ Returns the implementing + lead agencies of the project """
         agencies = []
+        la = self.getLeadagency()
+        if la:
+            agencies.append(la.Title())
         ias = self.getOther_implementing_agency()
         if ias:
             for ia in ias:
                 agencies.append(ia.Title())
-        la = self.getLeadagency()
-        if la:
-            agencies.append(la.Title())
         return agencies
 
     def getGefRatings(self):

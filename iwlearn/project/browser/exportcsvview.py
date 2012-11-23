@@ -109,7 +109,7 @@ class ExportCSVView(BrowserView):
             pd['Region']= obj.getRegion()
             pd['Subregion']= obj.getSubregion()
             pd['Basin']= '; '.join(obj.getBasin())
-            pd['Project Status']=obj.getProject_status()
+            pd['Status']=obj.getProject_status()
             pd['FOCAL AREA']='; '.join(obj.getFocal_area())
             pd['Approval Date']= None
             start = end = None

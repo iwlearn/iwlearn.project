@@ -102,7 +102,7 @@ class ExportCSVView(BrowserView):
             pd = {}
             obj = brain.getObject()
             pd['ID']= int(obj.getGef_project_id())
-            pd['Agency']= '; '.join([self.acronym(e.Title()) for e in obj.getAgencies()])
+            pd['Agency']= '; '.join([self.acronym(e) for e in obj.getAgencies()])
             pd['Country']= '; '.join(obj.getCountry())
             pd['Type']= obj.getProject_type()
             pd['Project Name']= obj.Title()

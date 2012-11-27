@@ -562,11 +562,11 @@ RATINGS ={ 'N/A' : None,
 
 GEF_PHASE = [
     'Pilot',
-    'GEF-1',
-    'GEF-2',
-    'GEF-3',
-    'GEF-4',
-    'GEF-5',
+    'GEF - 1',
+    'GEF - 2',
+    'GEF - 3',
+    'GEF - 4',
+    'GEF - 5',
 #    'GEF-6',
     ]
 

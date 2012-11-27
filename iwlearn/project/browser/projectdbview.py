@@ -54,7 +54,7 @@ class ProjectDBBaseView(BrowserView):
             dataType: 'json',
             colModel : [
                 {display: 'Title', name : 'Title', width : 440, sortable : true, align: 'left', hide: false},
-                {display: 'Project type', name : 'getProject_type', width : 100, sortable : true, align: 'left', hide: false},
+                {display: 'Type', name : 'getProject_type', width : 30, sortable : true, align: 'left', hide: false},
                 {display: 'Implementing agencies', name : 'getAgencies', width : 220, sortable : true, align: 'left', hide: false},
                 {display: 'Region', name : 'getSubRegions', width : 200, sortable : true, align: 'left', hide: false},
                 {display: 'Status', name : 'getProject_status', width : 100, sortable : true, align: 'left', hide: false},

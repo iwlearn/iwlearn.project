@@ -8,7 +8,6 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
-
  <include package="Products.CMFCore" file="permissions.zcml" />
 
 <!-- Project profile -->
@@ -138,14 +137,21 @@
       />
 
 
+  <!-- Import/Export -->
+
   <browser:page
-      for="*"
+      for="..interfaces.IProjectDatabase"
       name="export.csv"
       class=".exportcsvview.ExportCSVView"
       allowed_interface=".exportcsvview.IExportCSVView"
       permission="zope2.View"
       />
 
+    <browser:page
+        for="..interfaces.IProjectDatabase"
+        name="importcsv.html"
+        class=".importcsv.ImportCSV"
+        permission="zope.Public" />
 
 
   <!--adapter

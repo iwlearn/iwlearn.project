@@ -14,7 +14,7 @@
 #    * Turkey - situated in Western Asia and Eastern Europe.
 import logging
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleVocabulary
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from copy import copy
 
 from plone.i18n.locales.countries import _countrylist
@@ -561,14 +561,21 @@ RATINGS ={ 'N/A' : None,
         'Highly Satisfactory': 5}
 
 GEF_PHASE = [
-    'Pilot',
-    'GEF - 1',
-    'GEF - 2',
-    'GEF - 3',
-    'GEF - 4',
-    'GEF - 5',
+    ('0', 'Pilot'),
+    ('1', 'GEF - 1'),
+    ('2', 'GEF - 2'),
+    ('3', 'GEF - 3'),
+    ('4', 'GEF - 4'),
+    ('5', 'GEF - 5'),
 #    'GEF-6',
     ]
+
+def gef_phase_vocabulary_factory(context):
+    terms = []
+    for value in GEF_PHASE:
+        terms.append(SimpleTerm(*value))
+    return SimpleVocabulary(terms)
+
 
 
 
@@ -671,7 +678,6 @@ def get_countries(subregions=None, regions=None, countries=None):
         pass
     if (regions==None and countries==None and subregions==None):
         _countries=COUNTRYS_SUB_REGION.keys()
-
     _countries.sort()
     return _countries
 

@@ -54,7 +54,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     ),
 
 
-    atapi.StringField(
+    atapi.IntegerField(
         'wb_project_id',
         required=False,
         searchable=False,
@@ -125,20 +125,6 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u"Countries"),
         ),
     ),
-
-
-    atapi.LinesField(
-        'basin',
-        required=False,
-        searchable=True,
-        vocabulary_factory = u"iwlearn.project.basins",
-        widget=AddRemoveWidget(
-            label=_(u"Basin"),
-            description=_(u"Basin"),
-            visible={'edit': 'invisible', 'view': 'visible'},
-        ),
-    ),
-
 
 
     atapi.ReferenceField(
@@ -231,8 +217,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'gef_phase',
         required=True,
         searchable=False,
-        default=u'GEF-5',
-        vocabulary = vocabulary.GEF_PHASE,
+        default=u'5',
+        validators=('isInt',),
+        vocabulary_factory = u"iwlearn.project.gef-phase",
         widget=atapi.SelectionWidget(
             label=_(u"GEF Phase"),
             description=_(u"GEF replenishment phase"),

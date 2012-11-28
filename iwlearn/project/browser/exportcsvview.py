@@ -126,7 +126,10 @@ class ExportCSVView(BrowserView):
             pd['Fee Total']= None
             pd['Project Cost']= obj.getTotal_cost()
             pd['CEO Endorsement Date']= None
-            pd['Phase']= obj.getGef_phase()
+            if obj.getGef_phase() == '0':
+                pd['Phase']= 'Pilot'
+            else:
+                pd['Phase']= 'GEF - ' + str(obj.getGef_phase())
             pd['Project Type #1']= None
             pd['Project Type #2']= None
             pd['Project Type #3']= None

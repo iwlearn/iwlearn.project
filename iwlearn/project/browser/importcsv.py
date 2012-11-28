@@ -52,7 +52,16 @@ class ImportCSV(formbase.PageForm):
             #pd['Fee Total']= None
             #pd['Project Cost']= obj.getTotal_cost()
             #pd['CEO Endorsement Date']= None
-            project.setGef_phase(data['Phase'])
+            if data['Phase']:
+                phase = data['Phase'].replace(' ', '').replace('-','').lower()
+                if phase == 'pilot':
+                    project.setGef_phase('0')
+                elif phase.startswith('gef') and len(phase) == 4:
+                    iphase = int(phase[3])
+                    project.setGef_phase(str(iphase))
+                else:
+                    logger.warn('Invalid phase %s for  project %s' % (
+                            data['Phase'], data['ID']) )
             #pd['Project Type #1']= None
             #pd['Project Type #2']= None
             #pd['Project Type #3']= None

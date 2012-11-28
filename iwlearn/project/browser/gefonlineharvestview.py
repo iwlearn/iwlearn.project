@@ -224,12 +224,12 @@ class GefOnlineHarvestView(BrowserView):
                 else:
                     logger.info('download failed for project %i' % projectid )
         if self.context.getInclude_ids():
-            included_ids = [int(id) for id in self.context.getInclude_ids()]
+            included_ids = [int(id) for id in set(self.context.getInclude_ids())]
         else:
             included_ids = []
         for projectid in included_ids:
-            if projectid in excluded_ids:
-                excluded_ids.remove(projectid)
+            if str(projectid) in excluded_ids:
+                excluded_ids.remove(str(projectid))
             if projectid in project_ids:
                 logger.info('Project %i already in iwlearn.net' % projectid )
                 continue
@@ -243,7 +243,10 @@ class GefOnlineHarvestView(BrowserView):
                         logger.info('download incomplete for project %i' % projectid )
                 else:
                     logger.info('download failed for project %i' % projectid )
+        excluded_ids.sort()
         self.context.setExclude_ids(excluded_ids)
+        included_ids.sort()
+        self.context.setInclude_ids([str(i) for i in included_ids])
         logger.info('harvest complete')
         return new_projects
 

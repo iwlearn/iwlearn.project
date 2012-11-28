@@ -40,6 +40,13 @@
     provides="zope.schema.interfaces.IVocabularyFactory"
     />
 
+  <utility
+    component=".vocabulary.gef_phase_vocabulary_factory"
+    name="iwlearn.project.gef-phase"
+    provides="zope.schema.interfaces.IVocabularyFactory"
+    />
+
+
  <utility
     component=".vocabulary.rating_vocabulary_factory"
     name="iwlearn.project.ratings"

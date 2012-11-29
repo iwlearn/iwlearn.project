@@ -44,6 +44,17 @@
       permission="zope2.View"
       />
 
+  <!--browser:page
+      for="..interfaces.IProject"
+      name="worldbankview.html"
+      class=".projectview.ProjectView"
+      template="projectwbview.pt"
+      allowed_interface=".projectview.IProjectView"
+      permission="zope2.View"
+      /-->
+
+
+<!-- Project Profile KMLs -->
 
   <adapter
       for=".projectview.IProjectView
@@ -53,8 +64,6 @@
       factory=".maplayers.ProjectKMLMapLayers"
       />
 
-
-<!-- Project Profile KMLs -->
 
 
   <browser:page

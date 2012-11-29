@@ -64,6 +64,18 @@ class ProjectView(BrowserView):
         else:
             return False
 
+    @property
+    def get_wburl(self):
+        wb_url = 'http://www.worldbank.org/projects/P%06d/gef-project?lang=en'
+        try:
+            wb_id = int(self.context.getWb_project_id())
+        except:
+            return None
+        if wb_id:
+            return wb_url % wb_id
+
+
+
 
     def rnd_picture(self):
         results = self.portal_catalog(portal_type=['Image'],

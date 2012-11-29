@@ -61,18 +61,28 @@
                               <strong><span tal:replace="structure accessor" /></strong>
                             </td>
                           </tr>
+                        <tr tal:condition="view/get_wburl">
+                            <td class="c1 prjlabel"
+                            valign="top">
+                              IBRD ID:
+                            </td>
+                            <td class="c1" width="78%" valign="top">
+                              <strong><a tal:attributes="href view/get_wburl"
+                                        target="_blank" tal:content="here/getWb_project_id"></a></strong>
+                            </td>
+                          </tr>
                           <!-- moved project description here -->
-                                  <tr tal:define="field python:here.Schema()['project_summary']; accessor python:getattr(here, field.accessor)"
-                              tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
-                                      <td class="c1 prjlabel">
-                                        Project
-                                          Description:
-                                      </td>
+                          <tr tal:define="field python:here.Schema()['project_summary']; accessor python:getattr(here, field.accessor)"
+                      tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+                              <td class="c1 prjlabel">
+                                Project
+                                  Description:
+                              </td>
 
-                                      <td class="c1" width="78%">
-                                        <spal tal:replace="structure here/project_summary" />
-                                      </td>
-                                  </tr>
+                              <td class="c1" width="78%">
+                                <spal tal:replace="structure here/project_summary" />
+                              </td>
+                          </tr>
                           <tr tal:define="field python:here.Schema()['remote_url']; accessor python:getattr(here, field.accessor)"
                           tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 

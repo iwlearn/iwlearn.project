@@ -13,8 +13,6 @@ from Products.AddRemoveWidget import AddRemoveWidget
 from Products.ATExtensions.widget.url import UrlWidget
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 
-
-
 from iwlearn.project import projectMessageFactory as _
 from iwlearn.project.interfaces import IProject
 from iwlearn.project.config import PROJECTNAME
@@ -365,29 +363,6 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         validators=('isInt',)
     ),
 
-    # geographical info only for historical reasons - replaced with collective.geo
-
-    atapi.FloatField(
-        'longitude',
-        widget=atapi.DecimalWidget(
-            label=_(u"Longitude"),
-            description=_(u"Longitude of an marker on map"),
-            visible={'edit': 'invisible', 'view': 'invisible'},
-        ),
-        validators=('isDecimal'),
-    ),
-
-
-    atapi.FloatField(
-        'latitude',
-        widget=atapi.DecimalWidget(
-            label=_(u"Latitude"),
-            description=_(u"Latitude of an marker on map"),
-            visible={'edit': 'invisible', 'view': 'invisible'},
-        ),
-        validators=('isDecimal'),
-    ),
-
 # project result ratings:
 
     atapi.StringField( 'csim_committees',
@@ -563,11 +538,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        validators=('isInt',)
     ),
-
-
-
 
 ))
 
@@ -648,31 +619,6 @@ class Project(folder.ATFolder):
             if basin is not None:
                  titles.append(basin.Title())
         return titles
-
-    def get_normalized_ratings(self):
-        def norm4ratings(rating):
-            if rating != None:
-                return ((float(rating) + 1.0) / 4.0) * 10
-            else:
-                return None
-
-        ratings = []
-        if self.getDorating() != None:
-            ratings.append(((float(self.getDorating()) + 1.0) / 6.0) * 10.0)
-        else:
-            ratings.append(None)
-        if self.getIprating() != None:
-            ratings.append(((float(self.getIprating()) + 1.0) / 6.0) * 10.0)
-        else:
-            ratings.append(None)
-
-        ratings.append(norm4ratings(self.getCsim_committees()))
-        ratings.append(norm4ratings(self.getRegional_frameworks()))
-        ratings.append(norm4ratings(self.getRmis()))
-        ratings.append(norm4ratings(self.getReforms()))
-        ratings.append(norm4ratings(self.getTda_priorities()))
-        ratings.append(norm4ratings(self.getSap_devel()))
-        return ratings
 
 
     # -*- Your ATSchema to Python Property Bridges Here ... -*-

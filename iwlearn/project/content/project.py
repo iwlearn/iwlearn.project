@@ -365,6 +365,36 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
 # project result ratings:
 
+
+    atapi.StringField( 'pra_sources',
+        label=_(u'Information Sources'),
+        description=_(u""),
+        visible={'edit': 'invisible'},
+        required = False,
+        #validators=('isInt',)
+    ),
+
+
+    atapi.TextField('lessons',
+        label=_(u"Key Lessons Learned from Project"),
+        description=_(u""),
+        visible={'edit': 'invisible'},
+        required = False,
+    ),
+    atapi.TextField('key_results',
+        label=_(u"Key Project Results"),
+        description=_(u""),
+        visible={'edit': 'invisible'},
+        required = False,
+    ),
+    atapi.TextField('impacts',
+        label=_(u"Catalytic Impacts"),
+        description=_(u""),
+        visible={'edit': 'invisible'},
+        required = False,
+    ),
+
+
     atapi.StringField( 'csim_committees',
         label=_(u"Establishment of country-specific inter-ministerial committees"),
         description=_(u""),
@@ -398,7 +428,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        validators=('isInt',)
+        #validators=('isInt',)
     ),
     atapi.TextField('rmis_desc',
         label=_(u"Regional Management Institutions"),
@@ -426,7 +456,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        validators=('isInt',)
+        #validators=('isInt',)
     ),
     atapi.TextField('tda_priorities_desc',
         label=_(u"Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes"),
@@ -440,7 +470,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        validators=('isInt',)
+        #validators=('isInt',)
     ),
     atapi.TextField('sap_devel_desc',
         label=_(u"Development of Strategic Action Plan (SAP)"),
@@ -454,7 +484,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        validators=('isInt',)
+        #validators=('isInt',)
     ),
     atapi.TextField('abnj_rmi_desc',
         label=_(u"Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)"),
@@ -468,7 +498,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        validators=('isInt',)
+        #validators=('isInt',)
     ),
     atapi.TextField('tdasap_cc_desc',
         label=_(u"Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations"),
@@ -482,7 +512,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        validators=('isInt',)
+        #validators=('isInt',)
     ),
     atapi.TextField('tda_mnits_desc',
         label=_(u"TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities"),
@@ -496,7 +526,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        validators=('isInt',)
+        #validators=('isInt',)
     ),
     atapi.TextField('sap_adopted_desc',
         label=_(u"Proportion of Countries that have adopted SAP"),
@@ -524,7 +554,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        validators=('isInt',)
+        #validators=('isInt',)
     ),
     atapi.TextField('sap_inc_desc',
         label=_(u"Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc"),

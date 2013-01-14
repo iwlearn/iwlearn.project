@@ -180,6 +180,9 @@
                         class="context" />
                 </div-->
               </fieldset>
+              
+              <p style="text-align:center">
+              <a href="http://geonode.iwlearn.org" target="_blank"><img src="geonode.png" alt="" /></a><br/>
               <!-- disclaimer -->
               <a id="disclaimer" href="#" >Disclaimer</a>
               <div id="disclaimerdialog" title="Disclaimer">
@@ -254,8 +257,8 @@ territory, or any endorsement or acceptance of such boundaries.
   (http://www.wri.org/publication/watersheds-of-the-world)</a>
   </dd>
 </dl>
-              </div>
-              &nbsp;&nbsp;&nbsp;&nbsp; <a href="http://geonode.iwlearn.org" target="_blank"><img src="geonode.png" alt="" style="vertical-align:middle" /></a>
+              </div></p>
+              
             </form>
         </div>
      </div>

@@ -33,6 +33,9 @@
       <li><a href="@@gefonlineharvest_view">Harvest new projects fron GEF online</a></li>
       <li><a href="@@gefonlineupdate_view">Update existing projects from GEF online and thegef.org</a></li>
       <li><a href="@@update_colors_form.html">Set basin colors</a></li>
+      <li><a href="@@importcsv.html">Import GEF CSV</a></li>
+      <li><a href="@@importracsv.html">Import Resultsarchive CSV</a></li>
+      <li><a href="@@export.csv">Export to CSV</a></li>
     </ul>
         </tal:main-macro>
     </div>

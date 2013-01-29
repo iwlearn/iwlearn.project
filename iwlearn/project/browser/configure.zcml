@@ -160,7 +160,13 @@
         for="..interfaces.IProjectDatabase"
         name="importcsv.html"
         class=".importcsv.ImportCSV"
-        permission="zope.Public" />
+        permission="cmf.ModifyPortalContent" />
+
+    <browser:page
+        for="..interfaces.IProjectDatabase"
+        name="importracsv.html"
+        class=".importcsv.ImportRACSV"
+        permission="cmf.ModifyPortalContent" />
 
 
   <!--adapter

@@ -30,6 +30,7 @@ class ImportCSV(formbase.PageForm):
     description = _(u'''Import a CSV file to add new projects to the
     Project DB and to update existing projects with data from the CSV''')
 
+    id_column = 'ID'
     @property
     def portal_catalog(self):
         return getToolByName(self.context, 'portal_catalog')
@@ -61,7 +62,7 @@ class ImportCSV(formbase.PageForm):
                     project.setGef_phase(str(iphase))
                 else:
                     logger.warn('Invalid phase %s for  project %s' % (
-                            data['Phase'], data['ID']) )
+                            data['Phase'], data[self.id_column]) )
             #pd['Project Type #1']= None
             #pd['Project Type #2']= None
             #pd['Project Type #3']= None
@@ -69,7 +70,7 @@ class ImportCSV(formbase.PageForm):
             #pd['Multi FA']= None
             #pd['SAP']= None
             #pd['Keywords']= '; '.join(obj.Subject())
-            logger.info('Updating project %s' % data['ID'] )
+            logger.info('Updating project %s' % data[self.id_column] )
 
 
     @form.action('Submit')
@@ -79,7 +80,7 @@ class ImportCSV(formbase.PageForm):
         pdict = {}
         for row in reader:
             try:
-                pdict[int(row['ID'])] = row
+                pdict[int(row[self.id_column])] = row
             except:
                 continue
         projects = self.portal_catalog(portal_type ='Project')
@@ -93,6 +94,47 @@ class ImportCSV(formbase.PageForm):
         include.sort()
         self.context.setInclude_ids(include)
 
+class ImportRACSV(ImportCSV):
 
+    description = _(u'''Import a CSV file to add the resultsarchive
+                to the projectdb''')
+    id_column = 'GEFID'
 
+def update_project(self, project, data):
+            if data['GEF Project ShortName']:
+                 project.setProject_shortname(data['GEF Project ShortName'])
+            #project.setProject_type(data['Project Type'])
+            #project.setTitle(data['GEF Project Full Title'])
+            #XXX data['Associated Basin/Ecosystem']
+            #project.setProject_status(data['Status'])
+            project.setPra_sources(data['Information Sources'])
+            project.setLessons(data['Key Lessons Learned from Project'])
+            project.setKey_results(data['Key Project Results'])
+            project.setImpacts(data['Catalytic Impacts'])
+            project.setCsim_committees_desc(data['Establishment of country-specific inter-ministerial committees'])
+            project.setCsim_committees(data['Establishment of country-specific inter-ministerial committees rating'])
+            project.setRegional_frameworks_desc(data['Regional legal agreements and cooperation frameworks'])
+            project.setRegional_frameworks(data['Regional legal agreements and cooperation frameworks rating'])
+            project.setRmis_desc(data['Regional Management Institutions'])
+            project.setRmis(data['Regional Management Institutions rating'])
+            project.setReforms_desc(data['National/Local reforms'])
+            project.setReforms(data['National/Local reforms rating'])
+            project.setTda_priorities_desc(data['Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes'])
+            project.setTda_priorities(data['Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes rating'])
+            project.setSap_devel_desc(data['Development of Strategic Action Plan (SAP)'])
+            project.setSap_devel(data['Development of Strategic Action Plan (SAP) rating'])
+            project.setAbnj_rmi_desc(data['Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)'])
+            project.setAbnj_rmi(data['Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI) rating'])
+            project.setTdasap_cc_desc(data['Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations'])
+            project.setTdasap_cc(data['Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations rating'])
+            project.setTda_mnits_desc(data['TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities'])
+            project.setTda_mnits(data['TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities rating'])
+            project.setSap_adopted_desc(data['Proportion of Countries that have adopted SAP'])
+            project.setSap_adopted(data['Proportion of Countries that have adopted SAP rating'])
+            project.setSap_implementing_desc(data['Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)'])
+            project.setSap_implementing(data['Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans) rating'])
+            project.setSap_inc_desc(data['Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc'])
+            project.setSap_inc(data['Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc rating'])
+            project.setKey_process_results(data['Other Key Process Results'])
 
+            logger.info('Updating project %s' % data[self.id_column] )

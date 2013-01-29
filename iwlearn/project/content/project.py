@@ -37,8 +37,14 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         validators=('isNonEmptyFile'),
     ),
 
-
-
+    atapi.StringField('project_shortname',
+        required=False,
+        searchable=True,
+        widget=atapi.StringWidget(
+            label=_(u"Project short name"),
+            description=_(u""),
+        ),
+    ),
 
     atapi.StringField(
         'gef_project_id',

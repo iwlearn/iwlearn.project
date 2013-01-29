@@ -93,6 +93,7 @@ class ImportCSV(formbase.PageForm):
         include += [str(k) for k in pdict]
         include.sort()
         self.context.setInclude_ids(include)
+        logger.info('Update complete')
 
 class ImportRACSV(ImportCSV):
 
@@ -100,7 +101,7 @@ class ImportRACSV(ImportCSV):
                 to the projectdb''')
     id_column = 'GEFID'
 
-def update_project(self, project, data):
+    def update_project(self, project, data):
             if data['GEF Project ShortName']:
                  project.setProject_shortname(data['GEF Project ShortName'])
             #project.setProject_type(data['Project Type'])

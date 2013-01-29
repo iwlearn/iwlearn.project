@@ -44,6 +44,17 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      for="..interfaces.IProject"
+      name="resultsview.html"
+      class=".projectview.ProjectView"
+      template="projectresults_view.pt"
+      allowed_interface=".projectview.IProjectView"
+      permission="zope2.View"
+      />
+
+
+
   <!--browser:page
       for="..interfaces.IProject"
       name="worldbankview.html"

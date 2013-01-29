@@ -86,7 +86,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.BooleanField(
         'globalproject',
         required=False,
-        searchable=True,
+        searchable=False,
         default=False,
         widget=atapi.BooleanWidget(
             label=_(u"Global"),
@@ -386,18 +386,21 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
     atapi.TextField('key_results',
         label=_(u"Key Project Results"),
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
     atapi.TextField('impacts',
         label=_(u"Catalytic Impacts"),
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
 
 
@@ -413,6 +416,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
 
     atapi.StringField( 'regional_frameworks',
@@ -427,6 +431,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
 
     atapi.StringField( 'rmis',
@@ -441,6 +446,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
 
     atapi.StringField( 'reforms',
@@ -455,6 +461,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
 
     atapi.StringField( 'tda_priorities',
@@ -469,6 +476,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
 
     atapi.StringField( 'sap_devel',
@@ -483,6 +491,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
 
     atapi.StringField( 'abnj_rmi',
@@ -497,6 +506,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
 
     atapi.StringField( 'tdasap_cc',
@@ -511,6 +521,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
 
     atapi.StringField( 'tda_mnits',
@@ -525,6 +536,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
 
     atapi.StringField( 'sap_adopted',
@@ -539,6 +551,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
 
     atapi.StringField( 'sap_implementing',
@@ -553,6 +566,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
 
     atapi.StringField( 'sap_inc',
@@ -567,6 +581,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
 
     atapi.TextField( 'key_process_results',
@@ -574,6 +589,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
+        searchable=True,
     ),
 
 ))

@@ -382,9 +382,11 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
 
     atapi.TextField('lessons',
-        label=_(u"Key Lessons Learned from Project"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"Key Lessons Learned from Project"),
+            description=_(u""),
+            #visible={'edit': 'invisible'},
+        ),
         required = False,
         searchable=True,
     ),
@@ -404,16 +406,16 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     ),
 
 
-    atapi.StringField( 'csim_committees',
+    atapi.StringField( 'imcs',
         label=_(u"Establishment of country-specific inter-ministerial committees"),
-        description=_(u""),
+        description=_(u"National Inter-Ministry Committees (IMCs)"),
         visible={'edit': 'invisible'},
         required = False,
         #validators=('isInt',)
     ),
-    atapi.TextField('csim_committees_desc',
+    atapi.TextField('imcs_desc',
         label=_(u"Establishment of country-specific inter-ministerial committees"),
-        description=_(u""),
+        description=_(u"National Inter-Ministry Committees (IMCs)"),
         visible={'edit': 'invisible'},
         required = False,
         searchable=True,
@@ -424,7 +426,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        validators=('isInt',)
+        #validators=('isInt',)
     ),
     atapi.TextField('regional_frameworks_desc',
         label=_(u"Regional legal agreements and cooperation frameworks"),
@@ -529,7 +531,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        #validators=('isInt',)
+        validators=('isInt',)
     ),
     atapi.TextField('tda_mnits_desc',
         label=_(u"TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities"),
@@ -544,7 +546,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        #validators=('isInt',)
+        validators=('isInt',)
     ),
     atapi.TextField('sap_adopted_desc',
         label=_(u"Proportion of Countries that have adopted SAP"),
@@ -673,7 +675,155 @@ class Project(folder.ATFolder):
         return titles
 
 
-    # -*- Your ATSchema to Python Property Bridges Here ... -*-
+    def r4imcs(self):
+        desc = ''
+        r = self.imcs
+        if r in ['1', 'IV0', 'III0', 'IW1']:
+            ri = 1
+        elif r in ['2', 'IV1', 'III1', 'IW2']:
+            ri = 2
+        elif r in ['3', 'IV2', 'III2', 'IW3']:
+            ri = 3
+        elif r in ['4', 'IV3', 'III3', 'IW4']:
+            ri =4
+        return {'ri': ri, 'rd':desc}
+
+    def r4regional_frameworks(self):
+        desc = ''
+        r = self.regional_frameworks
+        if r in ['1', 'IV0', 'III0', 'IW1']:
+            ri = 1
+        elif r in ['2', 'IV1', 'IV2', 'IW2']:
+            ri = 2
+        elif r in ['3', 'III1', 'IW3']:
+            ri = 3
+        elif r in ['4', 'IV3', 'III2', 'III3', 'W4']:
+            ri =4
+        return {'ri': ri, 'rd':desc}
+
+    def r4rmis(self):
+        r = self.rmis
+        if r in ['1', 'IV0', 'III0', 'IW1']:
+            ri = 1
+        elif r in ['2', 'IV1', 'III1', 'IW2']:
+            ri = 2
+        elif r in ['3', 'IV2', 'III2', 'IW3']:
+            ri = 3
+        elif r in ['4', 'IV3', 'III3', 'IW4']:
+            ri =4
+        desc = ''
+        return {'ri': ri, 'rd':desc}
+
+    def r4reforms(self):
+        r = self.reforms
+        if r in ['1', 'IV0', 'III0', 'IW1']:
+            ri = 1
+        elif r in ['2', 'IW2']:
+            ri = 2
+        elif r in ['3', 'IV1', 'IV2', 'III1', 'III2', 'IW3']:
+            ri = 3
+        elif r in ['4', 'IV3', 'III3', 'IW4']:
+            ri =4
+        else:
+            raise ValueError
+        desc = ''
+        return {'ri': ri, 'rd':desc}
+
+    def r4tda_priorities(self):
+        r = self.tda_priorities
+        if r in ['1', 'IV0', 'IW1']:
+            ri = 1
+        elif r in ['2', 'IV1', 'III0', 'III1', 'IW2']:
+            ri = 2
+        elif r in ['3', 'IV2', 'III2', 'IW3']:
+            ri = 3
+        elif r in ['4', 'IV3', 'III3', 'IW4']:
+            ri =4
+        else:
+            raise ValueError
+        desc = ''
+        return {'ri': ri, 'rd':desc}
+
+    def r4sap_devel(self):
+        r = self.sap_devel
+        if r in ['1', 'IV0', 'III1', 'IW1']:
+            ri = 1
+        elif r in ['2', 'IV1', 'III1', 'IW2']: #XXX
+            ri = 2
+        elif r in ['3', 'IV2', 'III2', 'IW3']:
+            ri = 3
+        elif r in ['4', 'IV3', 'III3', 'IW4']:
+            ri =4
+        else:
+            raise ValueError
+        desc = ''
+        return {'ri': ri, 'rd':desc}
+
+    def r4abnj_rmi(self):
+        r = self.abnj_rmi
+        if r in ['1', 'IV0', 'IW1']:
+            ri = 1
+        elif r in ['2', 'IV1', 'IW2']:
+            ri = 2
+        elif r in ['3', 'IV2', 'IW3']:
+            ri = 3
+        elif r in ['4', 'IV3', 'IW4']:
+            ri =4
+        else:
+            raise ValueError
+        desc = ''
+        return {'ri': ri, 'rd':desc}
+
+    def r4tdasap_cc(self):
+        r = self.tdasap_cc
+        if r in ['1', 'IV0', 'IW1']:
+            ri = 1
+        elif r in ['2', 'IV1', 'IW2']:
+            ri = 2
+        elif r in ['3', 'IV2', 'IW3']:
+            ri = 3
+        elif r in ['4', 'IV3', 'IW4']:
+            ri =4
+        else:
+            raise ValueError
+        desc = ''
+        return {'ri': ri, 'rd':desc}
+
+    def r4tda_mnits(self):
+        r = self.tda_mnits
+        ri = int(r)
+        desc = ''
+        return {'ri': ri, 'rd':desc}
+
+    def r4sap_adopted(self):
+        r = self.sap_adopted
+        ri = int(r)
+        desc = ''
+        return {'ri': ri, 'rd':desc}
+
+    def r4sap_implementing(self):
+        r = self.sap_implementing
+        ri = int(r)
+        desc = ''
+        return {'ri': ri, 'rd':desc}
+
+    def r4sap_inc(self):
+        r = self.sap_inc
+        if r in ['1', 'IV0', 'IW1']:
+            ri = 1
+        elif r in ['2', 'IV1', 'IW2']:
+            ri = 2
+        elif r in ['3', 'IV2', 'IW3']:
+            ri = 3
+        elif r in ['4', 'IV3', 'IW4']:
+            ri =4
+        desc = ''
+        return {'ri': ri, 'rd':desc}
+
+
+
+
+
 
 def reindexProjectDocuments(context, event):
     """ Project documents acquire some project attributes: project_type

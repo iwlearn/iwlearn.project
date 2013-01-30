@@ -323,3 +323,32 @@ background:none;
             font-size: 130%;
             display: none;
         }
+
+/* project results archive ratings */
+
+.pra-rating-0 {
+background-color: grey;
+border: solid 2px;
+border-color: grey;
+}
+
+.pra-rating-1 {
+background-color: red;
+border: solid 2px;
+border-color: red;
+}
+.pra-rating-2 {
+background-color: orange;
+border: solid 2px;
+border-color: orange;
+}
+.pra-rating-3 {
+background-color: yellow;
+border: solid 2px;
+border-color: yellow;
+}
+.pra-rating-4 {
+background-color: lightgreen;
+border: solid 2px;
+border-color: green;
+}

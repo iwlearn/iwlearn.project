@@ -18,7 +18,9 @@ from iwlearn.project import projectMessageFactory as _
 logger = logging.getLogger('iwlearn.project')
 
 CSV_FIELDS= ['ID',
+            "GEF Project ShortName",
             'Agency',
+            'IBRD ID',
             'Country',
             'Type',
             'Project Name',
@@ -48,7 +50,37 @@ CSV_FIELDS= ['ID',
             'Url',
             'Strategic Program',
             'Operational Program',
-            'Executing Agency']
+            'Executing Agency',
+            "Information Sources",
+            "Key Lessons Learned from Project",
+            "Key Project Results",
+            "Catalytic Impacts",
+            "Rating: Establishment of country-specific inter-ministerial committees",
+            "Establishment of country-specific inter-ministerial committees",
+            "Rating: Regional legal agreements and cooperation frameworks",
+            "Regional legal agreements and cooperation frameworks",
+            "Rating: Regional Management Institutions",
+            "Regional Management Institutions",
+            "Rating: National/Local reforms",
+            "National/Local reforms",
+            "Rating: Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes",
+            "Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes",
+            "Rating: Development of Strategic Action Plan (SAP)",
+            "Development of Strategic Action Plan (SAP)",
+            "Rating: Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)",
+            "Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)",
+            "Rating: Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations",
+            "Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations",
+            "Rating: TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities",
+            "TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities",
+            "Rating: Proportion of Countries that have adopted SAP",
+            "Proportion of Countries that have adopted SAP",
+            "Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)",
+            "Rating: Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)",
+            "Rating: Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc",
+            "Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc",
+            "Other Key Process Results",
+            ]
 
 
 class IExportCSVView(Interface):
@@ -102,10 +134,12 @@ class ExportCSVView(BrowserView):
             pd = {}
             obj = brain.getObject()
             pd['ID']= int(obj.getGef_project_id())
+            pd['Project Name']= obj.Title()
+            pd['GEF Project ShortName']=obj.getProject_shortname()
             pd['Agency']= '; '.join([self.acronym(e) for e in obj.getAgencies()])
+            pd['IBRD ID']= obj.getWb_project_id()
             pd['Country']= '; '.join(obj.getCountry())
             pd['Type']= obj.getProject_type()
-            pd['Project Name']= obj.Title()
             pd['Region']= obj.getRegion()
             pd['Subregion']= obj.getSubregion()
             pd['Basin']= '; '.join(obj.getBasin())
@@ -141,6 +175,35 @@ class ExportCSVView(BrowserView):
             pd['Strategic Program']= '; '.join(obj.getStrategic_priority())
             pd['Operational Program']= '; '.join(obj.getOperational_programme())
             pd['Executing Agency']= '; '.join([e.Title() for e in obj.getExecuting_agency()])
+            pd["Information Sources"]=obj.getPra_sources()
+            pd["Key Lessons Learned from Project"]=obj.getLessons()
+            pd["Key Project Results"]=obj.getKey_results()
+            pd["Catalytic Impacts"]=obj.getImpacts()
+            pd["Rating: Establishment of country-specific inter-ministerial committees"]=obj.getImcs()
+            pd["Establishment of country-specific inter-ministerial committees"]=obj.getImcs_desc()
+            pd["Rating: Regional legal agreements and cooperation frameworks"]=obj.getRegional_frameworks()
+            pd["Regional legal agreements and cooperation frameworks"]=obj.getRegional_frameworks_desc()
+            pd["Rating: Regional Management Institutions"]=obj.getRmis()
+            pd["Regional Management Institutions"]=obj.getRmis_desc()
+            pd["Rating: National/Local reforms"]=obj.getReforms()
+            pd["National/Local reforms"]=obj.getReforms_desc()
+            pd["Rating: Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes"]=obj.getTda_priorities()
+            pd["Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes"]=obj.getTda_priorities_desc()
+            pd["Rating: Development of Strategic Action Plan (SAP)"]=obj.getSap_devel()
+            pd["Development of Strategic Action Plan (SAP)"]=obj.getSap_devel_desc()
+            pd["Rating: Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)"]=obj.getAbnj_rmi()
+            pd["Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)"]=obj.getAbnj_rmi_desc()
+            pd["Rating: Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations"]=obj.getTdasap_cc()
+            pd["Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations"]=obj.getTdasap_cc_desc()
+            pd["Rating: TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities"]=obj.getTda_mnits()
+            pd["TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities"]=obj.getTda_mnits_desc()
+            pd["Rating: Proportion of Countries that have adopted SAP"]=obj.getSap_adopted()
+            pd["Proportion of Countries that have adopted SAP"]=obj.getSap_adopted_desc()
+            pd["Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)"]=obj.getSap_implementing()
+            pd["Rating: Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)"]=obj.getSap_implementing_desc()
+            pd["Rating: Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc"]=obj.getSap_inc()
+            pd["Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc"]=obj.getSap_inc_desc()
+            pd["Other Key Process Results"]=obj.getKey_process_results()
             writer.writerow(pd)
         output.seek(0)
         self.request.RESPONSE.setHeader('Content-Type','text/csv; charset=utf-8')

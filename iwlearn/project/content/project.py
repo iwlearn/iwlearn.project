@@ -63,7 +63,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         required=False,
         searchable=False,
         widget=atapi.StringWidget(
-            label=_(u"IBRD PO ID"),
+            label=_(u"IBRD ID"),
             description=_(u"Worldbank Project Id"),
         ),
          validators=('isInt',)
@@ -387,6 +387,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -394,6 +397,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"Key Project Results"),
         description=_(u""),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -401,6 +407,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"Catalytic Impacts"),
         description=_(u""),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -417,6 +426,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"Establishment of country-specific inter-ministerial committees"),
         description=_(u"National Inter-Ministry Committees (IMCs)"),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -432,6 +444,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"Regional legal agreements and cooperation frameworks"),
         description=_(u""),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -447,6 +462,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"Regional Management Institutions"),
         description=_(u""),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -462,6 +480,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"National/Local reforms"),
         description=_(u""),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -477,6 +498,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes"),
         description=_(u""),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -492,6 +516,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"Development of Strategic Action Plan (SAP)"),
         description=_(u""),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -507,6 +534,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)"),
         description=_(u""),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -522,6 +552,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations"),
         description=_(u""),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -537,6 +570,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities"),
         description=_(u""),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -552,6 +588,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"Proportion of Countries that have adopted SAP"),
         description=_(u""),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -567,6 +606,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)"),
         description=_(u""),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -582,6 +624,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc"),
         description=_(u""),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -590,6 +635,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         label=_(u"Other Key Process Results"),
         description=_(u""),
         visible={'edit': 'invisible'},
+        default_content_type = 'text/restructured',
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
         required = False,
         searchable=True,
     ),
@@ -676,8 +724,24 @@ class Project(folder.ATFolder):
 
 
     def r4imcs(self):
-        desc = ''
         r = self.imcs
+        dd = {'1': 'No IMCs established',
+            '2': 'IMCs established and functioning, < 50% countries participating',
+            '3': 'IMCs established and functioning, > 50% countries participating',
+            '4': 'IMCs established, functioning and formalized thru legal and/or institutional arrangements, in most participating countries',
+            'IV0': 'No IMCs established',
+            'IV1': 'IMCs established with clear ToR but not functioning',
+            'IV2': 'IMCs estbalished with clear ToR, functioning informally or for project purposes only',
+            'IV3': 'IMCs established with clear ToR, functioning and formalized thru legal and/or institutional arrangements',
+            'III0': 'No IMCs established',
+            'III1': 'IMCs established but not functioning effectively or at all.',
+            'III2': 'IMCs established and functioning on informal basis',
+            'III3': 'IMCs established, functioning and formalized thru legal and/or institutional arrangements',
+            'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
+            'IW1': '',
+            'IW2': '',
+            'IW3': '',
+            'IW4': '',}
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'III1', 'IW2']:
@@ -686,10 +750,32 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
+        else:
+            ri = 0
+        if r:
+            desc = dd[r]
+        else:
+            desc = ''
         return {'ri': ri, 'rd':desc}
 
     def r4regional_frameworks(self):
-        desc = ''
+        dd = {'1': 'No legal agreement/cooperation framework in place',
+            '2': 'Regional legal agreement negotiated but not yet signed',
+            '3': 'Countries signed legal agreement',
+            '4': 'Legal agreement ratified and entered into force',
+            'IV0': 'No legal agreement in place',
+            'IV1': 'Legal agreement signed',
+            'IV2': 'More than one country ratified legal agreement',
+            'IV3': 'Legal agreement ratified by necessary quorum and in force',
+            'III0': 'No legal agreement in place',
+            'III1': 'Legal agreement signed and ratified by more than one country  ',
+            'III2': '',
+            'III3': 'Legal agreement ratified by necessary quorum and in force, Legal agreement  in force, ratified by all countries',
+            'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
+            'IW1': 'No legal agreement/cooperation framework in place (IWL Assessed)',
+            'IW2': 'Regional legal agreement negotiated but not yet signed (IWL Assessed)',
+            'IW3': 'Countries signed legal agreement (IWL Assessed)',
+            'IW4': 'Legal agreement ratified and entered into force (IWL Assessed)',}
         r = self.regional_frameworks
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
@@ -697,12 +783,35 @@ class Project(folder.ATFolder):
             ri = 2
         elif r in ['3', 'III1', 'IW3']:
             ri = 3
-        elif r in ['4', 'IV3', 'III2', 'III3', 'W4']:
+        elif r in ['4', 'IV3', 'III2', 'III3', 'IW4']:
             ri =4
+        else:
+            ri = 0
+        if r:
+            desc = dd[r]
+        else:
+            desc = ''
         return {'ri': ri, 'rd':desc}
 
     def r4rmis(self):
         r = self.rmis
+        dd = {'1': 'No RMI in place',
+            '2': 'RMI established but functioning with limited effectiveness, < 50% countries contributing dues',
+            '3': 'RMI established and functioning, >50% of countries contributing dues',
+            '4': 'RMI in place, fully functioning and fully sustained by at or near 100% country contributions',
+            'IV0': 'No TBW Institution in place',
+            'IV1': 'TBW institution established but functioning with limited effectiveness due to lack of staff and  and  poor implementation of its work programme, countries contribution quite limited',
+            'IV2': 'TBW institution established and functioning with moderate effectiveness, 50% of countries contributing dues',
+            'IV3': 'TBW institution in place, fully functioning and fully sustained by at or near 100% country contributions',
+            'III0': 'No TBW institution in place   ',
+            'III1': 'TBW institution established but functioning with limited effectiveness; 50% or less of countries contributing dues',
+            'III2': 'TBW institution established and functioning with moderate effectiveness, 50-75% of countries contributing dues',
+            'III3': 'TBW institution in place, fully functioning and fully sustained by at or near 100% country contributions',
+            'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
+            'IW1': '',
+            'IW2': '',
+            'IW3': '',
+            'IW4': '',}
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'III1', 'IW2']:
@@ -711,11 +820,33 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
-        desc = ''
+        else:
+            ri = 0
+        if r:
+            desc = dd[r]
+        else:
+            desc = ''
         return {'ri': ri, 'rd':desc}
 
     def r4reforms(self):
         r = self.reforms
+        dd = {'1': 'No national/local reforms drafted',
+            '2': 'National/ local reforms drafted but not yet adopted',
+            '3': 'National/legal reform adopted with technical/enforcement mechanism in place',
+            '4': 'National/ legal reforms implemented',
+            'IV0': 'No progress',
+            'IV1': '',
+            'IV2': 'Less than 50% of countries committed to policy, legal and institutional reforms required to address agreed priority issues / 50-75% of countries committed to policy, legal and institutional reforms required to address agreed priority issues.',
+            'IV3': 'Clear commitments in 90% or more of countries to policy, legal and institutional reforms required to address agreed priority issues.',
+            'III0': 'Agreed reforms neither enacted nor implemented in majority of countries ',
+            'III1': '',
+            'III2': 'Most countries have enacted reforms but less than 50% are implementing, 50-80% of countries have enacted and are implementing reforms',
+            'III3': '80% or more of countries have enacted and are implementing reforms',
+            'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
+            'IW1': '',
+            'IW2': '',
+            'IW3': '',
+            'IW4': '',}
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
         elif r in ['2', 'IW2']:
@@ -725,12 +856,32 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
         else:
-            raise ValueError
-        desc = ''
+            ri = 0
+        if r:
+            desc = dd[r]
+        else:
+            desc = ''
         return {'ri': ri, 'rd':desc}
 
     def r4tda_priorities(self):
         r = self.tda_priorities
+        dd = {'1': 'No progress on TDA',
+            '2': 'Priority TB issues identified and agreed on but based on limited effect information; inadequate root cause analysis',
+            '3': 'Priority TB issues agreed on based on solid baseline effect info; root cause analysis is inadequate',
+            '4': 'Regional agreement on priority TB issues drawn from valid effect baseline, immediate and root causes properly determined',
+            'IV0': 'No progress on TDA',
+            'IV1': 'Priority TB issues identified and agreed but based on limited envir/socioecon impact information; none or inadequate root cause analysis',
+            'IV2': 'Priority TB Issues agreed based on solid baseline of envir and socioecon impacts info; root cause analysis is inadequate',
+            'IV3': 'Priority TB Issues agreed based on solid baseline of envir and socioecon impacts info; root cause analysis is adequate',
+            'III0': 'No progress on TDA',
+            'III1': 'TDA in progress, Priority TB issues identified and agreed but based on limited environmental/socioeconomic impact information; none or inadequate root cause analysis,',
+            'III2': 'Priority TB Issues agreed based on solid baseline of envir and socioecon impacts info; root cause analysis is inadequate',
+            'III3': 'Regional agreement on priority TB issues drawn from valid enviro/socioecon impacts baseline, immediate and root causes properly determined.',
+            'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
+            'IW1': '',
+            'IW2': '',
+            'IW3': '',
+            'IW4': '',}
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'III0', 'III1', 'IW2']:
@@ -740,12 +891,32 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
         else:
-            raise ValueError
-        desc = ''
+            ri = 0
+        if r:
+            desc = dd[r]
+        else:
+            desc = ''
         return {'ri': ri, 'rd':desc}
 
     def r4sap_devel(self):
         r = self.sap_devel
+        dd = {'1': 'No development of SAP',
+            '2': 'SAP developed addressing key TB concerns spatially',
+            '3': 'SAP developed and adopted by ministers ',
+            '4': 'Adoption of SAP into National Action Plans (NAPs)',
+            'IV0': 'No development of SAP',
+            'IV1': 'SAP developed addressing key TB concerns spatially',
+            'IV2': 'SAP developed and adopted by ministers ',
+            'IV3': 'Adoption of SAP into National Action Plans (NAPs)',
+            'III0': 'SAP neither developed, nor approved',
+            'III1': 'SAP developed and agreed at highest technical level (e.g. project Steering Committee)',
+            'III2': 'SAP developed and endorsed by minimum 50% 0f countries',
+            'III3': 'SAP endorsed by all ministers of countries sharing the TB water body or adopted by relevant inter-governmental body',
+            'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
+            'IW1': '',
+            'IW2': '',
+            'IW3': '',
+            'IW4': '',}
         if r in ['1', 'IV0', 'III1', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'III1', 'IW2']: #XXX
@@ -755,12 +926,32 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
         else:
-            raise ValueError
-        desc = ''
+            ri = 0
+        if r:
+            desc = dd[r]
+        else:
+            desc = ''
         return {'ri': ri, 'rd':desc}
 
     def r4abnj_rmi(self):
         r = self.abnj_rmi
+        dd = {'1': 'No management measures in ABNJ  in  (RMI) institutional/ management frameworks',
+            '2': 'Management measures in ABNJ designed but not formally adopted by project participants',
+            '3': 'Management measures in ABNJ  formally adopted by project participants but not incorporated in RMI institutional/management frameworks',
+            '4': 'Management measures in ABNJ fully incorporated in  RMI institutional/ management frameworks',
+            'IV0': 'No management measures in ABNJ  in  (RMI) institutional/ management frameworks',
+            'IV1': 'Management measures in ABNJ designed but not formally adopted by project participants',
+            'IV2': 'Management measures in ABNJ  formally adopted by project participants but not incorporated in RMI institutional/management frameworks',
+            'IV3': 'Management measures in ABNJ fully incorporated in  RMI institutional/ management frameworks',
+            'III0': '',
+            'III1': '',
+            'III2': '',
+            'III3': '',
+            'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
+            'IW1': 'No management measures in ABNJ  in  (RMI) institutional/ management frameworks',
+            'IW2': 'Management measures in ABNJ designed but not formally adopted by project participants',
+            'IW3': 'Management measures in ABNJ  formally adopted by project participants but not incorporated in RMI institutional/management frameworks',
+            'IW4': 'Management measures in ABNJ fully incorporated in  RMI institutional/ management frameworks',}
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'IW2']:
@@ -770,12 +961,32 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'IW4']:
             ri =4
         else:
-            raise ValueError
-        desc = ''
+            ri = 0
+        if r:
+            desc = dd[r]
+        else:
+            desc = ''
         return {'ri': ri, 'rd':desc}
 
     def r4tdasap_cc(self):
         r = self.tdasap_cc
+        dd = {'1': 'No revised TDA or SAP',
+            '2': 'TDA updated to incorporate climate variability and change',
+            '3': 'Revised SAP prepared including Climatic Variability and Change',
+            '4': 'SAP including Climatic Variability and Change adopted by all involved countries',
+            'IV0': 'No revised TDA or SAP',
+            'IV1': 'TDA updated to incorporate climate variability and change',
+            'IV2': 'Revised SAP prepared including Climatic Variability and Change',
+            'IV3': 'SAP including Climatic Variability and Change adopted by all involved countries',
+            'III0': '',
+            'III1': '',
+            'III2': '',
+            'III3': '',
+            'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
+            'IW1': 'No revised TDA or SAP',
+            'IW2': 'TDA updated to incorporate climate variability and change',
+            'IW3': 'Revised SAP prepared including Climatic Variability and Change',
+            'IW4': 'SAP including Climatic Variability and Change adopted by all involved countries',}
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'IW2']:
@@ -785,30 +996,62 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'IW4']:
             ri =4
         else:
-            raise ValueError
-        desc = ''
+            ri = 0
+        if r:
+            desc = dd[r]
+        else:
+            desc = ''
         return {'ri': ri, 'rd':desc}
 
     def r4tda_mnits(self):
         r = self.tda_mnits
-        ri = int(r)
-        desc = ''
+        if r:
+            ri = int(r)
+            desc = '%i %%' %ri
+        else:
+            ri = None
+            desc = None
         return {'ri': ri, 'rd':desc}
 
     def r4sap_adopted(self):
         r = self.sap_adopted
-        ri = int(r)
-        desc = ''
+        if r:
+            ri = int(r)
+            desc = '%i %%' %ri
+        else:
+            ri = None
+            desc = None
         return {'ri': ri, 'rd':desc}
 
     def r4sap_implementing(self):
         r = self.sap_implementing
-        ri = int(r)
-        desc = ''
+        if r:
+            ri = int(r)
+            desc = '%i %%' %ri
+        else:
+            ri = None
+            desc = None
         return {'ri': ri, 'rd':desc}
 
     def r4sap_inc(self):
         r = self.sap_inc
+        dd = {'1': 'No progress',
+            '2': 'Limited progress, very generic with no specific agency/government(s) commitments',
+            '3': 'Priorities specifically incorporated into some national development/assistance frameworks with clear agency/government(s) commitments and time frames for achievement',
+            '4': 'Majority of national development/assistance frameworks have incorporated priorities with clear agency/government(s)  commitments and time frames for achievement',
+            'IV0': 'No progress in incorporating priorities into national strategic planning frameworks',
+            'IV1': 'Less than 25% of actions  incorporated  into national frameworks but very generic with no specific commitments',
+            'IV2': 'Priorities specifically incorporated into some national frameworks with clear commitments and time frames for achievement',
+            'IV3': 'Majority of national frameworks have incorporated priorities with clear commitments and time frames for achievement',
+            'III0': '',
+            'III1': '',
+            'III2': '',
+            'III3': '',
+            'IWA': '',
+            'IW1': 'No progress',
+            'IW2': 'Limited progress, very generic with no specific agency/government(s) commitments',
+            'IW3': 'Priorities specifically incorporated into some national development/assistance frameworks with clear agency/government(s) commitments and time frames for achievement',
+            'IW4': 'Majority of national development/assistance frameworks have incorporated priorities with clear agency/government(s)  commitments and time frames for achievement',}
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'IW2']:
@@ -817,7 +1060,12 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'IW4']:
             ri =4
-        desc = ''
+        else:
+            ri = 0
+        if r:
+            desc = dd[r]
+        else:
+            desc = ''
         return {'ri': ri, 'rd':desc}
 
 

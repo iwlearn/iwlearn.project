@@ -579,7 +579,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     atapi.StringField( 'sap_adopted',
         label=_(u"Proportion of Countries that have adopted SAP"),
-        description=_(u""),
+        description=_(u"In %. 0 = None, 100=All"),
         visible={'edit': 'invisible'},
         required = False,
         validators=('isInt',)
@@ -597,7 +597,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     atapi.StringField( 'sap_implementing',
         label=_(u"Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)"),
-        description=_(u""),
+        description=_(u"In %. 0 = None, 100=All"),
         visible={'edit': 'invisible'},
         required = False,
         validators=('isInt',)
@@ -655,6 +655,13 @@ schemata.finalizeATCTSchema(
 )
 
 ProjectSchema['relatedItems'].widget.visible['edit'] = 'visible'
+
+COLORS = {0: 'grey',
+        1: 'red',
+        2: 'orange',
+        3: 'yellow',
+        4: 'green'}
+
 
 class Project(folder.ATFolder):
     """GEF IW Project"""
@@ -756,7 +763,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'ri': ri, 'rd':desc}
+        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
 
     def r4regional_frameworks(self):
         dd = {'1': 'No legal agreement/cooperation framework in place',
@@ -791,7 +798,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'ri': ri, 'rd':desc}
+        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
 
     def r4rmis(self):
         r = self.rmis
@@ -826,7 +833,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'ri': ri, 'rd':desc}
+        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
 
     def r4reforms(self):
         r = self.reforms
@@ -861,7 +868,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'ri': ri, 'rd':desc}
+        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
 
     def r4tda_priorities(self):
         r = self.tda_priorities
@@ -896,7 +903,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'ri': ri, 'rd':desc}
+        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
 
     def r4sap_devel(self):
         r = self.sap_devel
@@ -931,7 +938,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'ri': ri, 'rd':desc}
+        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
 
     def r4abnj_rmi(self):
         r = self.abnj_rmi
@@ -966,7 +973,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'ri': ri, 'rd':desc}
+        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
 
     def r4tdasap_cc(self):
         r = self.tdasap_cc
@@ -1001,37 +1008,40 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'ri': ri, 'rd':desc}
+        return {'value': ri, 'label': desc, 'style':{'color': COLORS[ri]}}
 
     def r4tda_mnits(self):
+        #XXX conversion matrix missing
         r = self.tda_mnits
-        if r:
-            ri = int(r)
-            desc = '%i %%' %ri
-        else:
-            ri = None
-            desc = None
-        return {'ri': ri, 'rd':desc}
+        #if r:
+        #    ri = int(r)
+        #    desc = '%i %%' %ri
+        #else:
+        ri = 0
+        desc = None
+        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
 
     def r4sap_adopted(self):
         r = self.sap_adopted
         if r:
             ri = int(r)
             desc = '%i %%' %ri
+            rf = float(ri)/25.0
         else:
-            ri = None
+            rf = 0
             desc = None
-        return {'ri': ri, 'rd':desc}
+        return {'value': rf, 'label':desc, 'style': {'color': COLORS[int(rf)]}}
 
     def r4sap_implementing(self):
         r = self.sap_implementing
         if r:
             ri = int(r)
             desc = '%i %%' %ri
+            rf = float(ri)/25.0
         else:
-            ri = None
+            rf = 0
             desc = None
-        return {'ri': ri, 'rd':desc}
+        return {'value': rf, 'label' :desc, 'style': {'color': COLORS[int(rf)]}}
 
     def r4sap_inc(self):
         r = self.sap_inc
@@ -1066,7 +1076,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'ri': ri, 'rd':desc}
+        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
 
 
 

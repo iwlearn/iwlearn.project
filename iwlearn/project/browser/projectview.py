@@ -103,6 +103,43 @@ class ProjectView(BrowserView):
         #chart.x_labels = ['DO', 'IP', 'IMC', 'RF', 'RMI', 'LR', 'TDA', 'SAP']
         #return chart.render()
 
+
+    def get_pra_chart(self):
+        ratings = [
+        ('IMC', [self.context.r4imcs()]),
+        ('Frameworks', [self.context.r4regional_frameworks()]),
+        ('RMI', [self.context.r4rmis()]),
+        ('Reforms', [self.context.r4reforms()]),
+        ('TDA', [self.context.r4tda_priorities()]),
+        ('SAP', [self.context.r4sap_devel()]),
+        ('ABNJ', [self.context.r4abnj_rmi()]),
+        ('CC in TDA/SAP', [self.context.r4tdasap_cc()]),
+        #('MNITS', [self.context.r4tda_mnits()]),
+        ('SAP adopted', [self.context.r4sap_adopted()]),
+        ('SAP implementing', [self.context.r4sap_implementing()]),
+        ('SAP inc.', [self.context.r4sap_inc()]),
+        ]
+        colors = []
+        for rating in ratings:
+            colors.append(rating[1][0]['style']['color'])
+
+        style = pygal.style.Style(colors=colors)
+
+        chart = pygal.Bar(width=600, height=300,
+                    explicit_size=True,
+                    style=style,
+                    disable_xml_declaration=True,
+                    show_legend=True)
+        chart.range = [0, 4]
+        chart.y_labels = [0, 1, 2, 3, 4]
+        #chart.x_labels = ['IMC', 'Frameworks', 'RMI', 'Reforms', 'TDA', 'SAP'
+        #    'ABNJ', 'CC', 'SAP inc']
+        for rating in ratings:
+            chart.add(rating[0], rating[1])
+
+        return chart.render()
+
+
 class ProjectResultView(ProjectView):
     ''' Display the project resultsarchive data '''
 

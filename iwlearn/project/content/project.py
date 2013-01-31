@@ -763,7 +763,10 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
+        url = self.REQUEST.getURL() + '#pra-imcs'
+        return {'value': ri, 'label': desc,
+                'xlink': {'href': url},
+                'style': {'color': COLORS[ri]}}
 
     def r4regional_frameworks(self):
         dd = {'1': 'No legal agreement/cooperation framework in place',
@@ -798,7 +801,10 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
+        url = self.REQUEST.getURL() + '#pra-frameworks'
+        return {'value': ri, 'label': desc,
+                'xlink': {'href': url},
+                'style': {'color': COLORS[ri]}}
 
     def r4rmis(self):
         r = self.rmis
@@ -833,7 +839,10 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
+        url = self.REQUEST.getURL() + '#pra-rmis'
+        return {'value': ri, 'label': desc,
+                'xlink': {'href': url},
+                'style': {'color': COLORS[ri]}}
 
     def r4reforms(self):
         r = self.reforms
@@ -868,7 +877,10 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
+        url = self.REQUEST.getURL() + '#pra-reforms'
+        return {'value': ri, 'label': desc,
+                'xlink': {'href': url},
+                'style': {'color': COLORS[ri]}}
 
     def r4tda_priorities(self):
         r = self.tda_priorities
@@ -903,7 +915,10 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
+        url = self.REQUEST.getURL() + '#pra-tda-priorities'
+        return {'value': ri, 'label': desc,
+                'xlink': {'href': url},
+                'style': {'color': COLORS[ri]}}
 
     def r4sap_devel(self):
         r = self.sap_devel
@@ -938,7 +953,10 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
+        url = self.REQUEST.getURL() + '#pra-sap-devel'
+        return {'value': ri, 'label': desc,
+                'xlink': {'href': url},
+                'style': {'color': COLORS[ri]}}
 
     def r4abnj_rmi(self):
         r = self.abnj_rmi
@@ -973,7 +991,10 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
+        url = self.REQUEST.getURL() + '#pra-abnj'
+        return {'value': ri, 'label': desc,
+                'xlink': {'href': url},
+                'style': {'color': COLORS[ri]}}
 
     def r4tdasap_cc(self):
         r = self.tdasap_cc
@@ -1008,7 +1029,10 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'value': ri, 'label': desc, 'style':{'color': COLORS[ri]}}
+        url = self.REQUEST.getURL() + '#pra-tdasap-cc'
+        return {'value': ri, 'label': desc,
+                'xlink': {'href': url},
+                'style': {'color': COLORS[ri]}}
 
     def r4tda_mnits(self):
         #XXX conversion matrix missing
@@ -1019,7 +1043,10 @@ class Project(folder.ATFolder):
         #else:
         ri = 0
         desc = None
-        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
+        url = self.REQUEST.getURL() + '#pra-mnits'
+        return {'value': ri, 'label': desc,
+                'xlink': {'href': url},
+                'style': {'color': COLORS[ri]}}
 
     def r4sap_adopted(self):
         r = self.sap_adopted
@@ -1030,7 +1057,10 @@ class Project(folder.ATFolder):
         else:
             rf = 0
             desc = None
-        return {'value': rf, 'label':desc, 'style': {'color': COLORS[int(rf)]}}
+        url = self.REQUEST.getURL() + '#pra-sap-adopted'
+        return {'value': rf, 'label': desc,
+                'xlink': {'href': url},
+                'style': {'color': COLORS[int(rf)]}}
 
     def r4sap_implementing(self):
         r = self.sap_implementing
@@ -1041,7 +1071,11 @@ class Project(folder.ATFolder):
         else:
             rf = 0
             desc = None
-        return {'value': rf, 'label' :desc, 'style': {'color': COLORS[int(rf)]}}
+        url = self.REQUEST.getURL() + '#pra-sap-implementing'
+        return {'value': rf, 'label': desc,
+                'xlink': {'href': url},
+                'style': {'color': COLORS[int(rf)]}}
+
 
     def r4sap_inc(self):
         r = self.sap_inc
@@ -1076,7 +1110,10 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        return {'value': ri, 'label': desc, 'style': {'color': COLORS[ri]}}
+        url = self.REQUEST.getURL() + '#pra-r4sap-inc'
+        return {'value': ri, 'label': desc,
+                'xlink': {'href': url},
+                'style': {'color': COLORS[ri]}}
 
 
 

@@ -11,6 +11,10 @@
                     tal:attributes="href string:${context/absolute_url}">Project Profile
             </a></li>
             <li><a href="."
+                tal:attributes="href string:${context/absolute_url}/@@resultsview.html">
+                Results</a></li>
+            <li><a href="."
+            <li><a href="."
                 tal:attributes="href string:${context/absolute_url}/@@projectmapview.html">
                 View Map</a></li>
             <li><a href="."

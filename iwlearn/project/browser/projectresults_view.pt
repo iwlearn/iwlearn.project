@@ -40,7 +40,7 @@
             </div>
             <br/>
             <div id="content-core">
-            <div class="pygal-chart" tal:content="structure view/get_pra_chart"> chart goes here </div>
+            <div id="#projectdbcharts" class="pygal-chart" tal:content="structure view/get_pra_chart"> chart goes here </div>
             <div tal:condition="context/getPra_sources">
                 <h2>Information Sources</h2>
                 <div tal:content="context/getPra_sources"> Result Description </div>
@@ -58,7 +58,7 @@
                 <div tal:content="structure context/getImpacts"> Result Description </div>
               </div>
               <div tal:condition="python:context.getImcs_desc() or context.getImcs()"
-                tal:define="rating context/r4imcs">
+                tal:define="rating context/r4imcs" id="pra-imcs">
                 <h2>Establishment of country-specific inter-ministerial committees</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     <span tal:content="context/getImcs">rating</span>:
@@ -67,7 +67,7 @@
                 <div tal:content="structure context/getImcs_desc"> Result Description </div>
               </div>
               <div tal:condition="python:context.getRegional_frameworks_desc() or context.getRegional_frameworks()"
-              tal:define="rating context/r4regional_frameworks" >
+              tal:define="rating context/r4regional_frameworks" id="pra-frameworks">
                 <h2>Regional legal agreements and cooperation frameworks</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     <span tal:content="context/getRegional_frameworks">rating</span>:
@@ -77,7 +77,7 @@
               </div>
             </div>
             <div tal:condition="python:context.getRmis_desc() or context.getRmis()"
-                tal:define="rating context/r4rmis">
+                tal:define="rating context/r4rmis" id="pra-rmis">
                 <h2>Regional Management Institutions</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     <span tal:content="context/getRmis">rating</span>:
@@ -86,7 +86,7 @@
                 <div tal:content="structure context/getRmis_desc"> Result Description </div>
               </div>
               <div tal:condition="python:context.getReforms_desc() or context.getReforms()"
-                tal:define="rating context/r4reforms">
+                tal:define="rating context/r4reforms" id="pra-reforms">
                 <h2>National/Local reforms</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     <span tal:content="context/getReforms">rating</span>:
@@ -95,7 +95,7 @@
                 <div tal:content="structure context/getReforms_desc"> Result Description </div>
               </div>
               <div tal:condition="python:context.getTda_priorities_desc() or context.getTda_priorities()"
-              tal:define="rating context/r4tda_priorities">
+              tal:define="rating context/r4tda_priorities" id="pra-tda-priorities">
                 <h2>Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     <span tal:content="context/getTda_priorities">rating</span>:
@@ -104,7 +104,7 @@
                 <div tal:content="structure context/getTda_priorities_desc"> Result Description </div>
               </div>
               <div tal:condition="python:context.getSap_devel_desc() or context.getSap_devel()"
-               tal:define="rating context/r4sap_devel" >
+               tal:define="rating context/r4sap_devel" id="pra-sap-devel">
                 <h2>Development of Strategic Action Plan (SAP)</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     <span  tal:content="context/getSap_devel">rating</span>:
@@ -113,7 +113,7 @@
                 <div tal:content="structure context/getSap_devel_desc"> Result Description </div>
               </div>
               <div tal:condition="python:context.getAbnj_rmi_desc() or context.getAbnj_rmi()"
-                tal:define="rating context/r4abnj_rmi" >
+                tal:define="rating context/r4abnj_rmi" id ="pra-abnj">
                 <h2>Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     <span tal:content="context/getAbnj_rmi">rating</span>:
@@ -122,7 +122,7 @@
                 <div tal:content="structure context/getAbnj_rmi_desc"> Result Description </div>
               </div>
               <div tal:condition="python:context.getTdasap_cc_desc() or context.getTdasap_cc()"
-                tal:define="rating context/r4tdasap_cc">
+                tal:define="rating context/r4tdasap_cc" id="pra-tdasap-cc">
                 <h2>Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     <span tal:content="context/getTdasap_cc">rating</span>:
@@ -131,7 +131,7 @@
                 <div tal:content="structure context/getTdasap_cc_desc"> Result Description </div>
               </div>
               <div tal:condition="python:context.getTda_mnits_desc() or context.getTda_mnits()"
-                tal:define="rating context/r4tda_mnits">
+                tal:define="rating context/r4tda_mnits" id="pra-mnits">
                 <h2>TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     <span tal:content="context/getTda_mnits">rating</span>:
@@ -140,7 +140,7 @@
                 <div tal:content="structure context/getTda_mnits_desc"> Result Description </div>
               </div>
               <div tal:condition="python:context.getSap_adopted_desc() or context.getSap_adopted()"
-                tal:define="rating context/r4sap_adopted">
+                tal:define="rating context/r4sap_adopted" id="pra-sap-adopted" >
                 <h2>Proportion of Countries that have adopted SAP</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     <span tal:content="context/getSap_adopted">rating</span>:
@@ -148,13 +148,14 @@
                 </div>
                 <div tal:content="structure context/getSap_adopted_desc"> Result Description </div>
               </div>
-              <div tal:condition="python:context.getSap_implementing_desc() or context.getSap_implementing_desc()">
+              <div tal:condition="python:context.getSap_implementing_desc() or context.getSap_implementing_desc()"
+                id="pra-sap-implementing">
                 <h2> Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans) </h2>
                 <span tal:content="context/getSap_implementing">rating</span>
                 <div tal:content="structure context/getSap_implementing_desc"> Result Description </div>
               </div>
               <div tal:condition="python:context.getSap_inc_desc() or context.getSap_inc()"
-                tal:define="rating context/r4sap_inc" >
+                tal:define="rating context/r4sap_inc"  id="pra-r4sap-inc">
                 <h2>Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     <span tal:content="context/getSap_inc">rating</span>:

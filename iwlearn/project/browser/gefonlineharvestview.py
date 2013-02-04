@@ -90,6 +90,7 @@ class GefOnlineHarvestView(BrowserView):
 
 
     def _create_project_location(self, project, location):
+        wftool = getToolByName(self, 'portal_workflow')
         if not hasattr(project, 'maps_graphics'):
             Id ='maps_graphics'
             title='Maps/Graphics'

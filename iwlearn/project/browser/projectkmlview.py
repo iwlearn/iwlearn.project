@@ -36,10 +36,15 @@ class ProjectKMLView(KMLBaseDocument):
     @property
     def features(self):
         path = '/'.join(self.context.getPhysicalPath())
+        path += '/maps_graphics'
         portal_catalog = self.portal_catalog
-        results = portal_catalog(path=path, Subject='map-layer')
+        results = portal_catalog(path=path)
         for brain in results:
-            yield BrainPlacemark(brain, self.request, self)
+            try:
+                if brain.zgeo_geometry['coordinates']:
+                    yield BrainPlacemark(brain, self.request, self)
+            except:
+                pass
 
 
 class ProjectCountryKMLView(ProjectKMLView):

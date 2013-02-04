@@ -6,6 +6,8 @@ from htmllaundry import sanitize
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 
+from collective.geo.contentlocations.interfaces import IGeoManager
+
 from iwlearn.project import projectMessageFactory as _
 from iwlearn.project import harvest
 from iwlearn.project.interfaces.projectdatabase import IProjectDatabase
@@ -86,6 +88,36 @@ class GefOnlineHarvestView(BrowserView):
         description='Photos and other media'
         object.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
+
+    def _create_project_location(self, project, location):
+        if not hasattr(project, 'maps_graphics'):
+            Id ='maps_graphics'
+            title='Maps/Graphics'
+            description='Maps and Graphics'
+            project.invokeFactory( 'Folder', id=Id, title=title, description=description)
+            wftool.doActionFor( project['maps_graphics'], 'submit')
+        mgfolder = project['maps_graphics']
+        if not hasattr(mgfolder, 'project_locations'):
+            Id ='project_locations'
+            title='Project locations'
+            description='Project Locations, Hotspots and Demonstration Sites'
+            mgfolder.invokeFactory( 'Folder', id=Id, title=title, description=description)
+            locfolder = mgfolder['project_locations']
+            locfolder.setLayout('kml-openlayers')
+            wftool.doActionFor(locfolder,'submit')
+        else:
+            locfolder = mgfolder['project_locations']
+        if location['geoLocId'] not in locfolder.objectIds():
+            Id = location['geoLocId']
+            title = location['geoLocName']
+            description = ''
+            locfolder.invokeFactory('Document', id=Id, title=title, description=description)
+            obj = locfolder[Id]
+            lat = float(location['latitude'])
+            lon = float(location['longitude'])
+            geo = IGeoManager(obj)
+            geo.setCoordinates('Point', (lon, lat))
+            wftool.doActionFor( obj,  'submit')
 
     def create_project(self, pinfo, gpid):
         '''
@@ -319,5 +351,25 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                     logger.info('project %i unchanged' % projectid )
             else:
                 logger.info('download failed for project %i' % projectid )
+            ibrd_id = ob.getWb_project_id()
+            if ibrd_id:
+                try:
+                    pinfo = harvest.get_ibrd_info(ibrd_id)
+                except KeyError:
+                    pinfo = False
+                if pinfo:
+                    logger.info('Update project %i from WB Data' % projectid )
+                    if not ob.Description():
+                        if 'project_abstract' in pinfo:
+                            ob.setDescription(pinfo['project_abstract']['cdata'])
+                    if 'locations' in pinfo:
+                        logger.info('Update project %i Locations from WB Data' % projectid )
+                        for location in pinfo['locations']:
+                            if ('geoLocName' in location and
+                                'longitude' in location and
+                                'latitude' in location and
+                                'geoLocId' in location):
+                                self._create_project_location(ob, location)
+
         logger.info('harvest complete')
         return new_projects

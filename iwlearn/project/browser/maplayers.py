@@ -224,7 +224,6 @@ class ProjectDbKMLCountryMapLayers(MapLayers):
 class ProjectDbKMLBasinMapLayers(MapLayers):
     def layers(self):
         layers = super(ProjectDbKMLBasinMapLayers, self).layers()
-        #XXX layers.append(GepcoMapLayer(self.context))
         layers.append(ProjectDbKMLBasinMapLayer(self.context))
         layers.append(ProjectDbKMLCountryMapLayer(self.context))
         return layers
@@ -234,7 +233,6 @@ class ProjectDbMapLayers(MapLayers):
 
     def layers(self):
         layers = super(ProjectDbMapLayers, self).layers()
-        #XXX layers.append(GepcoMapLayer(self.context))
         layers.append(ProjectDbKMLCountryMapLayer(self.context, False))
         layers.append(ProjectDbKMLBasinMapLayer(self.context, True))
         layers.append(ProjectDbKMLMapLayer(self.context, False))
@@ -305,9 +303,12 @@ class ProjectInnerKMLMapLayer(MapLayerBase):
                     visibility: %s,
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });
-                }""" %  (u"Maps of: " +
-            self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", ""),
-            context_url, self.visible)
+                }""" %  (u'Project Locations', context_url, self.visible)
+
+
+                #(u"Maps of: " +
+            #self.context.Title().decode('utf-8', 'ignore').encode('ascii', 'xmlcharrefreplace').replace("'", ""),
+            #context_url, self.visible)
 
 
 
@@ -372,7 +373,7 @@ class ProjectKMLMapLayers(MapLayers):
         #add basemaps
         layers = super(ProjectKMLMapLayers, self).layers()
         #XXX check if the project has maplayers befor adding this layer
-        #layers.append(ProjectInnerKMLMapLayer(self.context))
+        layers.append(ProjectInnerKMLMapLayer(self.context))
         if self.context.getCountry():
             layers.append(ProjectKMLCountryMapLayer(self.context))
         if self.context.getBasin():

@@ -2,6 +2,7 @@ import urllib, urllib2
 import random
 import logging
 import csv
+import json
 
 from BeautifulSoup import BeautifulSoup
 
@@ -16,6 +17,16 @@ CSV_HEADER = ['gefid', 'projecttitle', 'agency', 'country', 'region',
 
 
 logger = logging.getLogger('iwlearn.project')
+
+def get_ibrd_info(ibrd_id):
+    """ http://search.worldbank.org/api/v2/projects?fl=id,project_name,totalamt,countrycode,countryname,location,sector,mjsectorcode,boardapprovaldate,project_abstract&rows=ALL&format=json&apilang=en&geocode=on&qterm=P084608
+    """
+    url = 'http://search.worldbank.org/api/v2/projects?fl=id,project_name,location,project_abstract&rows=ALL&format=json&apilang=en&geocode=on&qterm=P%06i'
+    response = urllib2.urlopen(url % int(ibrd_id))
+    data = json.loads(response.read())
+    return data['projects']['P%06i' % int(ibrd_id)]
+
+
 
 def get_gef_iw_project_page(focalarea='I'):
     """

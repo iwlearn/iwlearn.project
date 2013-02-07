@@ -1037,12 +1037,26 @@ class Project(folder.ATFolder):
     def r4tda_mnits(self):
         #XXX conversion matrix missing
         r = self.tda_mnits
-        #if r:
-        #    ri = int(r)
-        #    desc = '%i %%' %ri
-        #else:
-        ri = 0
-        desc = None
+        dd = {
+            '1': '???',
+            '2': '???',
+            '3': 'TDA includes technical annex, documenting data and analysis being collected',
+            '4': 'TDA includes technical annex posted IWLEARN and based on MNITS committee inputs',
+            }
+        if r in ['1']:
+            ri = 1
+        elif r in ['2']:
+            ri = 2
+        elif r in ['3']:
+            ri = 3
+        elif r in ['4']:
+            ri =4
+        else:
+            ri = 0
+        if r:
+            desc = dd[r]
+        else:
+            desc = ''
         url = self.REQUEST.getURL() + '#pra-mnits'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url},
@@ -1060,7 +1074,7 @@ class Project(folder.ATFolder):
         url = self.REQUEST.getURL() + '#pra-sap-adopted'
         return {'value': rf, 'label': desc,
                 'xlink': {'href': url},
-                'style': {'color': COLORS[int(rf)]}}
+                'style': {'color': COLORS[min(4,int(rf)+1)]}}
 
     def r4sap_implementing(self):
         r = self.sap_implementing
@@ -1074,7 +1088,7 @@ class Project(folder.ATFolder):
         url = self.REQUEST.getURL() + '#pra-sap-implementing'
         return {'value': rf, 'label': desc,
                 'xlink': {'href': url},
-                'style': {'color': COLORS[int(rf)]}}
+                'style': {'color': COLORS[min(4,int(rf)+1)]}}
 
 
     def r4sap_inc(self):

@@ -114,7 +114,7 @@ class ProjectView(BrowserView):
         ('SAP', [self.context.r4sap_devel()]),
         ('ABNJ', [self.context.r4abnj_rmi()]),
         ('CC in TDA/SAP', [self.context.r4tdasap_cc()]),
-        #('MNITS', [self.context.r4tda_mnits()]),
+        ('TDA MNITS', [self.context.r4tda_mnits()]),
         ('SAP adopted', [self.context.r4sap_adopted()]),
         ('SAP implementing', [self.context.r4sap_implementing()]),
         ('SAP inc.', [self.context.r4sap_inc()]),

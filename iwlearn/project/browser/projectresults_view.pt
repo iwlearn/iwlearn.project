@@ -148,10 +148,13 @@
                 </div>
                 <div tal:content="structure context/getSap_adopted_desc"> Result Description </div>
               </div>
-              <div tal:condition="python:context.getSap_implementing_desc() or context.getSap_implementing_desc()"
-                id="pra-sap-implementing">
+              <div tal:condition="python:context.getSap_implementing() or context.getSap_implementing_desc()"
+                id="pra-sap-implementing" tal:define="rating context/r4sap_implementing">
                 <h2> Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans) </h2>
-                <span tal:content="context/getSap_implementing">rating</span>
+                <div tal:attributes="class string:pra-rating-${rating/value}">
+                    <span tal:content="context/getSap_implementing">rating</span>:
+                    <span tal:content="rating/label"></span>
+                </div>
                 <div tal:content="structure context/getSap_implementing_desc"> Result Description </div>
               </div>
               <div tal:condition="python:context.getSap_inc_desc() or context.getSap_inc()"

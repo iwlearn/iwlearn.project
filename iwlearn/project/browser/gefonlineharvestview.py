@@ -137,7 +137,7 @@ class GefOnlineHarvestView(BrowserView):
     'PDF C Amount', 'CEO Endorsement Date',
     'GEF Agency', 'Pipeline Entry Date', 'Cofinancing Total',
     'PDF-B (Supplemental) Approval Date',
-    'Strategic Program', 'Project Cost (CEO Appr.)', 'IBRD PO ID',
+    'Strategic Program', 'Project Cost (CEO Appr.)',
     'GEF Agency Approval Date', 'GEF Agency Fees (CEO Appr.)',
     'Project Cost (CEO Endo.)']
         '''
@@ -197,6 +197,7 @@ class GefOnlineHarvestView(BrowserView):
                         country=countries,
                         project_status=project_status,
                         start_date=start_date,
+                        end_date=end_date,
                         focal_area=focal_area,
                         operational_programme=operational_program,
                         strategic_priority = strategic_program,
@@ -331,6 +332,12 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                             pinfo.get('Operational Program', ''))
                 strategic_program = harvest.split_semicolon(
                             pinfo.get('Strategic Program', ''))
+                if pinfo.has_key('Project Completion Date'):
+                    end_date = DateTime(pinfo.get('Project Completion Date'))
+                else:
+                    end_date = None
+                if end_date and ob.end() is None:
+                    ob.update(end_date=end_date)
                 if wb_project_id:
                     ob.update(wb_project_id=wb_project_id)
                 if operational_program:
@@ -360,6 +367,9 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                     pinfo = False
                 if pinfo:
                     logger.info('Update project %i from WB Data' % projectid )
+                    end_date = DateTime(pinfo['closingdate'])
+                    if end_date and ob.end() is None:
+                        ob.setEnd_date(end_date)
                     if not ob.Description():
                         if 'project_abstract' in pinfo:
                             ob.setDescription(pinfo['project_abstract']['cdata'])

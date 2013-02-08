@@ -683,6 +683,11 @@ class Project(folder.ATFolder):
         return ','.join(vocabulary.get_subregions(
                 countries=self.getCountry()))
 
+    def start(self):
+        return self.getStart_date()
+
+    def end(self):
+        return self.getEnd_date()
 
     def getSubRegions(self):
         """ get region + subregion for indexing """

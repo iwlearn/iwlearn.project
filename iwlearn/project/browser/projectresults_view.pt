@@ -71,6 +71,7 @@
               tal:define="rating context/r4regional_frameworks" id="pra-frameworks">
                 <h2>Regional legal agreements and cooperation frameworks</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
+                    Rating:
                     <span tal:content="context/getRegional_frameworks">rating</span>:
                     <span tal:content="rating/label"></span>
                 </div>
@@ -81,6 +82,7 @@
                 tal:define="rating context/r4rmis" id="pra-rmis">
                 <h2>Regional Management Institutions</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
+                    Rating:
                     <span tal:content="context/getRmis">rating</span>:
                     <span tal:content="rating/label"></span>
                 </div>
@@ -90,6 +92,7 @@
                 tal:define="rating context/r4reforms" id="pra-reforms">
                 <h2>National/Local reforms</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
+                    Rating:
                     <span tal:content="context/getReforms">rating</span>:
                     <span tal:content="rating/label"></span>
                 </div>
@@ -99,6 +102,7 @@
               tal:define="rating context/r4tda_priorities" id="pra-tda-priorities">
                 <h2>Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
+                    Rating:
                     <span tal:content="context/getTda_priorities">rating</span>:
                     <span tal:content="rating/label"></span>
                 </div>
@@ -108,6 +112,7 @@
                tal:define="rating context/r4sap_devel" id="pra-sap-devel">
                 <h2>Development of Strategic Action Plan (SAP)</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
+                    Rating:
                     <span  tal:content="context/getSap_devel">rating</span>:
                     <span tal:content="rating/label"></span>
                 </div>
@@ -117,6 +122,7 @@
                 tal:define="rating context/r4abnj_rmi" id ="pra-abnj">
                 <h2>Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
+                    Rating:
                     <span tal:content="context/getAbnj_rmi">rating</span>:
                     <span tal:content="rating/label"></span>
                 </div>
@@ -126,6 +132,7 @@
                 tal:define="rating context/r4tdasap_cc" id="pra-tdasap-cc">
                 <h2>Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
+                    Rating:
                     <span tal:content="context/getTdasap_cc">rating</span>:
                     <span tal:content="rating/label"></span>
                 </div>
@@ -135,6 +142,7 @@
                 tal:define="rating context/r4tda_mnits" id="pra-mnits">
                 <h2>TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
+                    Rating:
                     <span tal:content="context/getTda_mnits">rating</span>:
                     <span tal:content="rating/label"></span>
                 </div>
@@ -144,6 +152,7 @@
                 tal:define="rating context/r4sap_adopted" id="pra-sap-adopted" >
                 <h2>Proportion of Countries that have adopted SAP</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
+                    Rating:
                     <span tal:content="context/getSap_adopted">rating</span>:
                     <span tal:content="rating/label"></span>
                 </div>
@@ -153,6 +162,7 @@
                 id="pra-sap-implementing" tal:define="rating context/r4sap_implementing">
                 <h2> Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans) </h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
+                    Rating:
                     <span tal:content="context/getSap_implementing">rating</span>:
                     <span tal:content="rating/label"></span>
                 </div>
@@ -162,6 +172,7 @@
                 tal:define="rating context/r4sap_inc"  id="pra-r4sap-inc">
                 <h2>Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
+                    Rating:
                     <span tal:content="context/getSap_inc">rating</span>:
                     <span tal:content="rating/label"></span>
                 </div>

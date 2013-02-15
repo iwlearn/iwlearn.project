@@ -61,6 +61,7 @@
                 tal:define="rating context/r4imcs" id="pra-imcs">
                 <h2>Establishment of country-specific inter-ministerial committees</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
+                    Rating:
                     <span tal:content="context/getImcs">rating</span>:
                     <span tal:content="rating/label"></span>
                 </div>

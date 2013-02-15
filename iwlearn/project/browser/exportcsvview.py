@@ -55,30 +55,30 @@ CSV_FIELDS= ['ID',
             "Key Lessons Learned from Project",
             "Key Project Results",
             "Catalytic Impacts",
-            "Rating: Establishment of country-specific inter-ministerial committees",
             "Establishment of country-specific inter-ministerial committees",
-            "Rating: Regional legal agreements and cooperation frameworks",
+            "Qualification: Establishment of country-specific inter-ministerial committees",
             "Regional legal agreements and cooperation frameworks",
-            "Rating: Regional Management Institutions",
+            "Qualification: Regional legal agreements and cooperation frameworks",
             "Regional Management Institutions",
-            "Rating: National/Local reforms",
+            "Qualification: Regional Management Institutions",
             "National/Local reforms",
-            "Rating: Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes",
+            "Qualification: National/Local reforms",
             "Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes",
-            "Rating: Development of Strategic Action Plan (SAP)",
+            "Qualification: Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes",
             "Development of Strategic Action Plan (SAP)",
-            "Rating: Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)",
+            "Qualification: Development of Strategic Action Plan (SAP)",
             "Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)",
-            "Rating: Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations",
+            "Qualification: Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)",
             "Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations",
-            "Rating: TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities",
+            "Qualification: Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations",
             "TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities",
-            "Rating: Proportion of Countries that have adopted SAP",
+            "Qualification: TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities",
             "Proportion of Countries that have adopted SAP",
+            "Qualification: Proportion of Countries that have adopted SAP",
             "Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)",
-            "Rating: Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)",
-            "Rating: Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc",
+            "Qualification: Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)",
             "Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc",
+            "Qualification: Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc",
             "Other Key Process Results",
             ]
 
@@ -179,32 +179,85 @@ class ExportCSVView(BrowserView):
             pd["Key Lessons Learned from Project"]=obj.getLessons()
             pd["Key Project Results"]=obj.getKey_results()
             pd["Catalytic Impacts"]=obj.getImpacts()
-            pd["Rating: Establishment of country-specific inter-ministerial committees"]=obj.getImcs()
-            pd["Establishment of country-specific inter-ministerial committees"]=obj.getImcs_desc()
-            pd["Rating: Regional legal agreements and cooperation frameworks"]=obj.getRegional_frameworks()
-            pd["Regional legal agreements and cooperation frameworks"]=obj.getRegional_frameworks_desc()
-            pd["Rating: Regional Management Institutions"]=obj.getRmis()
-            pd["Regional Management Institutions"]=obj.getRmis_desc()
-            pd["Rating: National/Local reforms"]=obj.getReforms()
-            pd["National/Local reforms"]=obj.getReforms_desc()
-            pd["Rating: Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes"]=obj.getTda_priorities()
-            pd["Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes"]=obj.getTda_priorities_desc()
-            pd["Rating: Development of Strategic Action Plan (SAP)"]=obj.getSap_devel()
-            pd["Development of Strategic Action Plan (SAP)"]=obj.getSap_devel_desc()
-            pd["Rating: Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)"]=obj.getAbnj_rmi()
-            pd["Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)"]=obj.getAbnj_rmi_desc()
-            pd["Rating: Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations"]=obj.getTdasap_cc()
-            pd["Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations"]=obj.getTdasap_cc_desc()
-            pd["Rating: TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities"]=obj.getTda_mnits()
-            pd["TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities"]=obj.getTda_mnits_desc()
-            pd["Rating: Proportion of Countries that have adopted SAP"]=obj.getSap_adopted()
-            pd["Proportion of Countries that have adopted SAP"]=obj.getSap_adopted_desc()
+            pd["Establishment of country-specific inter-ministerial committees"]=obj.getImcs()
+            pd["Qualification: Establishment of country-specific inter-ministerial committees"]=obj.getImcs_desc()
+            pd["Regional legal agreements and cooperation frameworks"]=obj.getRegional_frameworks()
+            pd["Qualification: Regional legal agreements and cooperation frameworks"]=obj.getRegional_frameworks_desc()
+            pd["Regional Management Institutions"]=obj.getRmis()
+            pd["Qualification: Regional Management Institutions"]=obj.getRmis_desc()
+            pd["National/Local reforms"]=obj.getReforms()
+            pd["Qualification: National/Local reforms"]=obj.getReforms_desc()
+            pd["Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes"]=obj.getTda_priorities()
+            pd["Qualification: Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes"]=obj.getTda_priorities_desc()
+            pd["Development of Strategic Action Plan (SAP)"]=obj.getSap_devel()
+            pd["Qualification: Development of Strategic Action Plan (SAP)"]=obj.getSap_devel_desc()
+            pd["Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)"]=obj.getAbnj_rmi()
+            pd["Qualification: Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)"]=obj.getAbnj_rmi_desc()
+            pd["Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations"]=obj.getTdasap_cc()
+            pd["Qualification: Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations"]=obj.getTdasap_cc_desc()
+            pd["TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities"]=obj.getTda_mnits()
+            pd["Qualification: TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities"]=obj.getTda_mnits_desc()
+            pd["Proportion of Countries that have adopted SAP"]=obj.getSap_adopted()
+            pd["Qualification: Proportion of Countries that have adopted SAP"]=obj.getSap_adopted_desc()
             pd["Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)"]=obj.getSap_implementing()
-            pd["Rating: Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)"]=obj.getSap_implementing_desc()
-            pd["Rating: Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc"]=obj.getSap_inc()
-            pd["Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc"]=obj.getSap_inc_desc()
+            pd["Qualification: Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)"]=obj.getSap_implementing_desc()
+            pd["Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc"]=obj.getSap_inc()
+            pd["Qualification: Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc"]=obj.getSap_inc_desc()
             pd["Other Key Process Results"]=obj.getKey_process_results()
             writer.writerow(pd)
+            try:
+                obj.r4imcs()
+            except:
+                logger.error('pid: %s r4imcs: %s' % (obj.getGef_project_id(), obj.imcs))
+            try:
+                obj.r4regional_frameworks()
+            except:
+                logger.error('pid: %s r4regional_frameworks: %s' % (obj.getGef_project_id(),
+                obj.regional_frameworks))
+            try:
+                obj.r4rmis()
+            except:
+                logger.error('pid: %s r4rmis: %s' % (obj.getGef_project_id(), obj.rmis))
+            try:
+                obj.r4reforms()
+            except:
+                logger.error('pid: %s r4reforms: %s' % (obj.getGef_project_id(), obj.reforms))
+            try:
+                obj.r4tda_priorities()
+            except:
+                logger.error('pid: %s r4tda_priorities: %s' % (obj.getGef_project_id(), obj.tda_priorities))
+            try:
+                obj.r4sap_devel()
+            except:
+                logger.error('pid: %s r4sap_devel: %s' % (obj.getGef_project_id(), obj.sap_devel))
+            try:
+                obj.r4abnj_rmi()
+            except:
+                logger.error('pid: %s r4abnj_rmi: %s' % (obj.getGef_project_id(), obj.abnj_rmi))
+            try:
+                obj.r4tdasap_cc()
+            except:
+                logger.error('pid: %s r4tdasap_cc: %s' % (obj.getGef_project_id(), obj.tdasap_cc))
+            try:
+                obj.r4tda_mnits()
+            except:
+                logger.error('pid: %s r4tda_mnits: %s' % (obj.getGef_project_id(), obj.tda_mnits))
+            try:
+                obj.r4sap_adopted()
+            except:
+                logger.error('pid: %s r4sap_adopted: %s' % (obj.getGef_project_id(), obj.sap_adopted))
+            try:
+                obj.r4sap_implementing()
+            except:
+                logger.error('pid: %s r4sap_implementing: %s' % (obj.getGef_project_id(), obj.sap_implementing))
+            try:
+                obj.r4sap_inc()
+            except:
+                logger.error('pid: %s r4sap_inc: %s' % (obj.getGef_project_id(), obj.sap_inc))
+
+
+
+
         output.seek(0)
         self.request.RESPONSE.setHeader('Content-Type','text/csv; charset=utf-8')
         filename = datetime.now().strftime('IWLEARN_Projects_%Y-%m-%d.csv')

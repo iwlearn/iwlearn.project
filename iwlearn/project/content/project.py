@@ -762,8 +762,13 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
+        elif r is None:
+            ri = 0
+        elif r.strip().lower() in ['n/a','']:
+            ri = 0
         else:
             ri = 0
+            logger.error('pid: %s r4imcs: "%s"' % (self.getGef_project_id(), r))
         if r:
             desc = dd[r]
         else:
@@ -800,8 +805,13 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'III2', 'III3', 'IW4']:
             ri =4
+        elif r is None:
+            ri = 0
+        elif r.strip().lower() in ['n/a','']:
+            ri = 0
         else:
             ri = 0
+            logger.error('pid: %s r4regional_frameworks: "%s"' % (self.getGef_project_id(), r))
         if r:
             desc = dd[r]
         else:
@@ -838,8 +848,13 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
+        elif r is None:
+            ri = 0
+        elif r.strip().lower() in ['n/a','']:
+            ri = 0
         else:
             ri = 0
+            logger.error('pid: %s r4rmis: "%s"' % (self.getGef_project_id(), r))
         if r:
             desc = dd[r]
         else:
@@ -876,8 +891,13 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
+        elif r is None:
+            ri = 0
+        elif r.strip().lower() in ['n/a','']:
+            ri = 0
         else:
             ri = 0
+            logger.error('pid: %s r4reforms: "%s"' % (self.getGef_project_id(), r))
         if r:
             desc = dd[r]
         else:
@@ -914,8 +934,13 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
+        elif r is None:
+            ri = 0
+        elif r.strip().lower() in ['n/a','']:
+            ri = 0
         else:
             ri = 0
+            logger.error('pid: %s r4tda_priorities: "%s"' % (self.getGef_project_id(), r))
         if r:
             desc = dd[r]
         else:
@@ -944,16 +969,21 @@ class Project(folder.ATFolder):
             'IW2': '',
             'IW3': '',
             'IW4': '',}
-        if r in ['1', 'IV0', 'III1', 'IW1']:
+        if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
-        elif r in ['2', 'IV1', 'III1', 'IW2']: #XXX
+        elif r in ['2', 'IV1', 'III1', 'IW2']:
             ri = 2
         elif r in ['3', 'IV2', 'III2', 'IW3']:
             ri = 3
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
+        elif r is None:
+            ri = 0
+        elif r.strip().lower() in ['n/a','']:
+            ri = 0
         else:
             ri = 0
+            logger.error('pid: %s r4sap_devel: "%s"' % (self.getGef_project_id(), r))
         if r:
             desc = dd[r]
         else:
@@ -990,8 +1020,13 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'IW4']:
             ri =4
+        elif r is None:
+            ri = 0
+        elif r.strip().lower() in ['n/a','']:
+            ri = 0
         else:
             ri = 0
+            logger.error('pid: %s r4abnj_rmi: "%s"' % (self.getGef_project_id(), r))
         if r:
             desc = dd[r]
         else:
@@ -1028,8 +1063,13 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'IW4']:
             ri =4
+        elif r is None:
+            ri = 0
+        elif r.strip().lower() in ['n/a','']:
+            ri = 0
         else:
             ri = 0
+            logger.error('pid: %s r4tdasap_cc: "%s"' % (self.getGef_project_id(), r))
         if r:
             desc = dd[r]
         else:
@@ -1043,8 +1083,8 @@ class Project(folder.ATFolder):
         #XXX conversion matrix missing
         r = self.tda_mnits
         dd = {
-            '1': '???',
-            '2': '???',
+            '1': 'TDA does not include technical annex based on MNITS activities',
+            '2': 'MNITS committee established and contributed to TDA development',
             '3': 'TDA includes technical annex, documenting data and analysis being collected',
             '4': 'TDA includes technical annex posted IWLEARN and based on MNITS committee inputs',
             }
@@ -1056,8 +1096,13 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4']:
             ri =4
+        elif r is None:
+            ri = 0
+        elif r.strip().lower() in ['n/a','']:
+            ri = 0
         else:
             ri = 0
+            logger.error('pid: %s r4tda_mnits: "%s"' % (self.getGef_project_id(), r))
         if r:
             desc = dd[r]
         else:
@@ -1069,6 +1114,7 @@ class Project(folder.ATFolder):
 
     def r4sap_adopted(self):
         r = self.sap_adopted
+        desc = None
         if r:
             ri = int(r)
             desc = '%i %%' %ri
@@ -1082,6 +1128,7 @@ class Project(folder.ATFolder):
                 'style': {'color': COLORS[min(4,int(rf)+1)]}}
 
     def r4sap_implementing(self):
+        desc = None
         r = self.sap_implementing
         if r:
             ri = int(r)
@@ -1089,7 +1136,6 @@ class Project(folder.ATFolder):
             rf = float(ri)/25.0
         else:
             rf = 0
-            desc = None
         url = self.REQUEST.getURL() + '#pra-sap-implementing'
         return {'value': rf, 'label': desc,
                 'xlink': {'href': url},
@@ -1123,8 +1169,13 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'IW4']:
             ri =4
+        elif r is None:
+            ri = 0
+        elif r.strip().lower() in ['n/a','']:
+            ri = 0
         else:
             ri = 0
+            logger.error('pid: %s r4sap_inc: "%s"' % (self.getGef_project_id(), r))
         if r:
             desc = dd[r]
         else:

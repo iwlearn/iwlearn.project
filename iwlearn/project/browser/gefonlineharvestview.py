@@ -42,51 +42,60 @@ class GefOnlineHarvestView(BrowserView):
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
-    def _create_project_folders(self, object):
+    def _create_project_folders(self, obj):
         Id = "project_doc"
         title = 'Project Documents'
         description = 'project document, fact sheets, annexes...'
-        object.invokeFactory( 'Folder', id=Id, title=title, description=description)
+        if not hasattr(obj, Id):
+            obj.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
         Id = "links"
         title = 'Links'
-        description = 'Links to further information about the project or project objectives'
-        object.invokeFactory( 'Folder', id=Id, title=title, description=description)
+        description = 'Links to further information about the project or project objives'
+        if not hasattr(obj, Id):
+            obj.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
         Id = 'newsletters'
         title='Outreach materials'
         description="newsletters, brochures."
-        object.invokeFactory( 'Folder', id=Id, title=title, description=description)
+        if not hasattr(obj, Id):
+            obj.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
         Id = 'reports'
         title='Technical Reports'
         description='TDAs, SAPs ...'
-        object.invokeFactory( 'Folder', id=Id, title=title, description=description)
+        if not hasattr(obj, Id):
+            obj.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
         Id = 'evaluations'
         title='Evaluations Reports'
         description='mid-term, final, appraisals...'
-        object.invokeFactory( 'Folder', id=Id, title=title, description=description)
+        if not hasattr(obj, Id):
+            obj.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
         Id ='maps_graphics'
         title='Maps/Graphics'
         description='Maps and Graphics'
-        object.invokeFactory( 'Folder', id=Id, title=title, description=description)
+        if not hasattr(obj, Id):
+            obj.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
         Id = 'data_sets'
         title='Datasets'
         description='measurement, statistical data'
-        object.invokeFactory( 'Folder', id=Id, title=title, description=description)
+        if not hasattr(obj, Id):
+            obj.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
         Id = 'workshops'
         title='Workshops'
         description='presentations, participants list, meeting reports...'
-        object.invokeFactory( 'Folder', id=Id, title=title, description=description)
+        if not hasattr(obj, Id):
+            obj.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
         Id = 'photos'
         title='Photos'
         description='Photos and other media'
-        object.invokeFactory( 'Folder', id=Id, title=title, description=description)
+        if not hasattr(obj, Id):
+            obj.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
 
     def _create_project_location(self, project, location):
@@ -152,6 +161,12 @@ class GefOnlineHarvestView(BrowserView):
         project_id = pinfo.get('GEF Project ID').strip()
         global_project = (pinfo.get('Region', '').find('Global') > -1)
         countries= harvest.get_countries(pinfo.get('Country',''))
+        if 'Regional' in pinfo.get('Region', ''):
+            project_scale = 'Regional'
+        elif 'Global' in pinfo.get('Region', ''):
+             project_scale = 'Global'
+        else:
+            project_scale = 'National'
         project_status = pinfo.get('Project Status', None)
         try:
             start_date = DateTime(pinfo.get('Approval Date',None))
@@ -193,7 +208,7 @@ class GefOnlineHarvestView(BrowserView):
                         title=name,
                         gef_project_id=project_id,
                         wb_project_id = wb_project_id,
-                        globalproject=global_project,
+                        #globalproject=global_project,
                         country=countries,
                         project_status=project_status,
                         start_date=start_date,
@@ -203,7 +218,8 @@ class GefOnlineHarvestView(BrowserView):
                         strategic_priority = strategic_program,
                         gef_project_allocation=str(project_allocation),
                         total_cost=str(total_cost),
-                        project_summary=sanitize(description)
+                        project_summary=sanitize(description),
+                        project_scale=project_scale,
                        )
 
         self._create_project_folders(new_project)
@@ -296,6 +312,10 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
         ratings = harvest.get_projects_ratings()
         for brain in projects:
             ob = brain.getObject()
+            self._create_project_folders(ob)
+            #XXX only needed once
+            if project.getGef_phase() == 'GEF-5':
+                project.setGef_phase('5')
             projectid = int(ob.getGef_project_id().strip())
             if projectid in ratings:
                 iprating = ratings[projectid][0]
@@ -323,6 +343,13 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                         start_date = None
                 else:
                     start_date = None
+                #XXX only needed once
+                if 'Regional' in pinfo.get('Country', ''):
+                    project_scale = 'Regional'
+                elif 'Global' in pinfo.get('Region', ''):
+                     project_scale = 'Global'
+                else:
+                    project_scale = 'National'
                 project_allocation = harvest.convert_currency_to_millions(
                             pinfo.get('GEF Grant','0'))
                 total_cost = harvest.convert_currency_to_millions(
@@ -338,6 +365,7 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                     end_date = None
                 if end_date and ob.end() is None:
                     ob.update(end_date=end_date)
+                ob.update(project_scale = project_scale)
                 if wb_project_id:
                     ob.update(wb_project_id=wb_project_id)
                 if operational_program:

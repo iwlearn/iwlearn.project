@@ -108,6 +108,9 @@ class ImportRACSV(ImportCSV):
             #project.setTitle(data['GEF Project Full Title'])
             #XXX data['Associated Basin/Ecosystem']
             #project.setProject_status(data['Status'])
+            project.setEcosystem(data['Ecosystem'])
+            project.setProject_category([s.strip() for s in ','.join(data['Project Type'].split(';')).split(',')])
+            project.setProject_scale(data['Project Scale'])
             project.setPra_sources(data['Information Sources'])
             project.setLessons(data['Key Lessons Learned from Project'])
             project.setKey_results(data['Key Project Results'])

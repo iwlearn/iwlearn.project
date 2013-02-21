@@ -44,20 +44,20 @@
             <div tal:condition="context/getPra_sources">
                 <h2>Information Sources</h2>
                 <div tal:content="context/getPra_sources"> Result Description </div>
-              </div>
-              <div tal:condition="context/getLessons">
+            </div>
+            <div tal:condition="context/getLessons">
                 <h2>Key Lessons Learned from Project</h2>
                 <div tal:content="structure context/getLessons"> Result Description </div>
-              </div>
-              <div tal:condition="context/getKey_results">
+            </div>
+            <div tal:condition="context/getKey_results">
                 <h2>Key Project Results</h2>
                 <div tal:content="structure context/getKey_results"> Result Description </div>
-              </div>
-              <div tal:condition="context/getImpacts">
+            </div>
+            <div tal:condition="context/getImpacts">
                 <h2>Catalytic Impacts</h2>
                 <div tal:content="structure context/getImpacts"> Result Description </div>
-              </div>
-              <div tal:condition="python:context.getImcs_desc() or context.getImcs()"
+            </div>
+            <div tal:condition="python:context.getImcs_desc() or context.getImcs()"
                 tal:define="rating context/r4imcs" id="pra-imcs">
                 <h2>Establishment of country-specific inter-ministerial committees</h2>
                 <div tal:attributes="class string:pra-rating-${rating/value}">
@@ -77,16 +77,15 @@
                 </div>
                 <div tal:content="structure context/getRegional_frameworks_desc"> Result Description </div>
               </div>
-            </div>
-            <div tal:condition="python:context.getRmis_desc() or context.getRmis()"
-                tal:define="rating context/r4rmis" id="pra-rmis">
-                <h2>Regional Management Institutions</h2>
-                <div tal:attributes="class string:pra-rating-${rating/value}">
-                    Rating:
-                    <span tal:content="context/getRmis">rating</span>:
-                    <span tal:content="rating/label"></span>
-                </div>
-                <div tal:content="structure context/getRmis_desc"> Result Description </div>
+              <div tal:condition="python:context.getRmis_desc() or context.getRmis()"
+                    tal:define="rating context/r4rmis" id="pra-rmis">
+                    <h2>Regional Management Institutions</h2>
+                    <div tal:attributes="class string:pra-rating-${rating/value}">
+                        Rating:
+                        <span tal:content="context/getRmis">rating</span>:
+                        <span tal:content="rating/label"></span>
+                    </div>
+                    <div tal:content="structure context/getRmis_desc"> Result Description </div>
               </div>
               <div tal:condition="python:context.getReforms_desc() or context.getReforms()"
                 tal:define="rating context/r4reforms" id="pra-reforms">

@@ -549,6 +549,39 @@ BASIN_TYPE = ['LME',
     'Aquifer',
     'Ocean']
 
+PROJECT_SCALE = [
+    'Global',
+    'Regional',
+    'Sub-Regional',
+    'National',
+]
+
+ECOSYSTEM = [
+    'River',
+    'Lake',
+    'Sea',
+    'LME',
+    'SIDS',
+    'Groundwater',
+]
+
+
+PROJECT_CATEGORY = [
+    'ABNJ',
+    'Coastal Management',
+    'Fisheries',
+    'Foundational',
+    'LBS',
+    'Nutrient Reduction Investment',
+    'Oil Spill',
+    'Persistent Toxic Substances',
+    'Policy',
+    'Portfolio Learning',
+    'SAP Implementation',
+    'Ship Safety',
+    'Ship Waste',
+    'Wastewater',
+    ]
 
 
 RATINGS ={ 'N/A' : None,
@@ -567,7 +600,7 @@ GEF_PHASE = [
     ('3', 'GEF - 3'),
     ('4', 'GEF - 4'),
     ('5', 'GEF - 5'),
-#    'GEF-6',
+#   ('6', 'GEF - 6'),
     ]
 
 def gef_phase_vocabulary_factory(context):

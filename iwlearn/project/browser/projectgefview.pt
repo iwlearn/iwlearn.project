@@ -41,7 +41,7 @@
             <div id="content-core">
                 <iframe src="http://www.gefonline.org/projectDetailsSQL.cfm?projID=1893"
                         width="100%" height="600px"
-                 tal:attributes="src string:http://www.thegef.org/gef/project_detail?projID=${here/getGef_project_id}">
+                 tal:attributes="src string:http://www.thegef.org/gef/project_detail?projID=${here/getGef_project_id}#content-area">
                  Sorry, you can't see this.  Your browser does not support including external HTML files as objects.
                 </iframe>
             </div>

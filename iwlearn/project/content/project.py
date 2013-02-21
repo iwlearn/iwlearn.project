@@ -83,16 +83,39 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         accessor='getRemoteUrl',
     ),
 
-    atapi.BooleanField(
+
+    atapi.ComputedField(
         'globalproject',
-        required=False,
         searchable=False,
-        default=False,
-        widget=atapi.BooleanWidget(
-            label=_(u"Global"),
+        expression = 'context._isglobal()',
+        widget=atapi.ComputedWidget(
+        label=_(u"Global"),
             description=_(u"Indicate if the project has a global scope"),
         ),
 
+    ),
+
+    #atapi.BooleanField(
+    #    'globalproject',
+    #    required=False,
+    #    searchable=False,
+    #    default=False,
+    #    widget=atapi.BooleanWidget(
+    #        label=_(u"Global"),
+    #        description=_(u"Indicate if the project has a global scope"),
+    #),
+    #),
+
+    atapi.StringField(
+        'project_scale',
+        required=False,
+        searchable=True,
+        default=u"National",
+        vocabulary = vocabulary.PROJECT_SCALE,
+        widget=atapi.SelectionWidget(
+            label=_(u"Project Scale"),
+            description=_(u"Project Scale"),
+        ),
     ),
 
 
@@ -130,6 +153,27 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         ),
     ),
 
+    atapi.LinesField(
+        'ecosystem',
+        required=False,
+        searchable=True,
+        vocabulary = vocabulary.ECOSYSTEM,
+        widget=atapi.InAndOutWidget(
+            label=_(u"Ecosystem"),
+            description=_(u"Ecosystem"),
+        ),
+    ),
+
+    atapi.LinesField(
+        'project_category',
+        required=False,
+        searchable=True,
+        vocabulary = vocabulary.PROJECT_CATEGORY,
+        widget=atapi.InAndOutWidget(
+            label=_(u"Project Category"),
+            description=_(u"Project Category"),
+        ),
+    ),
 
     atapi.ReferenceField(
         'basins',
@@ -385,31 +429,35 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         widget=atapi.RichWidget(
             label=_(u"Key Lessons Learned from Project"),
             description=_(u""),
-            #visible={'edit': 'invisible'},
+            visible={'edit': 'invisible'},
         ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
     atapi.TextField('key_results',
-        label=_(u"Key Project Results"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"Key Project Results"),
+            description=_(u""),
+            visible={'edit': 'invisible'},
+        ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
     atapi.TextField('impacts',
-        label=_(u"Catalytic Impacts"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"Catalytic Impacts"),
+            description=_(u""),
+            visible={'edit': 'invisible'},
+            ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
@@ -423,12 +471,14 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         #validators=('isInt',)
     ),
     atapi.TextField('imcs_desc',
-        label=_(u"Establishment of country-specific inter-ministerial committees"),
-        description=_(u"National Inter-Ministry Committees (IMCs)"),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"Establishment of country-specific inter-ministerial committees"),
+            description=_(u"National Inter-Ministry Committees (IMCs)"),
+            visible={'edit': 'invisible'},
+        ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
@@ -441,12 +491,14 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         #validators=('isInt',)
     ),
     atapi.TextField('regional_frameworks_desc',
-        label=_(u"Regional legal agreements and cooperation frameworks"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"Regional legal agreements and cooperation frameworks"),
+            description=_(u""),
+            visible={'edit': 'invisible'},
+            ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
@@ -456,15 +508,16 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        #validators=('isInt',)
     ),
     atapi.TextField('rmis_desc',
-        label=_(u"Regional Management Institutions"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"Regional Management Institutions"),
+            description=_(u""),
+            visible={'edit': 'invisible'},
+            ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
@@ -474,15 +527,16 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        validators=('isInt',)
     ),
     atapi.TextField('reforms_desc',
-        label=_(u"National/Local reforms"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"National/Local reforms"),
+            description=_(u""),
+            visible={'edit': 'invisible'},
+            ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
@@ -492,15 +546,16 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        #validators=('isInt',)
     ),
     atapi.TextField('tda_priorities_desc',
-        label=_(u"Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes"),
+            description=_(u""),
+            visible={'edit': 'invisible'},
+        ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
@@ -510,15 +565,16 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        #validators=('isInt',)
     ),
     atapi.TextField('sap_devel_desc',
-        label=_(u"Development of Strategic Action Plan (SAP)"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"Development of Strategic Action Plan (SAP)"),
+            description=_(u""),
+            visible={'edit': 'invisible'},
+            ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
@@ -528,15 +584,16 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        #validators=('isInt',)
     ),
     atapi.TextField('abnj_rmi_desc',
-        label=_(u"Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)"),
+            description=_(u""),
+            visible={'edit': 'invisible'},
+            ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
@@ -546,15 +603,16 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        #validators=('isInt',)
     ),
     atapi.TextField('tdasap_cc_desc',
-        label=_(u"Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations"),
+            description=_(u""),
+            visible={'edit': 'invisible'},
+            ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
@@ -564,15 +622,16 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        validators=('isInt',)
     ),
     atapi.TextField('tda_mnits_desc',
-        label=_(u"TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities"),
+            description=_(u""),
+            visible={'edit': 'invisible'},
+            ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
@@ -585,12 +644,14 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         validators=('isInt',)
     ),
     atapi.TextField('sap_adopted_desc',
-        label=_(u"Proportion of Countries that have adopted SAP"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"Proportion of Countries that have adopted SAP"),
+            description=_(u""),
+            visible={'edit': 'invisible'},
+            ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
@@ -603,12 +664,14 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         validators=('isInt',)
     ),
     atapi.TextField('sap_implementing_desc',
-        label=_(u"Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)"),
+            description=_(u""),
+            visible={'edit': 'invisible'},
+        ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
@@ -618,26 +681,29 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         description=_(u""),
         visible={'edit': 'invisible'},
         required = False,
-        #validators=('isInt',)
     ),
     atapi.TextField('sap_inc_desc',
-        label=_(u"Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc"),
+            description=_(u""),
+            visible={'edit': 'invisible'},
+            ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
 
     atapi.TextField( 'key_process_results',
-        label=_(u"Other Key Process Results"),
-        description=_(u""),
-        visible={'edit': 'invisible'},
+        widget=atapi.RichWidget(
+            label=_(u"Other Key Process Results"),
+            description=_(u""),
+            visible={'edit': 'invisible'},
+            ),
         default_content_type = 'text/restructured',
         default_output_type = 'text/x-html-safe',
-        allowable_content_types=('text/plain', 'text/restructured', 'text/html',),
+        allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
         required = False,
         searchable=True,
     ),
@@ -669,6 +735,13 @@ class Project(folder.ATFolder):
 
     meta_type = "Project"
     schema = ProjectSchema
+
+    def _isglobal(self):
+        if self.getProject_scale() == 'Global':
+            return True
+        else:
+            return False
+
 
     def _computeRegions(self):
         if self.getGlobalproject():

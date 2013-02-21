@@ -372,8 +372,6 @@ class ProjectKMLMapLayers(MapLayers):
     def layers(self):
         #add basemaps
         layers = super(ProjectKMLMapLayers, self).layers()
-        #XXX check if the project has maplayers befor adding this layer
-        layers.append(ProjectInnerKMLMapLayer(self.context))
         if self.context.getCountry():
             layers.append(ProjectKMLCountryMapLayer(self.context))
         if self.context.getBasin():
@@ -385,6 +383,20 @@ class ProjectKMLMapLayers(MapLayers):
             object = brain.getObject()
             if object.content_type == 'application/vnd.google-earth.kml+xml':
                 layers.append(KMLFileMapLayer(self.context,object))
+
+        #check if the project has maplayers before adding this layer
+        has_maplayers = False
+        for brain in portal_catalog(path=path, review_state="published"):
+            try:
+                if brain.zgeo_geometry['coordinates']:
+                    has_maplayers = True
+                    break
+                else:
+                    continue
+            except:
+                continue
+        if has_maplayers:
+            layers.append(ProjectInnerKMLMapLayer(self.context))
         # PCU Location
         layers.append(ProjectKMLMapLayer(self.context))
         return layers

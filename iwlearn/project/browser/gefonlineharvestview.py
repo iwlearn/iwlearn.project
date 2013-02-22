@@ -163,7 +163,7 @@ class GefOnlineHarvestView(BrowserView):
         countries= harvest.get_countries(pinfo.get('Country',''))
         if 'Regional' in pinfo.get('Region', ''):
             project_scale = 'Regional'
-        elif 'Global' in pinfo.get('Region', ''):
+        elif 'Global' in pinfo.get('Region', '') or 'Global' in pinfo.get('Country', ''):
              project_scale = 'Global'
         else:
             project_scale = 'National'
@@ -314,8 +314,8 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
             ob = brain.getObject()
             self._create_project_folders(ob)
             #XXX only needed once
-            if project.getGef_phase() == 'GEF-5':
-                project.setGef_phase('5')
+            if ob.getGef_phase() == 'GEF-5':
+                ob.setGef_phase('5')
             projectid = int(ob.getGef_project_id().strip())
             if projectid in ratings:
                 iprating = ratings[projectid][0]
@@ -346,7 +346,7 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                 #XXX only needed once
                 if 'Regional' in pinfo.get('Country', ''):
                     project_scale = 'Regional'
-                elif 'Global' in pinfo.get('Region', ''):
+                elif 'Global' in pinfo.get('Region', '') or 'Global' in pinfo.get('Country', ''):
                      project_scale = 'Global'
                 else:
                     project_scale = 'National'

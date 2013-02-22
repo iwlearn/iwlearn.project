@@ -108,7 +108,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     atapi.StringField(
         'project_scale',
-        required=False,
+        required=True,
         searchable=True,
         default=u"National",
         vocabulary = vocabulary.PROJECT_SCALE,
@@ -765,15 +765,14 @@ class Project(folder.ATFolder):
     def getSubRegions(self):
         """ get region + subregion for indexing """
         countries=self.getCountry()
+        if self.getProject_scale():
+            scale = [self.getProject_scale(), ]
+        else:
+            scale = []
         if countries:
             sr = vocabulary.get_subregions(countries=countries)
-            if self.getGlobalproject():
-                r = vocabulary.get_regions(countries=countries,
-                        regions=[u'Global'])
-                return r + sr
-            else:
-                r = vocabulary.get_regions(countries=countries)
-                return r + sr
+            r = vocabulary.get_regions(countries=countries)
+            return scale + r + sr
         else:
             if self.getGlobalproject():
                 return [u'Global',]

@@ -12,4 +12,5 @@
   <column value="getProject_type"/>
   <column value="getGefRatings"/>
   <column value="getRawProjects" />
+  <column value="getProject_category" />
 </object>

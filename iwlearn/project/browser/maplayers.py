@@ -212,6 +212,31 @@ class ProjectDbKMLCountryMapLayer(MapLayerBase):
                   });
                 }""" % (u'Countries', context_url, self.visible)
 
+
+class ProjectDbKMLNationalResultsMapLayer(MapLayerBase):
+
+    @property
+    def jsfactory(self):
+        context_url = self.context.absolute_url()
+        if not context_url.endswith('/'):
+            context_url += '/'
+        return u"""function() {
+                return new OpenLayers.Layer.Vector("%s", {
+                    protocol: new OpenLayers.Protocol.HTTP({
+                      url: "%s@@projectdbnationalresults_view.kml",
+                      format: new OpenLayers.Format.KML({
+                        extractStyles: true,
+                        extractAttributes: true})
+                      }),
+                    strategies: [new OpenLayers.Strategy.Fixed()],
+                    visibility: %s,
+                    displayInLayerSwitcher: false,
+                    projection: new OpenLayers.Projection("EPSG:4326")
+                  });
+                }""" % (u'National Results', context_url, self.visible)
+
+
+
 class ProjectDbKMLCountryMapLayers(MapLayers):
     def layers(self):
         layers = super(ProjectDbKMLCountryMapLayers, self).layers()
@@ -236,6 +261,14 @@ class ProjectDbMapLayers(MapLayers):
         layers.append(ProjectDbKMLCountryMapLayer(self.context, False))
         layers.append(ProjectDbKMLBasinMapLayer(self.context, True))
         layers.append(ProjectDbKMLMapLayer(self.context, False))
+        return layers
+
+
+class ProjectDbKMLResultMapLayers(MapLayers):
+
+    def layers(self):
+        layers = super(ProjectDbKMLResultMapLayers, self).layers()
+        layers.append(ProjectDbKMLNationalResultsMapLayer(self.context, True))
         return layers
 
 ########################################################################

@@ -127,6 +127,23 @@
       permission="zope2.View"
       />
 
+   <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="project-result-map-view.html"
+      class=".projectdbview.ProjectDBResultMapView"
+      template="projectdbmappraview.pt"
+      allowed_interface=".projectdbview.IProjectDBView"
+      permission="zope2.View"
+      />
+
+    <adapter
+      for=".projectdbview.ProjectDBResultMapView
+           zope.interface.Interface
+           zope.interface.Interface
+           zope.interface.Interface"
+      factory=".maplayers.ProjectDbKMLResultMapLayers"
+      />
+
 
   <browser:page
       for="..interfaces.IProjectDatabase"
@@ -260,6 +277,16 @@
       for="..interfaces.IProjectDatabase"
       name="projectdbpmo_view.kml"
       class=".projectdbkmlview.ProjectDbKmlView"
+      template="projectdbkmlview.pt"
+      allowed_interface=".projectdbkmlview.IProjectDbKmlView"
+      permission="zope.Public"
+      />
+
+
+ <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projectdbnationalresults_view.kml"
+      class=".projectdbkmlview.ProjectDbKmlNationalResultsView"
       template="projectdbkmlview.pt"
       allowed_interface=".projectdbkmlview.IProjectDbKmlView"
       permission="zope.Public"

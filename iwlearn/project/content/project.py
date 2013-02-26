@@ -779,7 +779,7 @@ class Project(folder.ATFolder):
             else:
                 logger.info('no regions found for %s' % '/'.join(
                     self.getPhysicalPath()))
-                return []
+                return scale + ['???',]
 
     def getAgencies(self):
         """ Returns the implementing + lead agencies of the project """

@@ -611,6 +611,78 @@ class ProjectDBMapView(ProjectDBBaseView):
         return refresh_js
 
 
+class ProjectDBResultMapView(ProjectDBMapView):
+
+    def get_js(self):
+        refresh_js = """
+        function onPraLayerOptionsChange(event) {
+            // refresh map
+            var dt = $('#projectmapform').serializeArray();
+            var qs = '?';
+            var params = {};
+            jQuery.each(dt, function(i, field){
+                if (field.name.substring(0,25) != 'cgmap_state.default-cgmap') {
+                    qs = qs + field.name + '=' + field.value + "&";
+                    params[field.name] = field.value;
+                };
+            });
+            var map = cgmap.config['default-cgmap'].map;
+            var kmls = map.getLayersByName('National Results');
+            layer = kmls[0];
+            kml_url = '%(url)s/@@projectdbnationalresults_view.kml' + qs;
+            layer.refresh({url: kml_url});
+            return true;
+
+        };
+
+
+        function refreshDownloadKmlUrl(event) {
+            var dt = $('#projectmapform').serializeArray();
+            var qs = '?';
+            var params = {};
+            jQuery.each(dt, function(i, field){
+                if (field.name.substring(0,25) != 'cgmap_state.default-cgmap') {
+                    qs = qs + field.name + '=' + field.value + "&";
+                    params[field.name] = field.value;
+                };
+            });
+            kml_url = '%(url)s/@@projectdblinkall_view.kml' + qs;
+            jQuery("a#projectdballkmlurl").attr('href', kml_url);
+        };
+
+    function refreshFeatureDetails(layerName, featureName) {
+            var dt = $('#projectmapform').serializeArray();
+            var qs = '?';
+            var params = {};
+            jQuery.each(dt, function(i, field){
+                if (field.name.substring(0,25) != 'cgmap_state.default-cgmap') {
+                    qs = qs + field.name + '=' + field.value + "&";
+                    params[field.name] = field.value;
+                };
+            });
+            if (layerName == "Countries") {
+                qs = qs + 'getCountry=' + featureName
+            }
+            if (layerName == "Basin Detail") {
+                qs = qs + 'getBasin=' + featureName
+            }
+            if (layerName == "National Results") {
+                qs = qs + 'getCountry=' + featureName
+            }
+            var url = '%(url)s/@@project-list-view.html' + qs;
+            jQuery.get(url,
+                function(data) {
+                  jQuery('#featureprojectdetails').html(data);
+            });
+        };
+
+
+
+        """ % {'url': self.context.absolute_url()}
+        return refresh_js
+
+
+
 class IProjectDBListView(Interface):
     """ Marker Interface """
 

@@ -23,6 +23,10 @@
                         tal:attributes="src string:${result/getURL}/logo_image"
                         alt="Project Logo" />
                     <span tal:replace="result/Description"/>
+                    <br />
+                    <span tal:replace="python: ', '.join(result.getSubRegions)" tal:on-error="nothing" > Regions/subregions </span>
+                    <br />
+                    <span tal:replace="python: ', '.join(result.getCountry)" tal:on-error="nothing" > Country</span>
                     <p>
                     <span tal:replace="result/getProject_status "/>:
                     <span  tal:on-error="nothing" tal:replace="python:result.start.strftime('%Y-%m')"/> -

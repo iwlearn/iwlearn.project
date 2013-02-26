@@ -115,6 +115,7 @@ def add_catalog_indexes(context, logger=None):
               ('getProject_type', 'FieldIndex'),
               ('getRawProjects', 'FieldIndex'),
               ('getBasin_type', 'FieldIndex'),
+              ('getProject_category', 'KeywordIndex'),
               #XXX maybe better to index them seperately
               #('getGefRatings', 'FieldIndex'),
               )

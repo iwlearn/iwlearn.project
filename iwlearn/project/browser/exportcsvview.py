@@ -23,7 +23,10 @@ CSV_FIELDS= ['ID',
             'IBRD ID',
             'Country',
             'Type',
+            'Project Type',
             'Project Name',
+            'Project Scale',
+            'Ecosystem',
             'Region',
             'Subregion',
             'Basin',
@@ -140,6 +143,9 @@ class ExportCSVView(BrowserView):
             pd['IBRD ID']= obj.getWb_project_id()
             pd['Country']= '; '.join(obj.getCountry())
             pd['Type']= obj.getProject_type()
+            pd['Project Type'] = obj.getProject_category()
+            pd['Project Scale']= obj.getProject_scale()
+            pd['Ecosystem']= obj.getEcosystem()
             pd['Region']= obj.getRegion()
             pd['Subregion']= obj.getSubregion()
             pd['Basin']= '; '.join(obj.getBasin())
@@ -254,9 +260,6 @@ class ExportCSVView(BrowserView):
                 obj.r4sap_inc()
             except:
                 logger.error('pid: %s r4sap_inc: %s' % (obj.getGef_project_id(), obj.sap_inc))
-
-
-
 
         output.seek(0)
         self.request.RESPONSE.setHeader('Content-Type','text/csv; charset=utf-8')

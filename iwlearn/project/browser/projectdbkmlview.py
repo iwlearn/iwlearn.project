@@ -583,3 +583,9 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                 continue
             else:
                 logger.error('country %s not in database some projects will not be shown' % c)
+
+
+
+class ProjectDbKmlNationalResultsView(ProjectDbKmlCountryView):
+
+    pass

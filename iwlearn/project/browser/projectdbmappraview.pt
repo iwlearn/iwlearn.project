@@ -76,51 +76,59 @@
               and click on a coordinate or polygon to list the projects
               in that area
               </div>
-              <input type="checkbox" id="show-pcu" name="show-pcu" />
-              <label for="show-pcu">
-                Project management offices
-                <div style="border: 2px solid #cc6633; background-color: #ffcc66;
-                border-radius: 9px; text-align: center;
-                width: 16px; height: 16px; display: inline-block;"
-                title="Number of projects nearby">4</div>
-              </label>
-              <div class="formHelp">The geographical location of the PMOs.</div>
-              <input type="checkbox" id="show-country" name="show-country"/>
-              <label for="show-country">Projects by partnering countries
-                <span tal:replace="structure view/country_box" /> </label>
-                <div class="formHelp">Show the countries involved in GEF IW projects.
-                Darker shadings indicate a higher number of projects.
-                </div>
-              <input type="checkbox" id="show-basins" name="show-basins" checked="checked"/>
-              <label for="show-basins">Transboundary water basins</label>
-              <br />
-              <div id="basinlayer">
-                <fieldset>
-                    <!--legend>Basin Type</legend-->
-                    <input type="checkbox" id="basintype-ocean" name="basintype:list" value="Ocean"/>
-                    <label for="basintype-oceans">Open Oceans <span tal:replace="structure view/ocean_box" /></label>
+              <fieldset>
+                <legend>Scope</legend>
+                  <input type="radio" id="scope-national" name="getSubRegions:list" value="National" />
+                        <label for="scope-national">National</label>
+                  <input type="radio" id="scope-regional" name="getSubRegions:list" value="Regional" disabled="disabled"/>
+                        <label for="scope-regional">Regional</label>
+                  <!--input type="radio" id="scope-global" name="getSubRegions:list" value="Global" />
+                        <label for="scope-global">Global</label-->
+              </fieldset>
+              <fieldset id="pratypelayer" >
+                <legend>Type</legend>
+                  <input type="checkbox" id="category-abnj" name="getProject_category:list" value="ABNJ" checked="checked"/>
+                        <label for="category-abnj">ABNJ</label>
                     <br />
-                    <input type="checkbox" id="basintype-lmes" name="basintype:list" value="LME" checked="checked"/>
-                    <label for="basintype-lmes" title="Large marine ecosystems ">LMES <span tal:replace="structure view/lme_box" /></label>
+                  <input type="checkbox" id="category-coastal" name="getProject_category:list" value="Coastal Management" checked="checked"/>
+                        <label for="category-coastal">Coastal Management</label>
                     <br />
-                    <input type="checkbox" id="basintype-lakes" name="basintype:list" value="Lake" checked="checked"/>
-                    <label for="basintype-lakes">Lakes <span tal:replace="structure view/lake_box" /></label>
+                  <input type="checkbox" id="category-fisheries" name="getProject_category:list" value="Fisheries" checked="checked"/>
+                        <label for="category-fisheries">Fisheries</label>
                     <br />
-                    <input type="checkbox" id="basintype-rivers" name="basintype:list" value="River" checked="checked"/>
-                    <label for="basintype-rivers">Rivers <span tal:replace="structure view/river_box" /></label>
+                  <input type="checkbox" id="category-foundational" name="getProject_category:list" value="Foundational" checked="checked"/>
+                        <label for="category-foundational">Foundational</label>
                     <br />
-                    <input type="checkbox" id="basintype-aquifers" name="basintype:list" value="Aquifer" checked="checked"/>
-                    <label for="basintype-aquifers">Aquifers <span tal:replace="structure view/gw_box" /></label>
-                </fieldset>
-                <fieldset>
-                    <legend>GEF project involvement</legend>
-                    <input type="checkbox" id="withgefbasins" name="showgefbasins:list" value="with" checked="checked"/>
-                    <label for="withgefbasins">With GEF projects</label>
+                  <input type="checkbox" id="category-lbs" name="getProject_category:list" value="LBS" checked="checked"/>
+                        <label for="category-lbs">LBS</label>
                     <br />
-                    <input type="checkbox" id="withoutgefbasins" name="showgefbasins:list" value="without"/>
-                    <label for="withoutgefbasins">Without GEF projects</label>
-                </fieldset>
-            </div>
+                  <input type="checkbox" id="category-nri" name="getProject_category:list" value="Nutrient Reduction Investment" checked="checked"/>
+                        <label for="category-nri">Nutrient Reduction Investment</label>
+                    <br />
+                  <input type="checkbox" id="category-oilspill" name="getProject_category:list" value="Oil Spill" checked="checked"/>
+                        <label for="category-oilspill">Oil Spill</label>
+                    <br />
+                  <input type="checkbox" id="category-pts" name="getProject_category:list" value="Persistent Toxic Substances" checked="checked"/>
+                        <label for="category-pts">Persistent Toxic Substances</label>
+                    <br />
+                  <input type="checkbox" id="category-policy" name="getProject_category:list" value="Policy" checked="checked"/>
+                        <label for="category-policy">Policy</label>
+                    <br />
+                  <input type="checkbox" id="category-learn" name="getProject_category:list" value="Portfolio Learning" checked="checked"/>
+                        <label for="category-learn">Portfolio Learning</label>
+                    <br />
+                  <input type="checkbox" id="category-sap" name="getProject_category:list" value="SAP Implementation" checked="checked"/>
+                        <label for="category-sap">SAP Implementation</label>
+                    <br />
+                  <input type="checkbox" id="category-ship-safety" name="getProject_category:list" value="Ship Safety" checked="checked"/>
+                        <label for="category-ship-safety">Ship Safety</label>
+                    <br />
+                  <input type="checkbox" id="category-ship-waste" name="getProject_category:list" value="Ship Waste" checked="checked"/>
+                        <label for="category-ship-waste">Ship Waste</label>
+                    <br />
+                  <input type="checkbox" id="category-wastewater" name="getProject_category:list" value="Wastewater" checked="checked"/>
+                        <label for="category-wastewater">Wastewater</label>
+              </fieldset>
             <h5>Refine List</h5>
              <fieldset class="projectdetails">
                 <legend>Search for Projects</legend>
@@ -361,49 +369,48 @@ function onBasinLayerChange(event) {
     var map = cgmap.config['default-cgmap'].map;
     var is_visible = $(this).is(':checked');
     var kmls = map.getLayersByName('Basin Cluster');
-    if (kmls.lenght > 0) {
-        layer = kmls[0];
-        layer.setVisibility(is_visible);
-    };
+    layer = kmls[0];
+    layer.setVisibility(is_visible);
     var kmls = map.getLayersByName('Basin Detail');
-    if (kmls.length > 0) {
-        layer = kmls[0];
-        layer.setVisibility(is_visible);
-    };
+    layer = kmls[0];
+    layer.setVisibility(is_visible);
     if (is_visible) {
         $("#basinlayer").show()
     } else {
         $("#basinlayer").hide()
     };
     refreshDownloadKmlUrl(event);
-}
+};
 
 
 function onCountryLayerChange(event) {
     var map = cgmap.config['default-cgmap'].map;
     var is_visible = $(this).is(':checked');
     var kmls = map.getLayersByName('Countries');
-    if (kmls.length > 0) {
-        layer = kmls[0];
-        layer.setVisibility(is_visible);
-        refreshDownloadKmlUrl(event);
-    };
-}
+    layer = kmls[0];
+    layer.setVisibility(is_visible);
+    refreshDownloadKmlUrl(event);
+};
 
 
 function onPCULayerChange(event) {
     var map = cgmap.config['default-cgmap'].map;
     var is_visible = $(this).is(':checked');
     var kmls = map.getLayersByName('Project management offices');
-    if (kmls.length > 0) {
-        layer = kmls[0];
-        layer.setVisibility(is_visible);
-        refreshDownloadKmlUrl(event);
-    };
-}
+    layer = kmls[0];
+    layer.setVisibility(is_visible);
+    refreshDownloadKmlUrl(event);
+};
 
 
-
+function onNationalPraChange(event) {
+    var map = cgmap.config['default-cgmap'].map;
+    var is_visible = $(this).is(':checked');
+    var kmls = map.getLayersByName('National Results');
+    layer = kmls[0];
+    layer.setVisibility(is_visible);
+    refreshDownloadKmlUrl(event);
+};
 
 $('#projectmapform').submit
 (
@@ -415,15 +422,19 @@ $('#projectmapform').submit
 );
 
  $(document).ready(function() {
-   $("#projectmapform").find("select").each(function(i) {
+   /*$("#projectmapform").find("select").each(function(i) {
         $(this).change(onLayerOptionsChange) ;
    });
    $("#basinlayer").find("input").each(function(i) {
        $(this).change(onBasinLayerOptionsChange);
-    });
-   $("#show-basins").change(onBasinLayerChange);
+    });*/
+   $("#pratypelayer").find("input").each(function(i) {
+     $(this).change(onPraLayerOptionsChange);
+   });
+   $("#scope-national").change(onNationalPraChange);
+  /* $("#show-basins").change(onBasinLayerChange);
    $("#show-pcu").change(onPCULayerChange);
-   $("#show-country").change(onCountryLayerChange);
+   $("#show-country").change(onCountryLayerChange);*/
  });
 
 

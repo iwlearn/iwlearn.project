@@ -9,6 +9,7 @@ from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 from Products.CMFCore.utils import getToolByName
 
 from iwlearn.project import projectMessageFactory as _
+from iwlearn.project.vocabulary import my_countrylist as _countrylist
 
 logger = logging.getLogger('iwlearn.project')
 
@@ -101,13 +102,17 @@ class ImportRACSV(ImportCSV):
                 to the projectdb''')
     id_column = 'GEFID'
 
+    plone_countries = [c['name'] for c in _countrylist.values()]
+
     def update_project(self, project, data):
             if data['GEF Project ShortName']:
                  project.setProject_shortname(data['GEF Project ShortName'])
-            #project.setProject_type(data['Project Type'])
+            #project.setProject_type(data['Type'])
             #project.setTitle(data['GEF Project Full Title'])
             #XXX data['Associated Basin/Ecosystem']
             #project.setProject_status(data['Status'])
+            #project.setCountry([v.strip() for v in data['Country'].split(';')
+            #        if v.strip() in self.plone_countries])
             project.setEcosystem(data['Ecosystem'])
             project.setProject_category([s.strip() for s in ','.join(data['Project Type'].split(';')).split(',')])
             project.setProject_scale(data['Project Scale'])

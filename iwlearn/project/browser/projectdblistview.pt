@@ -47,6 +47,11 @@
                                 </span>
                         </span>
                     </p>
+                    <!--img src="#" tal:attributes="src string:${result/getURL}/@@project_result_chart.svg" /-->
+                    <!--object data="circle1.svg" type="image/svg+xml"
+                    tal:attributes="data string:${result/getURL}/@@project_result_chart.svg"></object-->
+                    <embed src="circle1.svg" type="image/svg+xml"
+                    tal:attributes="src string:${result/getURL}/@@project_result_chart.svg" />
                     <div class="visualClear">&nbsp;</div>
                 </dd>
             </tal:loop>

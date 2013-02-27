@@ -104,7 +104,7 @@ class ProjectView(BrowserView):
         #return chart.render()
 
 
-    def get_pra_chart(self):
+    def get_pra_chart(self, disable_xml_declaration=True):
         ratings = [
         ('IMC', [self.context.r4imcs()]),
         ('Frameworks', [self.context.r4regional_frameworks()]),
@@ -132,7 +132,7 @@ class ProjectView(BrowserView):
         chart = pygal.Bar(width=600, height=300,
                     explicit_size=True,
                     style=style,
-                    disable_xml_declaration=True,
+                    disable_xml_declaration=disable_xml_declaration,
                     show_legend=True)
         chart.range = [0, 4]
         chart.y_labels = [0, 1, 2, 3, 4]
@@ -147,4 +147,12 @@ class ProjectView(BrowserView):
 class ProjectResultView(ProjectView):
     ''' Display the project resultsarchive data '''
 
+
+class ProjectResultChart(ProjectView):
+    ''' Display the project resultsarchive chart as an svg file '''
+
+    def __call__(self):
+        self.request.RESPONSE.setHeader('Content-Type',
+            'image/svg+xml; charset=utf-8' )
+        return self.get_pra_chart(False)
 

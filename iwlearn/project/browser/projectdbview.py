@@ -723,4 +723,3 @@ class ProjectDBListView(BrowserView):
         else:
             return 'N/A'
 
-

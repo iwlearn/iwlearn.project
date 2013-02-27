@@ -103,6 +103,16 @@
       permission="zope.Public"
       />
 
+    <browser:page
+      for="..interfaces.IProject"
+      name="project_result_chart.svg"
+      class=".projectview.ProjectResultChart"
+      allowed_interface=".projectview.IProjectView"
+      permission="zope.Public"
+      />
+
+
+
 
 <!-- Project DB -->
 

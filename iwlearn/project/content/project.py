@@ -834,6 +834,8 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
+        elif r in ['IWA']:
+            ri = 0
         elif r is None:
             ri = 0
         elif r.strip().lower() in ['n/a','']:
@@ -845,9 +847,9 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        url = self.REQUEST.getURL() + '#pra-imcs'
+        url = self.absolute_url() + '/@@resultsview.html' + '#pra-imcs'
         return {'value': ri, 'label': desc,
-                'xlink': {'href': url},
+                'xlink': {'href': url, 'target': '_top'},
                 'style': {'color': COLORS[ri]}}
 
     def r4regional_frameworks(self):
@@ -877,6 +879,8 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'III2', 'III3', 'IW4']:
             ri =4
+        elif r in ['IWA']:
+            ri = 0
         elif r is None:
             ri = 0
         elif r.strip().lower() in ['n/a','']:
@@ -888,9 +892,9 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        url = self.REQUEST.getURL() + '#pra-frameworks'
+        url = self.absolute_url() + '/@@resultsview.html' + '#pra-frameworks'
         return {'value': ri, 'label': desc,
-                'xlink': {'href': url},
+                'xlink': {'href': url, 'target': '_top'},
                 'style': {'color': COLORS[ri]}}
 
     def r4rmis(self):
@@ -920,6 +924,8 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
+        elif r in ['IWA']:
+            ri = 0
         elif r is None:
             ri = 0
         elif r.strip().lower() in ['n/a','']:
@@ -931,9 +937,9 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        url = self.REQUEST.getURL() + '#pra-rmis'
+        url = self.absolute_url() + '/@@resultsview.html' + '#pra-rmis'
         return {'value': ri, 'label': desc,
-                'xlink': {'href': url},
+                'xlink': {'href': url, 'target': '_top'},
                 'style': {'color': COLORS[ri]}}
 
     def r4reforms(self):
@@ -963,6 +969,8 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
+        elif r in ['IWA']:
+            ri = 0
         elif r is None:
             ri = 0
         elif r.strip().lower() in ['n/a','']:
@@ -974,9 +982,9 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        url = self.REQUEST.getURL() + '#pra-reforms'
+        url = self.absolute_url() + '/@@resultsview.html' + '#pra-reforms'
         return {'value': ri, 'label': desc,
-                'xlink': {'href': url},
+                'xlink': {'href': url, 'target': '_top'},
                 'style': {'color': COLORS[ri]}}
 
     def r4tda_priorities(self):
@@ -1006,6 +1014,8 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
+        elif r in ['IWA']:
+            ri = 0
         elif r is None:
             ri = 0
         elif r.strip().lower() in ['n/a','']:
@@ -1017,9 +1027,9 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        url = self.REQUEST.getURL() + '#pra-tda-priorities'
+        url = self.absolute_url() + '/@@resultsview.html' + '#pra-tda-priorities'
         return {'value': ri, 'label': desc,
-                'xlink': {'href': url},
+                'xlink': {'href': url, 'target': '_top'},
                 'style': {'color': COLORS[ri]}}
 
     def r4sap_devel(self):
@@ -1049,6 +1059,8 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
+        elif r in ['IWA']:
+            ri = 0
         elif r is None:
             ri = 0
         elif r.strip().lower() in ['n/a','']:
@@ -1060,9 +1072,9 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        url = self.REQUEST.getURL() + '#pra-sap-devel'
+        url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-devel'
         return {'value': ri, 'label': desc,
-                'xlink': {'href': url},
+                'xlink': {'href': url, 'target': '_top'},
                 'style': {'color': COLORS[ri]}}
 
     def r4abnj_rmi(self):
@@ -1092,6 +1104,8 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'IW4']:
             ri =4
+        elif r in ['IWA']:
+            ri = 0
         elif r is None:
             ri = 0
         elif r.strip().lower() in ['n/a','']:
@@ -1103,9 +1117,9 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        url = self.REQUEST.getURL() + '#pra-abnj'
+        url = self.absolute_url() + '/@@resultsview.html' + '#pra-abnj'
         return {'value': ri, 'label': desc,
-                'xlink': {'href': url},
+                'xlink': {'href': url, 'target': '_top'},
                 'style': {'color': COLORS[ri]}}
 
     def r4tdasap_cc(self):
@@ -1135,6 +1149,8 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'IW4']:
             ri =4
+        elif r in ['IWA']:
+            ri = 0
         elif r is None:
             ri = 0
         elif r.strip().lower() in ['n/a','']:
@@ -1146,9 +1162,9 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        url = self.REQUEST.getURL() + '#pra-tdasap-cc'
+        url = self.absolute_url() + '/@@resultsview.html' + '#pra-tdasap-cc'
         return {'value': ri, 'label': desc,
-                'xlink': {'href': url},
+                'xlink': {'href': url, 'target': '_top'},
                 'style': {'color': COLORS[ri]}}
 
     def r4tda_mnits(self):
@@ -1158,6 +1174,7 @@ class Project(folder.ATFolder):
             '2': 'MNITS committee established and contributed to TDA development',
             '3': 'TDA includes technical annex, documenting data and analysis being collected',
             '4': 'TDA includes technical annex posted IWLEARN and based on MNITS committee inputs',
+            'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
             }
         if r in ['1']:
             ri = 1
@@ -1167,6 +1184,8 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4']:
             ri =4
+        elif r in ['IWA']:
+            ri = 0
         elif r is None:
             ri = 0
         elif r.strip().lower() in ['n/a','']:
@@ -1178,9 +1197,9 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        url = self.REQUEST.getURL() + '#pra-mnits'
+        url = self.absolute_url() + '/@@resultsview.html' + '#pra-mnits'
         return {'value': ri, 'label': desc,
-                'xlink': {'href': url},
+                'xlink': {'href': url, 'target': '_top'},
                 'style': {'color': COLORS[ri]}}
 
     def r4sap_adopted(self):
@@ -1193,9 +1212,9 @@ class Project(folder.ATFolder):
         else:
             rf = 0
             desc = None
-        url = self.REQUEST.getURL() + '#pra-sap-adopted'
+        url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-adopted'
         return {'value': rf, 'label': desc,
-                'xlink': {'href': url},
+                'xlink': {'href': url, 'target': '_top'},
                 'style': {'color': COLORS[min(4,int(rf)+1)]}}
 
     def r4sap_implementing(self):
@@ -1207,9 +1226,9 @@ class Project(folder.ATFolder):
             rf = float(ri)/25.0
         else:
             rf = 0
-        url = self.REQUEST.getURL() + '#pra-sap-implementing'
+        url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-implementing'
         return {'value': rf, 'label': desc,
-                'xlink': {'href': url},
+                'xlink': {'href': url, 'target': '_top'},
                 'style': {'color': COLORS[min(4,int(rf)+1)]}}
 
 
@@ -1227,7 +1246,7 @@ class Project(folder.ATFolder):
             'III1': '',
             'III2': '',
             'III3': '',
-            'IWA': '',
+            'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
             'IW1': 'No progress',
             'IW2': 'Limited progress, very generic with no specific agency/government(s) commitments',
             'IW3': 'Priorities specifically incorporated into some national development/assistance frameworks with clear agency/government(s) commitments and time frames for achievement',
@@ -1240,6 +1259,8 @@ class Project(folder.ATFolder):
             ri = 3
         elif r in ['4', 'IV3', 'IW4']:
             ri =4
+        elif r in ['IWA']:
+            ri = 0
         elif r is None:
             ri = 0
         elif r.strip().lower() in ['n/a','']:
@@ -1251,9 +1272,9 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        url = self.REQUEST.getURL() + '#pra-r4sap-inc'
+        url = self.absolute_url() + '/@@resultsview.html' + '#pra-r4sap-inc'
         return {'value': ri, 'label': desc,
-                'xlink': {'href': url},
+                'xlink': {'href': url, 'target': '_top'},
                 'style': {'color': COLORS[ri]}}
 
 

@@ -576,10 +576,10 @@ $('#projectmapform').submit
                 }
             );
         selectControl.handlers.feature.stopDown = false;
-        /*selectControl.handlers['feature'].stopDown = false;
-        selectControl.handlers['feature'].stopUp = false;
-        selectControl.handlers['feature'].stopClick = false;
-        */
+        selectControl.handlers.feature.stopDown = false;
+        selectControl.handlers.feature.stopUp = false;
+        selectControl.handlers.feature.stopClick = false;
+
         map.addControl(selectControl);
         selectControl.activate();
 
@@ -594,9 +594,9 @@ $('#projectmapform').submit
             pmo_kmls[i].events.on({"featureselected": onPointLayerFeatureSelect,
                             "featureunselected": onFeatureUnselect});
         };
-        /*for (var i=0; i<kmls.length; ++i){
+        for (var i=0; i<kmls.length; ++i){
              kmls[i].events.fallThrough = true;
-        };*/
+        };
         map.addControl( new OpenLayers.Control.LoadingPanel({'title': 'Loading. Please wait'}));
 
 });

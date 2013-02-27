@@ -317,6 +317,55 @@ class CountryPlacemark(BrainPlacemark):
 
 
 
+
+class CountryResultsPlacemark(CountryPlacemark):
+
+    @property
+    def description(self):
+        desc = u'<ul>'
+        for project in self.projects:
+            obj = project.getObject()
+            if obj.has_result_ratings():
+                style = u"color: green;"
+            else:
+                style = u"color: red; text-decoration: line-through;"
+            title = project.Title.decode('utf-8', 'ignore')
+            desc += u'<li><a style="%s" href="%s/@@resultsview.html" title="%s" > %s </a></li>' % (
+                            style,
+                            project.getURL(),
+                            cgi.escape(title.encode(
+                            'ascii', 'xmlcharrefreplace')),
+                            cgi.escape(title[:48].encode(
+                            'ascii', 'xmlcharrefreplace') + u'...'))
+        desc += u'</ul>'
+        url = u'@@project-result-map-view.html'
+        desc +=u'<a href="%s#projectdetaillist">  More information below the map </a>' %url
+        return desc.encode('ascii')
+
+
+    @property
+    def polygoncolor(self):
+        green = '#00ff00b2'
+        red = '#ff0000b2'
+        yellow = '#ffff00b2'
+        i = 0
+        for project in self.projects:
+            obj = project.getObject()
+            if obj.has_result_ratings():
+                i+= 1
+            else:
+                continue
+        if i == 0:
+            ccolor = red
+        elif i <  len(self.projects):
+            ccolor = yellow
+        else:
+            ccolor = green
+        #color = get_color(ccolor, len(self.projects))
+        return web2kmlcolor(ccolor.upper())
+
+
+
 # do not compute the area of a shape every time cache it
 def _area_cachekey(context, fun, shape):
     ckey = [shape]
@@ -547,10 +596,7 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
         return geo_annotated_countries
 
 
-    @property
-    def features(self):
-        query = get_query(self.request.form)
-        projects = self.get_results(query)
+    def get_project_countries(self, projects):
         project_countries = []
         for project in projects:
             if project.getCountry:
@@ -566,7 +612,14 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                     if ((c in project_countries) and
                             (ct not in project_countries)):
                         project_countries.append(ct)
+        project_countries = list(set(project_countries))
+        return  countries, project_countries
 
+    @property
+    def features(self):
+        query = get_query(self.request.form)
+        projects = self.get_results(query)
+        countries, project_countries = self.get_project_countries(projects)
         processed_countries = []
         for ct, cv in countries.iteritems():
             if cv.get('replaces', False):
@@ -588,4 +641,26 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
 
 class ProjectDbKmlNationalResultsView(ProjectDbKmlCountryView):
 
-    pass
+    @property
+    def features(self):
+        query = get_query(self.request.form)
+        query['getSubRegions'] = ['National']
+        projects = self.get_results(query)
+        countries, project_countries = self.get_project_countries(projects)
+        processed_countries = []
+        for ct, cv in countries.iteritems():
+            if cv.get('replaces', False):
+                processed_countries += cv['replaces']
+            if (ct in project_countries) and cv.get('geometry', False):
+                processed_countries.append(ct)
+                yield CountryResultsPlacemark(cv, self.request, self,
+                                    ct, projects )
+            elif ct in project_countries:
+                logger.critical('Country %s is not geoannotated and has no related items' % ct)
+
+        for c in project_countries:
+            if c in processed_countries:
+                continue
+            else:
+                logger.error('country %s not in database some projects will not be shown' % c)
+

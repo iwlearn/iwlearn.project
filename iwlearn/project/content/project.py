@@ -1152,7 +1152,6 @@ class Project(folder.ATFolder):
                 'style': {'color': COLORS[ri]}}
 
     def r4tda_mnits(self):
-        #XXX conversion matrix missing
         r = self.tda_mnits
         dd = {
             '1': 'TDA does not include technical annex based on MNITS activities',
@@ -1259,6 +1258,19 @@ class Project(folder.ATFolder):
 
 
 
+    def has_result_ratings(self):
+        return (self.imcs or
+            self.regional_frameworks or
+            self.rmis  or
+            self.reforms  or
+            self.tda_priorities or
+            self.sap_devel or
+            self.abnj_rmi  or
+            self.tdasap_cc  or
+            self.tda_mnits or
+            self.sap_adopted  or
+            self.sap_implementing  or
+            self.sap_inc)
 
 
 

@@ -315,9 +315,6 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
         for brain in projects:
             ob = brain.getObject()
             self._create_project_folders(ob)
-            #XXX only needed once
-            if ob.getGef_phase() == 'GEF-5':
-                ob.setGef_phase('5')
             projectid = int(ob.getGef_project_id().strip())
             if projectid in ratings:
                 iprating = ratings[projectid][0]
@@ -346,12 +343,13 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                 else:
                     start_date = None
                 #XXX only needed once
-                if 'Regional' in pinfo.get('Country', ''):
-                    project_scale = 'Regional'
-                elif 'Global' in pinfo.get('Region', '') or 'Global' in pinfo.get('Country', ''):
-                     project_scale = 'Global'
-                else:
-                    project_scale = 'National'
+                #if 'Regional' in pinfo.get('Country', ''):
+                #    project_scale = 'Regional'
+                #elif 'Global' in pinfo.get('Region', '') or 'Global' in pinfo.get('Country', ''):
+                #     project_scale = 'Global'
+                #else:
+                #    project_scale = 'National'
+                #ob.update(project_scale = project_scale)
                 project_allocation = harvest.convert_currency_to_millions(
                             pinfo.get('GEF Grant','0'))
                 total_cost = harvest.convert_currency_to_millions(
@@ -367,7 +365,6 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                     end_date = None
                 if end_date and ob.end() is None:
                     ob.update(end_date=end_date)
-                ob.update(project_scale = project_scale)
                 if wb_project_id:
                     ob.update(wb_project_id=wb_project_id)
                 if operational_program:

@@ -78,7 +78,7 @@
               </div>
               <fieldset>
                 <legend>Scope</legend>
-                  <input type="radio" id="scope-national" name="getSubRegions:list" value="National" />
+                  <input type="radio" id="scope-national" name="getSubRegions:list" value="National" checked="checked"/>
                         <label for="scope-national">National</label>
                   <input type="radio" id="scope-regional" name="getSubRegions:list" value="Regional" disabled="disabled"/>
                         <label for="scope-regional">Regional</label>

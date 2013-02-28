@@ -215,6 +215,7 @@ class ProjectDbKMLCountryMapLayer(MapLayerBase):
 
 class ProjectDbKMLNationalResultsMapLayer(MapLayerBase):
 
+
     @property
     def jsfactory(self):
         context_url = self.context.absolute_url()
@@ -223,7 +224,7 @@ class ProjectDbKMLNationalResultsMapLayer(MapLayerBase):
         return u"""function() {
                 return new OpenLayers.Layer.Vector("%s", {
                     protocol: new OpenLayers.Protocol.HTTP({
-                      url: "%s@@projectdbnationalresults_view.kml",
+                      url: "%s@@projectdbnationalresults_view.kml?getSubRegions:list=National",
                       format: new OpenLayers.Format.KML({
                         extractStyles: true,
                         extractAttributes: true})

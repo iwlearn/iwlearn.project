@@ -1280,18 +1280,18 @@ class Project(folder.ATFolder):
 
 
     def has_result_ratings(self):
-        return (self.imcs or
-            self.regional_frameworks or
-            self.rmis  or
-            self.reforms  or
-            self.tda_priorities or
-            self.sap_devel or
-            self.abnj_rmi  or
-            self.tdasap_cc  or
-            self.tda_mnits or
-            self.sap_adopted  or
-            self.sap_implementing  or
-            self.sap_inc)
+        return ((bool(str(self.imcs)) and self.imcs is not None)  or
+            (bool(str(self.regional_frameworks))  and self.regional_frameworks is not None) or
+            (bool(str(self.rmis)) and self.rmis is not None)   or
+            (bool(str(self.reforms))  and self.reforms is not None)  or
+            (bool(str(self.tda_priorities)) and self.tda_priorities is not None)  or
+            (bool(str(self.sap_devel)) and self.sap_devel is not None)  or
+            (bool(str(self.abnj_rmi))   and self.abnj_rmi is not None) or
+            (bool(str(self.tdasap_cc)) and self.tdasap_cc is not None)   or
+            (bool(str(self.tda_mnits))  and self.tda_mnits is not None) or
+            (bool(str(self.sap_adopted))   and self.sap_adopted is not None) or
+            (bool(str(self.sap_implementing))   and self.sap_implementing is not None) or
+            (bool(str(self.sap_inc)) and self.sap_inc is not None) )
 
 
 

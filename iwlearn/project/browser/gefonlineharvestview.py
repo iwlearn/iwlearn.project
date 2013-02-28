@@ -247,6 +247,7 @@ class GefOnlineHarvestView(BrowserView):
                 if pinfo:
                     logger.info('Adding project %i' % projectid )
                     new_projects.append(self.create_project(pinfo, projectid))
+                    project_ids.append(projectid)
                 else:
                     logger.info('download failed for project %i' % projectid )
         # Multifocal Projects with Strategic Program IW-*
@@ -268,6 +269,7 @@ class GefOnlineHarvestView(BrowserView):
                     if pinfo.get('Strategic Program', 'nnn').find('IW-') >= 0:
                         logger.info('Adding project %i' % projectid )
                         new_projects.append(self.create_project(pinfo, projectid))
+                        project_ids.append(projectid)
                     else:
                         logger.info('Project %i is not an IW project' % projectid )
                         excluded_ids.append(str(projectid))

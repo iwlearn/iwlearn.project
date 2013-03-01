@@ -709,6 +709,8 @@ class ProjectDBListView(BrowserView):
                 form['getSubRegions'] = 'Global'
 
         query = get_query(form)
+        query['sort_on'] = 'start'
+        query['sort_order'] = 'reverse'
         results = self.portal_catalog(**query)
         return results
 

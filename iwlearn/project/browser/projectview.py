@@ -127,7 +127,8 @@ class ProjectView(BrowserView):
                         background='white',
                         plot_background='rgba(0, 0, 255, 0.1)',
                         foreground='rgba(0, 0, 0, 0.7)',
-                        foreground_light='rgba(0, 0, 0, 0.9)',)
+                        foreground_light='rgba(0, 0, 0, 0.9)',
+                        )
 
         chart = pygal.Bar(width=600, height=300,
                     explicit_size=True,

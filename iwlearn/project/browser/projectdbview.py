@@ -280,9 +280,17 @@ $('#projectsearchform').submit
                             cr = regionsd.get(rsr, 0)
                             regionsd[rsr] = cr + 1
 
+                        #na        hu        u          mu
+            colors = ['#565656', '#FF0000', '#FF7F00', '#FFFF00',
+                        #ms         s       hs
+                        '#00FFFF', '#00FF7F', '#00FF00', '#FF007F',
+                        '#0011FF']
 
-            chart = pygal.Pie(width=150, height=200,
+            style = pygal.style.Style(colors=colors)
+
+            chart = pygal.Pie(width=160, height=240,
                     explicit_size=True,
+                    style=style,
                     disable_xml_declaration=True,
                     show_legend=True)
             chart.title = 'DO Rating'
@@ -291,8 +299,9 @@ $('#projectsearchform').submit
                 chart.add(value[0], value[1])
             desc += chart.render()
 
-            chart = pygal.Pie(width=150, height=200,
+            chart = pygal.Pie(width=160, height=240,
                     explicit_size=True,
+                    style=style,
                     disable_xml_declaration=True,
                     show_legend=True)
             chart.title = 'IP Rating'
@@ -301,8 +310,9 @@ $('#projectsearchform').submit
                 chart.add(value[0], value[1])
             desc += chart.render()
 
-            chart = pygal.Pie(width=220, height=200,
+            chart = pygal.Pie(width=220, height=240,
                     explicit_size=True,
+                    style=style,
                     disable_xml_declaration=True,
                     show_legend=True)
             chart.title = 'Regions'
@@ -313,8 +323,9 @@ $('#projectsearchform').submit
             desc += chart.render()
 
 
-            chart = pygal.Pie(width=180, height=200,
+            chart = pygal.Pie(width=180, height=240,
                     explicit_size=True,
+                    style=style,
                     disable_xml_declaration=True,
                     show_legend=True)
             chart.title = 'Agencies'

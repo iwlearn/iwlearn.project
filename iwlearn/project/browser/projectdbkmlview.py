@@ -4,8 +4,10 @@ import ZTUtils
 from time import time
 from operator import itemgetter
 
-from shapely.geometry import MultiPoint
-from shapely.geometry import asShape
+try:
+    from shapely.geometry import asShape
+except ImportError:
+    from pygeoif import as_shape as asShape
 
 from zope.interface import implements, Interface
 

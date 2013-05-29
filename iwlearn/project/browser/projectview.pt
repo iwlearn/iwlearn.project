@@ -91,10 +91,14 @@
 
                             <td class="c1 prjlabel"
                             valign="top" whitespace="wrap">
-                              Project Website
-                                URL:
+                              Project Website:
                             </td>
                             <td class="c1" width="78%" valign="top">
+                              <img
+                                tal:on-error="nothing"
+                                tal:attributes="src string:${context/absolute_url}/getwebsite_thumb.png"
+                                alt="Website screenshot" />
+                              <br/>
                               <a href="#" target="_blank"
                               tal:attributes="href accessor"
                               tal:content="python:here.getRemoteUrl().replace('?', ' ')" />

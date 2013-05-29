@@ -83,6 +83,12 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         accessor='getRemoteUrl',
     ),
 
+    atapi.ImageField('website_thumb',
+        max_size = (128, 128),
+        widget=atapi.ImageWidget(label=_(u'Website Thumbnail'),
+                        description=_(u'Screenshot of the website')),
+        validators=('isNonEmptyFile'),
+    ),
 
     atapi.ComputedField(
         'globalproject',

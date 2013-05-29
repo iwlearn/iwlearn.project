@@ -616,8 +616,6 @@ class ProjectDBMapView(ProjectDBBaseView):
                   jQuery('#featureprojectdetails').html(data);
             });
         };
-
-
         """ % {'url': self.context.absolute_url()}
         return refresh_js
 

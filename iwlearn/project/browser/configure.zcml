@@ -111,6 +111,13 @@
       permission="zope.Public"
       />
 
+  <browser:page
+      for="..interfaces.IProject"
+      name="getwebsite_thumb.png"
+      class=".projectview.GetProjectWebsiteCapture"
+      allowed_interface=".projectview.IProjectView"
+      permission="zope2.View"
+      />
 
 
 

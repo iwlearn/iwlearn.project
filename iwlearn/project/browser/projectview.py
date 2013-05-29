@@ -1,5 +1,5 @@
 import random
-
+import urllib2
 import pygal
 from zope.interface import implements, Interface
 
@@ -11,6 +11,9 @@ from Products.CMFCore.utils import getToolByName
 from iwlearn.project import projectMessageFactory as _
 
 from collective.geo.contentlocations.interfaces import IGeoManager
+
+import logging
+logger = logging.getLogger('iwlear.project.projectview')
 
 class IProjectView(Interface):
     """
@@ -156,4 +159,34 @@ class ProjectResultChart(ProjectView):
         self.request.RESPONSE.setHeader('Content-Type',
             'image/svg+xml; charset=utf-8' )
         return self.get_pra_chart(False)
+
+
+class GetProjectWebsiteCapture(ProjectView):
+
+    def __call__(self):
+        if self.context.getWebsite_thumb():
+            self.request.RESPONSE.setHeader('Content-Type', 'image/jpg')
+            return self.context.getWebsite_thumb().data
+        else:
+            if self.context.getRemoteUrl():
+                # raises HTTP Error 400: Bad Request
+                #api_url="http://api.webthumbnail.org?width=320&height=200&format=jpg&url=%s"
+
+                # good but return many system errors
+                #api_url="http://api.screenshotmachine.com/?url=%s&key=2247b1&size=E"
+
+                #seems the best so far
+                api_url="http://api.snapito.com/web/9f423f1c3628556e3baffbd189a0fc14650d3a3b/mc?url=%s"
+                try:
+                    data = urllib2.urlopen(api_url % self.context.getRemoteUrl()).read()
+                except Exception, e:
+                    logger.error(str(e))
+                    self.request.RESPONSE.setHeader('Content-Type', 'text/plain')
+                    return 'Could not get website screenshot'
+                self.context.setWebsite_thumb(data)
+                self.request.RESPONSE.setHeader('Content-Type', 'image/jpg')
+                return data
+
+
+
 

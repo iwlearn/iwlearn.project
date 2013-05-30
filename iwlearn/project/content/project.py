@@ -84,7 +84,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     ),
 
     atapi.ImageField('website_thumb',
-        max_size = (128, 128),
+        max_size = (160, 100),
         widget=atapi.ImageWidget(label=_(u'Website Thumbnail'),
                         description=_(u'Screenshot of the website')),
         validators=('isNonEmptyFile'),

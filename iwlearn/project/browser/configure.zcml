@@ -113,7 +113,7 @@
 
   <browser:page
       for="..interfaces.IProject"
-      name="getwebsite_thumb.png"
+      name="website_thumb.jpg"
       class=".projectview.GetProjectWebsiteCapture"
       allowed_interface=".projectview.IProjectView"
       permission="zope2.View"

@@ -94,14 +94,15 @@
                               Project Website:
                             </td>
                             <td class="c1" width="78%" valign="top">
-                              <img
-                                tal:on-error="nothing"
-                                tal:attributes="src string:${context/absolute_url}/getwebsite_thumb.png"
-                                alt="Website screenshot" />
-                              <br/>
                               <a href="#" target="_blank"
-                              tal:attributes="href accessor"
-                              tal:content="python:here.getRemoteUrl().replace('?', ' ')" />
+                                tal:attributes="href accessor">
+                                  <img
+                                    tal:on-error="nothing"
+                                    tal:attributes="src string:${context/absolute_url}/website_thumb.jpg"
+                                    alt="Website screenshot" />
+                                  <br/>
+                                  <span tal:content="accessor">URL </span>
+                              </a>
                             </td>
                           </tr>
                           <tr tal:define="field python:here.Schema()['region']; accessor python:getattr(here, field.accessor)"

@@ -169,23 +169,18 @@ class GetProjectWebsiteCapture(ProjectView):
             return self.context.getWebsite_thumb().data
         else:
             if self.context.getRemoteUrl():
-                # raises HTTP Error 400: Bad Request
-                #api_url="http://api.webthumbnail.org?width=320&height=200&format=jpg&url=%s"
-
-                # good but return many system errors
-                #api_url="http://api.screenshotmachine.com/?url=%s&key=2247b1&size=E"
-
-                #seems the best so far
                 api_url="http://api.snapito.com/web/9f423f1c3628556e3baffbd189a0fc14650d3a3b/mc?url=%s"
                 try:
                     data = urllib2.urlopen(api_url % self.context.getRemoteUrl()).read()
                 except Exception, e:
                     logger.error(str(e))
+                    reason = "Upstream server returned: %s" % str(e)
                     self.request.RESPONSE.setHeader('Content-Type', 'text/plain')
-                    return 'Could not get website screenshot'
+                    self.request.RESPONSE.setStatus(500, reason)
+                    return 'Could not get website screenshot: %s ' % reason
                 self.context.setWebsite_thumb(data)
                 self.request.RESPONSE.setHeader('Content-Type', 'image/jpg')
-                return data
+                return self.context.getWebsite_thumb().data
 
 
 

@@ -215,9 +215,6 @@ $('#projectsearchform').submit
 
     def search_results(self):
         form = self.request.form
-        #is_search = len(form)!=0
-        #if not is_search:
-        #    return None
         batch_size = form.get('b_size', 20)
         batch_start = form.get('b_start', 0)
         query = get_query(form)
@@ -318,8 +315,12 @@ $('#projectsearchform').submit
             chart.title = 'Regions'
             values = regionsd.items()
             values.sort()
+            chart.x_labels =[]
             for value in values:
-                chart.add(value[0], value[1])
+                url = self.context.absolute_url() + '?getSubRegions=' + value[0]
+                chart.add(value[0], [{'value': value[1], 'label': value[0],
+                        'xlink': {'href': url, 'target': '_top'}}])
+                #chart.x_labels.append(value[0])
             desc += chart.render()
 
 
@@ -332,11 +333,41 @@ $('#projectsearchform').submit
             values = agencies.items()
             values.sort()
             for value in values:
-                chart.add(self.acronym(value[0]), value[1])
+                url = self.context.absolute_url() + '?getAgencies=' + value[0]
+                chart.add(self.acronym(value[0]),
+                        [{'value': value[1], 'label': self.acronym(value[0]),
+                        'xlink': {'href': url, 'target': '_top'}}])
             desc += chart.render()
             return desc
 
 
+    def dorating_chart(self):
+        doRating = self.init_ratings()
+        results = self.search_results()
+        if results:
+            for project in results['results']:
+                if project.getGefRatings:
+                    if project.getGefRatings[0] == None:
+                        doRating[0][1] = doRating[0][1] + 1
+                    else:
+                        dor = project.getGefRatings[0]
+                        doRating[dor+1][1] = doRating[dor+1][1] + 1
+        colors = ['#565656', '#FF0000', '#FF7F00', '#FFFF00',
+                '#00FFFF', '#00FF7F', '#00FF00', '#FF007F',
+                '#0011FF']
+
+        style = pygal.style.Style(colors=colors)
+
+        chart = pygal.Pie(width=160, height=240,
+                explicit_size=True,
+                style=style,
+                disable_xml_declaration=True,
+                show_legend=True)
+        chart.title = 'DO Rating'
+        values = doRating
+        for value in values:
+            chart.add(value[0], value[1])
+        return chart.render()
 
 
 class ProjectDBView(ProjectDBBaseView):

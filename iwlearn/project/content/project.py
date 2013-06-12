@@ -1323,4 +1323,16 @@ def reindexProjectDocuments(context, event):
         basin.reindexObject()
 
 
+def get_default_logo(context, event):
+    if not context.getLogo_image():
+        la = context.getLeadagency()
+        if la:
+            logo = la.getRawLogo_image()
+            if logo:
+                context.setLogo_image(logo)
+                logger.info('set logo: ' + '/'.join(context.getPhysicalPath()))
+            else:
+                logger.info( 'EA "%s" has no logo' % la.Title())
+
+
 atapi.registerType(Project, PROJECTNAME)

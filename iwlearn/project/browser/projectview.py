@@ -13,7 +13,7 @@ from iwlearn.project import projectMessageFactory as _
 from collective.geo.contentlocations.interfaces import IGeoManager
 
 import logging
-logger = logging.getLogger('iwlear.project.projectview')
+logger = logging.getLogger('iwlearn.project.projectview')
 
 class IProjectView(Interface):
     """
@@ -144,6 +144,7 @@ class ProjectView(BrowserView):
         #    'ABNJ', 'CC', 'SAP inc']
         for rating in ratings:
             chart.add(rating[0], rating[1])
+
 
         return chart.render()
 

@@ -34,6 +34,13 @@
     handler=".content.project.reindexProjectDocuments"
     />
 
+  <subscriber
+    for=".interfaces.IProject
+         Products.Archetypes.interfaces.IObjectEditedEvent"
+    handler=".content.project.get_default_logo"
+    />
+
+
   <utility
     component=".vocabulary.basin_vocabulary_factory"
     name="iwlearn.project.basins"

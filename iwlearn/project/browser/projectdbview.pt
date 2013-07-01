@@ -197,7 +197,6 @@
                         class="context" />
                 </div>
               </fieldset>
-              <input type="hidden" value="-180,-90,180,90" name="bbox" id="inputbbox" />
             </form>
 
             <table id="flexiprojects" style="display:none"></table>
@@ -314,6 +313,7 @@ $('#projectsearchform').submit
               </table>
             </noscript>
             <div id="projectdbcharts" tal:content="structure view/get_chart"></div>
+            <a id="excelexportlink" href="./@@export.csv">Export to Excel</a>
         </tal:main-macro>
     </div>
 </body>

@@ -13,7 +13,7 @@ from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 
 from iwlearn.project import projectMessageFactory as _
-
+from iwlearn.project.browser.utils import get_query
 
 logger = logging.getLogger('iwlearn.project')
 
@@ -125,8 +125,9 @@ class ExportCSVView(BrowserView):
         output = StringIO()
         fieldnames = CSV_FIELDS
         writer = csv.DictWriter(output, fieldnames)
-        brains = self.portal_catalog(portal_type = 'Project')
-
+        form = self.request.form
+        query = get_query(form)
+        brains = self.portal_catalog(**query)
         #writer.writeheader()
         pd = {}
         for field in fieldnames:
@@ -211,55 +212,56 @@ class ExportCSVView(BrowserView):
             pd["Qualification: Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc"]=obj.getSap_inc_desc()
             pd["Other Key Process Results"]=obj.getKey_process_results()
             writer.writerow(pd)
-            try:
-                obj.r4imcs()
-            except:
-                logger.error('pid: %s r4imcs: %s' % (obj.getGef_project_id(), obj.imcs))
-            try:
-                obj.r4regional_frameworks()
-            except:
-                logger.error('pid: %s r4regional_frameworks: %s' % (obj.getGef_project_id(),
-                obj.regional_frameworks))
-            try:
-                obj.r4rmis()
-            except:
-                logger.error('pid: %s r4rmis: %s' % (obj.getGef_project_id(), obj.rmis))
-            try:
-                obj.r4reforms()
-            except:
-                logger.error('pid: %s r4reforms: %s' % (obj.getGef_project_id(), obj.reforms))
-            try:
-                obj.r4tda_priorities()
-            except:
-                logger.error('pid: %s r4tda_priorities: %s' % (obj.getGef_project_id(), obj.tda_priorities))
-            try:
-                obj.r4sap_devel()
-            except:
-                logger.error('pid: %s r4sap_devel: %s' % (obj.getGef_project_id(), obj.sap_devel))
-            try:
-                obj.r4abnj_rmi()
-            except:
-                logger.error('pid: %s r4abnj_rmi: %s' % (obj.getGef_project_id(), obj.abnj_rmi))
-            try:
-                obj.r4tdasap_cc()
-            except:
-                logger.error('pid: %s r4tdasap_cc: %s' % (obj.getGef_project_id(), obj.tdasap_cc))
-            try:
-                obj.r4tda_mnits()
-            except:
-                logger.error('pid: %s r4tda_mnits: %s' % (obj.getGef_project_id(), obj.tda_mnits))
-            try:
-                obj.r4sap_adopted()
-            except:
-                logger.error('pid: %s r4sap_adopted: %s' % (obj.getGef_project_id(), obj.sap_adopted))
-            try:
-                obj.r4sap_implementing()
-            except:
-                logger.error('pid: %s r4sap_implementing: %s' % (obj.getGef_project_id(), obj.sap_implementing))
-            try:
-                obj.r4sap_inc()
-            except:
-                logger.error('pid: %s r4sap_inc: %s' % (obj.getGef_project_id(), obj.sap_inc))
+            if form.get('debug_results'):
+                try:
+                    obj.r4imcs()
+                except:
+                    logger.error('pid: %s r4imcs: %s' % (obj.getGef_project_id(), obj.imcs))
+                try:
+                    obj.r4regional_frameworks()
+                except:
+                    logger.error('pid: %s r4regional_frameworks: %s' % (obj.getGef_project_id(),
+                    obj.regional_frameworks))
+                try:
+                    obj.r4rmis()
+                except:
+                    logger.error('pid: %s r4rmis: %s' % (obj.getGef_project_id(), obj.rmis))
+                try:
+                    obj.r4reforms()
+                except:
+                    logger.error('pid: %s r4reforms: %s' % (obj.getGef_project_id(), obj.reforms))
+                try:
+                    obj.r4tda_priorities()
+                except:
+                    logger.error('pid: %s r4tda_priorities: %s' % (obj.getGef_project_id(), obj.tda_priorities))
+                try:
+                    obj.r4sap_devel()
+                except:
+                    logger.error('pid: %s r4sap_devel: %s' % (obj.getGef_project_id(), obj.sap_devel))
+                try:
+                    obj.r4abnj_rmi()
+                except:
+                    logger.error('pid: %s r4abnj_rmi: %s' % (obj.getGef_project_id(), obj.abnj_rmi))
+                try:
+                    obj.r4tdasap_cc()
+                except:
+                    logger.error('pid: %s r4tdasap_cc: %s' % (obj.getGef_project_id(), obj.tdasap_cc))
+                try:
+                    obj.r4tda_mnits()
+                except:
+                    logger.error('pid: %s r4tda_mnits: %s' % (obj.getGef_project_id(), obj.tda_mnits))
+                try:
+                    obj.r4sap_adopted()
+                except:
+                    logger.error('pid: %s r4sap_adopted: %s' % (obj.getGef_project_id(), obj.sap_adopted))
+                try:
+                    obj.r4sap_implementing()
+                except:
+                    logger.error('pid: %s r4sap_implementing: %s' % (obj.getGef_project_id(), obj.sap_implementing))
+                try:
+                    obj.r4sap_inc()
+                except:
+                    logger.error('pid: %s r4sap_inc: %s' % (obj.getGef_project_id(), obj.sap_inc))
 
         output.seek(0)
         self.request.RESPONSE.setHeader('Content-Type','text/csv; charset=utf-8')

@@ -83,21 +83,21 @@ class ProjectDBBaseView(BrowserView):
         you have to specify the input elements that the data will come from */
         var dt = $('#projectsearchform').serializeArray();
         $("#flexiprojects").flexOptions({params: dt});
-        var qs = '%(url)s/@@chart_view.html?';
+        var qs = '';
         var params = {};
         jQuery.each(dt, function(i, field){
                 qs = qs + field.name + '=' + field.value + "&";
                 params[field.name] = field.value;
         });
 
-
-        $.get(qs,
+        charts_url =  '%(url)s/@@chart_view.html?' + qs;
+        jQuery.get(qs,
                 function(data) {
                   $('#projectdbcharts').html(data);
             });
 
-
-
+        var xp_url = '%(url)s/@@export.csv?' + qs;
+        jQuery("a#excelexportlink").attr('href', xp_url);
         return true;
         };
 

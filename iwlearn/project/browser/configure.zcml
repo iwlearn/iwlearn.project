@@ -2,6 +2,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:cache="http://namespaces.zope.org/cache"
     i18n_domain="iwlearn.project">
 
   <include package="plone.app.contentmenu" />
@@ -9,6 +10,7 @@
   <!-- -*- extra stuff goes here -*- -->
 
  <include package="Products.CMFCore" file="permissions.zcml" />
+ <include package="z3c.caching" file="meta.zcml" />
 
 <!-- Project profile -->
 
@@ -53,7 +55,10 @@
       permission="zope2.View"
       />
 
-
+  <cache:ruleset
+      for=".projectview.ProjectView"
+      ruleset="plone.content.itemView"
+      />
 
   <!--browser:page
       for="..interfaces.IProject"
@@ -85,6 +90,11 @@
       permission="zope.Public"
       />
 
+  <cache:ruleset
+      for=".projectkmlview.ProjectKMLView"
+      ruleset="plone.content.itemView"
+      />
+
 
   <browser:page
       for="..interfaces.IProject"
@@ -94,6 +104,10 @@
       permission="zope.Public"
       />
 
+  <cache:ruleset
+      for=".projectkmlview.ProjectCountryKMLView"
+      ruleset="plone.content.itemView"
+      />
 
   <browser:page
       for="..interfaces.IProject"
@@ -103,12 +117,22 @@
       permission="zope.Public"
       />
 
-    <browser:page
+  <cache:ruleset
+      for=".projectkmlview.ProjectBasinKMLView"
+      ruleset="plone.content.itemView"
+      />
+
+  <browser:page
       for="..interfaces.IProject"
       name="project_result_chart.svg"
       class=".projectview.ProjectResultChart"
       allowed_interface=".projectview.IProjectView"
       permission="zope.Public"
+      />
+
+  <cache:ruleset
+      for=".projectview.ProjectResultChart"
+      ruleset="plone.content.itemView"
       />
 
   <browser:page
@@ -119,7 +143,10 @@
       permission="zope2.View"
       />
 
-
+  <cache:ruleset
+      for=".projectview.GetProjectWebsiteCapture"
+      ruleset="plone.content.file"
+      />
 
 <!-- Project DB -->
 
@@ -133,7 +160,10 @@
       permission="zope2.View"
       />
 
-
+  <cache:ruleset
+      for=".projectdbview.ProjectDBView"
+      ruleset="plone.content.itemView"
+      />
 
   <browser:page
       for="..interfaces.IProjectDatabase"
@@ -144,6 +174,12 @@
       permission="zope2.View"
       />
 
+  <cache:ruleset
+      for=".projectdbview.ProjectDBMapView"
+      ruleset="plone.content.itemView"
+      />
+
+
    <browser:page
       for="..interfaces.IProjectDatabase"
       name="project-result-map-view.html"
@@ -152,6 +188,12 @@
       allowed_interface=".projectdbview.IProjectDBView"
       permission="zope2.View"
       />
+
+  <cache:ruleset
+      for=".projectdbview.ProjectDBResultMapView"
+      ruleset="plone.content.itemView"
+      />
+
 
     <adapter
       for=".projectdbview.ProjectDBResultMapView
@@ -171,6 +213,12 @@
       permission="zope2.View"
       />
 
+  <cache:ruleset
+      for=".projectdbview.ProjectDBListView"
+      ruleset="plone.content.folderView"
+      />
+
+
 
   <browser:page
       for="..interfaces.IProjectDatabase"
@@ -181,6 +229,10 @@
       permission="zope.Public"
       />
 
+  <cache:ruleset
+      for=".projectwebsitesview.ProjectWebsitesView"
+      ruleset="plone.content.folderView"
+      />
 
   <adapter
       for=".projectdbview.ProjectDBMapView
@@ -199,6 +251,11 @@
       class=".exportcsvview.ExportCSVView"
       allowed_interface=".exportcsvview.IExportCSVView"
       permission="zope2.View"
+      />
+
+  <cache:ruleset
+      for=".exportcsvview.ExportCSVView"
+      ruleset="plone.content.folderView"
       />
 
     <browser:page
@@ -274,6 +331,12 @@
       permission="zope.Public"
       />
 
+  <cache:ruleset
+      for=".projectdbkmlview.ProjectDbKmlBasinView"
+      ruleset="plone.content.folderView"
+      />
+
+
   <browser:page
       for="..interfaces.IProjectDatabase"
       name="projectbasincluster_view.kml"
@@ -282,12 +345,23 @@
       permission="zope.Public"
       />
 
+
+  <cache:ruleset
+      for=".projectdbkmlview.ProjectDbKmlBasinClusterView"
+      ruleset="plone.content.folderView"
+      />
+
   <browser:page
       for="..interfaces.IProjectDatabase"
       name="projectbasindetail_view.kml"
       class=".projectdbkmlview.ProjectDbKmlBasinDetailView"
       allowed_interface=".projectkmlview.IProjectKMLView"
       permission="zope.Public"
+      />
+
+  <cache:ruleset
+      for=".projectdbkmlview.ProjectDbKmlBasinDetailView"
+      ruleset="plone.content.folderView"
       />
 
   <browser:page
@@ -299,6 +373,10 @@
       permission="zope.Public"
       />
 
+  <cache:ruleset
+      for=".projectdbkmlview.ProjectDbKmlView"
+      ruleset="plone.content.folderView"
+      />
 
  <browser:page
       for="..interfaces.IProjectDatabase"
@@ -309,7 +387,10 @@
       permission="zope.Public"
       />
 
-
+  <cache:ruleset
+      for=".projectdbkmlview.ProjectDbKmlNationalResultsView"
+      ruleset="plone.content.folderView"
+      />
 
   <browser:page
       for="..interfaces.IProjectDatabase"
@@ -320,6 +401,10 @@
       permission="zope.Public"
       />
 
+  <cache:ruleset
+      for=".projectdbkmlview.ProjectDbKmlCountryView"
+      ruleset="plone.content.folderView"
+      />
 
   <browser:page
       for="..interfaces.IProjectDatabase"
@@ -328,6 +413,11 @@
       template="projectdb_links.pt"
       allowed_interface=".projectdbkmlview.IProjectDbKmlView"
       permission="zope.Public"
+      />
+
+  <cache:ruleset
+      for=".projectdbkmlview.ProjectDBKMLLinkView"
+      ruleset="plone.content.folderView"
       />
 
 <!-- Project DB json list view -->
@@ -352,7 +442,10 @@
       />
 
 
-
+  <cache:ruleset
+      for=".projectdbview.ProjectDBChartView"
+      ruleset="plone.content.folderView"
+      />
 
     <!--browser:viewletManager
      name="iwlearn.project.projectmap"

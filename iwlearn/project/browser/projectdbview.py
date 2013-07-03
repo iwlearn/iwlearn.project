@@ -1,6 +1,9 @@
 import cgi
 import pygal
+from time import time
 from zope.interface import implements, Interface
+
+from plone.memoize import ram
 
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
@@ -18,6 +21,10 @@ class IProjectDBView(IKMLOpenLayersView):
     ProjectDB view interface
     """
 
+#recalculate chartdata every 10 minutes only
+def _chartdata_cachekey(context, fun, form):
+    ckey = [form, time() // (600)]
+    return ckey
 
 
 class ProjectDBBaseView(BrowserView):
@@ -91,7 +98,7 @@ class ProjectDBBaseView(BrowserView):
         });
 
         charts_url =  '%(url)s/@@chart_view.html?' + qs;
-        jQuery.get(qs,
+        jQuery.get(charts_url,
                 function(data) {
                   $('#projectdbcharts').html(data);
             });
@@ -228,29 +235,26 @@ $('#projectsearchform').submit
                 ['HS', 0]]
         return rl
 
-
     def acronym(self, agency):
         if agency.find('(') > -1:
             return agency[agency.find('(') +1 : agency.find(')')]
         else:
             return agency
 
-
-
-    def get_chart(self):
-        desc = u''
+    #@ram.cache(_chartdata_cachekey)
+    def get_chart_data(self, form):
         countries = {}
         agencies = {}
         for a in list(self.portal_catalog.Indexes['getAgencies'].uniqueValues()):
            agencies[a] = 0
         doRating = self.init_ratings()
         ipRating = self.init_ratings()
+        outcomeRating = self.init_ratings()
         results = self.search_results()
         regions = vocabulary.get_regions()
         regionsd = {}
         for r in regions:
             regionsd[r] = 0
-
         if results:
             for project in results['results']:
                 for country in project.getCountry:
@@ -271,74 +275,110 @@ $('#projectsearchform').submit
                     else:
                         ipr = project.getGefRatings[1]
                         ipRating[ipr+1][1] = ipRating[ipr+1][1] + 1
+
+                    if project.getGefRatings[2] == None:
+                        outcomeRating[0][1] = outcomeRating[0][1] + 1
+                    else:
+                        opr = project.getGefRatings[2]
+                        outcomeRating[opr+1][1] = outcomeRating[opr+1][1] + 1
                 if project.getSubRegions:
                     for rsr in project.getSubRegions:
                         if rsr in regions:
                             cr = regionsd.get(rsr, 0)
                             regionsd[rsr] = cr + 1
 
-                        #na        hu        u          mu
-            colors = ['#565656', '#FF0000', '#FF7F00', '#FFFF00',
-                        #ms         s       hs
-                        '#00FFFF', '#00FF7F', '#00FF00', '#FF007F',
-                        '#0011FF']
+        return {'do': doRating,
+                'ip': ipRating,
+                'outcome': outcomeRating,
+                'countries': countries,
+                'regions': regionsd,
+                'agencies': agencies}
 
-            style = pygal.style.Style(colors=colors)
+    def get_chart(self):
+        desc = u''
 
-            chart = pygal.Pie(width=160, height=240,
-                    explicit_size=True,
-                    style=style,
-                    disable_xml_declaration=True,
-                    show_legend=True)
-            chart.title = 'DO Rating'
-            values = doRating
-            for value in values:
-                chart.add(value[0], value[1])
-            desc += chart.render()
+        chartdata = self.get_chart_data(self.request.form)
+        doRating = chartdata['do']
+        ipRating = chartdata['ip']
+        outcomeRating = chartdata['outcome']
+        countries = chartdata['countries']
+        regionsd = chartdata['regions']
+        agencies = chartdata['agencies']
 
-            chart = pygal.Pie(width=160, height=240,
-                    explicit_size=True,
-                    style=style,
-                    disable_xml_declaration=True,
-                    show_legend=True)
-            chart.title = 'IP Rating'
-            values = ipRating
-            for value in values:
-                chart.add(value[0], value[1])
-            desc += chart.render()
+                    #na        hu        u          mu
+        colors = ['#565656', '#FF0000', '#FF7F00', '#FFFF00',
+                    #ms         s       hs
+                    '#00FFFF', '#00FF7F', '#00FF00', '#FF007F',
+                    '#0011FF']
 
-            chart = pygal.Pie(width=220, height=240,
-                    explicit_size=True,
-                    style=style,
-                    disable_xml_declaration=True,
-                    show_legend=True)
-            chart.title = 'Regions'
-            values = regionsd.items()
-            values.sort()
-            chart.x_labels =[]
-            for value in values:
-                url = self.context.absolute_url() + '?getSubRegions=' + value[0]
-                chart.add(value[0], [{'value': value[1], 'label': value[0],
-                        'xlink': {'href': url, 'target': '_top'}}])
-                #chart.x_labels.append(value[0])
-            desc += chart.render()
+        style = pygal.style.Style(colors=colors)
+
+        chart = pygal.Pie(width=160, height=240,
+                explicit_size=True,
+                style=style,
+                disable_xml_declaration=True,
+                show_legend=True)
+        chart.title = 'DO Rating'
+        values = doRating
+        for value in values:
+            chart.add(value[0], value[1])
+        desc += chart.render()
+
+        chart = pygal.Pie(width=160, height=240,
+                explicit_size=True,
+                style=style,
+                disable_xml_declaration=True,
+                show_legend=True)
+        chart.title = 'IP Rating'
+        values = ipRating
+        for value in values:
+            chart.add(value[0], value[1])
+        desc += chart.render()
+
+        chart = pygal.Pie(width=160, height=240,
+                explicit_size=True,
+                style=style,
+                disable_xml_declaration=True,
+                show_legend=True)
+        chart.title = 'Outcome Rating'
+        values = outcomeRating
+        for value in values:
+            chart.add(value[0], value[1])
+        desc += chart.render()
 
 
-            chart = pygal.Pie(width=180, height=240,
-                    explicit_size=True,
-                    style=style,
-                    disable_xml_declaration=True,
-                    show_legend=True)
-            chart.title = 'Agencies'
-            values = agencies.items()
-            values.sort()
-            for value in values:
-                url = self.context.absolute_url() + '?getAgencies=' + value[0]
-                chart.add(self.acronym(value[0]),
-                        [{'value': value[1], 'label': self.acronym(value[0]),
-                        'xlink': {'href': url, 'target': '_top'}}])
-            desc += chart.render()
-            return desc
+        chart = pygal.Pie(width=220, height=240,
+                explicit_size=True,
+                style=style,
+                disable_xml_declaration=True,
+                show_legend=True)
+        chart.title = 'Regions'
+        values = regionsd.items()
+        values.sort()
+        chart.x_labels =[]
+        for value in values:
+            url = self.context.absolute_url() + '?getSubRegions=' + value[0]
+            chart.add(value[0], [{'value': value[1], 'label': value[0],
+                    'xlink': {'href': url, 'target': '_top'}}])
+            #chart.x_labels.append(value[0])
+        desc += chart.render()
+
+
+        chart = pygal.Pie(width=180, height=240,
+                explicit_size=True,
+                style=style,
+                disable_xml_declaration=True,
+                show_legend=True)
+        chart.title = 'Agencies'
+        values = agencies.items()
+        values.sort()
+        for value in values:
+            url = self.context.absolute_url() + '?getAgencies=' + value[0]
+            chart.add(self.acronym(value[0]),
+                    [{'value': value[1], 'label': self.acronym(value[0]),
+                    'xlink': {'href': url, 'target': '_top'}}])
+        desc += chart.render()
+        return desc
 
 
     def dorating_chart(self):

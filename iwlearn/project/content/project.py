@@ -419,6 +419,17 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         validators=('isInt',)
     ),
 
+    atapi.IntegerField( 'outcomerating',
+        required = False,
+        vocabulary_factory = u"iwlearn.project.ratings",
+        widget = atapi.SelectionWidget(
+            label = u'DO Rating',
+            visible={'edit': 'invisible', 'view': 'visible'},
+        ),
+        validators=('isInt',)
+    ),
+
+
 # project result ratings:
 
 
@@ -801,7 +812,7 @@ class Project(folder.ATFolder):
 
     def getGefRatings(self):
         """ Returns IP and DO Ratings as a tuple """
-        return (self.getDorating(), self.getIprating())
+        return (self.getDorating(), self.getIprating(), self.getOutcomerating())
 
 
     def getBasin(self):

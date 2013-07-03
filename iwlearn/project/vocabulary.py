@@ -593,6 +593,16 @@ RATINGS ={ 'N/A' : None,
         'Satisfactory': 4,
         'Highly Satisfactory': 5}
 
+
+OUTCOME_RATING ={ 'UA' : None,
+        '': None,
+        'Highly Unsatisfactory' : 6,
+        'Unsatisfactory': 5,
+        'Moderately Unsatisfactory': 4,
+        'Moderately Satisfactory': 3,
+        'Satisfactory': 2,
+        'Highly Satisfactory': 1}
+
 GEF_PHASE = [
     ('0', 'Pilot'),
     ('1', 'GEF - 1'),

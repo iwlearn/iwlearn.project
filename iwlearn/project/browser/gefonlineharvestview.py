@@ -227,6 +227,7 @@ class GefOnlineHarvestView(BrowserView):
         return {'name': name, 'url': url, 'description': description}
 
     def harvest_projects(self):
+        logger.info('starting harvest')
         projects = self.portal_catalog(portal_type ='Project')
         project_ids=[]
         new_projects=[]
@@ -303,12 +304,33 @@ class GefOnlineHarvestView(BrowserView):
         return new_projects
 
 
+
+IPDORATINGS = { 'N/A' : None,
+        '': None,
+        'HU' : 0,
+        'U': 1,
+        'MU': 2,
+        'MS': 3,
+        'S': 4,
+        'HS': 5}
+
+OUTCOMERATINGS = { 'UA' : None,
+        '': None,
+        '6' : 0,
+        '5': 1,
+        '4': 2,
+        '3': 3,
+        '2': 4,
+        '1': 5}
+
+
 class GefOnlineUpdateView(GefOnlineHarvestView):
 
     view_usage = 'Updated Projects'
 
 
     def harvest_projects(self):
+        logger.info('starting update harvest')
         projects = self.portal_catalog(portal_type ='Project')
         new_projects =[]
         ratings = harvest.get_projects_ratings()
@@ -317,8 +339,16 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
             self._create_project_folders(ob)
             projectid = int(ob.getGef_project_id().strip())
             if projectid in ratings:
-                iprating = ratings[projectid][0]
-                dorating = ratings[projectid][1]
+                iprating = IPDORATINGS[ratings[projectid]['iprating']]
+                dorating = IPDORATINGS[ratings[projectid]['dorating']]
+                outcomerating = OUTCOMERATINGS[ratings[projectid]['outcomerating']]
+                project_status = ratings[projectid]['status']
+                if project_status == 'Completed':
+                    project_status = 'Project Completion'
+                if project_status:
+                    if ob.getProject_status() != project_status:
+                        logger.info('updating status for project %i to %s' %(projectid, project_status))
+                        ob.update(project_status=project_status)
                 if iprating != None and dorating != None:
                     if iprating != getattr(ob, 'iprating', None) or dorating != getattr(ob, 'dorating', None):
                         ob.update(iprating = iprating,
@@ -330,11 +360,14 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                 elif dorating !=None and dorating != getattr(ob, 'dorating', None):
                     ob.update(dorating = dorating)
                     logger.info('Updating project %i rating' % projectid )
+                if outcomerating:
+                    if outcomerating != getattr(ob, 'outcomerating', None):
+                        ob.update(outcomerating = outcomerating)
+                        logger.info('Updating project %i outcomerating' % projectid )
             pinfo = None
             #XXX comment out to skip updateing from gef online
             pinfo = harvest.extract_project_info(projectid)
             if pinfo:
-                project_status = pinfo.get('Project Status', None)
                 if pinfo.get('Approval Date', None):
                     try:
                         start_date = DateTime(pinfo.get('Approval Date'))
@@ -371,6 +404,7 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                     ob.update(operational_programme=operational_program)
                 if strategic_program:
                     ob.update(strategic_priority=strategic_program)
+                #project_status = pinfo.get('Project Status', None)
                 #if ob.getProject_status() != project_status:
                 #    ob.update(
                 #        project_status=project_status,
@@ -409,5 +443,5 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                                 'geoLocId' in location):
                                 self._create_project_location(ob, location)
 
-        logger.info('harvest complete')
+        logger.info('update harvest complete')
         return new_projects

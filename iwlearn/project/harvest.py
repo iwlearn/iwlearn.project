@@ -10,11 +10,9 @@ from vocabulary import my_countrylist as _countrylist
 from vocabulary import RATINGS
 
 CSV_HEADER = ['gefid', 'projecttitle', 'agency', 'country', 'region',
-        'fa', 'type', 'grantamount', 'ppgamount', 'cofinancing',
-        'ipranking', 'doranking', 'label']
-
-
-
+        'focalarea', 'type', 'GEF Fund', 'grantamount', 'ppgamount', 'cofinancing',
+        'status', 'fy approval', 'fy implementation', 'fy completion', 'outcomerating',
+        'dateA', 'dateB', 'iprating', 'dorating']
 
 logger = logging.getLogger('iwlearn.project')
 
@@ -126,23 +124,31 @@ def extract_project_info(gefid):
     return project_data
 
 def get_projects_ratings():
-    url = 'http://www.thegef.org/gef/amr/2011-11/json/export.php?country=0&impinc=implementation&ag=all&fa=all&reg=all&do=all&ip=all'
+    """
+    image:
+    filter:{"portfolio":"GEF"}
+    submit:submit
+    """
+    url = 'http://www.thegef.org/gef/amr/phase2/maintenance/export.php'
+    params = urllib.urlencode({
+        "filter": '{"portfolio":"GEF"}',
+        "submit": "submit",
+    })
     try:
-        response = urllib2.urlopen(url)
+        response = urllib2.urlopen(url, params)
     except urllib2.HTTPError:
+        logger.error('unable to download RBM spreadsheet from thegef.org')
         return {}
     result = {}
-    reader = csv.reader(response, delimiter ='\t')
-    reader.next() # skip first line
-    header = reader.next()
-    if header != CSV_HEADER:
+    reader = csv.DictReader(response, delimiter ='\t')
+    if reader.fieldnames != CSV_HEADER:
         logger.error('Wrong specification of the CSV file, cannot import ratings')
-        return {}
+        #return {}
     for project in reader:
         if len(project) != len(CSV_HEADER):
             logger.error('The number of items in the line is not correct.')
         else:
-            result[int(project[0])] = (RATINGS[project[10]], RATINGS[project[11]])
+            result[int(project['gefid'])] = project
     return result
 
 

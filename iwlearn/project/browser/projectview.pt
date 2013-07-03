@@ -372,6 +372,19 @@
                             <metal:block use-macro="widget_view" />
                           </td>
                         </tr>
+                        <tr tal:define="field python:here.Schema()['outcomerating'];
+                                accessor python:getattr(here, field.accessor);
+                                mode string:view;
+                                widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                        tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+
+                          <td width="46%" bgcolor="#FAE3B0">
+                            <b>Outcome Rating:</b>
+                          </td>
+                          <td width="54%">
+                            <metal:block use-macro="widget_view" />
+                          </td>
+                        </tr>
                         <tr>
                           <td width="100%" colspan="2" class="summarybottom">&#160;</td>
                         </tr>

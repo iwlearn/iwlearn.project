@@ -200,7 +200,7 @@
             </form>
 
             <table id="flexiprojects" style="display:none"></table>
-
+            <a id="excelexportlink" href="./@@export.csv">Export to Excel</a>
 <script type="text/javascript" tal:content="structure view/get_js">
 
  $(document).ready(function() {
@@ -313,7 +313,6 @@ $('#projectsearchform').submit
               </table>
             </noscript>
             <div id="projectdbcharts" tal:content="structure view/get_chart"></div>
-            <a id="excelexportlink" href="./@@export.csv">Export to Excel</a>
         </tal:main-macro>
     </div>
 </body>

@@ -41,6 +41,32 @@
             <br/>
             <div id="content-core">
             <div id="#projectdbcharts" class="pygal-chart" tal:content="structure view/get_pra_chart"> chart goes here </div>
+            <div tal:define="gefratings python:context.getIprating() is not None or context.getDorating() is not None or context.getOutcomerating() is not None;"
+                tal:condition="gefratings">
+                <h2>GEF Ratings</h2>
+                <div tal:condition="python: context.getIprating() is not None"
+                tal:define="field python:here.Schema()['iprating'];
+                            accessor python:getattr(here, field.accessor);
+                            mode string:view;
+                            widget_view python:here.widget(field.getName(), mode=mode, use_label=1);">
+                Implementation Process: <metal:block use-macro="widget_view" />
+                </div>
+                <div tal:condition="python: context.getDorating is not None"
+                tal:define="field python:here.Schema()['dorating'];
+                                accessor python:getattr(here, field.accessor);
+                                mode string:view;
+                                widget_view python:here.widget(field.getName(), mode=mode, use_label=1);">
+                Developement Objective: <metal:block use-macro="widget_view" />
+                </div>
+                <div tal:condition="python: context.getOutcomerating() is not None"
+                tal:define="field python:here.Schema()['outcomerating'];
+                                accessor python:getattr(here, field.accessor);
+                                mode string:view;
+                                widget_view python:here.widget(field.getName(), mode=mode, use_label=1);">
+                Outcome: <metal:block use-macro="widget_view" />
+                </div>
+            </div>
+
             <div tal:condition="context/getPra_sources">
                 <h2>Information Sources</h2>
                 <div tal:content="context/getPra_sources"> Result Description </div>

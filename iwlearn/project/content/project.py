@@ -864,6 +864,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
+        desc = ''
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-imcs'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
@@ -909,6 +910,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
+        desc = ''
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-frameworks'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
@@ -954,6 +956,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
+        desc = ''
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-rmis'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
@@ -999,6 +1002,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
+        desc = ''
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-reforms'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
@@ -1044,6 +1048,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
+        desc = ''
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-tda-priorities'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
@@ -1089,6 +1094,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
+        desc = ''
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-devel'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
@@ -1134,6 +1140,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
+        desc = ''
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-abnj'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
@@ -1179,6 +1186,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
+        desc = ''
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-tdasap-cc'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
@@ -1214,6 +1222,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
+        desc = ''
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-mnits'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
@@ -1229,6 +1238,7 @@ class Project(folder.ATFolder):
         else:
             rf = 0
             desc = None
+        desc = ''
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-adopted'
         return {'value': rf, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
@@ -1243,6 +1253,7 @@ class Project(folder.ATFolder):
             rf = float(ri)/25.0
         else:
             rf = 0
+        desc = ''
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-implementing'
         return {'value': rf, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
@@ -1289,6 +1300,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
+        desc = ''
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-r4sap-inc'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},

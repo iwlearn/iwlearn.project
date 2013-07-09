@@ -864,7 +864,7 @@ class Project(folder.ATFolder):
             desc = dd[r]
         else:
             desc = ''
-        desc = ''
+        desc = 'IMC'
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-imcs'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},

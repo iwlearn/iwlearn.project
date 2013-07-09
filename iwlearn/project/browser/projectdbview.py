@@ -340,7 +340,7 @@ $('#projectsearchform').submit
                 style=style,
                 disable_xml_declaration=True,
                 show_legend=True)
-        chart.title = 'Outcome Rating'
+        chart.title = 'TE Rating'
         values = outcomeRating
         for value in values:
             chart.add(value[0], value[1])

@@ -1,4 +1,5 @@
 import logging
+import transaction
 from zope.interface import implements, Interface
 from DateTime import DateTime
 from htmllaundry import sanitize
@@ -334,7 +335,9 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
         projects = self.portal_catalog(portal_type ='Project')
         new_projects =[]
         ratings = harvest.get_projects_ratings()
+        done = 0
         for brain in projects:
+            done += 1
             ob = brain.getObject()
             self._create_project_folders(ob)
             projectid = int(ob.getGef_project_id().strip())
@@ -442,6 +445,9 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                                 'latitude' in location and
                                 'geoLocId' in location):
                                 self._create_project_location(ob, location)
+            if done % 10 == 0:
+                # Commit subtransaction for every 10th processed item
+                transaction.get().commit(True)
 
         logger.info('update harvest complete')
         return new_projects

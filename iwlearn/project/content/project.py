@@ -843,6 +843,14 @@ class Project(folder.ATFolder):
             'IW2': '',
             'IW3': '',
             'IW4': '',}
+        
+        # text to add to graph mouseover
+	descriptions = {'0':'',
+		'1':'Unsatisfactory',
+		'2':'Unsatisfactory, with some positive elements',
+		'3':'Satisfactory',
+		'4':'Highly satisfactory',}        
+        
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'III1', 'IW2']:
@@ -865,10 +873,15 @@ class Project(folder.ATFolder):
         else:
             desc = ''
         desc = 'IMC'
+        
+        # reset desc value
+	desc = descriptions[ri]        
+        
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-imcs'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
-                'style': {'color': COLORS[ri]}}
+                #'style': {'color': COLORS[ri]},
+                'style': {'color': '#0090bd'}}
 
     def r4regional_frameworks(self):
         dd = {'1': 'No legal agreement/cooperation framework in place',
@@ -888,6 +901,14 @@ class Project(folder.ATFolder):
             'IW2': 'Regional legal agreement negotiated but not yet signed (IWL Assessed)',
             'IW3': 'Countries signed legal agreement (IWL Assessed)',
             'IW4': 'Legal agreement ratified and entered into force (IWL Assessed)',}
+        
+	# text to add to graph mouseover
+	descriptions = {'0':'',
+		'1':'Unsatisfactory',
+		'2':'Unsatisfactory, with some positive elements',
+		'3':'Satisfactory',
+		'4':'Highly satisfactory',}               
+        
         r = self.regional_frameworks
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
@@ -911,10 +932,15 @@ class Project(folder.ATFolder):
         else:
             desc = ''
         desc = ''
+        
+	# reset desc value
+	desc = descriptions[ri]             
+        
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-frameworks'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
-                'style': {'color': COLORS[ri]}}
+                #'style': {'color': COLORS[ri]},
+                'style': {'color': '#ff0000'}}
 
     def r4rmis(self):
         r = self.rmis
@@ -935,6 +961,14 @@ class Project(folder.ATFolder):
             'IW2': '',
             'IW3': '',
             'IW4': '',}
+            
+	# text to add to graph mouseover
+	descriptions = {'0':'',
+		'1':'Unsatisfactory',
+		'2':'Unsatisfactory, with some positive elements',
+		'3':'Satisfactory',
+		'4':'Highly satisfactory',}                 
+            
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'III1', 'IW2']:
@@ -957,10 +991,15 @@ class Project(folder.ATFolder):
         else:
             desc = ''
         desc = ''
+        
+	# reset desc value
+	desc = descriptions[ri]            
+        
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-rmis'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
-                'style': {'color': COLORS[ri]}}
+                #'style': {'color': COLORS[ri]},
+                'style': {'color': '#ff6200'}}
 
     def r4reforms(self):
         r = self.reforms
@@ -981,6 +1020,14 @@ class Project(folder.ATFolder):
             'IW2': '',
             'IW3': '',
             'IW4': '',}
+            
+	# text to add to graph mouseover
+	descriptions = {'0':'',
+		'1':'Unsatisfactory',
+		'2':'Unsatisfactory, with some positive elements',
+		'3':'Satisfactory',
+		'4':'Highly satisfactory',}                  
+            
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
         elif r in ['2', 'IW2']:
@@ -1003,10 +1050,15 @@ class Project(folder.ATFolder):
         else:
             desc = ''
         desc = ''
+        
+	# reset desc value
+	desc = descriptions[ri]       
+        
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-reforms'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
-                'style': {'color': COLORS[ri]}}
+                #'style': {'color': COLORS[ri]},
+                'style': {'color': '#fcfd00'}}
 
     def r4tda_priorities(self):
         r = self.tda_priorities
@@ -1027,6 +1079,14 @@ class Project(folder.ATFolder):
             'IW2': '',
             'IW3': '',
             'IW4': '',}
+            
+	# text to add to graph mouseover
+	descriptions = {'0':'',
+		'1':'Unsatisfactory',
+		'2':'Unsatisfactory, with some positive elements',
+		'3':'Satisfactory',
+		'4':'Highly satisfactory',}                  
+            
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'III0', 'III1', 'IW2']:
@@ -1049,10 +1109,15 @@ class Project(folder.ATFolder):
         else:
             desc = ''
         desc = ''
+        
+	# reset desc value
+	desc = descriptions[ri]        
+        
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-tda-priorities'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
-                'style': {'color': COLORS[ri]}}
+                #'style': {'color': COLORS[ri]},
+                'style': {'color': '#00147f'}}
 
     def r4sap_devel(self):
         r = self.sap_devel
@@ -1073,6 +1138,14 @@ class Project(folder.ATFolder):
             'IW2': '',
             'IW3': '',
             'IW4': '',}
+            
+	# text to add to graph mouseover
+	descriptions = {'0':'',
+		'1':'Unsatisfactory',
+		'2':'Unsatisfactory, with some positive elements',
+		'3':'Satisfactory',
+		'4':'Highly satisfactory',}                 
+            
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'III1', 'IW2']:
@@ -1095,10 +1168,15 @@ class Project(folder.ATFolder):
         else:
             desc = ''
         desc = ''
+        
+	# reset desc value
+	desc = descriptions[ri]      
+        
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-devel'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
-                'style': {'color': COLORS[ri]}}
+                #'style': {'color': COLORS[ri]},
+                'style': {'color': '#0a0034'}}
 
     def r4abnj_rmi(self):
         r = self.abnj_rmi
@@ -1119,6 +1197,14 @@ class Project(folder.ATFolder):
             'IW2': 'Management measures in ABNJ designed but not formally adopted by project participants',
             'IW3': 'Management measures in ABNJ  formally adopted by project participants but not incorporated in RMI institutional/management frameworks',
             'IW4': 'Management measures in ABNJ fully incorporated in  RMI institutional/ management frameworks',}
+            
+	# text to add to graph mouseover
+	descriptions = {'0':'',
+		'1':'Unsatisfactory',
+		'2':'Unsatisfactory, with some positive elements',
+		'3':'Satisfactory',
+		'4':'Highly satisfactory',}                 
+            
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'IW2']:
@@ -1141,10 +1227,15 @@ class Project(folder.ATFolder):
         else:
             desc = ''
         desc = ''
+        
+	# reset desc value
+	desc = descriptions[ri]      
+        
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-abnj'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
-                'style': {'color': COLORS[ri]}}
+                #'style': {'color': COLORS[ri]},
+                'style': {'color': '#003994'}}
 
     def r4tdasap_cc(self):
         r = self.tdasap_cc
@@ -1165,6 +1256,14 @@ class Project(folder.ATFolder):
             'IW2': 'TDA updated to incorporate climate variability and change',
             'IW3': 'Revised SAP prepared including Climatic Variability and Change',
             'IW4': 'SAP including Climatic Variability and Change adopted by all involved countries',}
+            
+	# text to add to graph mouseover
+	descriptions = {'0':'',
+		'1':'Unsatisfactory',
+		'2':'Unsatisfactory, with some positive elements',
+		'3':'Satisfactory',
+		'4':'Highly satisfactory',}              
+            
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'IW2']:
@@ -1187,10 +1286,15 @@ class Project(folder.ATFolder):
         else:
             desc = ''
         desc = ''
+        
+	# reset desc value
+	desc = descriptions[ri]     
+        
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-tdasap-cc'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
-                'style': {'color': COLORS[ri]}}
+                #'style': {'color': COLORS[ri]},
+                'style': {'color': '#491500'}}
 
     def r4tda_mnits(self):
         r = self.tda_mnits
@@ -1201,6 +1305,14 @@ class Project(folder.ATFolder):
             '4': 'TDA includes technical annex posted IWLEARN and based on MNITS committee inputs',
             'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
             }
+            
+	# text to add to graph mouseover
+	descriptions = {'0':'',
+		'1':'Unsatisfactory',
+		'2':'Unsatisfactory, with some positive elements',
+		'3':'Satisfactory',
+		'4':'Highly satisfactory',}                 
+            
         if r in ['1']:
             ri = 1
         elif r in ['2']:
@@ -1223,13 +1335,27 @@ class Project(folder.ATFolder):
         else:
             desc = ''
         desc = ''
+        
+	# reset desc value
+	desc = descriptions[ri]  
+        
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-mnits'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
-                'style': {'color': COLORS[ri]}}
+                #'style': {'color': COLORS[ri]},
+                'style': {'color': '#00821c'}}
 
     def r4sap_adopted(self):
         r = self.sap_adopted
+        ri = 0
+
+	# text to add to graph mouseover
+	descriptions = {'0':'',
+		'1':'Unsatisfactory',
+		'2':'Unsatisfactory, with some positive elements',
+		'3':'Satisfactory',
+		'4':'Highly satisfactory',}              
+        
         desc = None
         if r:
             ri = int(r)
@@ -1239,14 +1365,28 @@ class Project(folder.ATFolder):
             rf = 0
             desc = None
         desc = ''
+        
+	# reset desc value
+	desc = descriptions[ri]      
+        
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-adopted'
         return {'value': rf, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
-                'style': {'color': COLORS[min(4,int(rf)+1)]}}
+                #'style': {'color': COLORS[min(4,int(rf)+1)]}}
+                'style': {'color': '#003f17'}}
 
     def r4sap_implementing(self):
+    	  
+	# text to add to graph mouseover
+	descriptions = {'0':'',
+		'1':'Unsatisfactory',
+		'2':'Unsatisfactory, with some positive elements',
+		'3':'Satisfactory',
+		'4':'Highly satisfactory',}         	  
+    	  
         desc = None
         r = self.sap_implementing
+	ri = 0
         if r:
             ri = int(r)
             desc = '%i %%' %ri
@@ -1254,10 +1394,15 @@ class Project(folder.ATFolder):
         else:
             rf = 0
         desc = ''
+        
+	# reset desc value
+	desc = descriptions[ri]     
+        
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-implementing'
         return {'value': rf, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
-                'style': {'color': COLORS[min(4,int(rf)+1)]}}
+                #'style': {'color': COLORS[min(4,int(rf)+1)]}
+                'style': {'color': '#000000'}}
 
 
     def r4sap_inc(self):
@@ -1279,6 +1424,14 @@ class Project(folder.ATFolder):
             'IW2': 'Limited progress, very generic with no specific agency/government(s) commitments',
             'IW3': 'Priorities specifically incorporated into some national development/assistance frameworks with clear agency/government(s) commitments and time frames for achievement',
             'IW4': 'Majority of national development/assistance frameworks have incorporated priorities with clear agency/government(s)  commitments and time frames for achievement',}
+            
+	# text to add to graph mouseover
+	descriptions = {'0':'',
+		'1':'Unsatisfactory',
+		'2':'Unsatisfactory, with some positive elements',
+		'3':'Satisfactory',
+		'4':'Highly satisfactory',}                 
+            
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'IW2']:
@@ -1301,10 +1454,15 @@ class Project(folder.ATFolder):
         else:
             desc = ''
         desc = ''
+        
+	# reset desc value
+	desc = descriptions[ri]      
+        
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-r4sap-inc'
         return {'value': ri, 'label': desc,
                 'xlink': {'href': url, 'target': '_top'},
-                'style': {'color': COLORS[ri]}}
+                #'style': {'color': COLORS[ri]},
+                'style': {'color': '#cb001d'}}
 
 
 

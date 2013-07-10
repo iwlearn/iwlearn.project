@@ -41,6 +41,10 @@
             <br/>
             <div id="content-core">
             <div id="#projectdbcharts" class="pygal-chart" tal:content="structure view/get_pra_chart"> chart goes here </div>
+            <p style="font-size:98%">
+				<b>Click on a bar to read corresponding details.</b><br/>
+				Some information are unavailable, either because results have not been reported or the indicator is not applicable to the project. There are also cases where some progress has occurred but cannot be ranked (IWL Assessed). <br/>Please see the description below for further details.            
+            </p>
             <div tal:define="gefratings python:context.getIprating() is not None or context.getDorating() is not None or context.getOutcomerating() is not None;"
                 tal:condition="gefratings">
                 <h2>GEF Ratings</h2>

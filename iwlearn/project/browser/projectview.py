@@ -109,25 +109,25 @@ class ProjectView(BrowserView):
 
     def get_pra_chart(self, disable_xml_declaration=True):
         ratings = [
-        ('IMC', [self.context.r4imcs()]),
-        ('Frameworks', [self.context.r4regional_frameworks()]),
-        ('RMI', [self.context.r4rmis()]),
-        ('Reforms', [self.context.r4reforms()]),
-        ('TDA', [self.context.r4tda_priorities()]),
-        ('SAP', [self.context.r4sap_devel()]),
-        ('ABNJ', [self.context.r4abnj_rmi()]),
-        ('CC in TDA/SAP', [self.context.r4tdasap_cc()]),
-        ('TDA MNITS', [self.context.r4tda_mnits()]),
-        ('SAP adopted', [self.context.r4sap_adopted()]),
-        ('SAP implementing', [self.context.r4sap_implementing()]),
-        ('SAP inc.', [self.context.r4sap_inc()]),
+        ('Establishment of country-specific inter-ministerial committees', [self.context.r4imcs()]),
+        ('Regional legal agreements and cooperation frameworks', [self.context.r4regional_frameworks()]),
+        ('Regional Management Institutions', [self.context.r4rmis()]),
+        ('National/Local reforms', [self.context.r4reforms()]),
+        ('Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes', [self.context.r4tda_priorities()]),
+        ('Development of Strategic Action Plan', [self.context.r4sap_devel()]),
+        ('Management measures in ABNJ incorporated in Global/Regional Management Organizations', [self.context.r4abnj_rmi()]),
+        ('Revised TDA/ SAP including Climatic Variability and Change considerations', [self.context.r4tdasap_cc()]),
+        ('TDA based on multi-national, interdisciplinary technical and scientific activities', [self.context.r4tda_mnits()]),
+        ('Proportion of countries that have adopted SAP', [self.context.r4sap_adopted()]),
+        ('Proportion of countries that are implementing specific measures from the SAP ', [self.context.r4sap_implementing()]),
+        ('Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc.', [self.context.r4sap_inc()]),
         ]
         colors = []
         for rating in ratings:
             colors.append(rating[1][0]['style']['color'])
 
         config = pygal.Config()
-        config.tooltip_font_size=12
+        config.tooltip_font_size=11
         #config.x_labels = [r[0] for r in ratings]
         style = pygal.style.Style(
                         colors=colors,
@@ -137,7 +137,7 @@ class ProjectView(BrowserView):
                         foreground_light='rgba(0, 0, 0, 0.9)',
                         )
 
-        chart = pygal.Bar(config, width=600, height=300,
+        chart = pygal.Bar(config, width=800, height=600,
                     explicit_size=True,
                     style=style,
                     disable_xml_declaration=disable_xml_declaration,

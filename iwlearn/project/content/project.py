@@ -845,11 +845,11 @@ class Project(folder.ATFolder):
             'IW4': '',}
         
         # text to add to graph mouseover
-	descriptions = {'0':'',
-		'1':'Unsatisfactory',
-		'2':'Unsatisfactory, with some positive elements',
-		'3':'Satisfactory',
-		'4':'Highly satisfactory',}        
+	descriptions = {0:'',
+		1:'Unsatisfactory',
+		2:'Unsatisfactory, with some positive elements',
+		3:'Satisfactory',
+		4:'Highly satisfactory'}        
         
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
@@ -903,11 +903,11 @@ class Project(folder.ATFolder):
             'IW4': 'Legal agreement ratified and entered into force (IWL Assessed)',}
         
 	# text to add to graph mouseover
-	descriptions = {'0':'',
-		'1':'Unsatisfactory',
-		'2':'Unsatisfactory, with some positive elements',
-		'3':'Satisfactory',
-		'4':'Highly satisfactory',}               
+	descriptions = {0:'',
+		1:'Unsatisfactory',
+		2:'Unsatisfactory, with some positive elements',
+		3:'Satisfactory',
+		4:'Highly satisfactory'}                
         
         r = self.regional_frameworks
         if r in ['1', 'IV0', 'III0', 'IW1']:
@@ -963,11 +963,11 @@ class Project(folder.ATFolder):
             'IW4': '',}
             
 	# text to add to graph mouseover
-	descriptions = {'0':'',
-		'1':'Unsatisfactory',
-		'2':'Unsatisfactory, with some positive elements',
-		'3':'Satisfactory',
-		'4':'Highly satisfactory',}                 
+	descriptions = {0:'',
+		1:'Unsatisfactory',
+		2:'Unsatisfactory, with some positive elements',
+		3:'Satisfactory',
+		4:'Highly satisfactory'}               
             
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
@@ -1022,11 +1022,11 @@ class Project(folder.ATFolder):
             'IW4': '',}
             
 	# text to add to graph mouseover
-	descriptions = {'0':'',
-		'1':'Unsatisfactory',
-		'2':'Unsatisfactory, with some positive elements',
-		'3':'Satisfactory',
-		'4':'Highly satisfactory',}                  
+	descriptions = {0:'',
+		1:'Unsatisfactory',
+		2:'Unsatisfactory, with some positive elements',
+		3:'Satisfactory',
+		4:'Highly satisfactory'}                    
             
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
@@ -1081,11 +1081,11 @@ class Project(folder.ATFolder):
             'IW4': '',}
             
 	# text to add to graph mouseover
-	descriptions = {'0':'',
-		'1':'Unsatisfactory',
-		'2':'Unsatisfactory, with some positive elements',
-		'3':'Satisfactory',
-		'4':'Highly satisfactory',}                  
+	descriptions = {0:'',
+		1:'Unsatisfactory',
+		2:'Unsatisfactory, with some positive elements',
+		3:'Satisfactory',
+		4:'Highly satisfactory'}                  
             
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
@@ -1140,11 +1140,11 @@ class Project(folder.ATFolder):
             'IW4': '',}
             
 	# text to add to graph mouseover
-	descriptions = {'0':'',
-		'1':'Unsatisfactory',
-		'2':'Unsatisfactory, with some positive elements',
-		'3':'Satisfactory',
-		'4':'Highly satisfactory',}                 
+	descriptions = {0:'',
+		1:'Unsatisfactory',
+		2:'Unsatisfactory, with some positive elements',
+		3:'Satisfactory',
+		4:'Highly satisfactory'}                
             
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
@@ -1199,11 +1199,11 @@ class Project(folder.ATFolder):
             'IW4': 'Management measures in ABNJ fully incorporated in  RMI institutional/ management frameworks',}
             
 	# text to add to graph mouseover
-	descriptions = {'0':'',
-		'1':'Unsatisfactory',
-		'2':'Unsatisfactory, with some positive elements',
-		'3':'Satisfactory',
-		'4':'Highly satisfactory',}                 
+	descriptions = {0:'',
+		1:'Unsatisfactory',
+		2:'Unsatisfactory, with some positive elements',
+		3:'Satisfactory',
+		4:'Highly satisfactory'}              
             
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
@@ -1258,11 +1258,11 @@ class Project(folder.ATFolder):
             'IW4': 'SAP including Climatic Variability and Change adopted by all involved countries',}
             
 	# text to add to graph mouseover
-	descriptions = {'0':'',
-		'1':'Unsatisfactory',
-		'2':'Unsatisfactory, with some positive elements',
-		'3':'Satisfactory',
-		'4':'Highly satisfactory',}              
+	descriptions = {0:'',
+		1:'Unsatisfactory',
+		2:'Unsatisfactory, with some positive elements',
+		3:'Satisfactory',
+		4:'Highly satisfactory'}               
             
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
@@ -1307,11 +1307,11 @@ class Project(folder.ATFolder):
             }
             
 	# text to add to graph mouseover
-	descriptions = {'0':'',
-		'1':'Unsatisfactory',
-		'2':'Unsatisfactory, with some positive elements',
-		'3':'Satisfactory',
-		'4':'Highly satisfactory',}                 
+	descriptions = {0:'',
+		1:'Unsatisfactory',
+		2:'Unsatisfactory, with some positive elements',
+		3:'Satisfactory',
+		4:'Highly satisfactory'}                  
             
         if r in ['1']:
             ri = 1
@@ -1350,11 +1350,11 @@ class Project(folder.ATFolder):
         ri = 0
 
 	# text to add to graph mouseover
-	descriptions = {'0':'',
-		'1':'Unsatisfactory',
-		'2':'Unsatisfactory, with some positive elements',
-		'3':'Satisfactory',
-		'4':'Highly satisfactory',}              
+	descriptions = {0:'',
+		1:'Unsatisfactory',
+		2:'Unsatisfactory, with some positive elements',
+		3:'Satisfactory',
+		4:'Highly satisfactory'}               
         
         desc = None
         if r:
@@ -1378,11 +1378,11 @@ class Project(folder.ATFolder):
     def r4sap_implementing(self):
     	  
 	# text to add to graph mouseover
-	descriptions = {'0':'',
-		'1':'Unsatisfactory',
-		'2':'Unsatisfactory, with some positive elements',
-		'3':'Satisfactory',
-		'4':'Highly satisfactory',}         	  
+	descriptions = {0:'',
+		1:'Unsatisfactory',
+		2:'Unsatisfactory, with some positive elements',
+		3:'Satisfactory',
+		4:'Highly satisfactory'}          	  
     	  
         desc = None
         r = self.sap_implementing
@@ -1426,11 +1426,11 @@ class Project(folder.ATFolder):
             'IW4': 'Majority of national development/assistance frameworks have incorporated priorities with clear agency/government(s)  commitments and time frames for achievement',}
             
 	# text to add to graph mouseover
-	descriptions = {'0':'',
-		'1':'Unsatisfactory',
-		'2':'Unsatisfactory, with some positive elements',
-		'3':'Satisfactory',
-		'4':'Highly satisfactory',}                 
+	descriptions = {0:'',
+		1:'Unsatisfactory',
+		2:'Unsatisfactory, with some positive elements',
+		3:'Satisfactory',
+		4:'Highly satisfactory'}              
             
         if r in ['1', 'IV0', 'IW1']:
             ri = 1

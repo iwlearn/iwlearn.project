@@ -42,6 +42,8 @@
             <div id="content-core">
             <div id="#projectdbcharts" class="pygal-chart" tal:content="structure view/get_pra_chart"> chart goes here </div>
             <p style="font-size:98%">
+            Rating: (4.0) Highly satisfactory; (3.0) Satisfactory; (2.0) Unsatisfactory, with some positive elements; (1.0) Unsatisfactory<br/><br/>
+
 				<b>Click on a bar to read corresponding details.</b><br/>
 				Some information are unavailable, either because results have not been reported or the indicator is not applicable to the project. There are also cases where some progress has occurred but cannot be ranked (IWL Assessed). <br/>Please see the description below for further details.            
             </p>

@@ -515,7 +515,11 @@ class ProjectDBBasinView(ProjectDBBaseView):
                 params[field.name] = field.value;
             };
         });
-        var map = cgmap.config['default-cgmap'].map;
+        try {
+            var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
+        } catch(e) {
+            var map = null;
+        };
         if (map != null) {
             try {
             %s
@@ -611,15 +615,21 @@ class ProjectDBMapView(ProjectDBBaseView):
                     params[field.name] = field.value;
                 };
             });
-            var map = cgmap.config['default-cgmap'].map;
-            var kmls = map.getLayersByName('Countries');
-            var kml_url = '%(url)s/@@projectdbcountry_view.kml' + qs;
-            layer = kmls[0];
-            layer.refresh({url: kml_url});
-            var kmls = map.getLayersByName('Project management offices');
-            layer = kmls[0];
-            kml_url = '%(url)s/@@projectdbpmo_view.kml' + qs;
-            layer.refresh({url: kml_url});
+            try {
+                var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
+            } catch(e) {
+                var map = null;
+            };
+            if ( map != null){
+                var kmls = map.getLayersByName('Countries');
+                var kml_url = '%(url)s/@@projectdbcountry_view.kml' + qs;
+                layer = kmls[0];
+                layer.refresh({url: kml_url});
+                var kmls = map.getLayersByName('Project management offices');
+                layer = kmls[0];
+                kml_url = '%(url)s/@@projectdbpmo_view.kml' + qs;
+                layer.refresh({url: kml_url});
+            };
 
             onBasinLayerOptionsChange(event);
             return true;
@@ -637,8 +647,11 @@ class ProjectDBMapView(ProjectDBBaseView):
                     params[field.name] = field.value;
                 };
             });
-            var map = cgmap.config['default-cgmap'].map;
-
+            try {
+                var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
+            } catch(e) {
+                var map = null;
+            };
             var kmls = map.getLayersByName('Basin Cluster');
             layer = kmls[0];
             kml_url = '%(url)s/@@projectbasincluster_view.kml' + qs;
@@ -706,7 +719,11 @@ class ProjectDBResultMapView(ProjectDBMapView):
                     params[field.name] = field.value;
                 };
             });
-            var map = cgmap.config['default-cgmap'].map;
+            try {
+                var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
+            } catch(e) {
+                var map = null;
+            };
             var kmls = map.getLayersByName('National Results');
             layer = kmls[0];
             kml_url = '%(url)s/@@projectdbnationalresults_view.kml' + qs;

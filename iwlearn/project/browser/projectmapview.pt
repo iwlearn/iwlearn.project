@@ -48,8 +48,8 @@
 <!-- can be removed after upgrade to cg 2.5 /ol 2.12 -->
 <script type="text/javascript">
 /*<![CDATA[*/
-    $(window).bind("load", function() {
-        var map = cgmap.config['default-cgmap'].map;
+    $(window).bind('mapload', function (evt, widget) {
+        var map = widget.map;
         var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
 
         function onFeatureUnselect(event) {

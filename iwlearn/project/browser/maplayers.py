@@ -13,16 +13,6 @@ class MapLayerBase(MapLayer):
         self.visible = str(visible).lower()
 
 
-class GepcoMapLayer(MapLayer):
-    @property
-    def jsfactory(self):
-        return u""" function() {
-            return new OpenLayers.Layer.WMS("Gebco WMS",
-                "http://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv",
-                {layers: 'GEBCO_08_Grid',  transparent: "true", format: "image/png"},
-                {projection: new OpenLayers.Projection("EPSG:4326")});
-            } """
-
 
 class ProjectDbKMLMapLayer(MapLayerBase):
     """

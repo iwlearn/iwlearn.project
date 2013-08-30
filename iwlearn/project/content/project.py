@@ -823,7 +823,15 @@ class Project(folder.ATFolder):
                  titles.append(basin.Title())
         return titles
 
+    def start(self):
+        return self.getStart_date()
 
+<<<<<<< .mine
+    def end(self):
+        return self.getEnd_date()
+
+    # -*- Your ATSchema to Python Property Bridges Here ... -*-
+=======
     def r4imcs(self):
         r = self.imcs
         dd = {'1': 'No IMCs established',
@@ -869,7 +877,7 @@ class Project(folder.ATFolder):
             ri = 0
             logger.error('pid: %s r4imcs: "%s"' % (self.getGef_project_id(), r))
         if r:
-            desc = dd[r]
+            desc = r
         else:
             desc = ''
         desc = 'IMC'
@@ -882,6 +890,7 @@ class Project(folder.ATFolder):
                 'xlink': {'href': url, 'target': '_top'},
                 #'style': {'color': COLORS[ri]},
                 'style': {'color': '#0090bd'}}
+>>>>>>> .r1606
 
     def r4regional_frameworks(self):
         dd = {'1': 'No legal agreement/cooperation framework in place',
@@ -928,7 +937,7 @@ class Project(folder.ATFolder):
             ri = 0
             logger.error('pid: %s r4regional_frameworks: "%s"' % (self.getGef_project_id(), r))
         if r:
-            desc = dd[r]
+            desc = r
         else:
             desc = ''
         desc = ''
@@ -987,7 +996,7 @@ class Project(folder.ATFolder):
             ri = 0
             logger.error('pid: %s r4rmis: "%s"' % (self.getGef_project_id(), r))
         if r:
-            desc = dd[r]
+            desc = r
         else:
             desc = ''
         desc = ''
@@ -1046,7 +1055,7 @@ class Project(folder.ATFolder):
             ri = 0
             logger.error('pid: %s r4reforms: "%s"' % (self.getGef_project_id(), r))
         if r:
-            desc = dd[r]
+            desc = r
         else:
             desc = ''
         desc = ''
@@ -1105,7 +1114,7 @@ class Project(folder.ATFolder):
             ri = 0
             logger.error('pid: %s r4tda_priorities: "%s"' % (self.getGef_project_id(), r))
         if r:
-            desc = dd[r]
+            desc = r
         else:
             desc = ''
         desc = ''
@@ -1164,7 +1173,7 @@ class Project(folder.ATFolder):
             ri = 0
             logger.error('pid: %s r4sap_devel: "%s"' % (self.getGef_project_id(), r))
         if r:
-            desc = dd[r]
+            desc = r
         else:
             desc = ''
         desc = ''
@@ -1282,7 +1291,7 @@ class Project(folder.ATFolder):
             ri = 0
             logger.error('pid: %s r4tdasap_cc: "%s"' % (self.getGef_project_id(), r))
         if r:
-            desc = dd[r]
+            desc = r
         else:
             desc = ''
         desc = ''
@@ -1331,7 +1340,7 @@ class Project(folder.ATFolder):
             ri = 0
             logger.error('pid: %s r4tda_mnits: "%s"' % (self.getGef_project_id(), r))
         if r:
-            desc = dd[r]
+            desc = r
         else:
             desc = ''
         desc = ''
@@ -1450,7 +1459,7 @@ class Project(folder.ATFolder):
             ri = 0
             logger.error('pid: %s r4sap_inc: "%s"' % (self.getGef_project_id(), r))
         if r:
-            desc = dd[r]
+            desc = r
         else:
             desc = ''
         desc = ''

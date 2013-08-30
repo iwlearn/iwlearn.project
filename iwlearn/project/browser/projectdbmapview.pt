@@ -449,9 +449,9 @@ $('#projectmapform').submit
 
 <script type="text/javascript">
 /*<![CDATA[*/
-    $(window).bind("load", function() {
-        var map = cgmap.config['default-cgmap'].map;
 
+    $(window).bind('mapload', function (evt, widget) {
+        var map = widget.map;
         map.events.on({
                 moveend: function(event) {
                     if (event.zoomChanged) {

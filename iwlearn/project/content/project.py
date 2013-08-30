@@ -1258,12 +1258,6 @@ class Project(folder.ATFolder):
         r = self.sap_adopted
         ri = 0
 
-    # text to add to graph mouseover
-    descriptions = {0:'',
-        1:'Unsatisfactory',
-        2:'Unsatisfactory, with some positive elements',
-        3:'Satisfactory',
-        4:'Highly satisfactory'}
 
         desc = None
         if r:

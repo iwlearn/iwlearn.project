@@ -358,7 +358,11 @@ $('#exp-collapse-form').click (function(event) {
 
 
 function onBasinLayerChange(event) {
-    var map = cgmap.config['default-cgmap'].map;
+    try {
+        var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
+    } catch(e) {
+        var map = null;
+    };
     var is_visible = $(this).is(':checked');
     var kmls = map.getLayersByName('Basin Cluster');
     if (kmls.lenght > 0) {
@@ -380,7 +384,11 @@ function onBasinLayerChange(event) {
 
 
 function onCountryLayerChange(event) {
-    var map = cgmap.config['default-cgmap'].map;
+    try {
+        var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
+    } catch(e) {
+        var map = null;
+    };
     var is_visible = $(this).is(':checked');
     var kmls = map.getLayersByName('Countries');
     if (kmls.length > 0) {
@@ -392,7 +400,11 @@ function onCountryLayerChange(event) {
 
 
 function onPCULayerChange(event) {
-    var map = cgmap.config['default-cgmap'].map;
+   try {
+        var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
+    } catch(e) {
+        var map = null;
+    };
     var is_visible = $(this).is(':checked');
     var kmls = map.getLayersByName('Project management offices');
     if (kmls.length > 0) {

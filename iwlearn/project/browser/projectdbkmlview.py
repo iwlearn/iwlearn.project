@@ -27,7 +27,7 @@ from iwlearn.project.vocabulary import RATINGS
 
 
 logger = logging.getLogger('iwlearn.project')
-logger.setLevel(logging.DEBUG)
+#logger.setLevel(logging.DEBUG)
 
 
 

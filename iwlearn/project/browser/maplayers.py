@@ -270,6 +270,7 @@ class ProjectKMLMapLayer(MapLayerBase):
     """
     PCU Location
     """
+    #XXX now appended in ProjectInnerKMLMapLayer
 
 
     @property
@@ -305,9 +306,9 @@ class ProjectKMLMapLayer(MapLayerBase):
 
 class ProjectInnerKMLMapLayer(MapLayerBase):
     """
-    Geo annotated content of a project
+    Geo annotated content of a project and the project location itself
     """
-    #XXX ?
+    #
 
     @property
     def jsfactory(self):
@@ -324,6 +325,12 @@ class ProjectInnerKMLMapLayer(MapLayerBase):
                         extractAttributes: true})
                       }),
                     strategies: [new OpenLayers.Strategy.Fixed()],
+                    eventListeners: { 'loadend': function(event) {
+                                 var c_lonlat = this.getDataExtent().getCenterLonLat();
+                                 this.map.setCenter(new OpenLayers.LonLat(
+                                 c_lonlat.lon, c_lonlat.lat), 5, false, false);
+                                }
+                            },
                     visibility: %s,
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });
@@ -421,7 +428,7 @@ class ProjectKMLMapLayers(MapLayers):
                 continue
         if has_maplayers:
             layers.append(ProjectInnerKMLMapLayer(self.context))
-        # PCU Location
-        layers.append(ProjectKMLMapLayer(self.context))
+        # PCU Location [is a part of ProjectInnerKMLMapLayer]
+        # layers.append(ProjectKMLMapLayer(self.context))
         return layers
 

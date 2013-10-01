@@ -447,7 +447,7 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                                 self._create_project_location(ob, location)
             if done % 10 == 0:
                 # Commit subtransaction for every 10th processed item
-                transaction.get().commit(True)
+                transaction.get().commit()
 
         logger.info('update harvest complete')
         return new_projects

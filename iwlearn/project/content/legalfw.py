@@ -28,6 +28,18 @@ LegalFWSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         multiValued=True,
     ),
 
+    atapi.StringField(
+        'basin_type',
+        required=False,
+        searchable=True,
+        #vocabulary = vocabulary.BASIN_TYPE,
+        #widget=atapi.SelectionWidget(
+        #    label=_(u"Basin Type"),
+        #    description=_(u"Type of Basin"),
+        #),
+    ),
+
+
 
     atapi.TextField(
         'legal_basis',

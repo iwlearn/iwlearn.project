@@ -1,14 +1,10 @@
 #
+import logging
 from collections import OrderedDict
 from lxml import etree
 from plone.i18n.normalizer import IDNormalizer
 
-templates = {}
-allowed_tags = []
-allowed_self_closing_tags = []
-allowed_attributes = []
-interwiki = {}
-namespaces = {}
+logger = logging.getLogger('iwlearn.project.import_legalfw')
 
 from smc.mw.tool import run_preprocessor, run_parser
 
@@ -17,9 +13,7 @@ def process(input):
     result = run_preprocessor(input, filename='.', profile_data=profile_data)
     result = run_parser(result, filename='.', start=None, profile_data=profile_data, trace=False)
     result = result.encode("UTF-8")
-    #result = result.lstrip('<html><body>')
-    #result = result.rstrip('</body></html>')
-    return result
+    return result[12:-14]
 
 def to_html(node, elem):
     source = node.find(elem)
@@ -27,16 +21,14 @@ def to_html(node, elem):
         return process(source.text)
 
 def import_legal_frameworks(self):
-    f = open('dataimport/governance-ExportRDF.xml', 'rb')
+    f = open('src/iwlearn.project/iwlearn/project/dataimport/governance-ExportRDF.xml', 'rb')
     tree = etree.parse(f)
     f.close()
     idn = IDNormalizer()
-    #preprocessor = make_parser(templates)
-    #parser = make_parser(allowed_tags, allowed_self_closing_tags, allowed_attributes, interwiki, namespaces)
     for lf in tree.findall('{http://semantic-mediawiki.org/swivt/1.0#}Subject'):
         title = lf.find('{http://www.w3.org/2000/01/rdf-schema#}label').text
         new_id = idn.normalize(title)
-        print title, new_id
+        logger.info('%s: %s' %(title, new_id))
         wt = lf.findall('{http://localhost/watergov/index.php/Special:URIResolver/Property-3A}Has_water_type')
         water_types = []
         if wt:
@@ -63,8 +55,9 @@ def import_legal_frameworks(self):
         member_states = to_html(lf,'{http://localhost/watergov/index.php/Special:URIResolver/Property-3A}Member_states')
         parent = self.portal_url.getPortalObject()['iw-projects']['legal-frameworks']
         self.portal_types.constructContent('LegalFW', parent, new_id)
-        new_obj=parent[new_obj_id]
+        new_obj=parent[new_id]
         new_obj.update(
+            title = title,
             basin_type = ''.join(water_types),
             legal_basis = legal_basis,
             member_states = member_states,
@@ -72,7 +65,7 @@ def import_legal_frameworks(self):
             legal_personality = legal_personality,
             functions = functions,
             organizational_structure = organizational_structure,
-            relationships = relationships,
+            lfrelationships = relationships,
             decision_making = decision_making,
             dispute_resolution = dispute_resolution,
             information_sharing = information_sharing,
@@ -85,9 +78,9 @@ def import_legal_frameworks(self):
             additional_remarks = additional_remarks,
             references_urls = references_urls)
 
-    import ipdb; ipdb.set_trace()
 
-import_legal_frameworks(None)
+
+#import_legal_frameworks(None)
 
 '{http://semantic-mediawiki.org/swivt/1.0#}Subject'
 

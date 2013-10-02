@@ -7,9 +7,11 @@ from Products.Archetypes import atapi
 from Products.ATContentTypes.content import base
 from Products.ATContentTypes.content import schemata
 from Products.ATContentTypes.content import folder
+from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 
 # -*- Message Factory Imported Here -*-
 from iwlearn.project import projectMessageFactory as _
+from iwlearn.project import vocabulary
 from iwlearn.project.interfaces import ILegalFW
 from iwlearn.project.config import PROJECTNAME
 
@@ -30,6 +32,8 @@ LegalFWSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     atapi.StringField(
         'basin_type',
+        label=_(u"Basin Type"),
+        description=_(u"Type of Basin"),
         required=False,
         searchable=True,
         #vocabulary = vocabulary.BASIN_TYPE,
@@ -132,7 +136,7 @@ LegalFWSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     ),
 
     atapi.TextField(
-        'relationships',
+        'lfrelationships',
         required=False,
         searchable=True,
         widget=atapi.RichWidget(
@@ -292,10 +296,10 @@ LegalFWSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
 
 
-schemata.finalizeATCTSchema(LegalFWSchema, moveDiscussion=False)
+schemata.finalizeATCTSchema(LegalFWSchema, folderish=True, moveDiscussion=False)
 
 
-class LegalFW(base.ATCTContent):
+class LegalFW(folder.ATFolder):
     """Legal Frameworks"""
     implements(ILegalFW)
 

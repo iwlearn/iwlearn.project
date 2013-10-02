@@ -7,6 +7,12 @@
   <!-- configure your content components here -->
 
   <!-- -*- extra stuff goes here -*- -->
+  <class class=".legalfw.LegalFW">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.ILegalFW"
+        />
+  </class>
   <class class=".basin.Basin">
     <require
         permission="zope2.View"

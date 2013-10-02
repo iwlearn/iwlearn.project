@@ -51,19 +51,18 @@ BasinSchema = ATDocumentSchema.copy() + atapi.Schema((
     ),
 
 
-    atapi.ReferenceField(
+    backref.BackReferenceField(
         'frameworks',
         required=False,
-        widget=ReferenceBrowserWidget(
+        widget=backref.BackReferenceBrowserWidget(
             label=_(u"Frameworks"),
             description=_(u"Legal and Institutional Frameworks"),
-            #base_query={'Subject':'Executing Agency'},
-            #startup_directory_method='_getProjectsDirectory',
             allow_browse=True,
             allow_sorting=True,
+            allow_search =True,
         ),
         relationship='basin_framework',
-        allowed_types=('Document',), # specify portal type names here ('Example Type',)
+        allowed_types=('LegalFW',), # specify portal type names here ('Example Type',)
         multiValued=True,
     ),
 

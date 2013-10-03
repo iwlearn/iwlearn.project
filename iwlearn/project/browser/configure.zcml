@@ -6,7 +6,8 @@
     i18n_domain="iwlearn.project">
 
   <include package="plone.app.contentmenu" />
-
+  <include package="Products.CMFCore" file="permissions.zcml" />
+  <include package="z3c.caching" file="meta.zcml" />
   <!-- -*- extra stuff goes here -*- -->
 
   <browser:page
@@ -15,12 +16,42 @@
       class=".legalfwview.LegalFWView"
       template="legalfwview.pt"
       allowed_interface=".legalfwview.ILegalFWView"
-      permission="zope.Public"
+      permission="zope2.View"
+      />
+
+  <cache:ruleset
+      for=".legalfwview.LegalFWView"
+      ruleset="plone.content.itemView"
+      />
+
+  <adapter
+      for=".legalfwview.ILegalFWView
+           zope.interface.Interface
+           zope.interface.Interface
+           zope.interface.Interface"
+      factory=".maplayers.LegalFWMapLayers"
       />
 
 
- <include package="Products.CMFCore" file="permissions.zcml" />
- <include package="z3c.caching" file="meta.zcml" />
+  <browser:page
+      for="..interfaces.ILegalFW"
+      name="country_view.kml"
+      class=".projectkmlview.ProjectCountryKMLView"
+      allowed_interface=".projectkmlview.IProjectKMLView"
+      permission="zope2.View"
+      />
+
+
+  <browser:page
+      for="..interfaces.ILegalFW"
+      name="basin_view.kml"
+      class=".projectkmlview.ProjectBasinKMLView"
+      allowed_interface=".projectkmlview.IProjectKMLView"
+      permission="zope2.View"
+      />
+
+
+
 
 <!-- Project profile -->
 

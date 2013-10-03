@@ -17,33 +17,18 @@ from iwlearn.project.config import PROJECTNAME
 
 LegalFWSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
-    atapi.ReferenceField(
-        'basins',
-        required=False,
-        widget=ReferenceBrowserWidget(
-            label=_(u"Basins"),
-            description=_(u"Basins"),
-            allow_sorting=True,
-        ),
-        relationship='basin_framework',
-        allowed_types=('Basin',),
-        multiValued=True,
-    ),
-
     atapi.StringField(
         'basin_type',
         label=_(u"Basin Type"),
         description=_(u"Type of Basin"),
         required=False,
         searchable=True,
-        #vocabulary = vocabulary.BASIN_TYPE,
-        #widget=atapi.SelectionWidget(
-        #    label=_(u"Basin Type"),
-        #    description=_(u"Type of Basin"),
-        #),
+        vocabulary = vocabulary.BASIN_TYPE,
+        widget=atapi.SelectionWidget(
+            label=_(u"Basin Type"),
+            description=_(u"Type of Basin"),
+        ),
     ),
-
-
 
     atapi.TextField(
         'legal_basis',
@@ -79,10 +64,32 @@ LegalFWSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         widget=atapi.InAndOutWidget(
             label=_(u"Countries"),
             description=_(u"Countries"),
+            visible={'edit': 'visible', 'view': 'invisible'},
         ),
     ),
 
+    atapi.ComputedField(
+        'region',
+        required=True,
+        searchable=True,
+        expression = 'context._computeRegions()',
+        widget=atapi.ComputedWidget(
+            label=_(u"Geographic Region"),
+            description=_(u"Geographic Region in which the project operates"),
+        ),
 
+    ),
+
+    atapi.ComputedField(
+        'subregion',
+        required=False,
+        searchable=True,
+        expression = 'context._computeSubregions()',
+        widget=atapi.ComputedWidget(
+            label=_(u"Geographic Sub Region"),
+            description=_(u"Geographic Sub Region in which the project operates"),
+        ),
+    ),
     atapi.TextField(
         'geographical_scope',
         required=False,
@@ -94,6 +101,19 @@ LegalFWSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         validators=('isTidyHtmlWithCleanup',),
         default_content_type="text/html",
         default_output_type='text/x-html-safe',
+    ),
+
+    atapi.ReferenceField(
+        'basins',
+        required=False,
+        widget=ReferenceBrowserWidget(
+            label=_(u"Basins"),
+            description=_(u"Basins"),
+            allow_sorting=True,
+        ),
+        relationship='basin_framework',
+        allowed_types=('Basin',),
+        multiValued=True,
     ),
 
     atapi.TextField(
@@ -306,5 +326,28 @@ class LegalFW(folder.ATFolder):
     meta_type = "LegalFW"
     schema = LegalFWSchema
 
+    def _computeRegions(self):
+        return ','.join(vocabulary.get_regions(
+                    countries=self.getCountry()))
+
+    def _computeSubregions(self):
+        return ','.join(vocabulary.get_subregions(
+                countries=self.getCountry()))
+
+    def getSubRegions(self):
+        """ get region + subregion for indexing """
+        countries=self.getCountry()
+        if countries:
+            sr = vocabulary.get_subregions(countries=countries)
+            r = vocabulary.get_regions(countries=countries)
+            return r + sr
+
+    def getBasin(self):
+        basins = self.getBasins()
+        titles = []
+        for basin in basins:
+            if basin is not None:
+                 titles.append(basin.Title())
+        return titles
 
 atapi.registerType(LegalFW, PROJECTNAME)

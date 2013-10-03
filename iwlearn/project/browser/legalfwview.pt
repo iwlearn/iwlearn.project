@@ -5,6 +5,12 @@
 <body>
     <metal:content-core fill-slot="content-core">
     <metal:content-core define-macro="content-core">
+        <div id="project-map" style="height:100%; width:100%">
+            <metal:use use-macro="context/@@collectivegeo-macros/openlayers" />
+            <metal:use use-macro="context/@@collectivegeo-macros/map-widget"  />
+            <script type="text/javascript"
+                    src="++resource++geo.kml.javascripts/kml_openlayers.js"></script>
+        </div>
         <metal:body_macro metal:define-macro="body"
               tal:define="field_macro field_macro | here/widgets/field/macros/view;
                           portal context/@@plone_portal_state/portal;"

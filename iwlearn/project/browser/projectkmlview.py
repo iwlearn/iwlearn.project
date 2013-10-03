@@ -82,7 +82,7 @@ class ProjectBasinKMLView(ProjectKMLView):
         project = self.context
         project_countries = []
         project_basins = None
-        if project.getBasin():
+        if project.getBasins():
             project_basins = project.getRawBasins()
         if project_basins:
             basins = self.portal_catalog(UID=project_basins)

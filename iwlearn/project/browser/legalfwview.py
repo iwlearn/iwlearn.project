@@ -11,9 +11,6 @@ class ILegalFWView(Interface):
     LegalFW view interface
     """
 
-    def test():
-        """ test method"""
-
 
 class LegalFWView(BrowserView):
     """
@@ -33,10 +30,29 @@ class LegalFWView(BrowserView):
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
-    def test(self):
-        """
-        test method
-        """
-        dummy = _(u'a dummy string')
 
-        return {'dummy': dummy}
+class ILegalFWFolderView(Interface):
+    """
+    LegalFW view interface
+    """
+
+
+class LegalFWFolderView(BrowserView):
+    """
+    LegalFW browser view
+    """
+    implements(ILegalFWFolderView)
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    @property
+    def portal_catalog(self):
+        return getToolByName(self.context, 'portal_catalog')
+
+    @property
+    def portal(self):
+        return getToolByName(self.context, 'portal_url').getPortalObject()
+
+

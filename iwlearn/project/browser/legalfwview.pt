@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="iwlearn.project">
+<body>
+    <metal:content-core fill-slot="content-core">
+    <metal:content-core define-macro="content-core">
+        <metal:body_macro metal:define-macro="body"
+              tal:define="field_macro field_macro | here/widgets/field/macros/view;
+                          portal context/@@plone_portal_state/portal;"
+              tal:repeat="field  python: here.Schemata()['default'].filterFields(isMetadata=0)">
+          <tal:if_visible define="mode string:view;
+                      visState python:field.widget.isVisible(here, mode);
+                      visCondition python:field.widget.testCondition(here, portal, template);"
+                condition="python:visState == 'visible' and visCondition">
+            <metal:use_field use-macro="field_macro" />
+          </tal:if_visible>
+        </metal:body_macro>
+        <metal:folderlisting_macro metal:define-macro="folderlisting"
+                                   tal:define="fl_macro here/folder_listing/macros/listing | nothing;
+                                               folderish here/isPrincipiaFolderish | nothing;">
+            <tal:if_folderlisting condition="python:folderish and fl_macro">
+                <metal:use_macro use-macro="fl_macro" />
+            </tal:if_folderlisting>
+        </metal:folderlisting_macro>
+    </metal:content-core>
+  </metal:content-core>
+</body>
+</html>

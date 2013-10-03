@@ -9,6 +9,16 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+  <browser:page
+      for="..interfaces.ILegalFW"
+      name="view"
+      class=".legalfwview.LegalFWView"
+      template="legalfwview.pt"
+      allowed_interface=".legalfwview.ILegalFWView"
+      permission="zope.Public"
+      />
+
+
  <include package="Products.CMFCore" file="permissions.zcml" />
  <include package="z3c.caching" file="meta.zcml" />
 

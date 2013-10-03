@@ -10,6 +10,8 @@
   <include package="z3c.caching" file="meta.zcml" />
   <!-- -*- extra stuff goes here -*- -->
 
+
+
   <browser:page
       for="..interfaces.ILegalFW"
       name="view"
@@ -50,6 +52,16 @@
       permission="zope2.View"
       />
 
+<!-- Framework Folder -->
+
+  <browser:page
+      for="..interfaces.ILegalFW"
+      name="legalfw_view.kml"
+      class=".legalfwkmlview.LegalFWKmlView"
+      template="legalfwkmlview.pt"
+      allowed_interface=".legalfwkmlview.ILegalFWKmlView"
+      permission="zope.Public"
+      />
 
 
 

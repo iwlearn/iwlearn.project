@@ -56,12 +56,16 @@ class FWBasinPlacemark(BasinPlacemark):
         desc = u'<ul>'
         for framework in self.frameworks:
             title = framework.Title.decode('utf-8', 'ignore')
+            if len(title) > 48:
+                dots =u'...'
+            else:
+                dots = u''
             desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (
                     framework.getURL(),
                     cgi.escape(title.encode(
                         'ascii', 'xmlcharrefreplace')),
                     cgi.escape(title[:48].encode(
-                        'ascii', 'xmlcharrefreplace') + u'...')
+                        'ascii', 'xmlcharrefreplace') + dots)
                     )
         desc += u'</ul>'
         return desc.encode('utf-8')
@@ -78,11 +82,15 @@ class FWCountryPlacemark(CountryPlacemark):
         desc = u'<ul>'
         for project in self.projects:
             title = project.Title.decode('utf-8', 'ignore')
+            if len(title) > 48:
+                dots =u'...'
+            else:
+                dots = u''
             desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (project.getURL(),
                             cgi.escape(title.encode(
                             'ascii', 'xmlcharrefreplace')),
                             cgi.escape(title[:48].encode(
-                            'ascii', 'xmlcharrefreplace') + u'...'))
+                            'ascii', 'xmlcharrefreplace') + dots))
         desc += u'</ul>'
 
         return desc.encode('utf-8')

@@ -15,7 +15,8 @@
   <property name="allow_discussion">False</property>
   <property name="default_view">view</property>
   <property name="view_methods">
-    <element value="base_view" />
+    <element value="view" />
+    <element value="folder_view" />
   </property>
   <alias from="(Default)" to="(dynamic view)" />
   <alias from="edit" to="atct_edit" />

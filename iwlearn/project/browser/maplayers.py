@@ -468,7 +468,7 @@ class LegalFWCountryMapLayer(MapLayerBase):
 
 
 
-class LegalFwBasinMapLayer(MapLayerBase):
+class LegalFWBasinMapLayer(MapLayerBase):
     """ Basins of a project """
 
     @property
@@ -489,7 +489,7 @@ class LegalFwBasinMapLayer(MapLayerBase):
                     visibility: %s,
                     projection: new OpenLayers.Projection("EPSG:4326")
                   });
-                }""" % (u'Basin', context_url, self.visible)
+                }""" % (u'Basins', context_url, self.visible)
 
 class LegalFWMapLayers(MapLayers):
     '''
@@ -502,7 +502,74 @@ class LegalFWMapLayers(MapLayers):
         if self.context.getCountry():
             layers.append(LegalFWCountryMapLayer(self.context))
         if self.context.getBasin():
-            layers.append(LegalFwBasinMapLayer(self.context))
+            layers.append(LegalFWBasinMapLayer(self.context))
         return layers
 
+################################################################
+### Legal framework overview maps
+################################################################
 
+class LegalFWFolderCountryMapLayer(MapLayerBase):
+    """ countries in this treaty"""
+
+    @property
+    def jsfactory(self):
+        context_url = self.context.absolute_url()
+        if not context_url.endswith('/'):
+            context_url += '/'
+
+
+        return u"""function() {
+                return new OpenLayers.Layer.Vector("%s", {
+                    protocol: new OpenLayers.Protocol.HTTP({
+                      url: "%s@@country_overview.kml",
+                      format: new OpenLayers.Format.KML({
+                        extractStyles: true,
+                        extractAttributes: true})
+                      }),
+                    strategies: [new OpenLayers.Strategy.Fixed()],
+                    eventListeners: { 'loadend': function(event) {
+                                    this.map.zoomToExtent(this.getDataExtent());
+                                }
+                            },
+                    visibility: %s,
+                    projection: new OpenLayers.Projection("EPSG:4326")
+                  });
+                }""" % (u'Countries', context_url, self.visible)
+
+
+
+class LegalFWFolderBasinMapLayer(MapLayerBase):
+    """ Basins of a project """
+
+    @property
+    def jsfactory(self):
+        context_url = self.context.absolute_url()
+        if not context_url.endswith('/'):
+            context_url += '/'
+
+        return u"""function() {
+                return new OpenLayers.Layer.Vector("%s", {
+                    protocol: new OpenLayers.Protocol.HTTP({
+                      url: "%s@@basin_overview.kml",
+                      format: new OpenLayers.Format.KML({
+                        extractStyles: true,
+                        extractAttributes: true})
+                      }),
+                    strategies: [new OpenLayers.Strategy.Fixed()],
+                    visibility: %s,
+                    projection: new OpenLayers.Projection("EPSG:4326")
+                  });
+                }""" % (u'Basins', context_url, self.visible)
+
+class LegalFWFolderMapLayers(MapLayers):
+    '''
+    create all layers for this view.
+    '''
+
+    def layers(self):
+        #add basemaps
+        layers = super(LegalFWFolderMapLayers, self).layers()
+        layers.append(LegalFWFolderCountryMapLayer(self.context))
+        layers.append(LegalFWFolderBasinMapLayer(self.context))
+        return layers

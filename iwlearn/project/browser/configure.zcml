@@ -34,7 +34,7 @@
       factory=".maplayers.LegalFWMapLayers"
       />
 
-
+  <!-- KMLs have the same implementation as projects -->
   <browser:page
       for="..interfaces.ILegalFW"
       name="country_view.kml"
@@ -56,13 +56,38 @@
 
   <browser:page
       for="..interfaces.ILegalFW"
-      name="legalfw_view.kml"
-      class=".legalfwkmlview.LegalFWKmlView"
-      template="legalfwkmlview.pt"
-      allowed_interface=".legalfwkmlview.ILegalFWKmlView"
-      permission="zope.Public"
+      name="folder_view"
+      class=".legalfwview.LegalFWFolderView"
+      template="legalfwfolderview.pt"
+      allowed_interface=".legalfwview.ILegalFWFolderView"
+      permission="zope2.View"
       />
 
+  <adapter
+      for=".legalfwview.ILegalFWFolderView
+           zope.interface.Interface
+           zope.interface.Interface
+           zope.interface.Interface"
+      factory=".maplayers.LegalFWFolderMapLayers"
+      />
+
+
+  <!-- KMLs -->
+  <browser:page
+      for="..interfaces.ILegalFW"
+      name="country_overview.kml"
+      class=".legalfwkmlview.LegalFWCountryView"
+      allowed_interface=".legalfwkmlview.ILegalFWKmlView"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="..interfaces.ILegalFW"
+      name="basin_overview.kml"
+      class=".legalfwkmlview.LegalFWBasinView"
+      allowed_interface=".legalfwkmlview.ILegalFWKmlView"
+      permission="zope2.View"
+      />
 
 
 <!-- Project profile -->

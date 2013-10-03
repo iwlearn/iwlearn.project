@@ -86,7 +86,7 @@ class ProjectDbKmlView(FastKMLBaseDocument):
         return getToolByName(self.context, 'portal_catalog')
 
     def get_results(self, query):
-        logger.info('Query: %s' % str(query))
+        logger.debug('Query: %s' % str(query))
         return self.portal_catalog(**query)
 
 
@@ -390,6 +390,7 @@ DEFAULT_BASINS=[
 
 
 class ProjectDbKmlBasinView(ProjectDbKmlView):
+    """ Produces the KML File """
 
     @ram.cache(_area_cachekey)
     def  _get_basin_area(self, shape):

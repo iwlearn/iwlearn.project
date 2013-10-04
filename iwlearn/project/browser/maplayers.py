@@ -4,6 +4,7 @@ from Products.CMFCore.utils import getToolByName
 from collective.geo.mapwidget.browser.widget import MapLayers
 from collective.geo.mapwidget.maplayers import MapLayer
 from collective.geo.file.browser.maplayer import KMLFileMapLayer
+from collective.geo.contentlocations.interfaces import IGeoManager
 
 
 class MapLayerBase(MapLayer):
@@ -491,6 +492,30 @@ class LegalFWBasinMapLayer(MapLayerBase):
                   });
                 }""" % (u'Basins', context_url, self.visible)
 
+class LegalFWMapLayer(MapLayerBase):
+    """ Basins of a project """
+
+    @property
+    def jsfactory(self):
+        context_url = self.context.absolute_url()
+        if not context_url.endswith('/'):
+            context_url += '/'
+
+        return u"""function() {
+                return new OpenLayers.Layer.Vector("%s", {
+                    protocol: new OpenLayers.Protocol.HTTP({
+                      url: "%s@@framework.kml",
+                      format: new OpenLayers.Format.KML({
+                        extractStyles: true,
+                        extractAttributes: true})
+                      }),
+                    strategies: [new OpenLayers.Strategy.Fixed()],
+                    visibility: %s,
+                    projection: new OpenLayers.Projection("EPSG:4326")
+                  });
+                }""" % (u'Framework', context_url, self.visible)
+
+
 class LegalFWMapLayers(MapLayers):
     '''
     create all layers for this view.
@@ -499,10 +524,14 @@ class LegalFWMapLayers(MapLayers):
     def layers(self):
         #add basemaps
         layers = super(LegalFWMapLayers, self).layers()
+        geo = IGeoManager(self.context)
         if self.context.getCountry():
             layers.append(LegalFWCountryMapLayer(self.context))
         if self.context.getBasin():
             layers.append(LegalFWBasinMapLayer(self.context))
+        if geo.isGeoreferenceable():
+            if geo.getCoordinates():
+                layers.append(LegalFWMapLayer(self.context))
         return layers
 
 ################################################################

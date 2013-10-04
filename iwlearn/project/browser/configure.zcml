@@ -34,6 +34,7 @@
       factory=".maplayers.LegalFWMapLayers"
       />
 
+
   <!-- KMLs have the same implementation as projects -->
   <browser:page
       for="..interfaces.ILegalFW"
@@ -51,6 +52,15 @@
       allowed_interface=".projectkmlview.IProjectKMLView"
       permission="zope2.View"
       />
+
+
+  <browser:page
+      for="..interfaces.ILegalFW"
+      name="framework.kml"
+      class="collective.geo.kml.browser.kmldocument.KMLDocument"
+      permission="zope2.View"
+      />
+
 
 <!-- Framework Folder -->
 

@@ -85,51 +85,65 @@
                   <!--input type="radio" id="scope-global" name="getSubRegions:list" value="Global" />
                         <label for="scope-global">Global</label-->
               </fieldset>
+              <fieldset id="resultitems">
+                <legend>Result</legend>
+                <input type="radio" id="rlacf" name="result" value="rlacf" checked="checked" />
+                <label for="rlacf">Regional legal agreements and cooperation frameworks</label>
+                <br />
+                <input type="radio" id="rmis" name="result" value="rmi"  />
+                <label for="rmis">Regional Management Institutions</label>
+                <br />
+                <input type="radio" id="tda" name="result" value="tda"  />
+                <label for="tda">Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes</label>
+                <br/>
+                <input type="radio" id="sap" name="result" value="sap"  />
+                <label for="sap">Development of Strategic Action Plan (SAP)</label>
+              </fieldset>
               <fieldset id="pratypelayer" >
                 <legend>Type</legend>
-                  <input type="checkbox" id="category-abnj" name="getProject_category:list" value="ABNJ" checked="checked"/>
+                  <input type="radio" id="category-abnj" name="getProject_category:list" value="ABNJ" checked="checked" />
                         <label for="category-abnj">ABNJ</label>
                     <br />
-                  <input type="checkbox" id="category-coastal" name="getProject_category:list" value="Coastal Management" checked="checked"/>
+                  <input type="radio" id="category-coastal" name="getProject_category:list" value="Coastal Management" />
                         <label for="category-coastal">Coastal Management</label>
                     <br />
-                  <input type="checkbox" id="category-fisheries" name="getProject_category:list" value="Fisheries" checked="checked"/>
+                  <input type="radio" id="category-fisheries" name="getProject_category:list" value="Fisheries" />
                         <label for="category-fisheries">Fisheries</label>
                     <br />
-                  <input type="checkbox" id="category-foundational" name="getProject_category:list" value="Foundational" checked="checked"/>
+                  <input type="radio" id="category-foundational" name="getProject_category:list" value="Foundational" />
                         <label for="category-foundational">Foundational</label>
                     <br />
-                  <input type="checkbox" id="category-lbs" name="getProject_category:list" value="LBS" checked="checked"/>
+                  <input type="radio" id="category-lbs" name="getProject_category:list" value="LBS" />
                         <label for="category-lbs">LBS</label>
                     <br />
-                  <input type="checkbox" id="category-nri" name="getProject_category:list" value="Nutrient Reduction Investment" checked="checked"/>
+                  <input type="radio" id="category-nri" name="getProject_category:list" value="Nutrient Reduction Investment" />
                         <label for="category-nri">Nutrient Reduction Investment</label>
                     <br />
-                  <input type="checkbox" id="category-oilspill" name="getProject_category:list" value="Oil Spill" checked="checked"/>
+                  <input type="radio" id="category-oilspill" name="getProject_category:list" value="Oil Spill" />
                         <label for="category-oilspill">Oil Spill</label>
                     <br />
-                  <input type="checkbox" id="category-pts" name="getProject_category:list" value="Persistent Toxic Substances" checked="checked"/>
+                  <input type="radio" id="category-pts" name="getProject_category:list" value="Persistent Toxic Substances" />
                         <label for="category-pts">Persistent Toxic Substances</label>
                     <br />
-                  <input type="checkbox" id="category-policy" name="getProject_category:list" value="Policy" checked="checked"/>
+                  <input type="radio" id="category-policy" name="getProject_category:list" value="Policy" />
                         <label for="category-policy">Policy</label>
                     <br />
-                  <input type="checkbox" id="category-learn" name="getProject_category:list" value="Portfolio Learning" checked="checked"/>
+                  <input type="radio" id="category-learn" name="getProject_category:list" value="Portfolio Learning" "/>
                         <label for="category-learn">Portfolio Learning</label>
                     <br />
-                  <input type="checkbox" id="category-sap" name="getProject_category:list" value="SAP Implementation" checked="checked"/>
+                  <input type="radio" id="category-sap" name="getProject_category:list" value="SAP Implementation" />
                         <label for="category-sap">SAP Implementation</label>
                     <br />
-                  <input type="checkbox" id="category-ship-safety" name="getProject_category:list" value="Ship Safety" checked="checked"/>
+                  <input type="radio" id="category-ship-safety" name="getProject_category:list" value="Ship Safety" />
                         <label for="category-ship-safety">Ship Safety</label>
                     <br />
-                  <input type="checkbox" id="category-ship-waste" name="getProject_category:list" value="Ship Waste" checked="checked"/>
+                  <input type="radio" id="category-ship-waste" name="getProject_category:list" value="Ship Waste" />
                         <label for="category-ship-waste">Ship Waste</label>
                     <br />
-                  <input type="checkbox" id="category-wastewater" name="getProject_category:list" value="Wastewater" checked="checked"/>
+                  <input type="radio" id="category-wastewater" name="getProject_category:list" value="Wastewater" />
                         <label for="category-wastewater">Wastewater</label>
               </fieldset>
-            <h5>Refine List</h5>
+            <!--h5>Refine List</h5>
              <fieldset class="projectdetails">
                 <legend>Search for Projects</legend>
                 <div class="field">
@@ -182,12 +196,7 @@
                             </tal:loop>
                         </select>
                 </div>
-
-                <!--div class="formControls">
-                    <input type="submit" value="Search" name="submit"
-                        class="context" />
-                </div-->
-              </fieldset>
+              </fieldset-->
 
               <div style="text-align:center">
               <a href="http://geonode.iwlearn.org" target="_blank"><img src="geonode.png" alt="" /></a><br/>
@@ -432,6 +441,9 @@ $('#projectmapform').submit
      $(this).change(onPraLayerOptionsChange);
    });
    $("#scope-national").change(onNationalPraChange);
+   $("#resultitems").find("input").each(function(i) {
+     $(this).change(onPraLayerOptionsChange);
+   });
   /* $("#show-basins").change(onBasinLayerChange);
    $("#show-pcu").change(onPCULayerChange);
    $("#show-country").change(onCountryLayerChange);*/
@@ -460,8 +472,8 @@ $('#projectmapform').submit
 
 <script type="text/javascript">
 /*<![CDATA[*/
-    $(window).bind("load", function() {
-        var map = cgmap.config['default-cgmap'].map;
+     $(window).bind('mapload', function (evt, widget) {
+        var map = widget.map;
 
         map.events.on({
                 moveend: function(event) {

@@ -757,12 +757,6 @@ class ProjectDBResultMapView(ProjectDBMapView):
                     params[field.name] = field.value;
                 };
             });
-            if (layerName == "Countries") {
-                qs = qs + 'getCountry=' + featureName
-            }
-            if (layerName == "Basin Detail") {
-                qs = qs + 'getBasin=' + featureName
-            }
             if (layerName == "National Results") {
                 qs = qs + 'getCountry=' + featureName
             }

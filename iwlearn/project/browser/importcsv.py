@@ -1,17 +1,16 @@
 import csv
-import StringIO
 import logging
-from zope import interface, schema
-from zope.formlib import form
+import StringIO
+
 from five.formlib import formbase
-from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
-
-from Products.CMFCore.utils import getToolByName
-
 from iwlearn.project import projectMessageFactory as _
 from iwlearn.project.vocabulary import my_countrylist as _countrylist
+from Products.CMFCore.utils import getToolByName
+from zope import interface, schema
+from zope.formlib import form
+from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
-logger = logging.getLogger('iwlearn.project')
+logger = logging.getLogger(__name__)
 
 class IImportCSVSchema(interface.Interface):
     # -*- extra stuff goes here -*-

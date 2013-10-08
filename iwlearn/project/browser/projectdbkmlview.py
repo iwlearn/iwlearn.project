@@ -178,6 +178,11 @@ class BasinPlacemark(BrainPlacemark):
     def item_url(self):
         return None
 
+class BasinResultPlacemark(BasinPlacemark):
+    pass
+
+
+
 # do not compute the centeroid of a shape every time cache it
 def _centeroid_cachekey(context, fun, shape):
     ckey = [shape]
@@ -322,6 +327,34 @@ class CountryPlacemark(BrainPlacemark):
 
 class CountryResultsPlacemark(CountryPlacemark):
 
+    def __init__(self, context, request, document, country, projects):
+        super(CountryResultsPlacemark, self).__init__(context, request, document, country, projects)
+        result_for = self.request.form.get('result', 'rlacf')
+        tmp_projects =[]
+        for project in self.projects:
+            obj = project.getObject()
+            if result_for == 'rlacf':
+                result = obj.getRegional_frameworks()
+                if result != 'nap':
+                    tmp_projects.append(project)
+            if result_for == 'rmi':
+                result = obj.getRmis()
+                if result != 'nap':
+                    tmp_projects.append(project)
+            if result_for == 'tda':
+                result = obj.getTda_priorities()
+                if result != 'nap':
+                    tmp_projects.append(project)
+            if result_for == 'sap':
+                result = obj.getSap_devel()
+                if result != 'nap':
+                    tmp_projects.append(project)
+        if len(tmp_projects) == 0:
+            self.geom = NullGeometry()
+        self.projects = tmp_projects
+
+
+
     @property
     def description(self):
         desc = u'<ul>'
@@ -351,12 +384,31 @@ class CountryResultsPlacemark(CountryPlacemark):
         red = '#ff0000b2'
         yellow = '#ffff00b2'
         i = 0
+        result_for = self.request.form.get('result', 'rlacf')
+        logger.info(result_for)
         for project in self.projects:
             obj = project.getObject()
-            if obj.has_result_ratings():
-                i+= 1
-            else:
-                continue
+            if result_for == 'rlacf':
+                result = obj.getRegional_frameworks()
+                if result and result != 'nav':
+                    i+=1
+            if result_for == 'rmi':
+                result = obj.getRmis()
+                if result and result != 'nav':
+                    i+=1
+            if result_for == 'tda':
+                result = obj.getTda_priorities()
+                if result and result != 'nav':
+                    i+=1
+            if result_for == 'sap':
+                result = obj.getSap_devel()
+                if result and result != 'nav':
+                    i+=1
+            #if obj.has_result_ratings():
+            #    i+= 1
+            #else:
+            #    continue
+            logger.info(result)
         if i == 0:
             ccolor = red
         elif i <  len(self.projects):
@@ -648,6 +700,7 @@ class ProjectDbKmlNationalResultsView(ProjectDbKmlCountryView):
     def features(self):
         query = get_query(self.request.form)
         query['getSubRegions'] = ['National']
+        query['getProject_category'] = self.request.form.get('getProject_category', 'ABNJ')
         projects = self.get_results(query)
         countries, project_countries = self.get_project_countries(projects)
         processed_countries = []
@@ -667,3 +720,26 @@ class ProjectDbKmlNationalResultsView(ProjectDbKmlCountryView):
             else:
                 logger.error('country %s not in database some projects will not be shown' % c)
 
+class ProjectDbKmlRegionalResultsView(ProjectDbKmlBasinView):
+
+
+    @property
+    def features(self):
+        query = get_query(self.request.form)
+        query['getSubRegions'] = ['Regional']
+        logger.debug('detail basin view project query: %s' % str(query))
+        projects = self.get_projects(query)
+        path = []
+        basin_query = {'portal_type':'Basin'}
+        basins = self.get_results(basin_query)
+        for basin in basins:
+            if basin.zgeo_geometry and basin.zgeo_geometry['coordinates']:
+                if basin.getRawProjects:
+                    show = False
+                    for puid in basin.getRawProjects:
+                        if puid in projects:
+                            show = True
+                    if show:
+                        yield BasinPlacemark(basin, self.request, self,
+                               projects)
+                        continue

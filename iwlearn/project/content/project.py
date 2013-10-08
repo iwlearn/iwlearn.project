@@ -848,7 +848,9 @@ class Project(folder.ATFolder):
             'IW1': '',
             'IW2': '',
             'IW3': '',
-            'IW4': '',}
+            'IW4': '',
+            'nap': 'Not Applicable',
+            'nav': 'Not Available',}
 
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
@@ -895,7 +897,9 @@ class Project(folder.ATFolder):
             'IW1': 'No legal agreement/cooperation framework in place (IWL Assessed)',
             'IW2': 'Regional legal agreement negotiated but not yet signed (IWL Assessed)',
             'IW3': 'Countries signed legal agreement (IWL Assessed)',
-            'IW4': 'Legal agreement ratified and entered into force (IWL Assessed)',}
+            'IW4': 'Legal agreement ratified and entered into force (IWL Assessed)',
+            'nap': 'Not Applicable',
+            'nav': 'Not Available',}
 
         r = self.regional_frameworks
         if r in ['1', 'IV0', 'III0', 'IW1']:
@@ -945,7 +949,9 @@ class Project(folder.ATFolder):
             'IW1': '',
             'IW2': '',
             'IW3': '',
-            'IW4': '',}
+            'IW4': '',
+            'nap': 'Not Applicable',
+            'nav': 'Not Available',}
 
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
@@ -994,7 +1000,9 @@ class Project(folder.ATFolder):
             'IW1': '',
             'IW2': '',
             'IW3': '',
-            'IW4': '',}
+            'IW4': '',
+            'nap': 'Not Applicable',
+            'nav': 'Not Available',}
 
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
@@ -1043,7 +1051,9 @@ class Project(folder.ATFolder):
             'IW1': '',
             'IW2': '',
             'IW3': '',
-            'IW4': '',}
+            'IW4': '',
+            'nap': 'Not Applicable',
+            'nav': 'Not Available',}
 
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
@@ -1092,7 +1102,9 @@ class Project(folder.ATFolder):
             'IW1': '',
             'IW2': '',
             'IW3': '',
-            'IW4': '',}
+            'IW4': '',
+            'nap': 'Not Applicable',
+            'nav': 'Not Available',}
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'III1', 'IW2']:
@@ -1138,7 +1150,9 @@ class Project(folder.ATFolder):
             'IW1': 'No management measures in ABNJ  in  (RMI) institutional/ management frameworks',
             'IW2': 'Management measures in ABNJ designed but not formally adopted by project participants',
             'IW3': 'Management measures in ABNJ  formally adopted by project participants but not incorporated in RMI institutional/management frameworks',
-            'IW4': 'Management measures in ABNJ fully incorporated in  RMI institutional/ management frameworks',}
+            'IW4': 'Management measures in ABNJ fully incorporated in  RMI institutional/ management frameworks',
+            'nap': 'Not Applicable',
+            'nav': 'Not Available',}
 
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
@@ -1186,7 +1200,9 @@ class Project(folder.ATFolder):
             'IW1': 'No revised TDA or SAP',
             'IW2': 'TDA updated to incorporate climate variability and change',
             'IW3': 'Revised SAP prepared including Climatic Variability and Change',
-            'IW4': 'SAP including Climatic Variability and Change adopted by all involved countries',}
+            'IW4': 'SAP including Climatic Variability and Change adopted by all involved countries',
+            'nap': 'Not Applicable',
+            'nav': 'Not Available',}
 
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
@@ -1224,6 +1240,8 @@ class Project(folder.ATFolder):
             '3': 'TDA includes technical annex, documenting data and analysis being collected',
             '4': 'TDA includes technical annex posted IWLEARN and based on MNITS committee inputs',
             'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
+            'nap': 'Not Applicable',
+            'nav': 'Not Available',
             }
 
         if r in ['1']:
@@ -1313,7 +1331,9 @@ class Project(folder.ATFolder):
             'IW1': 'No progress',
             'IW2': 'Limited progress, very generic with no specific agency/government(s) commitments',
             'IW3': 'Priorities specifically incorporated into some national development/assistance frameworks with clear agency/government(s) commitments and time frames for achievement',
-            'IW4': 'Majority of national development/assistance frameworks have incorporated priorities with clear agency/government(s)  commitments and time frames for achievement',}
+            'IW4': 'Majority of national development/assistance frameworks have incorporated priorities with clear agency/government(s)  commitments and time frames for achievement',
+            'nap': 'Not Applicable',
+            'nav': 'Not Available',}
 
         if r in ['1', 'IV0', 'IW1']:
             ri = 1

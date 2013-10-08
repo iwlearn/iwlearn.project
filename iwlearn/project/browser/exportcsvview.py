@@ -1,19 +1,21 @@
 #
+import csv
 import logging
+from datetime import datetime
+
+from iwlearn.project import projectMessageFactory as _
+from iwlearn.project.browser.utils import get_query
+from Products.CMFCore.utils import getToolByName
+from Products.Five import BrowserView
+from zope.interface import implements, Interface
+
 try:
     from cStringIO import StringIO
 except:
     from StringIO import StringIO
 
-import csv
-from datetime import datetime
-from zope.interface import implements, Interface
 
-from Products.Five import BrowserView
-from Products.CMFCore.utils import getToolByName
 
-from iwlearn.project import projectMessageFactory as _
-from iwlearn.project.browser.utils import get_query
 
 logger = logging.getLogger('iwlearn.project')
 

@@ -739,7 +739,9 @@ schemata.finalizeATCTSchema(
 
 ProjectSchema['relatedItems'].widget.visible['edit'] = 'visible'
 
-COLORS = {0: 'grey',
+COLORS = {
+        -1: 'white',
+        0: 'grey',
         1: 'red',
         2: 'orange',
         3: 'yellow',
@@ -864,6 +866,10 @@ class Project(folder.ATFolder):
             ri =4
         elif r in ['IWA']:
             ri = 0
+        elif r in ['nap']:
+            ri = -1
+        elif r in ['nav']:
+            ri = 0
         elif r is None:
             ri = 0
         elif r.strip().lower() in ['n/a','']:
@@ -897,6 +903,7 @@ class Project(folder.ATFolder):
             'III2': '',
             'III3': 'Legal agreement ratified by necessary quorum and in force, Legal agreement  in force, ratified by all countries',
             'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
+            'IW0': 'Data Entry Error',
             'IW1': 'No legal agreement/cooperation framework in place (IWL Assessed)',
             'IW2': 'Regional legal agreement negotiated but not yet signed (IWL Assessed)',
             'IW3': 'Countries signed legal agreement (IWL Assessed)',
@@ -915,6 +922,10 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'III2', 'III3', 'IW4']:
             ri =4
         elif r in ['IWA']:
+            ri = 0
+        elif r in ['nap']:
+            ri = -1
+        elif r in ['nav']:
             ri = 0
         elif r is None:
             ri = 0
@@ -950,6 +961,7 @@ class Project(folder.ATFolder):
             'III2': 'TBW institution established and functioning with moderate effectiveness, 50-75% of countries contributing dues',
             'III3': 'TBW institution in place, fully functioning and fully sustained by at or near 100% country contributions',
             'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
+            'IW0': 'Data Entry Error',
             'IW1': '',
             'IW2': '',
             'IW3': '',
@@ -967,6 +979,10 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
         elif r in ['IWA']:
+            ri = 0
+        elif r in ['nap']:
+            ri = -1
+        elif r in ['nav']:
             ri = 0
         elif r is None:
             ri = 0
@@ -1020,6 +1036,10 @@ class Project(folder.ATFolder):
             ri =4
         elif r in ['IWA']:
             ri = 0
+        elif r in ['nap']:
+            ri = -1
+        elif r in ['nav']:
+            ri = 0
         elif r is None:
             ri = 0
         elif r.strip().lower() in ['n/a','']:
@@ -1054,6 +1074,7 @@ class Project(folder.ATFolder):
             'III2': 'Priority TB Issues agreed based on solid baseline of envir and socioecon impacts info; root cause analysis is inadequate',
             'III3': 'Regional agreement on priority TB issues drawn from valid enviro/socioecon impacts baseline, immediate and root causes properly determined.',
             'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
+            'IW0': "Data Entry Error",
             'IW1': '',
             'IW2': '',
             'IW3': '',
@@ -1071,6 +1092,10 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
         elif r in ['IWA']:
+            ri = 0
+        elif r in ['nap']:
+            ri = -1
+        elif r in ['nav']:
             ri = 0
         elif r is None:
             ri = 0
@@ -1106,6 +1131,7 @@ class Project(folder.ATFolder):
             'III2': 'SAP developed and endorsed by minimum 50% 0f countries',
             'III3': 'SAP endorsed by all ministers of countries sharing the TB water body or adopted by relevant inter-governmental body',
             'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
+            'IW0': "Data Entry Error",
             'IW1': '',
             'IW2': '',
             'IW3': '',
@@ -1122,6 +1148,10 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
         elif r in ['IWA']:
+            ri = 0
+        elif r in ['nap']:
+            ri = -1
+        elif r in ['nav']:
             ri = 0
         elif r is None:
             ri = 0
@@ -1172,6 +1202,10 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'IW4']:
             ri =4
         elif r in ['IWA']:
+            ri = 0
+        elif r in ['nap']:
+            ri = -1
+        elif r in ['nav']:
             ri = 0
         elif r is None:
             ri = 0
@@ -1224,6 +1258,10 @@ class Project(folder.ATFolder):
             ri =4
         elif r in ['IWA']:
             ri = 0
+        elif r in ['nap']:
+            ri = -1
+        elif r in ['nav']:
+            ri = 0
         elif r is None:
             ri = 0
         elif r.strip().lower() in ['n/a','']:
@@ -1264,6 +1302,10 @@ class Project(folder.ATFolder):
         elif r in ['4']:
             ri =4
         elif r in ['IWA']:
+            ri = 0
+        elif r in ['nap']:
+            ri = -1
+        elif r in ['nav']:
             ri = 0
         elif r is None:
             ri = 0
@@ -1356,6 +1398,10 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'IW4']:
             ri =4
         elif r in ['IWA']:
+            ri = 0
+        elif r in ['nap']:
+            ri = -1
+        elif r in ['nav']:
             ri = 0
         elif r is None:
             ri = 0

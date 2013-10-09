@@ -128,7 +128,6 @@ class ProjectView(BrowserView):
 
         config = pygal.Config()
         config.tooltip_font_size=10
-        #config.x_labels = [r[0] for r in ratings]
         style = pygal.style.Style(
                         colors=colors,
                         background='white',
@@ -142,11 +141,9 @@ class ProjectView(BrowserView):
                     style=style,
                     disable_xml_declaration=disable_xml_declaration,
                     show_legend=True,
-		    truncate_legend=30,)
-        chart.range = [0, 4]
-        chart.y_labels = [0, 1, 2, 3, 4]
-        #chart.add('label', [r[1][0] for r in ratings])
-        #chart.x_labels = [r[0] for r in ratings]
+                    truncate_legend=30,)
+        chart.range = [-1, 4]
+        #chart.y_labels = [0, 1, 2, 3, 4]
         for rating in ratings:
             chart.add(rating[0], rating[1])
         return chart.render()

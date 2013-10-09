@@ -120,27 +120,31 @@ class ImportRACSV(ImportCSV):
             project.setKey_results(data['Key Project Results'])
             project.setImpacts(data['Catalytic Impacts'])
             project.setImcs_desc(data['Qualification: Establishment of country-specific inter-ministerial committees'])
-            project.setImcs(data['Establishment of country-specific inter-ministerial committees'].strip('n/a'))
+            project.setImcs(data['Establishment of country-specific inter-ministerial committees'])
             project.setRegional_frameworks_desc(data['Qualification: Regional legal agreements and cooperation frameworks'])
-            project.setRegional_frameworks(data['Regional legal agreements and cooperation frameworks'].strip('n/a'))
+            project.setRegional_frameworks(data['Regional legal agreements and cooperation frameworks'])
             project.setRmis_desc(data['Qualification: Regional Management Institutions'])
-            project.setRmis(data['Regional Management Institutions'].strip('n/a'))
+            project.setRmis(data['Regional Management Institutions'])
             project.setReforms_desc(data['Qualification: National/Local reforms'])
-            project.setReforms(data['National/Local reforms'].strip('n/a'))
+            project.setReforms(data['National/Local reforms'])
             project.setTda_priorities_desc(data['Qualification: Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes'])
-            project.setTda_priorities(data['Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes'].strip('n/a'))
+            project.setTda_priorities(data['Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes'])
             project.setSap_devel_desc(data['Qualification: Development of Strategic Action Plan (SAP)'])
-            project.setSap_devel(data['Development of Strategic Action Plan (SAP)'].strip('n/a'))
+            project.setSap_devel(data['Development of Strategic Action Plan (SAP)'])
             project.setAbnj_rmi_desc(data['Qualification: Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)'])
-            project.setAbnj_rmi(data['Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)'].strip('n/a'))
+            project.setAbnj_rmi(data['Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)'])
             project.setTdasap_cc_desc(data['Qualification: Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations'])
-            project.setTdasap_cc(data['Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations'].strip('n/a'))
+            project.setTdasap_cc(data['Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations'])
             project.setTda_mnits_desc(data['Qualification: TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities'])
-            project.setTda_mnits(data['TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities'].strip('n/a'))
+            project.setTda_mnits(data['TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities'])
             project.setSap_adopted_desc(data['Qualification: Proportion of Countries that have adopted SAP'])
             try:
-                i = data['Proportion of Countries that have adopted SAP'].strip('%').strip('n/a')
+                i = data['Proportion of Countries that have adopted SAP'].strip('%')
                 if i:
+                    if i == 'nap':
+                        i = -1
+                    elif i == 'nav':
+                        i =0
                     sap_adopted= int(float(i))
                     project.setSap_adopted(sap_adopted)
                 else:
@@ -151,8 +155,12 @@ class ImportRACSV(ImportCSV):
                 project.setSap_adopted(None)
             project.setSap_implementing_desc(data['Qualification: Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)'])
             try:
-                i = data['Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)'].strip('%').strip('n/a')
+                i = data['Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)'].strip('%')
                 if i:
+                    if i == 'nap':
+                        i = -1
+                    elif i == 'nav':
+                        i = 0
                     sap_implementing= int(float(i))
                     project.setSap_implementing(sap_implementing)
                 else:
@@ -162,7 +170,7 @@ class ImportRACSV(ImportCSV):
                 data[self.id_column], data['Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)']) )
                 project.setSap_adopted(None)
             project.setSap_inc_desc(data['Qualification: Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc'])
-            project.setSap_inc(data['Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc'].strip('n/a'))
+            project.setSap_inc(data['Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc'])
             project.setKey_process_results(data['Other Key Process Results'])
 
             logger.info('Updating project %s' % data[self.id_column] )

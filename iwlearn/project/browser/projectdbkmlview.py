@@ -206,7 +206,7 @@ class BasinResultPlacemark(BasinPlacemark):
                     project['url'],
                     title.encode(
                         'ascii', 'xmlcharrefreplace'),
-                    title[:60].encode(
+                    title[:80].encode(
                         'ascii', 'xmlcharrefreplace') + u'...',
                     project[result_for]['description']
                     )
@@ -220,6 +220,7 @@ class BasinResultPlacemark(BasinPlacemark):
         result_for = self.request.form.get('result', 'rlacf')
         value = self.projects[0][result_for]['value']
         colors = {
+            -1: '#ccddcca0',
             0: '#445544a0',
             1: '#ff0000a0',
             2: '#ff7f00a0',

@@ -850,7 +850,9 @@ class Project(folder.ATFolder):
             'IW3': '',
             'IW4': '',
             'nap': 'Not Applicable',
-            'nav': 'Not Available',}
+            'nav': 'Not Available',
+            '': 'Not Avalable',
+            }
 
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
@@ -876,6 +878,7 @@ class Project(folder.ATFolder):
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-imcs'
         return {'value': ri, 'label': desc,
+                'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
                 #'style': {'color': COLORS[ri]},
                 'style': {'color': '#0090bd'}}
@@ -898,6 +901,7 @@ class Project(folder.ATFolder):
             'IW2': 'Regional legal agreement negotiated but not yet signed (IWL Assessed)',
             'IW3': 'Countries signed legal agreement (IWL Assessed)',
             'IW4': 'Legal agreement ratified and entered into force (IWL Assessed)',
+            '': 'Not Avalable',
             'nap': 'Not Applicable',
             'nav': 'Not Available',}
 
@@ -926,7 +930,7 @@ class Project(folder.ATFolder):
         desc = ''
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-frameworks'
-        return {'value': ri, 'label': desc,
+        return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
                 #'style': {'color': COLORS[ri]},
                 'style': {'color': '#ff0000'}}
@@ -950,6 +954,7 @@ class Project(folder.ATFolder):
             'IW2': '',
             'IW3': '',
             'IW4': '',
+            '': 'Not Avalable',
             'nap': 'Not Applicable',
             'nav': 'Not Available',}
 
@@ -977,7 +982,7 @@ class Project(folder.ATFolder):
         desc = ''
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-rmis'
-        return {'value': ri, 'label': desc,
+        return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
                 #'style': {'color': COLORS[ri]},
                 'style': {'color': '#ff6200'}}
@@ -1001,6 +1006,7 @@ class Project(folder.ATFolder):
             'IW2': '',
             'IW3': '',
             'IW4': '',
+            '': 'Not Avalable',
             'nap': 'Not Applicable',
             'nav': 'Not Available',}
 
@@ -1028,7 +1034,7 @@ class Project(folder.ATFolder):
         desc = ''
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-reforms'
-        return {'value': ri, 'label': desc,
+        return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
                 #'style': {'color': COLORS[ri]},
                 'style': {'color': '#fcfd00'}}
@@ -1052,6 +1058,7 @@ class Project(folder.ATFolder):
             'IW2': '',
             'IW3': '',
             'IW4': '',
+            '': 'Not Avalable',
             'nap': 'Not Applicable',
             'nav': 'Not Available',}
 
@@ -1079,7 +1086,7 @@ class Project(folder.ATFolder):
         desc = ''
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-tda-priorities'
-        return {'value': ri, 'label': desc,
+        return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
                 #'style': {'color': COLORS[ri]},
                 'style': {'color': '#00147f'}}
@@ -1103,6 +1110,7 @@ class Project(folder.ATFolder):
             'IW2': '',
             'IW3': '',
             'IW4': '',
+            '': 'Not Avalable',
             'nap': 'Not Applicable',
             'nav': 'Not Available',}
         if r in ['1', 'IV0', 'III0', 'IW1']:
@@ -1127,7 +1135,7 @@ class Project(folder.ATFolder):
         else:
             desc = ''
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-devel'
-        return {'value': ri, 'label': desc,
+        return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
                 #'style': {'color': COLORS[ri]},
                 'style': {'color': '#0a0034'}}
@@ -1151,6 +1159,7 @@ class Project(folder.ATFolder):
             'IW2': 'Management measures in ABNJ designed but not formally adopted by project participants',
             'IW3': 'Management measures in ABNJ  formally adopted by project participants but not incorporated in RMI institutional/management frameworks',
             'IW4': 'Management measures in ABNJ fully incorporated in  RMI institutional/ management frameworks',
+            '': 'Not Avalable',
             'nap': 'Not Applicable',
             'nav': 'Not Available',}
 
@@ -1177,7 +1186,7 @@ class Project(folder.ATFolder):
             desc = ''
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-abnj'
-        return {'value': ri, 'label': desc,
+        return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
                 #'style': {'color': COLORS[ri]},
                 'style': {'color': '#003994'}}
@@ -1201,6 +1210,7 @@ class Project(folder.ATFolder):
             'IW2': 'TDA updated to incorporate climate variability and change',
             'IW3': 'Revised SAP prepared including Climatic Variability and Change',
             'IW4': 'SAP including Climatic Variability and Change adopted by all involved countries',
+            '': 'Not Avalable',
             'nap': 'Not Applicable',
             'nav': 'Not Available',}
 
@@ -1227,7 +1237,7 @@ class Project(folder.ATFolder):
             desc = ''
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-tdasap-cc'
-        return {'value': ri, 'label': desc,
+        return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
                 #'style': {'color': COLORS[ri]},
                 'style': {'color': '#491500'}}
@@ -1242,6 +1252,7 @@ class Project(folder.ATFolder):
             'IWA': 'Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)',
             'nap': 'Not Applicable',
             'nav': 'Not Available',
+            '': 'Not Avalable',
             }
 
         if r in ['1']:
@@ -1267,7 +1278,7 @@ class Project(folder.ATFolder):
             desc = ''
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-mnits'
-        return {'value': ri, 'label': desc,
+        return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
                 #'style': {'color': COLORS[ri]},
                 'style': {'color': '#00821c'}}
@@ -1287,7 +1298,7 @@ class Project(folder.ATFolder):
             desc = ''
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-adopted'
-        return {'value': rf, 'label': desc,
+        return {'value': rf, 'label': desc, 'description': '% of countries have adopted SAP',
                 'xlink': {'href': url, 'target': '_top'},
                 #'style': {'color': COLORS[min(4,int(rf)+1)]}}
                 'style': {'color': '#003f17'}}
@@ -1307,7 +1318,7 @@ class Project(folder.ATFolder):
 
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-implementing'
-        return {'value': rf, 'label': desc,
+        return {'value': rf, 'label': desc, 'description': '% of countries implementing SAP',
                 'xlink': {'href': url, 'target': '_top'},
                 #'style': {'color': COLORS[min(4,int(rf)+1)]}
                 'style': {'color': '#000000'}}
@@ -1333,7 +1344,8 @@ class Project(folder.ATFolder):
             'IW3': 'Priorities specifically incorporated into some national development/assistance frameworks with clear agency/government(s) commitments and time frames for achievement',
             'IW4': 'Majority of national development/assistance frameworks have incorporated priorities with clear agency/government(s)  commitments and time frames for achievement',
             'nap': 'Not Applicable',
-            'nav': 'Not Available',}
+            'nav': 'Not Available',
+            '': 'Not Avalable',}
 
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
@@ -1357,7 +1369,7 @@ class Project(folder.ATFolder):
         else:
             desc = ''
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-r4sap-inc'
-        return {'value': ri, 'label': desc,
+        return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
                 #'style': {'color': COLORS[ri]},
                 'style': {'color': '#cb001d'}}

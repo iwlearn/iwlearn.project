@@ -80,7 +80,7 @@
                 <legend>Scope</legend>
                   <input type="radio" id="scope-national" name="getSubRegions:list" value="National" checked="checked"/>
                         <label for="scope-national">National</label>
-                  <input type="radio" id="scope-regional" name="getSubRegions:list" value="Regional" disabled="disabled"/>
+                  <input type="radio" id="scope-regional" name="getSubRegions:list" value="Regional" />
                         <label for="scope-regional">Regional</label>
                   <!--input type="radio" id="scope-global" name="getSubRegions:list" value="Global" />
                         <label for="scope-global">Global</label-->
@@ -374,52 +374,40 @@ $('#exp-collapse-form').click (function(event) {
 /*<![CDATA[*/
 
 
-function onBasinLayerChange(event) {
-    var map = cgmap.config['default-cgmap'].map;
-    var is_visible = $(this).is(':checked');
-    var kmls = map.getLayersByName('Basin Cluster');
-    layer = kmls[0];
-    layer.setVisibility(is_visible);
-    var kmls = map.getLayersByName('Basin Detail');
-    layer = kmls[0];
-    layer.setVisibility(is_visible);
-    if (is_visible) {
-        $("#basinlayer").show()
-    } else {
-        $("#basinlayer").hide()
-    };
-    refreshDownloadKmlUrl(event);
-};
-
-
-function onCountryLayerChange(event) {
-    var map = cgmap.config['default-cgmap'].map;
-    var is_visible = $(this).is(':checked');
-    var kmls = map.getLayersByName('Countries');
-    layer = kmls[0];
-    layer.setVisibility(is_visible);
-    refreshDownloadKmlUrl(event);
-};
-
-
-function onPCULayerChange(event) {
-    var map = cgmap.config['default-cgmap'].map;
-    var is_visible = $(this).is(':checked');
-    var kmls = map.getLayersByName('Project management offices');
-    layer = kmls[0];
-    layer.setVisibility(is_visible);
-    refreshDownloadKmlUrl(event);
-};
-
 
 function onNationalPraChange(event) {
-    var map = cgmap.config['default-cgmap'].map;
+    try {
+        var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
+    } catch(e) {
+        var map = null;
+    };
     var is_visible = $(this).is(':checked');
     var kmls = map.getLayersByName('National Results');
     layer = kmls[0];
     layer.setVisibility(is_visible);
+    var kmls = map.getLayersByName('Regional Results');
+    layer = kmls[0];
+    layer.setVisibility(!is_visible);
     refreshDownloadKmlUrl(event);
 };
+
+function onRegionalPraChange(event) {
+    try {
+        var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
+    } catch(e) {
+        var map = null;
+    };
+    var is_visible = $(this).is(':checked');
+    var kmls = map.getLayersByName('Regional Results');
+    layer = kmls[0];
+    layer.setVisibility(is_visible);
+    var kmls = map.getLayersByName('National Results');
+    layer = kmls[0];
+    layer.setVisibility(!is_visible);
+    refreshDownloadKmlUrl(event);
+};
+
+
 
 $('#projectmapform').submit
 (
@@ -441,6 +429,7 @@ $('#projectmapform').submit
      $(this).change(onPraLayerOptionsChange);
    });
    $("#scope-national").change(onNationalPraChange);
+   $("#scope-regional").change(onRegionalPraChange);
    $("#resultitems").find("input").each(function(i) {
      $(this).change(onPraLayerOptionsChange);
    });
@@ -475,15 +464,6 @@ $('#projectmapform').submit
      $(window).bind('mapload', function (evt, widget) {
         var map = widget.map;
 
-        map.events.on({
-                moveend: function(event) {
-                    if (event.zoomChanged) {
-                        var kmls = map.getLayersByName('Basin Cluster');
-                        layer = kmls[0];
-                        layer.redraw();
-                    }
-                  }
-            });
 
         var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
 
@@ -523,62 +503,6 @@ $('#projectmapform').submit
                 var newZoom = currZoom + 3;
                 this.map.setCenter(lonlat, newZoom);
             };
-        };
-
-        function onPointLayerFeatureSelect(event) {
-                var message = '';
-                var lt = String.fromCharCode(60);
-                var gt = String.fromCharCode(62);
-                var maxp = 12;
-                var zoom_point = event.feature.geometry.getBounds().getCenterLonLat();
-                var lon = zoom_point.lon;
-                var lat = zoom_point.lat;
-                function makeLink( title, description) {
-                    var a = description.indexOf('href=');
-                    var b = description.indexOf('"', a + 6);
-                    var href = description.substring(a, b + 1) + ' ';
-                    name = title.substring(0,32) + '...';
-                    return lt + 'a ' + href + ' title="' + title + '" ' + gt + name + lt +'/a' + gt
-                    }
-                if (event.feature.cluster != null){
-                    if (event.feature.cluster.length > maxp){
-                            var currZoom = this.map.getZoom();
-                            var newZoom = currZoom + 2;
-                            this.map.setCenter(zoom_point, newZoom);
-
-                    }
-                    else if (event.feature.cluster.length > 1 && event.feature.cluster.length <= maxp){
-                            message = lt +'div' + gt + event.feature.cluster.length + ' projects found: ';
-                            message += lt + 'br /' + gt;
-                            message += lt + 'a href="javascript:zoomToSelectedFeature('+ lon + ','+ lat +', 2)"' + gt;
-                            message += 'zoom in for more details';
-                            message += lt +'/a' + gt;
-                            message += lt + 'ul' + gt;
-                            for (var i=0; i<event.feature.cluster.length; ++i ) {
-                                try {
-                                    message += lt + 'li' + gt;
-
-                                        message += makeLink(event.feature.cluster[i].attributes['name'],event.feature.cluster[i].attributes['description']);
-
-                                    message += lt + '/li' + gt;
-                                } catch(e) {
-                                        //
-                                };
-                            }
-                            message += lt + '/ul' + gt;
-                    } else if (event.feature.cluster.length == 1) {
-                            message = lt +'div' + gt + makeLink(event.feature.cluster[0].attributes['name'], event.feature.cluster[0].attributes['description']);
-                            message += event.feature.cluster[0].attributes['description'];
-                    }
-
-                    message += lt + '/div' + gt;
-                    if (event.feature.cluster.length <= maxp){
-                        popup = new OpenLayers.Popup.FramedCloud("id", event.feature.geometry.bounds.getCenterLonLat(), null, message, null, true, onPopupClose);
-                        event.popup = popup;
-                        map.addPopup(popup);
-                    };
-                };
-
         };
 
         var navPanel = new OpenLayers.Control.NavigationHistory();

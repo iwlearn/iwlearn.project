@@ -12,8 +12,6 @@ from iwlearn.project import projectMessageFactory as _
 from iwlearn.project import vocabulary
 from iwlearn.project.browser.utils import get_query, get_color
 
-#from collective.geo.mapwidget.interfaces import IMapView
-
 from collective.geo.kml.interfaces import IKMLOpenLayersView
 
 class IProjectDBView(IKMLOpenLayersView):
@@ -728,6 +726,10 @@ class ProjectDBResultMapView(ProjectDBMapView):
             layer = kmls[0];
             kml_url = '%(url)s/@@projectdbnationalresults_view.kml' + qs;
             layer.refresh({url: kml_url});
+            var kmls = map.getLayersByName('Regional Results');
+            layer = kmls[0];
+            kml_url = '%(url)s/@@projectdbregionalresults_view.kml' + qs;
+            layer.refresh({url: kml_url});
             return true;
 
         };
@@ -759,7 +761,10 @@ class ProjectDBResultMapView(ProjectDBMapView):
             });
             if (layerName == "National Results") {
                 qs = qs + 'getCountry=' + featureName
-            }
+            };
+            if (layerName == "Regional Results") {
+                qs = qs + 'getBasin=' + featureName
+            };
             var url = '%(url)s/@@project-list-view.html' + qs;
             jQuery.get(url,
                 function(data) {

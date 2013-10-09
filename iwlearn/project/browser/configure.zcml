@@ -466,7 +466,7 @@
       ruleset="plone.content.folderView"
       />
 
- <browser:page
+  <browser:page
       for="..interfaces.IProjectDatabase"
       name="projectdbnationalresults_view.kml"
       class=".projectdbkmlview.ProjectDbKmlNationalResultsView"
@@ -479,6 +479,24 @@
       for=".projectdbkmlview.ProjectDbKmlNationalResultsView"
       ruleset="plone.content.folderView"
       />
+
+
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projectdbregionalresults_view.kml"
+      class=".projectdbkmlview.ProjectDbKmlRegionalResultsView"
+      template="projectdbkmlview.pt"
+      allowed_interface=".projectdbkmlview.IProjectDbKmlView"
+      permission="zope.Public"
+      />
+
+  <cache:ruleset
+      for=".projectdbkmlview.ProjectDbKmlRegionalResultsView"
+      ruleset="plone.content.folderView"
+      />
+
+
+
 
   <browser:page
       for="..interfaces.IProjectDatabase"

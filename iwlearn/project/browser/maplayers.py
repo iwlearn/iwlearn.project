@@ -228,6 +228,30 @@ class ProjectDbKMLNationalResultsMapLayer(MapLayerBase):
                 }""" % (u'National Results', context_url, self.visible)
 
 
+class ProjectDbKMLRegionalResultsMapLayer(MapLayerBase):
+
+
+    @property
+    def jsfactory(self):
+        context_url = self.context.absolute_url()
+        if not context_url.endswith('/'):
+            context_url += '/'
+        return u"""function() {
+                return new OpenLayers.Layer.Vector("%s", {
+                    protocol: new OpenLayers.Protocol.HTTP({
+                      url: "%s@@projectdbregionalresults_view.kml?getSubRegions:list=Regional",
+                      format: new OpenLayers.Format.KML({
+                        extractStyles: true,
+                        extractAttributes: true})
+                      }),
+                    strategies: [new OpenLayers.Strategy.Fixed()],
+                    visibility: %s,
+                    displayInLayerSwitcher: false,
+                    projection: new OpenLayers.Projection("EPSG:4326")
+                  });
+                }""" % (u'Regional Results', context_url, self.visible)
+
+
 
 class ProjectDbKMLCountryMapLayers(MapLayers):
     def layers(self):
@@ -261,6 +285,7 @@ class ProjectDbKMLResultMapLayers(MapLayers):
     def layers(self):
         layers = super(ProjectDbKMLResultMapLayers, self).layers()
         layers.append(ProjectDbKMLNationalResultsMapLayer(self.context, True))
+        layers.append(ProjectDbKMLRegionalResultsMapLayer(self.context, False))
         return layers
 
 ########################################################################
@@ -493,7 +518,7 @@ class LegalFWBasinMapLayer(MapLayerBase):
                 }""" % (u'Basins', context_url, self.visible)
 
 class LegalFWMapLayer(MapLayerBase):
-    """ Basins of a project """
+    """ Basins of a framework """
 
     @property
     def jsfactory(self):

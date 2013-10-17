@@ -322,8 +322,12 @@ $(function() {
 function expand_map_area(event) {
     $('#projectdbmap').width('70%');
     $('#projectmapform').show();
-    var map = cgmap.config['default-cgmap'].map;
-    map.updateSize();
+    try {
+        var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
+        map.updateSize();
+    } catch(e) {
+        var map = null;
+    };
     $("#mapformsplitter").unbind('click', expand_map_area).click(colapse_map_area);
     $('#exp-collapse-form').unbind('click', expand_map_area).click(colapse_map_area);
     $('#exp-collapse-form').attr('src', 'fullscreencollapse_icon.png');
@@ -333,7 +337,11 @@ function expand_map_area(event) {
 
 
 function colapse_map_area(event) {
-    var map = cgmap.config['default-cgmap'].map;
+    try {
+        var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
+    } catch(e) {
+        var map = null;
+    };
     $('#projectdbmap').width('96%');
     $('#projectmapform').hide();
     map.updateSize();

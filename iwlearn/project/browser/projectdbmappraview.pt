@@ -339,7 +339,7 @@ $(function() {
 function expand_map_area(event) {
     $('#projectdbmap').width('70%');
     $('#projectmapform').show();
-    var map = cgmap.config['default-cgmap'].map;
+    var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
     map.updateSize();
     $("#mapformsplitter").unbind('click', expand_map_area).click(colapse_map_area);
     $('#exp-collapse-form').unbind('click', expand_map_area).click(colapse_map_area);
@@ -350,7 +350,7 @@ function expand_map_area(event) {
 
 
 function colapse_map_area(event) {
-    var map = cgmap.config['default-cgmap'].map;
+    var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
     $('#projectdbmap').width('96%');
     $('#projectmapform').hide();
     map.updateSize();

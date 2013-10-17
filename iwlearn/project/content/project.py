@@ -743,6 +743,7 @@ COLORS = {
         -1: 'white',
         0: 'grey',
         1: 'red',
+        1.5: 'blue',
         2: 'orange',
         3: 'yellow',
         4: 'green'}
@@ -863,9 +864,9 @@ class Project(folder.ATFolder):
         elif r in ['3', 'IV2', 'III2', 'IW3']:
             ri = 3
         elif r in ['4', 'IV3', 'III3', 'IW4']:
-            ri =4
+            ri = 4
         elif r in ['IWA']:
-            ri = 0
+            ri = 1.5
         elif r in ['nap']:
             ri = -1
         elif r in ['nav']:
@@ -886,8 +887,9 @@ class Project(folder.ATFolder):
         return {'value': ri, 'label': desc,
                 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
-                #'style': {'color': COLORS[ri]},
-                'style': {'color': '#0090bd'}}
+                'style': {'color': COLORS[ri]},
+                #'style': {'color': '#0090bd'}
+                }
 
     def r4regional_frameworks(self):
         dd = {'1': 'No legal agreement/cooperation framework in place',
@@ -922,7 +924,7 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'III2', 'III3', 'IW4']:
             ri =4
         elif r in ['IWA']:
-            ri = 0
+            ri = 1.5
         elif r in ['nap']:
             ri = -1
         elif r in ['nav']:
@@ -943,8 +945,9 @@ class Project(folder.ATFolder):
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-frameworks'
         return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
-                #'style': {'color': COLORS[ri]},
-                'style': {'color': '#ff0000'}}
+                'style': {'color': COLORS[ri]},
+                #'style': {'color': '#ff0000'}
+                }
 
     def r4rmis(self):
         r = self.rmis
@@ -979,7 +982,7 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
         elif r in ['IWA']:
-            ri = 0
+            ri = 1.5
         elif r in ['nap']:
             ri = -1
         elif r in ['nav']:
@@ -1000,8 +1003,9 @@ class Project(folder.ATFolder):
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-rmis'
         return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
-                #'style': {'color': COLORS[ri]},
-                'style': {'color': '#ff6200'}}
+                'style': {'color': COLORS[ri]},
+                #'style': {'color': '#ff6200'}
+                }
 
     def r4reforms(self):
         r = self.reforms
@@ -1035,7 +1039,7 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
         elif r in ['IWA']:
-            ri = 0
+            ri = 1.5
         elif r in ['nap']:
             ri = -1
         elif r in ['nav']:
@@ -1056,8 +1060,9 @@ class Project(folder.ATFolder):
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-reforms'
         return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
-                #'style': {'color': COLORS[ri]},
-                'style': {'color': '#fcfd00'}}
+                'style': {'color': COLORS[ri]},
+                #'style': {'color': '#fcfd00'}
+                }
 
     def r4tda_priorities(self):
         r = self.tda_priorities
@@ -1092,7 +1097,7 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
         elif r in ['IWA']:
-            ri = 0
+            ri = 1.5
         elif r in ['nap']:
             ri = -1
         elif r in ['nav']:
@@ -1113,8 +1118,9 @@ class Project(folder.ATFolder):
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-tda-priorities'
         return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
-                #'style': {'color': COLORS[ri]},
-                'style': {'color': '#00147f'}}
+                'style': {'color': COLORS[ri]},
+                #'style': {'color': '#00147f'}
+                }
 
     def r4sap_devel(self):
         r = self.sap_devel
@@ -1148,7 +1154,7 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'III3', 'IW4']:
             ri =4
         elif r in ['IWA']:
-            ri = 0
+            ri = 1.5
         elif r in ['nap']:
             ri = -1
         elif r in ['nav']:
@@ -1167,8 +1173,9 @@ class Project(folder.ATFolder):
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-devel'
         return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
-                #'style': {'color': COLORS[ri]},
-                'style': {'color': '#0a0034'}}
+                'style': {'color': COLORS[ri]},
+                #'style': {'color': '#0a0034'}
+                }
 
     def r4abnj_rmi(self):
         r = self.abnj_rmi
@@ -1202,7 +1209,7 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'IW4']:
             ri =4
         elif r in ['IWA']:
-            ri = 0
+            ri = 1.5
         elif r in ['nap']:
             ri = -1
         elif r in ['nav']:
@@ -1222,8 +1229,9 @@ class Project(folder.ATFolder):
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-abnj'
         return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
-                #'style': {'color': COLORS[ri]},
-                'style': {'color': '#003994'}}
+                'style': {'color': COLORS[ri]},
+                #'style': {'color': '#003994'}
+                }
 
     def r4tdasap_cc(self):
         r = self.tdasap_cc
@@ -1257,7 +1265,7 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'IW4']:
             ri =4
         elif r in ['IWA']:
-            ri = 0
+            ri = 1.5
         elif r in ['nap']:
             ri = -1
         elif r in ['nav']:
@@ -1277,8 +1285,9 @@ class Project(folder.ATFolder):
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-tdasap-cc'
         return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
-                #'style': {'color': COLORS[ri]},
-                'style': {'color': '#491500'}}
+                'style': {'color': COLORS[ri]},
+                #'style': {'color': '#491500'}
+                }
 
     def r4tda_mnits(self):
         r = self.tda_mnits
@@ -1302,7 +1311,7 @@ class Project(folder.ATFolder):
         elif r in ['4']:
             ri =4
         elif r in ['IWA']:
-            ri = 0
+            ri = 1.5
         elif r in ['nap']:
             ri = -1
         elif r in ['nav']:
@@ -1322,14 +1331,13 @@ class Project(folder.ATFolder):
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-mnits'
         return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
-                #'style': {'color': COLORS[ri]},
-                'style': {'color': '#00821c'}}
+                'style': {'color': COLORS[ri]},
+                #'style': {'color': '#00821c'}
+                }
 
     def r4sap_adopted(self):
         r = self.sap_adopted
         ri = 0
-
-
         desc = None
         if r:
             ri = int(r)
@@ -1338,16 +1346,19 @@ class Project(folder.ATFolder):
         else:
             rf = 0
             desc = ''
+        color = COLORS[min(4,int(rf)+1)]
+        if r in [-1,'nap']:
+            rf = -1
+            color = COLORS[rf]
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-adopted'
         return {'value': rf, 'label': desc, 'description': '% of countries have adopted SAP',
                 'xlink': {'href': url, 'target': '_top'},
-                #'style': {'color': COLORS[min(4,int(rf)+1)]}}
-                'style': {'color': '#003f17'}}
+                'style': {'color': color}
+                #'style': {'color': '#003f17'}
+                }
 
     def r4sap_implementing(self):
-
-
         desc = None
         r = self.sap_implementing
         ri = 0
@@ -1357,13 +1368,17 @@ class Project(folder.ATFolder):
             rf = float(ri)/25.0
         else:
             rf = 0
-
+        color = COLORS[min(4,int(rf)+1)]
+        if r in [-1,'nap']:
+            rf = -1
+            color = COLORS[rf]
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-sap-implementing'
         return {'value': rf, 'label': desc, 'description': '% of countries implementing SAP',
                 'xlink': {'href': url, 'target': '_top'},
-                #'style': {'color': COLORS[min(4,int(rf)+1)]}
-                'style': {'color': '#000000'}}
+                'style': {'color': color}
+                #'style': {'color': '#000000'}
+                }
 
 
     def r4sap_inc(self):
@@ -1398,7 +1413,7 @@ class Project(folder.ATFolder):
         elif r in ['4', 'IV3', 'IW4']:
             ri =4
         elif r in ['IWA']:
-            ri = 0
+            ri = 1.5
         elif r in ['nap']:
             ri = -1
         elif r in ['nav']:
@@ -1417,8 +1432,9 @@ class Project(folder.ATFolder):
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-r4sap-inc'
         return {'value': ri, 'label': desc, 'description':  dd[r],
                 'xlink': {'href': url, 'target': '_top'},
-                #'style': {'color': COLORS[ri]},
-                'style': {'color': '#cb001d'}}
+                'style': {'color': COLORS[ri]},
+                #'style': {'color': '#cb001d'}
+                }
 
 
 

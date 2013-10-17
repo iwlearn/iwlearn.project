@@ -60,7 +60,7 @@ class ProjectDBKMLLinkView(BrowserView):
     def get_links(self):
         url = self.context.absolute_url()
         form = self.request.form
-        form['bbox'] ='-180,-90,180,90'
+        #form['bbox'] ='-180,-90,180,90'
         links = []
         qs = ZTUtils.make_query(form)
         if form.get('show-basins', None):
@@ -203,16 +203,16 @@ class BasinResultPlacemark(BasinPlacemark):
         for project in self.projects:
             title = project['title'].decode('utf-8', 'ignore')
             desc += u'<li><a href="%s" title="%s" > %s </a> <br/> %s</li>' % (
-                    project['url'],
+                    '@@project-result-map-view.html#pid' + project['uid'],
                     title.encode(
                         'ascii', 'xmlcharrefreplace'),
                     title[:80].encode(
                         'ascii', 'xmlcharrefreplace') + u'...',
                     project[result_for]['description']
                     )
-        desc += u'</ul>'
-        url = '@@project-map-view.html'
-        desc +='<a href="%s#projectdetaillist">  More information below the map </a>' %url
+        #desc += u'</ul>'
+        #url = '@@project-map-view.html'
+        #desc +='<a href="%s#projectdetaillist">  More information below the map </a>' %url
         return desc.encode('ascii')
 
     @property
@@ -223,6 +223,7 @@ class BasinResultPlacemark(BasinPlacemark):
             -1: '#ccddcca0',
             0: '#445544a0',
             1: '#ff0000a0',
+            1.5: '#1122ffa0',
             2: '#ff7f00a0',
             3: '#ffff00a0',
             4: '#00ff00a0',
@@ -412,9 +413,9 @@ class CountryResultsPlacemark(CountryPlacemark):
             else:
                 style = u"color: red; text-decoration: line-through;"
             title = project.Title.decode('utf-8', 'ignore')
-            desc += u'<li><a style="%s" href="%s/@@resultsview.html" title="%s" > %s </a></li>' % (
+            desc += u'<li><a style="%s" href="%s" title="%s" > %s </a></li>' % (
                             style,
-                            project.getURL(),
+                            '@@project-result-map-view.html#pid' + project.UID,
                             cgi.escape(title.encode(
                             'ascii', 'xmlcharrefreplace')),
                             cgi.escape(title[:48].encode(
@@ -462,7 +463,6 @@ class CountryResultsPlacemark(CountryPlacemark):
             ccolor = yellow
         else:
             ccolor = green
-        #color = get_color(ccolor, len(self.projects))
         return web2kmlcolor(ccolor.upper())
 
 

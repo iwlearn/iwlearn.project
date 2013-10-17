@@ -14,7 +14,7 @@
                 <dt>
                    <a
                      href="#"
-                     tal:attributes="href result/getURL;"
+                     tal:attributes="href result/getURL; id string:pid${result/UID};"
                      tal:content="result/Title" />
                 </dt>
                 <dd>
@@ -47,8 +47,10 @@
                                 </span>
                         </span>
                     </p>
-                    <embed src="circle1.svg" type="image/svg+xml"
-                    tal:attributes="src string:${result/getURL}/@@project_result_chart.svg" />
+                    <figure class="projectchart">
+                      <embed src="circle1.svg" type="image/svg+xml"
+                          tal:attributes="src string:${result/getURL}/@@project_result_chart.svg" />
+                    </figure>
                     <div class="visualClear">&nbsp;</div>
                 </dd>
             </tal:loop>

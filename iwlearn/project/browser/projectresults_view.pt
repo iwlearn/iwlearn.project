@@ -40,12 +40,13 @@
             </div>
             <br/>
             <div id="content-core">
-            <div id="#projectdbcharts" class="pygal-chart" tal:content="structure view/get_pra_chart"> chart goes here </div>
+            <figure class="projectchart">
+              <embed src="circle1.svg" type="image/svg+xml"
+                    tal:attributes="src string:${context/absolute_url}/@@project_result_chart.svg" />
+            </figure>
             <p style="font-size:98%">
-            Rating: (4.0) Highly satisfactory; (3.0) Satisfactory; (2.0) Unsatisfactory, with some positive elements; (1.0) Unsatisfactory<br/><br/>
-
-				<b>Click on a bar to read corresponding details.</b><br/>
-				Some information are unavailable, either because results have not been reported or the indicator is not applicable to the project. There are also cases where some progress has occurred but cannot be ranked (IWL Assessed). <br/>Please see the description below for further details.            
+                <b>Click on a bar to read corresponding details.</b><br/>
+                Some information are unavailable, either because results have not been reported or the indicator is not applicable to the project. There are also cases where some progress has occurred but cannot be ranked (IWL Assessed). <br/>Please see the description below for further details.
             </p>
             <div tal:define="gefratings python:context.getIprating() is not None or context.getDorating() is not None or context.getOutcomerating() is not None;"
                 tal:condition="gefratings">
@@ -95,7 +96,7 @@
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     Rating:
                     <span tal:content="context/getImcs">rating</span>:
-                    <span tal:content="rating/label"></span>
+                    <span tal:content="rating/description"></span>
                 </div>
                 <div tal:content="structure context/getImcs_desc"> Result Description </div>
               </div>
@@ -105,7 +106,7 @@
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     Rating:
                     <span tal:content="context/getRegional_frameworks">rating</span>:
-                    <span tal:content="rating/label"></span>
+                    <span tal:content="rating/description"></span>
                 </div>
                 <div tal:content="structure context/getRegional_frameworks_desc"> Result Description </div>
               </div>
@@ -115,7 +116,7 @@
                     <div tal:attributes="class string:pra-rating-${rating/value}">
                         Rating:
                         <span tal:content="context/getRmis">rating</span>:
-                        <span tal:content="rating/label"></span>
+                        <span tal:content="rating/description"></span>
                     </div>
                     <div tal:content="structure context/getRmis_desc"> Result Description </div>
               </div>
@@ -125,7 +126,7 @@
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     Rating:
                     <span tal:content="context/getReforms">rating</span>:
-                    <span tal:content="rating/label"></span>
+                    <span tal:content="rating/description"></span>
                 </div>
                 <div tal:content="structure context/getReforms_desc"> Result Description </div>
               </div>
@@ -135,7 +136,7 @@
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     Rating:
                     <span tal:content="context/getTda_priorities">rating</span>:
-                    <span tal:content="rating/label"></span>
+                    <span tal:content="rating/description"></span>
                 </div>
                 <div tal:content="structure context/getTda_priorities_desc"> Result Description </div>
               </div>
@@ -145,7 +146,7 @@
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     Rating:
                     <span  tal:content="context/getSap_devel">rating</span>:
-                    <span tal:content="rating/label"></span>
+                    <span tal:content="rating/description"></span>
                 </div>
                 <div tal:content="structure context/getSap_devel_desc"> Result Description </div>
               </div>
@@ -155,7 +156,7 @@
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     Rating:
                     <span tal:content="context/getAbnj_rmi">rating</span>:
-                    <span tal:content="rating/label"></span>
+                    <span tal:content="rating/description"></span>
                 </div>
                 <div tal:content="structure context/getAbnj_rmi_desc"> Result Description </div>
               </div>
@@ -165,7 +166,7 @@
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     Rating:
                     <span tal:content="context/getTdasap_cc">rating</span>:
-                    <span tal:content="rating/label"></span>
+                    <span tal:content="rating/description"></span>
                 </div>
                 <div tal:content="structure context/getTdasap_cc_desc"> Result Description </div>
               </div>
@@ -175,7 +176,7 @@
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     Rating:
                     <span tal:content="context/getTda_mnits">rating</span>:
-                    <span tal:content="rating/label"></span>
+                    <span tal:content="rating/description"></span>
                 </div>
                 <div tal:content="structure context/getTda_mnits_desc"> Result Description </div>
               </div>
@@ -185,7 +186,7 @@
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     Rating:
                     <span tal:content="context/getSap_adopted">rating</span>:
-                    <span tal:content="rating/label"></span>
+                    <span tal:content="rating/description"></span>
                 </div>
                 <div tal:content="structure context/getSap_adopted_desc"> Result Description </div>
               </div>
@@ -195,7 +196,7 @@
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     Rating:
                     <span tal:content="context/getSap_implementing">rating</span>:
-                    <span tal:content="rating/label"></span>
+                    <span tal:content="rating/description"></span>
                 </div>
                 <div tal:content="structure context/getSap_implementing_desc"> Result Description </div>
               </div>
@@ -205,7 +206,7 @@
                 <div tal:attributes="class string:pra-rating-${rating/value}">
                     Rating:
                     <span tal:content="context/getSap_inc">rating</span>:
-                    <span tal:content="rating/label"></span>
+                    <span tal:content="rating/description"></span>
                 </div>
                 <div tal:content="structure context/getSap_inc_desc"> Result Description </div>
               </div>

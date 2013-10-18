@@ -52,6 +52,7 @@
                 tal:condition="gefratings">
                 <h2>GEF Ratings</h2>
                 <div tal:condition="python: context.getIprating() is not None"
+                tal:on-error="nothing"
                 tal:define="field python:here.Schema()['iprating'];
                             accessor python:getattr(here, field.accessor);
                             mode string:view;
@@ -59,14 +60,16 @@
                 Implementation Process: <metal:block use-macro="widget_view" />
                 </div>
                 <div tal:condition="python: context.getDorating is not None"
-                tal:define="field python:here.Schema()['dorating'];
+                    tal:on-error="nothing"
+                    tal:define="field python:here.Schema()['dorating'];
                                 accessor python:getattr(here, field.accessor);
                                 mode string:view;
                                 widget_view python:here.widget(field.getName(), mode=mode, use_label=1);">
                 Developement Objective: <metal:block use-macro="widget_view" />
                 </div>
                 <div tal:condition="python: context.getOutcomerating() is not None"
-                tal:define="field python:here.Schema()['outcomerating'];
+                    tal:on-error="nothing"
+                    tal:define="field python:here.Schema()['outcomerating'];
                                 accessor python:getattr(here, field.accessor);
                                 mode string:view;
                                 widget_view python:here.widget(field.getName(), mode=mode, use_label=1);">

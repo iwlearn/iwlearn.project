@@ -124,7 +124,7 @@ class ProjectView(BrowserView):
         ]
         colors = []
         for rating in ratings:
-            colors.append(rating[1][0]['style']['color'])
+            colors.append(rating[1][0]['style'].pop('color'))
 
         config = pygal.Config()
         config.tooltip_font_size=10
@@ -143,10 +143,13 @@ class ProjectView(BrowserView):
                     spacing=20,
                     disable_xml_declaration=disable_xml_declaration,
                     show_legend=True,
-                    truncate_legend=40,)
+                    truncate_legend=30,)
         chart.range = [-1, 4]
         for rating in ratings:
+            rating[1][0].pop('description')
             chart.add(rating[0], rating[1])
+            #chart.add({'title':rating[0], 'xlink': rating[1][0]['xlink']},
+            #        rating[1])
         return chart.render()
 
 

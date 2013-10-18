@@ -338,6 +338,14 @@ border: solid 2px;
 border-color: red;
 color: white;
 }
+
+.pra-rating-IWA {
+background-color: blue;
+border: solid 2px;
+border-color: blue;
+color: white;
+}
+
 .pra-rating-2 {
 background-color: orange;
 border: solid 2px;
@@ -353,7 +361,9 @@ background-color: lightgreen;
 border: solid 2px;
 border-color: green;
 }
-/* why does this not work?
+
 figure.projectchart {
-max-width: 90%;
-}*/
+max-width: 800px;
+}
+
+

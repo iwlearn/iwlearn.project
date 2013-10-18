@@ -940,7 +940,7 @@ class Project(folder.ATFolder):
             desc = r
         else:
             desc = ''
-        desc = ''
+        #desc = ''
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-frameworks'
         return {'value': ri, 'label': desc, 'description':  dd[r],
@@ -998,7 +998,7 @@ class Project(folder.ATFolder):
             desc = r
         else:
             desc = ''
-        desc = ''
+        #desc = ''
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-rmis'
         return {'value': ri, 'label': desc, 'description':  dd[r],
@@ -1055,7 +1055,7 @@ class Project(folder.ATFolder):
             desc = r
         else:
             desc = ''
-        desc = ''
+        #desc = ''
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-reforms'
         return {'value': ri, 'label': desc, 'description':  dd[r],
@@ -1113,7 +1113,7 @@ class Project(folder.ATFolder):
             desc = r
         else:
             desc = ''
-        desc = ''
+        #desc = ''
 
         url = self.absolute_url() + '/@@resultsview.html' + '#pra-tda-priorities'
         return {'value': ri, 'label': desc, 'description':  dd[r],

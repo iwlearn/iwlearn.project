@@ -47,8 +47,9 @@
                                 </span>
                         </span>
                     </p>
+                    <p tal:content="structure python:view.get_pra_results(result)"> The result</p>
                     <figure class="projectchart">
-                      <embed src="circle1.svg" type="image/svg+xml"
+                      <embed src="circle1.svg" type="image/svg+xml" style="max-width: 100%"
                           tal:attributes="src string:${result/getURL}/@@project_result_chart.svg" />
                     </figure>
                     <div class="visualClear">&nbsp;</div>

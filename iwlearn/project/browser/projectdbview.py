@@ -821,3 +821,43 @@ class ProjectDBListView(BrowserView):
         else:
             return 'N/A'
 
+    def get_pra_results(self, brain):
+        rt = self.request.form.get('result', None)
+        if rt == 'rlacf':
+            result ={'title': 'Regional legal agreements and cooperation frameworks'}
+            obj = brain.getObject()
+            rating = obj.r4regional_frameworks()
+            text = obj.getRegional_frameworks_desc()
+        elif rt == "rmis":
+            result ={'title': 'Regional Management Institutions'}
+            obj = brain.getObject()
+            rating = obj.r4rmis()
+            text = obj.getRmis_desc()
+        elif rt == "tda":
+            result ={'title': 'Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes'}
+            obj = brain.getObject()
+            rating = obj.r4tda_priorities()
+            text = obj.getTda_priorities_desc()
+        elif rt == "sap":
+            result ={'title': 'Development of Strategic Action Plan (SAP)'}
+            obj = brain.getObject()
+            rating = obj.r4sap_devel()
+            text = obj.getSap_devel_desc()
+        else:
+            return ''
+        if rating['label'] == 'IWA':
+            result['rating'] = rating['label']
+        else:
+            result['rating'] = rating['value']
+        result['description'] = rating['description']
+        result['text'] = text
+        tmpl = """
+        <strong>%(title)s</strong>
+        <div class="pra-rating-%(rating)s">
+            Rating:
+            <span>%(rating)s</span>:
+            <span>%(description)s</span>
+        </div>
+        <div>%(text)s</div>
+        """
+        return tmpl % result

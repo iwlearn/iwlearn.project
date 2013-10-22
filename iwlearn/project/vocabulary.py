@@ -159,7 +159,7 @@ u'SIDS': {
         'vc', 'vg', 'vi', 'vu', 'ws']},
 u'Africa': {
     'Eastern Africa': ['bi', 'dj', 'er', 'et', 'ke', 'km', 'mg', 'mu',
-        'mw', 'mz', 're', 'rw', 'sc', 'so', 'tz', 'ug', 'yt', 'zm', 'zw'],
+        'mw', 'mz', 're', 'rw', 'sc', 'so', 'ss', 'tz', 'ug', 'yt', 'zm', 'zw'],
     'Northern Africa': ['dz', 'eg', 'eh', 'ly', 'ma', 'sd', 'tn'],
     'Middle Africa': ['ao', 'cd', 'cf', 'cg', 'cm', 'ga', 'gq', 'st', 'td'],
     'Southern Africa': ['bw', 'ls', 'na', 'sz', 'za'],
@@ -174,7 +174,7 @@ u'Asia': {
         'th', 'tl', 'vn'],
     'SIDS (Asia)': ['mv', 'sg', 'tl'],
     'Central Asia': ['cn', 'hk', 'jp', 'kg', 'kp', 'kr', 'kz', 'mn',
-        'mo', 'tj', 'tm', 'uz']},
+        'mo', 'tj', 'tm', 'tw', 'uz']},
 u'Americas': {
     'Central America': ['bz', 'cr', 'gt', 'hn', 'mx', 'ni', 'pa', 'sv'],
     'South America': ['ar', 'bo', 'br', 'cl', 'co', 'ec', 'fk', 'gf', 'gy',

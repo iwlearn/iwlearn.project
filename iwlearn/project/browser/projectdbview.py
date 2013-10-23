@@ -356,7 +356,8 @@ $('#projectsearchform').submit
         chart.x_labels =[]
         for value in values:
             url = self.context.absolute_url() + '?getSubRegions=' + value[0]
-            chart.add(value[0], [{'value': value[1], 'label': value[0],
+            chart.add({'title': value[0], 'xlink': url},
+                    [{'value': value[1], 'label': value[0],
                     'xlink': {'href': url, 'target': '_top'}}])
             #chart.x_labels.append(value[0])
         desc += chart.render()
@@ -372,7 +373,7 @@ $('#projectsearchform').submit
         values.sort()
         for value in values:
             url = self.context.absolute_url() + '?getAgencies=' + value[0]
-            chart.add(self.acronym(value[0]),
+            chart.add({'title': self.acronym(value[0]), 'xlink': url},
                     [{'value': value[1], 'label': self.acronym(value[0]),
                     'xlink': {'href': url, 'target': '_top'}}])
         desc += chart.render()

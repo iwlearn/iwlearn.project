@@ -34,9 +34,12 @@
         tal:attributes="href string:${context/absolute_url}">Project List
 </a></li>
 <li><a href="."
-    class="selected"
     tal:attributes="href string:${context/absolute_url}/@@project-map-view.html">
     View Map</a></li>
+<li><a href="."
+    class="selected"
+    tal:attributes="href string:${context/absolute_url}/@@project-result-map-view.html">
+    Result Archive Map</a></li>
 <li><a href="."
     tal:attributes="href string:${context/absolute_url}/@@projectwebsites_view">
     Project websites</a></li>
@@ -389,6 +392,7 @@ function onNationalPraChange(event) {
     layer = kmls[0];
     layer.setVisibility(!is_visible);
     refreshDownloadKmlUrl(event);
+    onPraLayerOptionsChange(event);
 };
 
 function onRegionalPraChange(event) {
@@ -405,6 +409,7 @@ function onRegionalPraChange(event) {
     layer = kmls[0];
     layer.setVisibility(!is_visible);
     refreshDownloadKmlUrl(event);
+    onPraLayerOptionsChange(event);
 };
 
 

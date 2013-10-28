@@ -212,6 +212,19 @@
 
   <browser:page
       for="..interfaces.IProject"
+      name="project_rating_chart.svg"
+      class=".projectview.ProjectGefRatings"
+      allowed_interface=".projectview.IProjectView"
+      permission="zope.Public"
+      />
+
+  <cache:ruleset
+      for=".projectview.ProjectGefRatings"
+      ruleset="plone.content.itemView"
+      />
+
+  <browser:page
+      for="..interfaces.IProject"
       name="project_result_chart.svg"
       class=".projectview.ProjectResultChart"
       allowed_interface=".projectview.IProjectView"
@@ -222,6 +235,8 @@
       for=".projectview.ProjectResultChart"
       ruleset="plone.content.itemView"
       />
+
+
 
   <browser:page
       for="..interfaces.IProject"

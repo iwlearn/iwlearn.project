@@ -38,7 +38,11 @@
                 tal:content="here/Description">
                    The concept of "integrated coastal zone management" (ICZM) supports regional transboundary level programmes, such as the GEF-Gulf of Guinea Large Marine Ecosystem (GOG-LME) Programme, for inter-governmental bodies. Also, recent economic studies have placed a higher value on coastal zones than any other sector of the environment. In the Gulf of Guinea coastal area, 80 million inhabitants are directly dependent on the fisheries, habitat, and energy resources of the region
             </div>
-            <br/>
+            <p>
+                <b tal:content="context/getProject_status"/>:
+                <span  tal:on-error="nothing" tal:replace="python:context.start().strftime('%Y-%m')"/> -
+                <span  tal:on-error="nothing" tal:replace="python:context.end().strftime('%Y-%m')"/>
+            </p>
             <div id="content-core">
             <figure class="projectchart">
               <embed src="circle1.svg" type="image/svg+xml"
@@ -51,6 +55,11 @@
             <div tal:define="gefratings python:context.getIprating() is not None or context.getDorating() is not None or context.getOutcomerating() is not None;"
                 tal:condition="gefratings">
                 <h2>GEF Ratings</h2>
+                <figure>
+                    <embed type="image/svg+xml"
+                        style="max-width: 600px;"
+                        tal:attributes="src string:${context/absolute_url}/@@project_rating_chart.svg" />
+                </figure>
                 <div tal:condition="python: context.getIprating() is not None"
                 tal:on-error="nothing"
                 tal:define="field python:here.Schema()['iprating'];

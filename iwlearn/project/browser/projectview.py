@@ -13,7 +13,7 @@ from iwlearn.project import projectMessageFactory as _
 from collective.geo.contentlocations.interfaces import IGeoManager
 
 import logging
-logger = logging.getLogger('iwlearn.project.projectview')
+logger = logging.getLogger(__name__)
 
 class IProjectView(Interface):
     """
@@ -188,5 +188,54 @@ class GetProjectWebsiteCapture(ProjectView):
                 return self.context.getWebsite_thumb().data
 
 
+class ProjectGefRatings(ProjectView):
+    """ Barchart for gef Ratings """
 
+    def get_gef_rating_chart(self):
+        def cleanup_value(v):
+            if v is not None:
+                try:
+                    return int(v)
+                except:
+                    logger.error(v)
+                    return None
+        ratings = {None: ['NA', 'N/A', '#565656'],
+                0: ['HU', 'Highly Unsatisfactory', '#FF0000'],
+                1: ['U', 'Unsatisfactory', '#FF7F00'],
+                2: ['MU', 'Moderately Unsatisfactory', '#FFFF00'],
+                3: ['MS', 'Moderately Satisfactory', '#00FFFF'],
+                4: ['S', 'Satisfactory', '#00FF7F'],
+                5: ['HS', 'Highly Satisfactory', '#00FF00']}
+        r_ip = cleanup_value(self.context.getIprating())
+        r_do = cleanup_value(self.context.getDorating())
+        r_te = cleanup_value(self.context.getOutcomerating())
+        colors = [ratings[i][2] for i in [r_ip, r_do, r_te]]
+        style = pygal.style.Style(
+                        colors=colors,
+                        background='white',
+                        plot_background='rgba(0, 0, 255, 0.1)',
+                        foreground='rgba(0, 0, 0, 0.7)',
+                        foreground_light='rgba(0, 0, 0, 0.9)',
+                        )
+        chart = pygal.HorizontalBar(
+                    width=400, height=200,
+                    explicit_size=False,
+                    style=style,
+                    zero=-1,
+                    legend_box_size=30,
+                    spacing=10,
+                    show_legend=True,
+                    show_x_labels=False,
+                    truncate_legend=30,)
+        chart.range = [-1, 5]
+        #chart.x_labels = [ratings[i][0] for i in [None, 0,1,2,3,4,5]]
+        chart.add('IP Rating', [{'value':r_ip, 'label': ratings[r_ip][1]}])
+        chart.add('DO Rating', [{'value':r_do, 'label': ratings[r_do][1]}])
+        chart.add('TE Rating', [{'value':r_te, 'label': ratings[r_te][1]}])
+        return chart.render()
+
+    def __call__(self):
+        self.request.RESPONSE.setHeader('Content-Type',
+            'image/svg+xml; charset=utf-8' )
+        return self.get_gef_rating_chart()
 

@@ -28,9 +28,9 @@
                     <br />
                     <span tal:replace="python: ', '.join(result.getCountry)" tal:on-error="nothing" > Country</span>
                     <p>
-                    <b tal:content="result/getProject_status"/>:
-                    <span  tal:on-error="nothing" tal:replace="python:result.start.strftime('%Y-%m')"/> -
-                    <span  tal:on-error="nothing" tal:replace="python:result.end.strftime('%Y-%m')"/>
+                        <b tal:content="result/getProject_status"/>:
+                        <span  tal:on-error="nothing" tal:replace="python:result.start.strftime('%Y-%m')"/> -
+                        <span  tal:on-error="nothing" tal:replace="python:result.end.strftime('%Y-%m')"/>
                     </p>
                     <p class="documentByLine">
                         <span tal:define="tags result/Subject|nothing"

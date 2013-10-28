@@ -778,6 +778,26 @@ class ProjectDBResultMapView(ProjectDBMapView):
         """ % {'url': self.context.absolute_url()}
         return refresh_js
 
+class ProjectDBPraListView(ProjectDBBaseView):
+
+    def get_js(self):
+        tmpl = """
+        /*<![CDATA[*/
+        function refreshDetailsList() {
+          var dt = $('#projectmapform').serializeArray();
+            var qs = '?';
+            var params = {};
+            jQuery.each(dt, function(i, field){
+                qs = qs + field.name + '=' + field.value + "&";
+                params[field.name] = field.value;
+            });
+            var url = '%(url)s/@@project-list-view.html' + qs;
+            jQuery.get(url,
+                function(data) {
+                  jQuery('#featureprojectdetails').html(data);
+            });
+        };/*]]>*/"""
+        return tmpl % {'url': self.context.absolute_url()}
 
 
 class IProjectDBListView(Interface):

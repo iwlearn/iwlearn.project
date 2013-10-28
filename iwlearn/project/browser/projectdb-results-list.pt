@@ -1,0 +1,240 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+metal:use-macro="here/main_template/macros/master"
+i18n:domain="iwlearn.project">
+  <head>
+    <metal:javascript_head fill-slot="javascript_head_slot">
+      <!-- collective geo map -->
+      <metal:use use-macro="context/@@collectivegeo-macros/openlayers" />
+      <script type="text/javascript"
+      tal:attributes="src string:$portal_url/LoadingPanel.js">
+      </script>
+      <!-- collective geo map -->
+    </metal:javascript_head>
+  </head>
+  <body>
+    <div metal:fill-slot="main">
+      <tal:main-macro metal:define-macro="main">
+<!--[if lte IE 8]>
+   <div style="color: red;">
+    <big><strong>Microsoft Internet Explorer is not supported as this time.</strong></big>
+    <br />
+    If you are using IE version 8 or older, you will not see the list of
+    projects or the visualization.
+    <br />
+    <a style="color: blue;" href="http://browsehappy.com/">Please upgrade your browser </a>
+    </div>
+<![endif]-->
+        <ul tal:define="isAnon context/@@plone_portal_state/anonymous;"
+        id="projectdb-tabs">
+          <li>
+            <a href="."
+            tal:attributes="href string:${context/absolute_url}">
+            Project List</a>
+          </li>
+          <li>
+            <a href="."
+            tal:attributes="href string:${context/absolute_url}/@@project-map-view.html">
+            View Map</a>
+          </li>
+          <li>
+            <a href="."
+            tal:attributes="href string:${context/absolute_url}/@@project-result-map-view.html">
+            Result Archive Map</a>
+          </li>
+          <li>
+            <a href="."
+            tal:attributes="href string:${context/absolute_url}/@@projectwebsites_view">
+            Project websites</a>
+          </li>
+          <li tal:condition="not:isAnon">
+            <a href="."
+            tal:attributes="href string:${context/absolute_url}/@@maintenance_view.html">
+            Maintenance</a>
+          </li>
+        </ul>
+        <p>The GEF IW Portfolio Visualization Tool provides an
+        on-the-fly mapping of project results and achievements of
+        20 years of GEF IW project interventions in a spatially
+        presented and user-friendly tool.</p>
+        <form id="projectmapform" name="search" method="get"
+        class="enableAutoFocus" action="map_view.html"
+        tal:attributes="action view/__name__">
+          <h5>Display</h5>
+          <div class="formHelp">Select layer(s) and/or additional
+          filters and click on a coordinate or polygon to list the
+          projects in that area</div>
+          <fieldset>
+            <legend>Scope</legend>
+            <input type="radio" id="scope-national"
+            name="getSubRegions:list" value="National"
+            checked="checked" />
+            <label for="scope-national">National</label>
+            <input type="radio" id="scope-regional"
+            name="getSubRegions:list" value="Regional" />
+            <label for="scope-regional">Regional</label>
+            <input type="radio" id="scope-global"
+            name="getSubRegions:list" value="Global" />
+            <label for="scope-global">Global</label>
+          </fieldset>
+          <fieldset id="resultitems">
+            <legend>Result</legend>
+            <input type="radio" id="rlacf" name="result"
+            value="rlacf" checked="checked" />
+            <label for="rlacf">Regional legal agreements and
+            cooperation frameworks</label>
+            <br />
+            <input type="radio" id="rmis" name="result"
+            value="rmi" />
+            <label for="rmis">Regional Management
+            Institutions</label>
+            <br />
+            <input type="radio" id="tda" name="result"
+            value="tda" />
+            <label for="tda">Transboundary Diagnostic Analysis:
+            Agreement on transboundary priorities and root
+            causes</label>
+            <br />
+            <input type="radio" id="sap" name="result"
+            value="sap" />
+            <label for="sap">Development of Strategic Action Plan
+            (SAP)</label>
+          </fieldset>
+          <fieldset id="pratypelayer">
+            <legend>Type</legend>
+            <input type="radio" id="category-abnj"
+            name="getProject_category:list" value="ABNJ"
+            checked="checked" />
+            <label for="category-abnj">ABNJ</label>
+            <br />
+            <input type="radio" id="category-coastal"
+            name="getProject_category:list"
+            value="Coastal Management" />
+            <label for="category-coastal">Coastal
+            Management</label>
+            <br />
+            <input type="radio" id="category-fisheries"
+            name="getProject_category:list" value="Fisheries" />
+            <label for="category-fisheries">Fisheries</label>
+            <br />
+            <input type="radio" id="category-foundational"
+            name="getProject_category:list" value="Foundational" />
+            <label for="category-foundational">Foundational</label>
+            <br />
+            <input type="radio" id="category-lbs"
+            name="getProject_category:list" value="LBS" />
+            <label for="category-lbs">LBS</label>
+            <br />
+            <input type="radio" id="category-nri"
+            name="getProject_category:list"
+            value="Nutrient Reduction Investment" />
+            <label for="category-nri">Nutrient Reduction
+            Investment</label>
+            <br />
+            <input type="radio" id="category-oilspill"
+            name="getProject_category:list" value="Oil Spill" />
+            <label for="category-oilspill">Oil Spill</label>
+            <br />
+            <input type="radio" id="category-pts"
+            name="getProject_category:list"
+            value="Persistent Toxic Substances" />
+            <label for="category-pts">Persistent Toxic
+            Substances</label>
+            <br />
+            <input type="radio" id="category-policy"
+            name="getProject_category:list" value="Policy" />
+            <label for="category-policy">Policy</label>
+            <br />
+            <input type="radio" id="category-learn"
+            name="getProject_category:list"
+            value="Portfolio Learning" />
+            <label for="category-learn">Portfolio Learning</label>
+            <br />
+            <input type="radio" id="category-sap"
+            name="getProject_category:list"
+            value="SAP Implementation" />
+            <label for="category-sap">SAP Implementation</label>
+            <br />
+            <input type="radio" id="category-ship-safety"
+            name="getProject_category:list" value="Ship Safety" />
+            <label for="category-ship-safety">Ship Safety</label>
+            <br />
+            <input type="radio" id="category-ship-waste"
+            name="getProject_category:list" value="Ship Waste" />
+            <label for="category-ship-waste">Ship Waste</label>
+            <br />
+            <input type="radio" id="category-wastewater"
+            name="getProject_category:list" value="Wastewater" />
+            <label for="category-wastewater">Wastewater</label>
+          </fieldset>
+          <h5>Refine List</h5>
+          <fieldset class="projectdetails">
+            <legend>Search for Projects</legend>
+            <div class="field">
+              <label for="getProject_type">Project type</label>
+              <div class="formHelp">Return projects of this
+              type</div>
+              <select id="getProject_type" name="getProject_type">
+                <tal:loop tal:repeat="opt view/get_projecttype">
+                  <option value="Select project type"
+                  tal:attributes="value opt/value; selected opt/selected; disabled opt/disabled; class opt/disabled;"
+                  tal:content="opt/name">All</option>
+                </tal:loop>
+              </select>
+            </div>
+            <div class="field">
+              <label for="getAgencies">Implementing agency</label>
+              <div class="formHelp">Return projects this agency
+              implements</div>
+              <select id="getAgencies" name="getAgencies">
+                <tal:loop tal:repeat="opt view/get_agency">
+                  <option value="Select agency"
+                  tal:attributes="value opt/value; selected opt/selected; disabled opt/disabled; class opt/disabled;"
+                  tal:content="opt/name">All</option>
+                </tal:loop>
+              </select>
+            </div>
+            <div class="field">
+              <label for="getProject_status">Project status</label>
+              <div class="formHelp">Return projects of this
+              status</div>
+              <select id="getProject_status"
+              name="getProject_status">
+                <tal:loop tal:repeat="opt view/get_status">
+                  <option value="Select status"
+                  tal:attributes="value opt/value; selected opt/selected; disabled opt/disabled; class opt/disabled;"
+                  tal:content="opt/name">All</option>
+                </tal:loop>
+              </select>
+            </div>
+          </fieldset>
+        </form>
+        <script type="text/javascript" tal:content="structure view/get_js">
+        /*<![CDATA[*/
+        // function refreshDetailsList defined here
+        /*]]>*/
+        </script>
+        <script type="text/javascript">
+        /*<![CDATA[*/
+         $(document).ready(function() {
+           $("#pratypelayer").find("input").each(function(i) {
+             $(this).change(refreshDetailsList);
+           });
+           $("#scope-national").change(refreshDetailsList);
+           $("#scope-regional").change(refreshDetailsList);
+           $("#scope-global").change(refreshDetailsList);
+           $("#resultitems").find("input").each(function(i) {
+             $(this).change(refreshDetailsList);
+           });
+           $("#projectmapform").find("select").each(function(i) {
+                $(this).change(refreshDetailsList) ;
+           });
+         });
+        /*]]>*/
+        </script>
+        <div class="visualClear">&nbsp;</div>
+        <div id="featureprojectdetails"> </div>
+
+      </tal:main-macro>
+    </div>
+  </body>
+</html>

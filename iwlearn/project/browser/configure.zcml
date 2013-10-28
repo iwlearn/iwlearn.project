@@ -337,6 +337,16 @@
       ruleset="plone.content.folderView"
       />
 
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="pra-list-view.html"
+      class=".projectdbview.ProjectDBPraListView"
+      template="projectdb-results-list.pt"
+      allowed_interface=".projectdbview.IProjectDBView"
+      permission="zope.Public"
+      />
+
+
   <adapter
       for=".projectdbview.ProjectDBMapView
            zope.interface.Interface

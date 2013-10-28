@@ -66,14 +66,14 @@ i18n:domain="iwlearn.project">
           <fieldset>
             <legend>Scope</legend>
             <input type="radio" id="scope-national"
-            name="getSubRegions:list" value="National"
+            name="getSubRegions" value="National"
             checked="checked" />
             <label for="scope-national">National</label>
             <input type="radio" id="scope-regional"
-            name="getSubRegions:list" value="Regional" />
+            name="getSubRegions" value="Regional" />
             <label for="scope-regional">Regional</label>
             <input type="radio" id="scope-global"
-            name="getSubRegions:list" value="Global" />
+            name="getSubRegions" value="Global" />
             <label for="scope-global">Global</label>
           </fieldset>
           <fieldset id="resultitems">

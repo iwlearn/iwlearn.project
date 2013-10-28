@@ -189,7 +189,7 @@
               <!-- disclaimer -->
               <a id="disclaimer" href="#" >Disclaimer</a>
               <div id="disclaimerdialog" title="Disclaimer">
-                <p>Maps and documents made available in the GEF
+<p>Maps and documents made available in the GEF
 IW:LEARN portfolio visualization tool are not legally recorded maps nor
 surveys and are not intended to be used as such. The visualization and
 mapping are created as part of a Geographic Information System (GIS) that
@@ -211,7 +211,7 @@ issues and concerns, please contact
               </div>
               <!-- end disclaimer -->
               &nbsp;&nbsp;&nbsp;&nbsp; <a id="datasources" href="#" >Data sources</a>
-              <div id="datasourcesdialog" title="Data sources">
+<div id="datasourcesdialog" title="Data sources">
 <h3>Individual GEF IW project information</h3>
 <p>
 Project information in the GEF IW Visualization Tool is
@@ -222,7 +222,17 @@ documents in the GEF database, publications and information
 submitted by GEF IW projects directly or from relevant
 project and partner websites.
 </p>
-<p>The PORTFOLIO RESULTS ARCHIVE highlights data aggregated from individual project progress on the basic indicators set out in the GEF IW Tracking Tool (TT) which allows GEF Agencies and the Secretariat to monitor and characterize program results quantitatively.  When results are not quantitatively provided or are unavailable, IW:LEARN will endeavor to provide a sound analysis using various documents, i.e., terminal evaluation reports, IW Results Notes, final seminar documents, and form supplementary data needed to complete the portfolio results visualization. <a href="/iw-projects/pra/PRA_Legend_22oct13.xls" target="_blank">View the Conversion Matrix here.</a></p>
+<p>The PORTFOLIO RESULTS ARCHIVE highlights data aggregated from individual
+project progress on the basic indicators set out in the GEF IW Tracking Tool (TT)
+which allows GEF Agencies and the Secretariat to monitor and characterize
+program results quantitatively.  When results are not quantitatively
+provided or are unavailable, IW:LEARN will endeavor to provide a sound
+analysis using various documents, i.e., terminal evaluation reports,
+IW Results Notes, final seminar documents, and form supplementary data
+needed to complete the portfolio results visualization.
+<a href="/iw-projects/pra/PRA_Legend_22oct13.xls" target="_blank">
+    View the Conversion Matrix here.</a>
+</p>
 <h3>Geographic boundaries</h3>
 <p>
 The maps used for the GEF IW Visualization Tool are for

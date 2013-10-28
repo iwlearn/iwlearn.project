@@ -347,10 +347,11 @@
                           US$</td>
                         </tr>
                         <tr tal:define="field python:here.Schema()['iprating'];
-                            accessor python:getattr(here, field.accessor);
-                            mode string:view;
-                            widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
-                        tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+                                accessor python:getattr(here, field.accessor);
+                                mode string:view;
+                                widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                            tal:on-error="nothing"
+                            tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
                           <td width="46%" bgcolor="#FAE3B0">
                             <b>IP Rating:</b>
@@ -363,7 +364,8 @@
                                 accessor python:getattr(here, field.accessor);
                                 mode string:view;
                                 widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
-                        tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+                            tal:on-error="nothing"
+                            tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
                           <td width="46%" bgcolor="#FAE3B0">
                             <b>DO Rating:</b>
@@ -376,7 +378,8 @@
                                 accessor python:getattr(here, field.accessor);
                                 mode string:view;
                                 widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
-                        tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+                                tal:on-error="nothing"
+                            tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
                           <td width="46%" bgcolor="#FAE3B0">
                             <b>Outcome Rating:</b>
@@ -464,27 +467,6 @@
                       </table>
                     </div>
                 </div>
-              <div class="visualClear" tal:condition="not:isAnon" tal:define="isAnon context/@@plone_portal_state/anonymous;">&nbsp;</div>
-              <!--div tal:content="structure view/get_rating_chart" tal:condition="not:isAnon" tal:define="isAnon context/@@plone_portal_state/anonymous;" />
-              <dl tal:condition="not:isAnon" tal:define="isAnon context/@@plone_portal_state/anonymous;" >
-                  <h3>Legend</h3>
-                  <dt>DO</dt>
-                  <dd>Developement Objective</dd>
-                  <dt>IP</dt>
-                  <dd>Implementation Progres</dd>
-                  <dt>IMC</dt>
-                  <dd>Establishment of country-specific inter-ministerial committees</dd>
-                  <dt>RF</dt>
-                  <dd>Regional legal agreements and cooperation frameworks</dd>
-                  <dt>RMI</dt>
-                  <dd>Regional Management Institutions</dd>
-                  <dt>LR</dt>
-                  <dd>National/Local reforms</dd>
-                  <dt>TDA</dt>
-                  <dd>Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes</dd>
-                  <dt>SAP</dt>
-                  <dd>Development of Strategic Action Plan (SAP)</dd>
-              </dl-->
             <div tal:replace="structure provider:plone.belowcontentbody" />
         </div>
     </metal:main-macro>

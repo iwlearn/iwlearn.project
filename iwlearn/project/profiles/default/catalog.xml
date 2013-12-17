@@ -13,4 +13,5 @@
   <column value="getGefRatings"/>
   <column value="getRawProjects" />
   <column value="getProject_category" />
+  <column value="getEcosystem" />
 </object>

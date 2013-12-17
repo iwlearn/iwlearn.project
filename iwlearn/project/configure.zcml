@@ -72,7 +72,7 @@
       title="Add catalog indexes"
       description=""
       source="*"
-      destination="1010"
+      destination="1011"
       handler="iwlearn.project.setuphandlers.add_catalog_indexes"
       profile="iwlearn.project:default" />
 
@@ -115,6 +115,14 @@
       source="*"
       destination="1009"
       handler="iwlearn.project.setuphandlers.update_project_types"
+      profile="iwlearn.project:default" />
+
+  <genericsetup:upgradeStep
+      title="Add Topic Criteria"
+      description=""
+      source="*"
+      destination="1011"
+      handler="iwlearn.project.setuphandlers.add_topic_criteria"
       profile="iwlearn.project:default" />
 
 </configure>

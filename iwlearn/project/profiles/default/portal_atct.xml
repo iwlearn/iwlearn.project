@@ -55,6 +55,15 @@
    <criteria>ATListCriterion</criteria>
    <criteria>ATSimpleStringCriterion</criteria>
   </index>
+  <index
+    name="getEcosystem"
+    description="Eco System"
+    enabled="True"
+    friendlyName="Ecosystem">
+   <criteria>ATSelectionCriterion</criteria>
+   <criteria>ATListCriterion</criteria>
+   <criteria>ATSimpleStringCriterion</criteria>
+  </index>
  </topic_indexes>
  <topic_metadata>
   <metadata
@@ -87,5 +96,10 @@
     description="Project type"
     enabled="True"
     friendlyName="Project type"/>
+  <metadata
+    name="getEcosystem"
+    description="Eco System"
+    enabled="True"
+    friendlyName="Eco System"/>
  </topic_metadata>
 </atcttool>

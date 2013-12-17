@@ -116,6 +116,7 @@ def add_catalog_indexes(context, logger=None):
               ('getRawProjects', 'FieldIndex'),
               ('getBasin_type', 'FieldIndex'),
               ('getProject_category', 'KeywordIndex'),
+              ('getEcosystem', 'KeywordIndex'),
               #XXX maybe better to index them seperately
               #('getGefRatings', 'FieldIndex'),
               )
@@ -129,6 +130,12 @@ def add_catalog_indexes(context, logger=None):
         logger.info("Indexing new indexes %s.", ', '.join(indexables))
         catalog.manage_reindexIndex(ids=indexables)
 
+def add_topic_criteria(context, logger=None):
+    if logger is None:
+        # Called as upgrade step: define our own logger.
+        logger = logging.getLogger('iwlearn.project')
+    setup = getToolByName(context, 'portal_setup')
+    setup.runImportStepFromProfile(PROFILE_ID, 'atcttool')
 
 def setupVarious(context):
     """Import step for configuration that is not handled in xml files.

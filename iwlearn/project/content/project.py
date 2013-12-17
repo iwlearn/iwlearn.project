@@ -101,16 +101,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     ),
 
-    #atapi.BooleanField(
-    #    'globalproject',
-    #    required=False,
-    #    searchable=False,
-    #    default=False,
-    #    widget=atapi.BooleanWidget(
-    #        label=_(u"Global"),
-    #        description=_(u"Indicate if the project has a global scope"),
-    #),
-    #),
+
 
     atapi.StringField(
         'project_scale',

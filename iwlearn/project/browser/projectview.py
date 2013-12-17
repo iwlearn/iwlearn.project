@@ -170,7 +170,8 @@ class GetProjectWebsiteCapture(ProjectView):
 
     def __call__(self):
         if self.context.getWebsite_thumb():
-            self.request.RESPONSE.setHeader('Content-Type', 'image/jpg')
+            mimetype = self.context.website_thumb.getContentType()
+            self.request.RESPONSE.setHeader('Content-Type', mimetype)
             return self.context.getWebsite_thumb().data
         else:
             if self.context.getRemoteUrl():
@@ -180,11 +181,12 @@ class GetProjectWebsiteCapture(ProjectView):
                 except Exception, e:
                     logger.error(str(e))
                     reason = "Upstream server returned: %s" % str(e)
-                    self.request.RESPONSE.setHeader('Content-Type', 'text/plain')
+                    #self.request.RESPONSE.setHeader('Content-Type', 'text/plain')
                     self.request.RESPONSE.setStatus(500, reason)
                     return 'Could not get website screenshot: %s ' % reason
                 self.context.setWebsite_thumb(data)
-                self.request.RESPONSE.setHeader('Content-Type', 'image/jpg')
+                mimetype = self.context.website_thumb.getContentType()
+                self.request.RESPONSE.setHeader('Content-Type', mimetype)
                 return self.context.getWebsite_thumb().data
 
 
@@ -198,8 +200,8 @@ class ProjectGefRatings(ProjectView):
                     return int(v)
                 except:
                     logger.error(v)
-                    return None
-        ratings = {None: ['NA', 'N/A', '#565656'],
+                    return -1
+        ratings = { -1: ['NA', 'N/A', '#565656'],
                 0: ['HU', 'Highly Unsatisfactory', '#FF0000'],
                 1: ['U', 'Unsatisfactory', '#FF7F00'],
                 2: ['MU', 'Moderately Unsatisfactory', '#FFFF00'],
@@ -228,7 +230,7 @@ class ProjectGefRatings(ProjectView):
                     show_x_labels=False,
                     truncate_legend=30,)
         chart.range = [-1, 5]
-        #chart.x_labels = [ratings[i][0] for i in [None, 0,1,2,3,4,5]]
+        #chart.y_labels = [ratings[i][0] for i in [-1,0,1,2,3,4,5]]
         chart.add('IP Rating', [{'value':r_ip, 'label': ratings[r_ip][1]}])
         chart.add('DO Rating', [{'value':r_do, 'label': ratings[r_do][1]}])
         chart.add('TE Rating', [{'value':r_te, 'label': ratings[r_te][1]}])

@@ -846,6 +846,7 @@ class Project(folder.ATFolder):
             'nap': 'Not Applicable',
             'nav': 'Not Available',
             '': 'Not Avalable',
+            None: 'Not Avalable',
             }
 
         if r in ['1', 'IV0', 'III0', 'IW1']:
@@ -903,7 +904,8 @@ class Project(folder.ATFolder):
             'IW4': 'Legal agreement ratified and entered into force (IWL Assessed)',
             '': 'Not Avalable',
             'nap': 'Not Applicable',
-            'nav': 'Not Available',}
+            'nav': 'Not Available',
+            None: 'Not Avalable',}
 
         r = self.regional_frameworks
         if r in ['1', 'IV0', 'III0', 'IW1']:
@@ -962,7 +964,8 @@ class Project(folder.ATFolder):
             'IW4': '',
             '': 'Not Avalable',
             'nap': 'Not Applicable',
-            'nav': 'Not Available',}
+            'nav': 'Not Available',
+            None: 'Not Avalable',}
 
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
@@ -1019,7 +1022,8 @@ class Project(folder.ATFolder):
             'IW4': '',
             '': 'Not Avalable',
             'nap': 'Not Applicable',
-            'nav': 'Not Available',}
+            'nav': 'Not Available',
+            None: 'Not Avalable',}
 
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
@@ -1077,7 +1081,8 @@ class Project(folder.ATFolder):
             'IW4': '',
             '': 'Not Avalable',
             'nap': 'Not Applicable',
-            'nav': 'Not Available',}
+            'nav': 'Not Available',
+            None: 'Not Avalable',}
 
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
@@ -1135,7 +1140,8 @@ class Project(folder.ATFolder):
             'IW4': '',
             '': 'Not Avalable',
             'nap': 'Not Applicable',
-            'nav': 'Not Available',}
+            'nav': 'Not Available',
+            None: 'Not Avalable',}
         if r in ['1', 'IV0', 'III0', 'IW1']:
             ri = 1
         elif r in ['2', 'IV1', 'III1', 'IW2']:
@@ -1189,7 +1195,8 @@ class Project(folder.ATFolder):
             'IW4': 'Management measures in ABNJ fully incorporated in  RMI institutional/ management frameworks',
             '': 'Not Avalable',
             'nap': 'Not Applicable',
-            'nav': 'Not Available',}
+            'nav': 'Not Available',
+            None: 'Not Avalable',}
 
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
@@ -1245,7 +1252,8 @@ class Project(folder.ATFolder):
             'IW4': 'SAP including Climatic Variability and Change adopted by all involved countries',
             '': 'Not Avalable',
             'nap': 'Not Applicable',
-            'nav': 'Not Available',}
+            'nav': 'Not Available',
+            None: 'Not Avalable',}
 
         if r in ['1', 'IV0', 'IW1']:
             ri = 1
@@ -1291,6 +1299,7 @@ class Project(folder.ATFolder):
             'nap': 'Not Applicable',
             'nav': 'Not Available',
             '': 'Not Avalable',
+            None: 'Not Avalable',
             }
 
         if r in ['1']:
@@ -1393,7 +1402,8 @@ class Project(folder.ATFolder):
             'IW4': 'Majority of national development/assistance frameworks have incorporated priorities with clear agency/government(s)  commitments and time frames for achievement',
             'nap': 'Not Applicable',
             'nav': 'Not Available',
-            '': 'Not Avalable',}
+            '': 'Not Avalable',
+            None: 'Not Avalable',}
 
         if r in ['1', 'IV0', 'IW1']:
             ri = 1

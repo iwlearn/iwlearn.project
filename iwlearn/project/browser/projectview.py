@@ -137,7 +137,7 @@ class ProjectResultView(ProjectView):
     ''' Display the project resultsarchive data '''
 
     def get_result_documents(self):
-        path = self.context.getPhysicalPath()
+        path = '/'.join(self.context.getPhysicalPath())
         brains = self.portal_catalog(path=path, Subject=
             ['ProjectDocument:FinalSummary', 'ProjectDocument:Results',
             'ProjectDocument:TerminalEvaluation'])

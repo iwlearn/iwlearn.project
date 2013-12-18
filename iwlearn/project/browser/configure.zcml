@@ -137,7 +137,7 @@
   <browser:page
       for="..interfaces.IProject"
       name="resultsview.html"
-      class=".projectview.ProjectView"
+      class=".projectview.ProjectResultView"
       template="projectresults_view.pt"
       allowed_interface=".projectview.IProjectView"
       permission="zope2.View"

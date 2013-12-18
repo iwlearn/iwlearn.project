@@ -87,26 +87,6 @@ class ProjectView(BrowserView):
         if results:
             return random.choice(results)
 
-
-    #def get_rating_chart(self):
-        #chart = pygal.Bar(width=400, height=200,
-                    #explicit_size=True,
-                    #disable_xml_declaration=True,
-                    #show_legend=True)
-        #ratings = self.context.get_normalized_ratings()
-        #chart.add('Rating', ratings)
-        #notapplicable =[None, None]
-        #for rating in ratings[2:]:
-            #if rating == 0:
-               #notapplicable.append(5)
-            #else:
-                #notapplicable.append(None)
-        #chart.add('N/A', notapplicable)
-        #chart.range = [0, 10]
-        #chart.x_labels = ['DO', 'IP', 'IMC', 'RF', 'RMI', 'LR', 'TDA', 'SAP']
-        #return chart.render()
-
-
     def get_pra_chart(self, disable_xml_declaration=True):
         ratings = [
         ('Establishment of country-specific inter-ministerial committees', [self.context.r4imcs()]),
@@ -156,6 +136,13 @@ class ProjectView(BrowserView):
 class ProjectResultView(ProjectView):
     ''' Display the project resultsarchive data '''
 
+    def get_result_documents(self):
+        path = self.context.getPhysicalPath()
+        brains = self.portal_catalog(path=path, Subject=
+            ['ProjectDocument:FinalSummary', 'ProjectDocument:Results',
+            'ProjectDocument:TerminalEvaluation'])
+        return brains
+
 
 class ProjectResultChart(ProjectView):
     ''' Display the project resultsarchive chart as an svg file '''
@@ -201,6 +188,8 @@ class ProjectGefRatings(ProjectView):
                 except:
                     logger.error(v)
                     return -1
+            else:
+                return -1
         ratings = { -1: ['NA', 'N/A', '#565656'],
                 0: ['HU', 'Highly Unsatisfactory', '#FF0000'],
                 1: ['U', 'Unsatisfactory', '#FF7F00'],

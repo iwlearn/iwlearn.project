@@ -226,6 +226,14 @@
                 <h2>Other Key Process Results</h2>
                 <div tal:content="structure context/getKey_process_results"> Result Description </div>
               </div>
+            <div tal:define="rds view/get_result_documents" tal:condition="rds">
+              <h2>Supporting Documents</h2>
+              <ul>
+                <li tal:repeat="rd rds">
+                  <a tal:attributes="href rd/getURL" tal:content="rd/Title">Document Title</a>
+                </li>
+              </ul>
+            </div>
             <div tal:replace="structure provider:plone.belowcontentbody" />
         </metal:main-macro>
     </metal:main-macro>

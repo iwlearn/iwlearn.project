@@ -1470,7 +1470,7 @@ def reindexProjectDocuments(context, event):
         logger.info('reindex: %s' % '/'.join(obj.getPhysicalPath()))
         obj.reindexObject(idxs=['getSubRegions',
             'getAgencies', 'getBasin','getCountry',
-            'getProject_status', 'getProject_type'])
+            'getProject_status', 'getProject_type', 'getEcosystem'])
 
     basins = context.getBasins()
     for basin in basins:

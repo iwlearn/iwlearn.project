@@ -232,6 +232,7 @@ class GefOnlineHarvestView(BrowserView):
         projects = self.portal_catalog(portal_type ='Project')
         project_ids=[]
         new_projects=[]
+        done = 0
         for brain in projects:
             ob = brain.getObject()
             if ob.getGef_project_id():
@@ -247,9 +248,13 @@ class GefOnlineHarvestView(BrowserView):
             else:
                 pinfo = harvest.extract_project_info(projectid)
                 if pinfo:
+                    done += 1
                     logger.info('Adding project %i' % projectid )
                     new_projects.append(self.create_project(pinfo, projectid))
                     project_ids.append(projectid)
+                    if done % 10 == 0:
+                        # Commit subtransaction for every 10th processed item
+                        transaction.get().commit()
                 else:
                     logger.info('download failed for project %i' % projectid )
         # Multifocal Projects with Strategic Program IW-*
@@ -269,9 +274,13 @@ class GefOnlineHarvestView(BrowserView):
                 if pinfo:
                     logger.info('Is Project %i an IW Project?' % projectid )
                     if pinfo.get('Strategic Program', 'nnn').find('IW-') >= 0:
+                        done += 1
                         logger.info('Adding project %i' % projectid )
                         new_projects.append(self.create_project(pinfo, projectid))
                         project_ids.append(projectid)
+                        if done % 10 == 0:
+                            # Commit subtransaction for every 10th processed item
+                            transaction.get().commit()
                     else:
                         logger.info('Project %i is not an IW project' % projectid )
                         excluded_ids.append(str(projectid))
@@ -291,8 +300,12 @@ class GefOnlineHarvestView(BrowserView):
                 pinfo = harvest.extract_project_info(projectid)
                 if pinfo:
                     if 'GEF Project ID' in pinfo:
+                        done += 1
                         logger.info('Adding project %i' % projectid )
                         new_projects.append(self.create_project(pinfo, projectid))
+                        if done % 10 == 0:
+                            # Commit subtransaction for every 10th processed item
+                            transaction.get().commit()
                     else:
                         logger.info('download incomplete for project %i' % projectid )
                 else:

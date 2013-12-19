@@ -651,6 +651,12 @@
       template="no_ea.pt"
       permission="cmf.ModifyPortalContent"
       />
+    <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projects_wo_countries.html"
+      template="projects_no_country.pt"
+      permission="cmf.ModifyPortalContent"
+      />
 
     <browser:page
         name="update_colors_form.html"

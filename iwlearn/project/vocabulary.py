@@ -1,17 +1,4 @@
 # -*- coding: utf-8 -*-
-
-
-# http://en.wikipedia.org/wiki/List_of_countries_spanning_more_than_one_continent
-# Africa and Asia
-# Two of 29 governorates of Egypt lie entirely on the Asian Sinai
-# Peninsula and two are transcontinental
-
-# Asia and Europe
-#    * Azerbaijan - situated in Eastern Europe and Western Asia.
-#    * Georgia - situated in Eastern Europe and Western Asia.
-#    * Kazakhstan - situated in Central Asia and Eastern Europe.
-#    * Russia - situated in Northern Asia and Eastern Europe.
-#    * Turkey - situated in Western Asia and Eastern Europe.
 import logging
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
@@ -34,158 +21,61 @@ my_countrylist['cw'] = {u'name': u'Curaçao'}
 my_countrylist['mf'] = {u'name': u'Saint Martin (French part)'}
 my_countrylist['sx'] = {u'name': u'Sint Maarten (Dutch part)'}
 
-REGION_SUBREGION_COUNTRIES_XXX ={
-u'Europe': {
-    u'Northern Europe':
-        [u'dk', u'fo', u'fi', u'is', u'no', u'sj', u'se', u'ax'],
-    u'Eastern Europe':
-        [u'by', u'ee', u'lv', u'lt', u'md', u'pl', u'ua', u'az', u'kz',
-        u'ru'],
-    u'South East Europe':
-        [u'al', u'ba', u'bg', u'hr', u'gr', u'mk', u'ro',
-        u'cs', u'si', u'ge', u'tr'],
-    u'Southern Europe':
-        [u'va', u'it', u'mt', u'sm'],
-    u'Central Europe':
-        [u'at', u'cz', u'hu', u'li', u'sk', u'ch'],
-    u'Western Europe':
-        [u'be', u'fr', u'de', u'ie', u'lu', u'im', u'mc', u'nl',
-        u'gb', u'gg', u'je'],
-    u'South West Europe':
-        [u'ad', u'gi', u'pt', u'es']
-    },
-u'Atlantic Ocean': {
-    u'South Atlantic Ocean':
-        ['bv', u'sh', u'gs']
-    },
-u'Oceania': {
-# http://en.wikipedia.org/wiki/Oceania#Geopolitical_Oceania
-    u'Australasia': [u'au', u'nz', u'cx', u'cc', u'nf'],
-    u'Melanesia': [u'fj', u'id', u'nc', u'pg', u'sb', u'vu'],
-    u'Micronesia': [u'fm', u'gu', u'ki', u'mh', u'nr', u'mp', u'pw', u'um'],
-    u'Polynesia': [u'as', u'ck', u'cl', u'pf', u'us', u'nu', u'pn', u'ws',
-       u'tk', u'to', u'tv', u'wf'],
-#    u'North Pacific Ocean':
-#        [u'um'],
-#    u'South Pacific Ocean': [],
-#    u'Pacific':
-#        [u'as', u'au', u'ck', u'fj', u'pf', u'gu', u'ki', u'mh', u'fm',
-#        u'nr', u'nc', u'nz', u'nu', u'nf', u'mp', u'pw', u'pg', u'pn', u'sb',
-#        u'tk', u'to', u'tv', u'vu', u'wf', u'ws']
-    },
-u'Africa': {
-    u'Eastern Africa':
-        [u'dj', u'er', u'et', u'ke', u'so', u'tz', u'ug'],
-    u'Northern Africa':
-        [u'dz', u'eg', u'ly', u'ma', u'sd', u'tn', u'eh'],
-    u'Indian Ocean':
-        [u'km', u'mg', u'mu', u'yt', u're', u'sc'],
-    u'Southern Africa':
-        [u'ao', u'bw', u'ls', u'mw', u'mz', u'na', u'za', u'sz',
-        u'zm', u'zw'],
-    u'Western Africa':
-        [u'bj', u'bf', u'cm', u'cv', u'ci', u'gq', u'ga', u'gm',
-        u'gh', u'gn', u'gw', u'lr', u'ml', u'mr', u'ne', u'ng', u'st', u'sn',
-        u'sl', u'tg'],
-    u'Central Africa':
-        [u'bi', u'cf', u'td', u'cg', u'rw', u'cd']
-    },
-u'Asia': {
-    u'Northern Asia':
-        [u'mn', u'ru'],
-    u'East Asia':
-        ['cn', u'jp', u'kp', u'kr', u'tw', u'hk', u'mo'],
-    u'South West Asia':
-        [u'am', u'az', u'bh', u'cy', u'ge', u'ir', u'iq', u'il',
-        u'jo', u'kw', u'lb', u'om', u'ps', u'qa', u'sa', u'sy', u'tr', u'ae',
-        u'ye', u'eg'],
-    u'South East Asia':
-        [u'bn', u'kh', u'cx', u'cc', u'id', u'la', u'my', u'mm',
-        u'ph', u'sg', u'th', u'vn', u'tl'],
-    u'Central Asia':
-        [u'kz', u'kg', u'tj', u'tm', u'uz'],
-    u'South Asia':
-        ['af', u'bd', u'bt', u'in', u'mv', u'np', u'pk', u'lk',
-        u'io']
-    },
-u'Americas': {
-    u'Central America':
-        [u'bz', u'cr', u'sv', u'gt', u'hn', u'mx', u'ni', u'pa'],
-    u'North America':
-        [u'ca', u'gl', u'pm', u'us'],
-    u'South America':
-        [u'ar', u'bo', u'br', u'cl', u'co', u'ec', u'fk', u'gf',
-        u'gy', u'py', u'pe', u'sr', u'uy', u've'],
-    u'Caribbean':
-        [u'ai', u'ag', u'aw', u'bs', u'bb', u'bm', u'vg', u'ky', u'cu',
-        u'dm', u'do', u'gd', u'gp', u'ht', u'jm', u'mq', u'ms', u'an', u'pr',
-        u'kn', u'lc', u'vc', u'tt', u'tc', u'vi'],
-    #'North Pacific Ocean': []
-    },
-u'Antarctica': {
-    u'Antarctica': [u'aq']
-    },
-u'Indian Ocean': {
-    u'Southern Indian Ocean': [u'tf', u'hm']
-    },
-u'Global' : {
-     #u'Global' : [] #_countrylist.keys()
-     }
-}
-
+# this is the UN definition of Regions/Subregions/countries
+# from
 REGION_SUBREGION_COUNTRIES = {
-u'Europe':
-    {'Eastern Europe': ['bg', 'by', 'cz', 'hu', 'md', 'pl', 'ro', 'ru', 'sk', 'ua'],
-    'Western Europe': ['at', 'be', 'ch', 'de', 'fr', 'li', 'lu', 'mc', 'nl'],
-#    'SIDS (Europe)': [],
-    'Southern Europe': ['ad', 'al', 'ba', 'cs', 'es', 'gi', 'gr', 'hr', 'it',
-    'me', 'mk', 'mt', 'pt', 'rs', 'si', 'sm', 'va'],
-    'Northern Europe': ['ax', 'dk', 'ee', 'fi', 'fo', 'gb', 'gg', 'ie',
-    'im', 'is', 'je', 'lt', 'lv', 'no', 'se', 'sj']},
-u'Antarctica': {u'Antarctica': [u'aq']},
-u'Oceania': {'Melanesia': ['fj', 'nc', 'pg', 'sb', 'vu'],
-    'SIDS (Oceania)': ['as', 'ck', 'fj', 'fm', 'gu', 'ki', 'mh', 'mp', 'nc',
-            'nr', 'nu', 'pf', 'pg', 'pw', 'sb', 'to', 'tv', 'vu', 'ws'],
-    'Australia and New Zealand': ['au', 'nf', 'nz'],
-    'Micronesia': ['fm', 'gu', 'ki', 'mh', 'mp', 'nr', 'pw'],
-    'Polynesia': ['as', 'ck', 'nu', 'pf', 'pn', 'tk', 'to', 'tv', 'wf', 'ws']},
-u'Global': {},
-u'SIDS': {
-    'Small island developing States': ['ag', 'ai', 'an' 'as', 'aw', 'bb',
-        'bs', 'bz', 'ck', 'cu', 'cv', 'dm', 'do', 'fj', 'fm', 'gd',
-        'gu', 'gw', 'gy', 'ht', 'jm', 'ki', 'km', 'kn', 'lc', 'mh',
-        'mp', 'ms', 'mu', 'mv', 'nc', 'nr', 'nu', 'pf', 'pg', 'pr',
-        'pw', 'sb', 'sc', 'sg', 'sr', 'st', 'tl', 'to', 'tt', 'tv',
-        'vc', 'vg', 'vi', 'vu', 'ws']},
-u'Africa': {
-    'Eastern Africa': ['bi', 'dj', 'er', 'et', 'ke', 'km', 'mg', 'mu',
-        'mw', 'mz', 're', 'rw', 'sc', 'so', 'ss', 'tz', 'ug', 'yt', 'zm', 'zw'],
-    'Northern Africa': ['dz', 'eg', 'eh', 'ly', 'ma', 'sd', 'tn'],
-    'Middle Africa': ['ao', 'cd', 'cf', 'cg', 'cm', 'ga', 'gq', 'st', 'td'],
-    'Southern Africa': ['bw', 'ls', 'na', 'sz', 'za'],
-    'Western Africa': ['bf', 'bj', 'ci', 'cv', 'gh', 'gm', 'gn', 'gw',
-    'lr', 'ml', 'mr', 'ne', 'ng', 'sh', 'sl', 'sn', 'tg'],
-    'SIDS (Africa)': ['cv', 'gw', 'km', 'mu', 'sc', 'st']},
-u'Asia': {
-    'Western Asia': ['ae', 'am', 'az', 'bh', 'cy', 'ge', 'il', 'iq',
-        'jo', 'kw', 'lb', 'om', 'ps', 'qa', 'sa', 'sy', 'tr', 'ye'],
-    'Southern Asia': ['af', 'bd', 'bt', 'in', 'ir', 'lk', 'mv', 'np', 'pk'],
-    'South-Eastern Asia': ['bn', 'id', 'kh', 'la', 'mm', 'my', 'ph', 'sg',
-        'th', 'tl', 'vn'],
-    'SIDS (Asia)': ['mv', 'sg', 'tl'],
-    'Central Asia': ['cn', 'hk', 'jp', 'kg', 'kp', 'kr', 'kz', 'mn',
-        'mo', 'tj', 'tm', 'tw', 'uz']},
-u'Americas': {
-    'Central America': ['bz', 'cr', 'gt', 'hn', 'mx', 'ni', 'pa', 'sv'],
-    'South America': ['ar', 'bo', 'br', 'cl', 'co', 'ec', 'fk', 'gf', 'gy',
-        'pe', 'py', 'sr', 'uy', 've'],
-    'Caribbean': ['ag', 'ai', 'an', 'aw', 'bb', 'bl', 'bq', 'bs', 'cu', 'cw',
-        'dm', 'do', 'gd', 'gp', 'ht', 'jm', 'kn', 'ky', 'lc', 'mf', 'mq',
-        'ms', 'pr', 'sx', 'tc', 'tt', 'vc', 'vg', 'vi'],
-    'Northern America': ['bm', 'ca', 'gl', 'pm', 'us'],
-    'SIDS (Americas)': ['ag', 'ai', 'an', 'aw', 'bb', 'bs', 'bz', 'cu', 'dm',
-    'do', 'gd', 'gy', 'ht', 'jm', 'kn', 'lc', 'ms', 'pr', 'sr', 'tt', 'vc', 'vg', 'vi']}
-}
+    u'Europe':
+        {'Eastern Europe': ['bg', 'by', 'cz', 'hu', 'md', 'pl', 'ro', 'ru', 'sk', 'ua'],
+        'Western Europe': ['at', 'be', 'ch', 'de', 'fr', 'li', 'lu', 'mc', 'nl'],
+    #    'SIDS (Europe)': [],
+        'Southern Europe': ['ad', 'al', 'ba', 'cs', 'es', 'gi', 'gr', 'hr', 'it',
+        'me', 'mk', 'mt', 'pt', 'rs', 'si', 'sm', 'va'],
+        'Northern Europe': ['ax', 'dk', 'ee', 'fi', 'fo', 'gb', 'gg', 'ie',
+        'im', 'is', 'je', 'lt', 'lv', 'no', 'se', 'sj']},
+    u'Antarctica': {u'Antarctica': [u'aq']},
+    u'Oceania': {'Melanesia': ['fj', 'nc', 'pg', 'sb', 'vu'],
+        'SIDS (Oceania)': ['as', 'ck', 'fj', 'fm', 'gu', 'ki', 'mh', 'mp', 'nc',
+                'nr', 'nu', 'pf', 'pg', 'pw', 'sb', 'to', 'tv', 'vu', 'ws'],
+        'Australia and New Zealand': ['au', 'nf', 'nz'],
+        'Micronesia': ['fm', 'gu', 'ki', 'mh', 'mp', 'nr', 'pw'],
+        'Polynesia': ['as', 'ck', 'nu', 'pf', 'pn', 'tk', 'to', 'tv', 'wf', 'ws']},
+    u'Global': {},
+    u'SIDS': {
+        'Small island developing States': ['ag', 'ai', 'an' 'as', 'aw', 'bb',
+            'bs', 'bz', 'ck', 'cu', 'cv', 'dm', 'do', 'fj', 'fm', 'gd',
+            'gu', 'gw', 'gy', 'ht', 'jm', 'ki', 'km', 'kn', 'lc', 'mh',
+            'mp', 'ms', 'mu', 'mv', 'nc', 'nr', 'nu', 'pf', 'pg', 'pr',
+            'pw', 'sb', 'sc', 'sg', 'sr', 'st', 'tl', 'to', 'tt', 'tv',
+            'vc', 'vg', 'vi', 'vu', 'ws']},
+    u'Africa': {
+        'Eastern Africa': ['bi', 'dj', 'er', 'et', 'ke', 'km', 'mg', 'mu',
+            'mw', 'mz', 're', 'rw', 'sc', 'so', 'ss', 'tz', 'ug', 'yt', 'zm', 'zw'],
+        'Northern Africa': ['dz', 'eg', 'eh', 'ly', 'ma', 'sd', 'tn'],
+        'Middle Africa': ['ao', 'cd', 'cf', 'cg', 'cm', 'ga', 'gq', 'st', 'td'],
+        'Southern Africa': ['bw', 'ls', 'na', 'sz', 'za'],
+        'Western Africa': ['bf', 'bj', 'ci', 'cv', 'gh', 'gm', 'gn', 'gw',
+        'lr', 'ml', 'mr', 'ne', 'ng', 'sh', 'sl', 'sn', 'tg'],
+        'SIDS (Africa)': ['cv', 'gw', 'km', 'mu', 'sc', 'st']},
+    u'Asia': {
+        'Western Asia': ['ae', 'am', 'az', 'bh', 'cy', 'ge', 'il', 'iq',
+            'jo', 'kw', 'lb', 'om', 'ps', 'qa', 'sa', 'sy', 'tr', 'ye'],
+        'Southern Asia': ['af', 'bd', 'bt', 'in', 'ir', 'lk', 'mv', 'np', 'pk'],
+        'South-Eastern Asia': ['bn', 'id', 'kh', 'la', 'mm', 'my', 'ph', 'sg',
+            'th', 'tl', 'vn'],
+        'SIDS (Asia)': ['mv', 'sg', 'tl'],
+        'Central Asia': ['cn', 'hk', 'jp', 'kg', 'kp', 'kr', 'kz', 'mn',
+            'mo', 'tj', 'tm', 'tw', 'uz']},
+    u'Americas': {
+        'Central America': ['bz', 'cr', 'gt', 'hn', 'mx', 'ni', 'pa', 'sv'],
+        'South America': ['ar', 'bo', 'br', 'cl', 'co', 'ec', 'fk', 'gf', 'gy',
+            'pe', 'py', 'sr', 'uy', 've'],
+        'Caribbean': ['ag', 'ai', 'an', 'aw', 'bb', 'bl', 'bq', 'bs', 'cu', 'cw',
+            'dm', 'do', 'gd', 'gp', 'ht', 'jm', 'kn', 'ky', 'lc', 'mf', 'mq',
+            'ms', 'pr', 'sx', 'tc', 'tt', 'vc', 'vg', 'vi'],
+        'Northern America': ['bm', 'ca', 'gl', 'pm', 'us'],
+        'SIDS (Americas)': ['ag', 'ai', 'an', 'aw', 'bb', 'bs', 'bz', 'cu', 'dm',
+        'do', 'gd', 'gy', 'ht', 'jm', 'kn', 'lc', 'ms', 'pr', 'sr', 'tt', 'vc', 'vg', 'vi']}
+    }
 
 
 
@@ -321,227 +211,6 @@ LEAD_AGENCY= [
     'World Bank',
     ]
 
-BASINS = [
-    '',
-    'Agulhas Current (LME)',
-    'Albemarle Sound',
-    'Amazon',
-    'Amu Dariya',
-    'Amur',
-    'Anadyr',
-    'Androscoggin',
-    'Antarctic',
-    'Arabian Sea',
-    'Arabian Sea (LME)',
-    'Araguia',
-    'Aral Sea',
-    'Arctic Basin',
-    'Avon',
-    'Azov Sea',
-    'Baffin Bay, Labrador Sea, Canadian Archipelago',
-    'Baltic Sea (LME)',
-    'Barents Sea (LME)',
-    'Bay of Bengal (LME)',
-    'Bay of Fundy',
-    'Baykal Lake',
-    'Benguela Current (LME)',
-    'Bering Sea',
-    'Bermejo',
-    'Black River',
-    'Black Sea (LME)',
-    'Bohai Sea',
-    'Brahmaputra',
-    'Bravo',
-    'Brazil Current (LME)',
-    'Brazos',
-    'Bug',
-    'California Current (LME)',
-    'Canary Current (LME)',
-    'Carribean Islands',
-    'Carribean Sea (LME)',
-    'Caspian Sea',
-    'Celtic-Biscay Shelf (LME)',
-    'Central Pacific',
-    'Chaophria',
-    'Chesapeake Bay',
-    'Chilean Southern Lakes',
-    'Chorokh',
-    'Colorado',
-    'Columbia',
-    'Congo',
-    'Connecticut',
-    'Copper',
-    'Coral Sea Basin',
-    'Cunene',
-    'Dalelven',
-    'Danube',
-    'Delaware',
-    'Delaware Bay',
-    'Dniestr',
-    'Dnipro',
-    'Don',
-    'Douro, Tejo',
-    'East Africa - Western Indian Ocean',
-    'East Africa Rift Valley Lakes',
-    'East Bering Sea (LME)',
-    'East Greenland (LME)',
-    'East-China Sea (LME)',
-    'Eastern Equatorial Pacific',
-    'Eastern Mediterranean',
-    'Eastern North Atlantic',
-    'Ebro',
-    'Elbe',
-    'Enisey',
-    'Faroe Plateau (LME)',
-    'Fraser',
-    'Fuerte',
-    'Gambia',
-    'Ganges',
-    'Great Australian Bight',
-    'Great Barrier Reef (LME)',
-    'Great Lakes',
-    'Great Ruaha',
-    'Grijalva/Colorado',
-    'Guanabara Bay',
-    'Gulf of Aden',
-    'Gulf of Alaska',
-    'Gulf of Aqaba',
-    'Gulf of California (LME)',
-    'Gulf of Guinea (LME)',
-    'Gulf of Honduras',
-    'Gulf of Maine',
-    'Gulf of Mexico (LME)',
-    'Gulf of Thailand',
-    'Gulf St. Lawrence',
-    'Hai',
-    'Hawaiian Archipelago (LME)',
-    'Huai',
-    'Hudson',
-    'Humber',
-    'Humboldt Current (LME)',
-    'Iberian Coastal (LME)',
-    'Iceland Shelf (LME)',
-    'Indonesian Seas (LME)',
-    'Indus',
-    'Irriwaddy',
-    'James',
-    'Jordan',
-    'Juba',
-    'Kolyma',
-    'Kura',
-    'Kuroshio Current (LME)',
-    'La Plata/Parana',
-    'Ladoga Lake',
-    'Lake Chad',
-    'Lake Titicaca',
-    'Lena',
-    'Liao',
-    'Limpopo',
-    'Loire',
-    'Long Island Sound',
-    'MacKenzie',
-    'Magdalena',
-    'Mangoky',
-    'Maputo River',
-    'Matanuska',
-    'Mediterranean Sea (LME)',
-    'Mekong',
-    'Mississippi',
-    'Murray-Darling',
-    'N. Dvina',
-    'Namsen',
-    'Narmada',
-    'Neuse',
-    'Neva',
-    'New Zealand Shelf (LME)',
-    'Newfoundland Shelf (LME)',
-    'Niger/Benue',
-    'Nile',
-    'North Caspian',
-    'North Pacific',
-    'North Sea',
-    'Northeast Brazil Shelf (LME)',
-    'Northeast Shelf (LME)',
-    'Northern Australian Shelf (LME)',
-    'Norwegian Sea (LME)',
-    'Ob',
-    'Oder',
-    'Okavango',
-    'Oranje',
-    'Oyashio Current (LME)',
-    'Pamlico',
-    'Pamlico Sound',
-    'Paraguay',
-    'Paraibe do Sul',
-    'Parana',
-    'Patagonian Shelf (LME)',
-    'Patos Lagoon',
-    'Pearl River',
-    'Pechora',
-    'Penobscot',
-    'Persian Gulf',
-    'Po',
-    'Potomac',
-    'Red River',
-    'Red Sea (LME)',
-    'Rhine',
-    'Rhone',
-    'Rio Grande',
-    'Ruyuma',
-    'Sacramento',
-    'Sao Francisco',
-    'Scotian Shelf (LME)',
-    'Sea of Japan (LME)',
-    'Sea of Okhotsk (LME)',
-    'Senegal',
-    'Senegal/Cape Verde Island',
-    'Shannon',
-    'Shelde',
-    'Skeena',
-    'Small Islands',
-    'Somali Coastal Current (LME)',
-    'South Asia Seas',
-    'South Caspian',
-    'South China Sea (LME)',
-    'South Pacific',
-    'Southeast Asia',
-    'Southeast Atlantic',
-    'Southeast Pacific',
-    'Southeast Shelf (LME)',
-    'Southern Ocean',
-    'St. John',
-    'St. Lawrence',
-    'Sulu-Celebes Sea (LME)',
-    'Susitna',
-    'Susquehanna',
-    'Tambre',
-    'Tana',
-    'Tasman Sea',
-    'Thames',
-    'Tigris-Euphrates',
-    'Tocantins',
-    'Tuloma',
-    'Tumen',
-    'Tyne',
-    'Ural',
-    'Uruguay',
-    'Vistula',
-    'Volga',
-    'Volta',
-    'Weddell Sea',
-    'Weser',
-    'West & Central Africa',
-    'West Bering Sea (LME)',
-    'West Greenland (LME)',
-    'Western Mediterranean',
-    'Western North Atlantic',
-    'Wider Carribean',
-    'Xingu',
-    'Yangtse',
-    'Yellow',
-    'Yellow Sea',
-    'Yukon',
-    'Zambezi']
 
 BASIN_TYPE = ['LME',
     'River',
@@ -552,7 +221,6 @@ BASIN_TYPE = ['LME',
 PROJECT_SCALE = [
     'Global',
     'Regional',
-    'Sub-Regional',
     'National',
 ]
 
@@ -624,9 +292,7 @@ def gef_phase_vocabulary_factory(context):
 
 
 def basin_vocabulary_factory(context):
-    """ combine BASINS with additional values from the index """
     catalog = getToolByName(context, 'portal_catalog')
-    #basins = list(catalog.Indexes['getBasin'].uniqueValues()) + BASINS
     path='iwlearn/iw-projects/basins/'
     query = {'portal_type': 'Document', 'path': path, 'sort_on': 'sortable_title'}
     brains = catalog(**query)

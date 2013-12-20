@@ -647,6 +647,18 @@
       />
     <browser:page
       for="..interfaces.IProjectDatabase"
+      name="projects_wo_type.html"
+      template="no_type.pt"
+      permission="cmf.ModifyPortalContent"
+      />
+    <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projects_wo_ecosystem.html"
+      template="no_ecosystem.pt"
+      permission="cmf.ModifyPortalContent"
+      />
+    <browser:page
+      for="..interfaces.IProjectDatabase"
       name="projects_wo_eas.html"
       template="no_ea.pt"
       permission="cmf.ModifyPortalContent"

@@ -6,14 +6,23 @@
   <body>
     <div metal:fill-slot="main">
         <tal:main-macro metal:define-macro="main">
-    <h2>Projects without basins</h2>
-    <ol>
-    <tal:loop tal:repeat="project python:here.portal_catalog(portal_type ='Project', getSubRegions='???')">
-      <li>
-        <a tal:attributes="href project/getURL" tal:content="project/Title"> project </a>
-      </li>
-    </tal:loop>
-    </ol>
+        <h2>National/regional projects without country</h2>
+        <ol>
+        <tal:loop tal:repeat="project python:here.portal_catalog(portal_type ='Project', getSubRegions='???')">
+          <li>
+            <a tal:attributes="href project/getURL" tal:content="project/Title"> project </a>
+            <i tal:content="python: project.getSubRegions[0]">national/regional/global</i>
+          </li>
+        </tal:loop>
+        </ol>
+        <h2>National Projects with more than one country</h2>
+         <ol>
+        <tal:loop tal:repeat="project python:here.portal_catalog(portal_type ='Project', getSubRegions='National')">
+          <li tal:condition="python: len(project.getCountry)>1">
+            <a tal:attributes="href project/getURL" tal:content="project/Title"> project </a>
+          </li>
+        </tal:loop>
+        </ol>
         </tal:main-macro>
     </div>
   </body>

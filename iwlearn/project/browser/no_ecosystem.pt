@@ -6,12 +6,11 @@
   <body>
     <div metal:fill-slot="main">
         <tal:main-macro metal:define-macro="main">
-    <h2>Projects without basins</h2>
+    <h2>Projects without ecosystem</h2>
     <ol>
     <tal:loop tal:repeat="project python:here.portal_catalog(portal_type ='Project')">
-      <li tal:condition="not: project/getBasin">
+      <li tal:condition="not: project/getEcosystem">
         <a tal:attributes="href project/getURL" tal:content="project/Title"> project </a>
-        <i tal:content="python: project.getSubRegions[0]">national/regional/global</i>
       </li>
     </tal:loop>
     </ol>

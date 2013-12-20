@@ -74,6 +74,17 @@
                                         target="_blank" tal:content="here/getWb_project_id"></a></strong>
                             </td>
                           </tr>
+                         <tr tal:condition="context/getProject_category"
+                            tal:define="field python:here.Schema()['project_category']; accessor python:getattr(here, field.accessor);
+                                    mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);">
+                            <td class="c1 prjlabel"
+                            valign="top">
+                              Project Category:
+                            </td>
+                            <td class="c1" width="78%" valign="top">
+                                <metal:block use-macro="widget_view" />
+                            </td>
+                          </tr>
                           <!-- moved project description here -->
                           <tr tal:define="field python:here.Schema()['project_summary']; accessor python:getattr(here, field.accessor)"
                       tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
@@ -141,6 +152,17 @@
                               <span>
                                 <metal:block use-macro="widget_view" />
                               </span>
+                            </td>
+                          </tr>
+                          <tr tal:condition="context/getEcosystem"
+                            tal:define="field python:here.Schema()['ecosystem']; accessor python:getattr(here, field.accessor);
+                                    mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);">
+                            <td class="c1 prjlabel"
+                            valign="top">
+                              Ecosystem:
+                            </td>
+                            <td class="c1" width="78%" valign="top">
+                                <metal:block use-macro="widget_view" />
                             </td>
                           </tr>
                           <tr>

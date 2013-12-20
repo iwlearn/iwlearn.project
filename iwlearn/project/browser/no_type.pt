@@ -9,7 +9,7 @@
     <h2>Projects without type</h2>
     <ol>
     <tal:loop tal:repeat="project python:here.portal_catalog(portal_type ='Project')">
-      <li tal:condition="not: project/getProject_type">
+      <li tal:condition="not: project/getProject_category">
         <a tal:attributes="href project/getURL" tal:content="project/Title"> project </a>
       </li>
     </tal:loop>

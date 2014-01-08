@@ -747,6 +747,8 @@ class Project(folder.ATFolder):
     meta_type = "Project"
     schema = ProjectSchema
 
+    ### values for computed fields ####
+
     def _isglobal(self):
         if self.getProject_scale() == 'Global':
             return True
@@ -766,6 +768,8 @@ class Project(folder.ATFolder):
     def _computeSubregions(self):
         return ','.join(vocabulary.get_subregions(
                 countries=self.getCountry()))
+
+    ### indexed attributes ###
 
     def start(self):
         return self.getStart_date()
@@ -805,7 +809,7 @@ class Project(folder.ATFolder):
         return agencies
 
     def getGefRatings(self):
-        """ Returns IP and DO Ratings as a tuple """
+        """ Returns IP, DO and TE Ratings as a tuple """
         return (self.getDorating(), self.getIprating(), self.getOutcomerating())
 
 
@@ -823,6 +827,15 @@ class Project(folder.ATFolder):
 
     def end(self):
         return self.getEnd_date()
+
+    def getCountryCode(self):
+        ccs = []
+        for k,v in vocabulary.my_countrylist.iteritems():
+            if v['name'] in self.getCountry():
+                ccs.append(k)
+        return ccs
+
+    ### Ratings ###
 
     def r4imcs(self):
         r = self.imcs

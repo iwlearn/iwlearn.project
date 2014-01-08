@@ -72,7 +72,7 @@
       title="Add catalog indexes"
       description=""
       source="*"
-      destination="1011"
+      destination="1012"
       handler="iwlearn.project.setuphandlers.add_catalog_indexes"
       profile="iwlearn.project:default" />
 

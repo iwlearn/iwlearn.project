@@ -11,7 +11,8 @@ from vocabulary import RATINGS
 
 CSV_HEADER = ['gefid', 'projecttitle', 'agency', 'country', 'region',
         'focalarea', 'type', 'GEF Fund', 'grantamount', 'ppgamount', 'cofinancing',
-        'status', 'fy approval', 'fy implementation', 'fy completion', 'outcomerating',
+        'status', 'fy approval', 'fy implementation', 'fy completion',
+        # 'outcomerating', # csv changed again and does not include it anymore
         'dateA', 'dateB', 'iprating', 'dorating']
 
 logger = logging.getLogger('iwlearn.project')

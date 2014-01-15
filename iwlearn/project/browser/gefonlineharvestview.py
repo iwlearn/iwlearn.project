@@ -357,7 +357,10 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
             if projectid in ratings:
                 iprating = IPDORATINGS[ratings[projectid]['iprating']]
                 dorating = IPDORATINGS[ratings[projectid]['dorating']]
-                outcomerating = OUTCOMERATINGS[ratings[projectid]['outcomerating']]
+                if 'outcomerating' in [ratings[projectid]]:
+                    outcomerating = OUTCOMERATINGS[ratings[projectid]['outcomerating']]
+                else:
+                    outcomerating = None
                 project_status = ratings[projectid]['status']
                 if project_status == 'Completed':
                     project_status = 'Project Completion'

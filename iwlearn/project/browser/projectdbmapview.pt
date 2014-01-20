@@ -319,7 +319,8 @@ $(function() {
     try {
         $( "#datasourcesdialog" ).dialog({
             autoOpen: false,
-            modal: true
+            modal: true,
+            width: 400
         });
 
         $( "#datasources" ).click(function() {

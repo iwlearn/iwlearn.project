@@ -99,7 +99,7 @@ class GefOnlineHarvestView(BrowserView):
             obj.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
 
-    def _create_project_location(self, project, location):
+    def _create_project_location(self, project, location, description):
         wftool = getToolByName(self, 'portal_workflow')
         if not hasattr(project, 'maps_graphics'):
             Id ='maps_graphics'
@@ -121,7 +121,6 @@ class GefOnlineHarvestView(BrowserView):
         if location['geoLocId'] not in locfolder.objectIds():
             Id = location['geoLocId']
             title = location['geoLocName']
-            description = ''
             locfolder.invokeFactory('Document', id=Id, title=title, description=description)
             obj = locfolder[Id]
             lat = float(location['latitude'])
@@ -129,6 +128,11 @@ class GefOnlineHarvestView(BrowserView):
             geo = IGeoManager(obj)
             geo.setCoordinates('Point', (lon, lat))
             wftool.doActionFor( obj,  'submit')
+        else:
+            locob = locfolder[geoLocId]
+            if not locob.Description():
+                if description:
+                    locob.setDescription(description)
 
     def create_project(self, pinfo, gpid):
         '''
@@ -290,6 +294,14 @@ class GefOnlineHarvestView(BrowserView):
             included_ids = [int(id) for id in set(self.context.getInclude_ids())]
         else:
             included_ids = []
+        unep_iw_projects = harvest.get_unep_iw_projects()
+        for p in unep_iw_projects:
+            try:
+                if int(p['GEFid']) not in included_ids:
+                    included_ids.append(int(p['GEFid']))
+                    logger.info('apppended UNEP Project with GefId %s' % p['GEFid'])
+            except:
+                pass
         for projectid in included_ids:
             if str(projectid) in excluded_ids:
                 excluded_ids.remove(str(projectid))
@@ -455,12 +467,14 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                             ob.setDescription(pinfo['project_abstract']['cdata'])
                     if 'locations' in pinfo:
                         logger.info('Update project %i Locations from WB Data' % projectid )
+                        if 'project_abstract' in pinfo:
+                            desc = pinfo['project_abstract']['cdata']
                         for location in pinfo['locations']:
                             if ('geoLocName' in location and
                                 'longitude' in location and
                                 'latitude' in location and
                                 'geoLocId' in location):
-                                self._create_project_location(ob, location)
+                                self._create_project_location(ob, location, desc)
             if done % 10 == 0:
                 # Commit subtransaction for every 10th processed item
                 transaction.get().commit()

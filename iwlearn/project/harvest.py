@@ -17,6 +17,15 @@ CSV_HEADER = ['gefid', 'projecttitle', 'agency', 'country', 'region',
 
 logger = logging.getLogger('iwlearn.project')
 
+def get_unep_iw_projects():
+    """
+    http://addis.unep.org/@@pgijson_view?getFocalAreas=International%20Waters
+    """
+    url = 'http://addis.unep.org/@@pgijson_view?getFocalAreas=International%20Waters'
+    response = urllib2.urlopen(url)
+    data = json.loads(response.read())
+    return data['results']
+
 def get_ibrd_info(ibrd_id):
     """ http://search.worldbank.org/api/v2/projects?fl=id,project_name,totalamt,closingdate,countrycode,countryname,location,sector,mjsectorcode,boardapprovaldate,project_abstract&rows=ALL&format=json&apilang=en&geocode=on&qterm=P084608
     """

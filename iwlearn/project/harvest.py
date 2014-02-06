@@ -17,11 +17,14 @@ CSV_HEADER = ['gefid', 'projecttitle', 'agency', 'country', 'region',
 
 logger = logging.getLogger('iwlearn.project')
 
-def get_unep_iw_projects():
+def get_unep_iw_projects(gefid=None):
     """
     http://addis.unep.org/@@pgijson_view?getFocalAreas=International%20Waters
     """
-    url = 'http://addis.unep.org/@@pgijson_view?getFocalAreas=International%20Waters'
+    if gefid:
+        url = 'http://addis.unep.org/@@pgijson_view?getGEFid=%i' % gefid
+    else:
+        url = 'http://addis.unep.org/@@pgijson_view?getFocalAreas=International%20Waters'
     response = urllib2.urlopen(url)
     data = json.loads(response.read())
     return data['results']

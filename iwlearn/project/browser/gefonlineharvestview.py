@@ -129,7 +129,7 @@ class GefOnlineHarvestView(BrowserView):
             geo.setCoordinates('Point', (lon, lat))
             wftool.doActionFor( obj,  'submit')
         else:
-            locob = locfolder[geoLocId]
+            locob = locfolder[location['geoLocId']]
             if not locob.Description():
                 if description:
                     locob.setDescription(description)
@@ -261,6 +261,7 @@ class GefOnlineHarvestView(BrowserView):
                         transaction.get().commit()
                 else:
                     logger.info('download failed for project %i' % projectid )
+        transaction.get().commit()
         # Multifocal Projects with Strategic Program IW-*
         gef_project_ids = harvest.extract_gefids_from_page(
                 harvest.get_gef_iw_project_page('M'))
@@ -290,6 +291,7 @@ class GefOnlineHarvestView(BrowserView):
                         excluded_ids.append(str(projectid))
                 else:
                     logger.info('download failed for project %i' % projectid )
+        transaction.get().commit()
         if self.context.getInclude_ids():
             included_ids = [int(id) for id in set(self.context.getInclude_ids())]
         else:
@@ -326,6 +328,7 @@ class GefOnlineHarvestView(BrowserView):
         self.context.setExclude_ids(excluded_ids)
         included_ids.sort()
         self.context.setInclude_ids([str(i) for i in included_ids])
+        transaction.get().commit()
         logger.info('harvest complete')
         return new_projects
 
@@ -459,9 +462,10 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                     pinfo = False
                 if pinfo:
                     logger.info('Update project %i from WB Data' % projectid )
-                    end_date = DateTime(pinfo['closingdate'])
-                    if end_date and ob.end() is None:
-                        ob.setEnd_date(end_date)
+                    if 'closingdate' in pinfo:
+                        end_date = DateTime(pinfo['closingdate'])
+                        if end_date and ob.end() is None:
+                            ob.setEnd_date(end_date)
                     if not ob.Description():
                         if 'project_abstract' in pinfo:
                             ob.setDescription(pinfo['project_abstract']['cdata'])
@@ -475,9 +479,18 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                                 'latitude' in location and
                                 'geoLocId' in location):
                                 self._create_project_location(ob, location, desc)
+            #get unep projects from addis
+            unep_project = harvest.get_unep_iw_projects(projectid)
+            if unep_project:
+                if int(unep_project[0]['GEFid'])== projectid:
+                    logger.info('updating from unep')
+                else:
+                    logger.error('GEFIds do not match %s != %i' %(unep_project['GEFId'], projectid))
+
             if done % 10 == 0:
                 # Commit subtransaction for every 10th processed item
                 transaction.get().commit()
 
+        transaction.get().commit()
         logger.info('update harvest complete')
         return new_projects

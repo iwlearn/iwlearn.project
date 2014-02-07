@@ -111,7 +111,7 @@ class GefOnlineHarvestView(BrowserView):
             obj.invokeFactory( 'Folder', id=Id, title=title, description=description)
 
 
-    def _create_project_location(self, project, location, description):
+    def _create_project_location(self, project, location, project_name, description):
         wftool = getToolByName(self, 'portal_workflow')
         if not hasattr(project, 'maps_graphics'):
             Id ='maps_graphics'
@@ -133,8 +133,9 @@ class GefOnlineHarvestView(BrowserView):
         if location['geoLocId'] not in locfolder.objectIds():
             Id = location['geoLocId']
             title = location['geoLocName']
-            locfolder.invokeFactory('Document', id=Id, title=title, description=description)
+            locfolder.invokeFactory('Document', id=Id, title=title, description=project_name)
             obj = locfolder[Id]
+            obj.update(text=description)
             lat = float(location['latitude'])
             lon = float(location['longitude'])
             geo = IGeoManager(obj)
@@ -142,9 +143,15 @@ class GefOnlineHarvestView(BrowserView):
             wftool.doActionFor( obj,  'submit')
         else:
             locob = locfolder[location['geoLocId']]
-            if not locob.Description():
-                if description:
-                    locob.setDescription(description)
+            #if not locob.Description():
+            #overwriting all information
+            if project_name:
+                locob.update(description=project_name)
+            elif description:
+                locob.update(description=description)
+                description = None
+            if description:
+                locob.update(text=description)
 
     def create_project(self, pinfo, gpid):
         '''
@@ -378,6 +385,7 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
         done = 0
         for brain in projects:
             done += 1
+            updated = False
             ob = brain.getObject()
             self._create_project_folders(ob)
             projectid = int(ob.getGef_project_id().strip())
@@ -395,20 +403,25 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                     if ob.getProject_status() != project_status:
                         logger.info('updating status for project %i to %s' %(projectid, project_status))
                         ob.update(project_status=project_status)
+                        updated = True
                 if iprating != None and dorating != None:
                     if iprating != getattr(ob, 'iprating', None) or dorating != getattr(ob, 'dorating', None):
                         ob.update(iprating = iprating,
                             dorating = dorating)
                         logger.info('Updating project %i rating' % projectid )
+                        updated = True
                 elif iprating !=None and iprating != getattr(ob, 'iprating', None):
                     ob.update(iprating = iprating)
+                    updated = True
                     logger.info('Updating project %i rating' % projectid )
                 elif dorating !=None and dorating != getattr(ob, 'dorating', None):
                     ob.update(dorating = dorating)
+                    updated = True
                     logger.info('Updating project %i rating' % projectid )
                 if outcomerating:
                     if outcomerating != getattr(ob, 'outcomerating', None):
                         ob.update(outcomerating = outcomerating)
+                        updated = True
                         logger.info('Updating project %i outcomerating' % projectid )
             pinfo = None
             #XXX comment out to skip updateing from gef online
@@ -446,10 +459,13 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                     ob.update(end_date=end_date)
                 if wb_project_id:
                     ob.update(wb_project_id=wb_project_id)
+                    updated = True
                 if operational_program:
                     ob.update(operational_programme=operational_program)
+                    updated = True
                 if strategic_program:
                     ob.update(strategic_priority=strategic_program)
+                    updated = True
                 #project_status = pinfo.get('Project Status', None)
                 #if ob.getProject_status() != project_status:
                 #    ob.update(
@@ -458,12 +474,9 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                 #        gef_project_allocation=str(project_allocation),
                 #        total_cost=str(total_cost),
                 #        )
-                    logger.info('Updating project %i' % projectid )
                     new_projects.append({'name': brain.Title,
                         'url': brain.getURL(),
                         'description': brain.Description})
-                else:
-                    logger.info('project %i unchanged' % projectid )
             else:
                 logger.info('download failed for project %i' % projectid )
             ibrd_id = ob.getWb_project_id()
@@ -478,21 +491,28 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                         end_date = DateTime(pinfo['closingdate'])
                         if end_date and ob.end() is None:
                             ob.update(end_date=end_date)
+                            updated = True
                     if not ob.Description():
                         if 'project_abstract' in pinfo:
                             ob.update(Description=pinfo['project_abstract']['cdata'])
+                            updated = True
                     if 'locations' in pinfo:
                         logger.info('Update project %i Locations from WB Data' % projectid )
                         if 'project_abstract' in pinfo:
                             desc = pinfo['project_abstract']['cdata']
                         else:
                             desc=None
+                        if 'project_name' in pinfo:
+                            project_name = pinfo['project_name']
+                        else:
+                            project_name = None
                         for location in pinfo['locations']:
                             if ('geoLocName' in location and
                                 'longitude' in location and
                                 'latitude' in location and
                                 'geoLocId' in location):
-                                self._create_project_location(ob, location, desc)
+                                self._create_project_location(ob, location, project_name, desc)
+                                updated = True
             #get unep projects from addis
             unep_project = harvest.get_unep_iw_projects(projectid)
             if unep_project:
@@ -506,29 +526,31 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                         if set(fa) != fb:
                             logger.info('ADDIS Updating Focal Area from %s to %s' %(fa, fb))
                             ob.update(focal_area=fb)
+                            updated = True
                     if unep_project[0]['GEFPhase']:
                         gp = UNEP_GEF_PHASE[unep_project[0]['GEFPhase']]
                         ob.update(gef_phase = gp)
+                        updated = True
                     if unep_project[0]['Countries']:
                         countries = list(ob.getCountry())
                         cdb = []
                         for c in unep_project[0]['Countries']:
                             if c not in PLONE_COUNTRIES:
-                                logger.error('ADDIS Country %s not found' %c )
+                                logger.error('GEFID %i ADDIS Country %s not found' %(projectid, c) )
                             else:
                                 cdb.append(c)
                         c2 = set(countries + cdb)
-                        print c2, countries, unep_project[0]['Countries']
                         if len(countries) != len(c2):
                             logger.info('ADDIS Updating Country from %s to %s' %(countries, c2))
                             ob.update(country=c2)
+                            updated = True
                 else:
                     logger.error('GEFIds do not match %s != %i' %(unep_project['GEFId'], projectid))
-
+            if updated:
+                logger.info('Updated project %i' % projectid )
             if done % 10 == 0:
                 # Commit subtransaction for every 10th processed item
                 transaction.get().commit()
-
         transaction.get().commit()
         logger.info('update harvest complete')
         return new_projects

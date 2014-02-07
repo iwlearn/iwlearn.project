@@ -6,7 +6,7 @@
       <property name="description"/>
       <property name="url_expr">string:${object_url}/@@gefonlineharvest_view</property>
       <property name="icon_expr"/>
-      <property name="available_expr">python:object.meta_type in ('Project Database')</property>
+      <property name="available_expr">python:object.meta_type in ('Project Database',)</property>
       <property name="permissions">
         <element value="Modify portal content"/>
       </property>
@@ -17,7 +17,7 @@
       <property name="description"/>
       <property name="url_expr">string:${object_url}/@@gefonlineupdate_view</property>
       <property name="icon_expr"/>
-      <property name="available_expr">python:object.meta_type in ('Project Database')</property>
+      <property name="available_expr">python:object.meta_type in ('Project Database',)</property>
       <property name="permissions">
         <element value="Modify portal content"/>
       </property>

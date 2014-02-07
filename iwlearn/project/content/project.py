@@ -69,7 +69,27 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
          validators=('isInt',)
     ),
 
+    atapi.IntegerField(
+        'unep_addis_project_id',
+        required=False,
+        searchable=False,
+        widget=atapi.StringWidget(
+            label=_(u"UNEP ID"),
+            description=_(u"Unep Addis Database Id"),
+            visible={'edit': 'invisible'},
 
+        ),
+         validators=('isInt',)
+    ),
+
+    atapi.StringField(
+        'unep_addis_url',
+        widget=atapi.StringWidget(
+            label=_(u"UNEP ADDIS URL"),
+            description=_(u"Link to project in addis db"),
+            visible={'edit': 'invisible'},
+        ),
+    ),
 
     atapi.StringField(
         'remote_url',
@@ -758,15 +778,15 @@ class Project(folder.ATFolder):
 
     def _computeRegions(self):
         if self.getGlobalproject():
-            return ','.join(vocabulary.get_regions(
+            return ', '.join(vocabulary.get_regions(
                     countries=self.getCountry(),
                     regions=[u'Global']))
         else:
-             return ','.join(vocabulary.get_regions(
+             return ', '.join(vocabulary.get_regions(
                     countries=self.getCountry()))
 
     def _computeSubregions(self):
-        return ','.join(vocabulary.get_subregions(
+        return ', '.join(vocabulary.get_subregions(
                 countries=self.getCountry()))
 
     ### indexed attributes ###

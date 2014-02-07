@@ -9,11 +9,23 @@ from Products.CMFCore.utils import getToolByName
 
 from collective.geo.contentlocations.interfaces import IGeoManager
 
+from iwlearn.project.vocabulary import my_countrylist as _countrylist
 from iwlearn.project import projectMessageFactory as _
 from iwlearn.project import harvest
 from iwlearn.project.interfaces.projectdatabase import IProjectDatabase
 
 logger = logging.getLogger('iwlearn.project')
+
+UNEP_GEF_PHASE = {'Pilot': 0,
+                'I': 1,
+                'II': 2,
+                'III': 3,
+                'IV': 4,
+                'V': 5,
+                'VI': 6}
+
+PLONE_COUNTRIES = [c['name'] for c in _countrylist.values()]
+
 
 class IGefOnlineHarvestView(Interface):
     """
@@ -465,10 +477,10 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                     if 'closingdate' in pinfo:
                         end_date = DateTime(pinfo['closingdate'])
                         if end_date and ob.end() is None:
-                            ob.setEnd_date(end_date)
+                            ob.update(end_date=end_date)
                     if not ob.Description():
                         if 'project_abstract' in pinfo:
-                            ob.setDescription(pinfo['project_abstract']['cdata'])
+                            ob.update(Description=pinfo['project_abstract']['cdata'])
                     if 'locations' in pinfo:
                         logger.info('Update project %i Locations from WB Data' % projectid )
                         if 'project_abstract' in pinfo:
@@ -484,6 +496,30 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
             if unep_project:
                 if int(unep_project[0]['GEFid'])== projectid:
                     logger.info('updating from unep')
+                    ob.update(unep_addis_project_id= int(unep_project[0]['DatabaseID']))
+                    ob.update(unep_addis_url=unep_project[0]['url'])
+                    if unep_project[0]['FocalAreas']:
+                        fa = list(ob.getFocal_area())
+                        fb = set(fa + unep_project[0]['FocalAreas'])
+                        if set(fa) != fb:
+                            logger.info('ADDIS Updating Focal Area from %s to %s' %(fa, fb))
+                            ob.update(focal_area=fb)
+                    if unep_project[0]['GEFPhase']:
+                        gp = UNEP_GEF_PHASE[unep_project[0]['GEFPhase']]
+                        ob.update(gef_phase = gp)
+                    if unep_project[0]['Countries']:
+                        countries = list(ob.getCountry())
+                        cdb = []
+                        for c in unep_project[0]['Countries']:
+                            if c not in PLONE_COUNTRIES:
+                                logger.error('ADDIS Country %s not found' %c )
+                            else:
+                                cdb.append(c)
+                        c2 = set(countries + cdb)
+                        print c2, countries, unep_project[0]['Countries']
+                        if len(countries) != len(c2):
+                            logger.info('ADDIS Updating Country from %s to %s' %(countries, c2))
+                            ob.update(country=c2)
                 else:
                     logger.error('GEFIds do not match %s != %i' %(unep_project['GEFId'], projectid))
 

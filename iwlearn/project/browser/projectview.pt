@@ -73,6 +73,16 @@
                               <strong><a tal:attributes="href view/get_wburl"
                                         target="_blank" tal:content="here/getWb_project_id"></a></strong>
                             </td>
+                         </tr>
+                         <tr tal:condition="here/getUnep_addis_url">
+                            <td class="c1 prjlabel"
+                            valign="top">
+                              UNEP ADDIS ID:
+                            </td>
+                            <td class="c1" width="78%" valign="top">
+                              <strong><a tal:attributes="href here/getUnep_addis_url"
+                                        target="_blank" tal:content="here/getUnep_addis_project_id"></a></strong>
+                            </td>
                           </tr>
                          <tr tal:condition="context/getProject_category"
                             tal:define="field python:here.Schema()['project_category']; accessor python:getattr(here, field.accessor);

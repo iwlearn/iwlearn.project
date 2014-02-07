@@ -27,6 +27,8 @@ def get_unep_iw_projects(gefid=None):
         url = 'http://addis.unep.org/@@pgijson_view?getFocalAreas=International%20Waters'
     response = urllib2.urlopen(url)
     data = json.loads(response.read())
+    logger.debug(url)
+    logger.debug('returned %s results' % data['metadata']['totalresults'])
     return data['results']
 
 def get_ibrd_info(ibrd_id):

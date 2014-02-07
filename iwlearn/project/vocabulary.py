@@ -22,7 +22,7 @@ my_countrylist['mf'] = {u'name': u'Saint Martin (French part)'}
 my_countrylist['sx'] = {u'name': u'Sint Maarten (Dutch part)'}
 
 # this is the UN definition of Regions/Subregions/countries
-# from
+# from http://unstats.un.org/unsd/methods/m49/m49regin.htm
 REGION_SUBREGION_COUNTRIES = {
     u'Europe':
         {'Eastern Europe': ['bg', 'by', 'cz', 'hu', 'md', 'pl', 'ro', 'ru', 'sk', 'ua'],

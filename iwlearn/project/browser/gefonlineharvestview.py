@@ -485,6 +485,8 @@ class GefOnlineUpdateView(GefOnlineHarvestView):
                         logger.info('Update project %i Locations from WB Data' % projectid )
                         if 'project_abstract' in pinfo:
                             desc = pinfo['project_abstract']['cdata']
+                        else:
+                            desc=None
                         for location in pinfo['locations']:
                             if ('geoLocName' in location and
                                 'longitude' in location and

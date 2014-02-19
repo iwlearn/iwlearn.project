@@ -234,6 +234,25 @@
                 </li>
               </ul>
             </div>
+            <div tal:define="frameworks view/get_basin_frameworks"
+                tal:condition="frameworks">
+              <label class="formQuestion">Legal frameworks in the project basins</label>
+              <ul>
+                <li tal:repeat="framework frameworks">
+                  <a tal:attributes="href framework/url" tal:content="framework/title">Project</a>
+                </li>
+              </ul>
+            </div>
+            <div tal:define="frameworks view/get_country_frameworks"
+                tal:condition="frameworks">
+              <label class="formQuestion">Legal frameworks in the project countries</label>
+              Depending on the project scope the treaty may not be applicable to all projects
+              <ul>
+                <li tal:repeat="framework frameworks">
+                  <a tal:attributes="href framework/url" tal:content="framework/title">framework</a>
+                </li>
+              </ul>
+            </div>
             <div tal:replace="structure provider:plone.belowcontentbody" />
         </metal:main-macro>
     </metal:main-macro>

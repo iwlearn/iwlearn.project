@@ -31,6 +31,26 @@ class LegalFWView(BrowserView):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
 
+    def get_basin_projects(self):
+        basins = self.context.getBasin()
+        projects = []
+        brains = self.portal_catalog(portal_type='Project', getBasin=basins)
+        for brain in brains:
+            projects.append({'title': brain.Title,
+                        'url': brain.getURL(),
+                        })
+        return projects
+
+    def get_country_projects(self):
+        countries = self.context.getCountry()
+        projects = []
+        brains = self.portal_catalog(portal_type='Project', getCountry=countries)
+        for brain in brains:
+            projects.append({'title': brain.Title,
+                        'url': brain.getURL(),
+                        })
+        return projects
+
 class ILegalFWFolderView(Interface):
     """
     LegalFW view interface

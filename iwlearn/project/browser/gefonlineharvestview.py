@@ -141,16 +141,16 @@ class GefOnlineHarvestView(BrowserView):
             geo = IGeoManager(obj)
             geo.setCoordinates('Point', (lon, lat))
             wftool.doActionFor( obj,  'submit')
-        else:
-            locob = locfolder[location['geoLocId']]
-            if not locob.Description():
-                if project_name:
-                    locob.update(description=project_name)
-                elif description:
-                    locob.update(description=description)
-                    description = None
-                if description:
-                    locob.update(text=description)
+        #else:
+        #    locob = locfolder[location['geoLocId']]
+        #    if not locob.Description():
+        #        if project_name:
+        #            locob.update(description=project_name)
+        #        elif description:
+        #            locob.update(description=description)
+        #            description = None
+        #        if description:
+        #            locob.update(text=description)
 
     def create_project(self, pinfo, gpid):
         '''

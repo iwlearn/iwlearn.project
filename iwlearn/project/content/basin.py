@@ -24,7 +24,7 @@ BasinSchema = ATDocumentSchema.copy() + atapi.Schema((
 
     atapi.StringField(
         'basin_type',
-        required=False,
+        required=True,
         searchable=True,
         vocabulary = vocabulary.BASIN_TYPE,
         widget=atapi.SelectionWidget(
@@ -81,7 +81,12 @@ class Basin(base.ATCTContent):
     meta_type = "Basin"
     schema = BasinSchema
 
-
-
+    def getEcosystem(self):
+        bt = self.getBasin_type()
+        if bt == 'Ocean':
+            bt = 'Sea'
+        elif bt == 'Aquifer':
+            bt = 'Groundwater'
+        return bt
 
 atapi.registerType(Basin, PROJECTNAME)

@@ -246,7 +246,7 @@
             <div tal:define="frameworks view/get_country_frameworks"
                 tal:condition="frameworks">
               <label class="formQuestion">Legal frameworks in the project countries</label>
-              Depending on the project scope the treaty may not be applicable to all projects
+              Depending on the project scope the treaty may not be applicable
               <ul>
                 <li tal:repeat="framework frameworks">
                   <a tal:attributes="href framework/url" tal:content="framework/title">framework</a>

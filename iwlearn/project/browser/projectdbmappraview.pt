@@ -81,9 +81,9 @@
               </div>
               <fieldset>
                 <legend>Scope</legend>
-                  <input type="radio" id="scope-national" name="getSubRegions:list" value="National" checked="checked"/>
+                  <input type="radio" id="scope-national" name="getSubRegions:list" value="National" />
                         <label for="scope-national">National</label>
-                  <input type="radio" id="scope-regional" name="getSubRegions:list" value="Regional" />
+                  <input type="radio" id="scope-regional" name="getSubRegions:list" value="Regional" checked="checked"/>
                         <label for="scope-regional">Regional</label>
                   <!--input type="radio" id="scope-global" name="getSubRegions:list" value="Global" />
                         <label for="scope-global">Global</label-->
@@ -104,7 +104,7 @@
               </fieldset>
               <fieldset id="pratypelayer" >
                 <legend>Type</legend>
-                  <input type="radio" id="category-abnj" name="getProject_category:list" value="ABNJ" checked="checked" />
+                  <input type="radio" id="category-abnj" name="getProject_category:list" value="ABNJ"  />
                         <label for="category-abnj">ABNJ</label>
                     <br />
                   <input type="radio" id="category-coastal" name="getProject_category:list" value="Coastal Management" />
@@ -113,7 +113,7 @@
                   <input type="radio" id="category-fisheries" name="getProject_category:list" value="Fisheries" />
                         <label for="category-fisheries">Fisheries</label>
                     <br />
-                  <input type="radio" id="category-foundational" name="getProject_category:list" value="Foundational" />
+                  <input type="radio" id="category-foundational" name="getProject_category:list" value="Foundational" checked="checked"/>
                         <label for="category-foundational">Foundational</label>
                     <br />
                   <input type="radio" id="category-lbs" name="getProject_category:list" value="LBS" />
@@ -553,11 +553,11 @@ $('#projectmapform').submit
                             "featureunselected": onFeatureUnselect});
                 };
         };
-        var pmo_kmls = map.getLayersByName('Project management offices');
+        /*var pmo_kmls = map.getLayersByName('Project management offices');
         for (var i=0; i<pmo_kmls.length; ++i){
             pmo_kmls[i].events.on({"featureselected": onPointLayerFeatureSelect,
                             "featureunselected": onFeatureUnselect});
-        };
+        };*/
         /*for (var i=0; i<kmls.length; ++i){
              kmls[i].events.fallThrough = true;
         };*/

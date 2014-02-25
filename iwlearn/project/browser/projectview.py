@@ -142,7 +142,7 @@ class ProjectView(BrowserView):
                     spacing=20,
                     disable_xml_declaration=disable_xml_declaration,
                     show_legend=True,
-                    truncate_legend=30,)
+                    truncate_legend=35,)
         chart.range = [-1, 4]
         for rating in ratings:
             rating[1][0].pop('description')

@@ -284,8 +284,8 @@ class ProjectDbKMLResultMapLayers(MapLayers):
 
     def layers(self):
         layers = super(ProjectDbKMLResultMapLayers, self).layers()
-        layers.append(ProjectDbKMLNationalResultsMapLayer(self.context, True))
-        layers.append(ProjectDbKMLRegionalResultsMapLayer(self.context, False))
+        layers.append(ProjectDbKMLNationalResultsMapLayer(self.context, False))
+        layers.append(ProjectDbKMLRegionalResultsMapLayer(self.context, True))
         return layers
 
 ########################################################################

@@ -38,6 +38,29 @@ def get_related_countries_uids(country):
         yield c.UID()
 
 
+def get_ratings(obj, form):
+    rt = form.get('result', None)
+    if rt == 'rlacf':
+        result ={'title': 'Regional legal agreements and cooperation frameworks'}
+        rating = obj.r4regional_frameworks()
+        rating['text'] = obj.getRegional_frameworks_desc()
+    elif rt == "rmis":
+        result ={'title': 'Regional Management Institutions'}
+        rating = obj.r4rmis()
+        rating['text'] = obj.getRmis_desc()
+    elif rt == "tda":
+        result ={'title': 'Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes'}
+        rating = obj.r4tda_priorities()
+        rating['text'] = obj.getTda_priorities_desc()
+    elif rt == "sap":
+        result ={'title': 'Development of Strategic Action Plan (SAP)'}
+        rating = obj.r4sap_devel()
+        rating['text'] = obj.getSap_devel_desc()
+    else:
+        rating = {'label': '???', 'description': '???', 'text': ''}
+    return rating
+
+
 class IProjectDbKmlView(Interface):
     """
     ProjectDbKml view interface
@@ -199,20 +222,21 @@ class BasinResultPlacemark(BasinPlacemark):
     @property
     def description(self):
         result_for = self.request.form.get('result', 'rlacf')
-        desc = u'<ul>'
+        desc = u''
         for project in self.projects:
             title = project['title'].decode('utf-8', 'ignore')
-            desc += u'<li><a href="%s" title="%s" > %s </a> <br/> %s</li>' % (
+            desc += u'<h3><a href="%s" title="%s" > %s </a></h3><p> %s: %s </p>' % (
                     '@@project-result-map-view.html#pid' + project['uid'],
+                    #title.encode(
+                    #   'ascii', 'xmlcharrefreplace'),
+                     "",
                     title.encode(
                         'ascii', 'xmlcharrefreplace'),
-                    title[:80].encode(
-                        'ascii', 'xmlcharrefreplace') + u'...',
-                    project[result_for]['description']
+                    project[result_for]['label'],
+                    project[result_for]['description'],
                     )
-        #desc += u'</ul>'
-        #url = '@@project-map-view.html'
-        #desc +='<a href="%s#projectdetaillist">  More information below the map </a>' %url
+        url = '@@project-result-map-view.html'
+        desc +='<a href="%s#projectdetaillist">  More information below the map </a>' %url
         return desc.encode('ascii')
 
     @property
@@ -405,7 +429,7 @@ class CountryResultsPlacemark(CountryPlacemark):
 
     @property
     def description(self):
-        desc = u'<ul>'
+        desc = u''
         for project in self.projects:
             obj = project.getObject()
             if obj.has_result_ratings():
@@ -413,14 +437,16 @@ class CountryResultsPlacemark(CountryPlacemark):
             else:
                 style = u"color: red; text-decoration: line-through;"
             title = project.Title.decode('utf-8', 'ignore')
-            desc += u'<li><a style="%s" href="%s" title="%s" > %s </a></li>' % (
+            desc += u'<h3><a style="%s" href="%s" title="%s" > %s </a></h3>' % (
                             style,
                             '@@project-result-map-view.html#pid' + project.UID,
                             cgi.escape(title.encode(
                             'ascii', 'xmlcharrefreplace')),
-                            cgi.escape(title[:48].encode(
-                            'ascii', 'xmlcharrefreplace') + u'...'))
-        desc += u'</ul>'
+                            cgi.escape(title.encode(
+                            'ascii', 'xmlcharrefreplace'))
+                            )
+            rating = get_ratings(obj, self.request.form)
+            desc += u'<br/><p>%(label)s : %(description)s</p>' % rating
         url = u'@@project-result-map-view.html'
         desc +=u'<a href="%s#projectdetaillist">  More information below the map </a>' %url
         return desc.encode('ascii')
@@ -748,7 +774,7 @@ class ProjectDbKmlNationalResultsView(ProjectDbKmlCountryView):
     def features(self):
         query = get_query(self.request.form)
         query['getSubRegions'] = ['National']
-        query['getProject_category'] = self.request.form.get('getProject_category', 'ABNJ')
+        query['getProject_category'] = self.request.form.get('getProject_category', 'Foundational')
         projects = self.get_results(query)
         countries, project_countries = self.get_project_countries(projects)
         processed_countries = []
@@ -775,7 +801,7 @@ class ProjectDbKmlRegionalResultsView(ProjectDbKmlBasinView):
     def features(self):
         query = get_query(self.request.form)
         query['getSubRegions'] = ['Regional']
-        query['getProject_category'] = self.request.form.get('getProject_category', 'ABNJ')
+        query['getProject_category'] = self.request.form.get('getProject_category', 'Foundational')
         logger.debug('detail basin view project query: %s' % str(query))
         projects = self.get_projects(query)
         path = []

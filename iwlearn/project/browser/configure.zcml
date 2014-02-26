@@ -681,18 +681,6 @@
         provides=".updatecolors.IColorForm"
         factory=".updatecolors.Color" />
 
-    <browser:page
-        name="update_pra_form.html"
-        for="..interfaces.IProject"
-        class=".praeditform.UpdatePra"
-        permission="cmf.ModifyPortalContent" />
-
-    <adapter
-        for="..interfaces.IProject"
-        provides=".praeditform.IPraForm"
-        factory=".praeditform.PRA" />
-
-
 
   <!-- configuration for the google map portlet -->
   <browser:page

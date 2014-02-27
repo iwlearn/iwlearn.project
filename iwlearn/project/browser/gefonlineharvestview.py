@@ -16,13 +16,13 @@ from iwlearn.project.interfaces.projectdatabase import IProjectDatabase
 
 logger = logging.getLogger('iwlearn.project')
 
-UNEP_GEF_PHASE = {'Pilot': 0,
-                'I': 1,
-                'II': 2,
-                'III': 3,
-                'IV': 4,
-                'V': 5,
-                'VI': 6}
+UNEP_GEF_PHASE = {'Pilot': '0',
+                'I': '1',
+                'II': '2',
+                'III': '3',
+                'IV': '4',
+                'V': '5',
+                'VI': '6',}
 
 PLONE_COUNTRIES = [c['name'] for c in _countrylist.values()]
 
@@ -354,21 +354,21 @@ class GefOnlineHarvestView(BrowserView):
 
 IPDORATINGS = { 'N/A' : None,
         '': None,
-        'HU' : 0,
-        'U': 1,
-        'MU': 2,
-        'MS': 3,
-        'S': 4,
-        'HS': 5}
+        'HU' : '0',
+        'U': '1',
+        'MU': '2',
+        'MS': '3',
+        'S': '4',
+        'HS': '5'}
 
 OUTCOMERATINGS = { 'UA' : None,
         '': None,
-        '6' : 0,
-        '5': 1,
-        '4': 2,
-        '3': 3,
-        '2': 4,
-        '1': 5}
+        '6' : '0',
+        '5': '1',
+        '4': '2',
+        '3': '3',
+        '2': '4',
+        '1': '5'}
 
 
 class GefOnlineUpdateView(GefOnlineHarvestView):

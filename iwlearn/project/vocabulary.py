@@ -254,22 +254,22 @@ PROJECT_CATEGORY = [
 
 RATINGS ={ 'N/A' : None,
         '': None,
-        'Highly Unsatisfactory' : 0,
-        'Unsatisfactory': 1,
-        'Moderately Unsatisfactory': 2,
-        'Moderately Satisfactory': 3,
-        'Satisfactory': 4,
-        'Highly Satisfactory': 5}
+        'Highly Unsatisfactory' : '0',
+        'Unsatisfactory': '1',
+        'Moderately Unsatisfactory': '2',
+        'Moderately Satisfactory': '3',
+        'Satisfactory': '4',
+        'Highly Satisfactory': '5'}
 
 
 OUTCOME_RATING ={ 'UA' : None,
         '': None,
-        'Highly Unsatisfactory' : 6,
-        'Unsatisfactory': 5,
-        'Moderately Unsatisfactory': 4,
-        'Moderately Satisfactory': 3,
-        'Satisfactory': 2,
-        'Highly Satisfactory': 1}
+        'Highly Unsatisfactory' : '6',
+        'Unsatisfactory': '5',
+        'Moderately Unsatisfactory': '4',
+        'Moderately Satisfactory': '3',
+        'Satisfactory': '2',
+        'Highly Satisfactory': '1'}
 
 GEF_PHASE = [
     ('0', 'Pilot'),

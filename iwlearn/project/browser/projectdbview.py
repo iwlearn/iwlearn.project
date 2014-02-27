@@ -265,19 +265,19 @@ $('#projectsearchform').submit
                     if project.getGefRatings[0] == None:
                         doRating[0][1] = doRating[0][1] + 1
                     else:
-                        dor = project.getGefRatings[0]
+                        dor = int(project.getGefRatings[0])
                         doRating[dor+1][1] = doRating[dor+1][1] + 1
 
                     if project.getGefRatings[1] == None:
                         ipRating[0][1] = ipRating[0][1] + 1
                     else:
-                        ipr = project.getGefRatings[1]
+                        ipr = int(project.getGefRatings[1])
                         ipRating[ipr+1][1] = ipRating[ipr+1][1] + 1
 
                     if project.getGefRatings[2] == None:
                         outcomeRating[0][1] = outcomeRating[0][1] + 1
                     else:
-                        opr = project.getGefRatings[2]
+                        opr = int(project.getGefRatings[2])
                         outcomeRating[opr+1][1] = outcomeRating[opr+1][1] + 1
                 if project.getSubRegions:
                     for rsr in project.getSubRegions:

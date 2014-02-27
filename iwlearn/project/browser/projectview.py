@@ -203,7 +203,10 @@ class ProjectGefRatings(ProjectView):
         def cleanup_value(v):
             if v is not None:
                 try:
-                    return int(v)
+                    if v =='':
+                        return -1
+                    else:
+                        return int(v)
                 except:
                     logger.error(v)
                     return -1

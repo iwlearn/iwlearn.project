@@ -1,3 +1,4 @@
+import logging
 import cgi
 import pygal
 from time import time
@@ -13,6 +14,8 @@ from iwlearn.project import vocabulary
 from iwlearn.project.browser.utils import get_query, get_color
 
 from collective.geo.kml.interfaces import IKMLOpenLayersView
+
+logger = logging.getLogger('iwlearn.project')
 
 class IProjectDBView(IKMLOpenLayersView):
     """
@@ -262,19 +265,19 @@ $('#projectsearchform').submit
                     ca = agencies.get(agency, 0)
                     agencies[agency]= ca + 1
                 if project.getGefRatings:
-                    if project.getGefRatings[0] == None:
+                    if project.getGefRatings[0] in ['', None]:
                         doRating[0][1] = doRating[0][1] + 1
                     else:
                         dor = int(project.getGefRatings[0])
                         doRating[dor+1][1] = doRating[dor+1][1] + 1
 
-                    if project.getGefRatings[1] == None:
+                    if project.getGefRatings[1] in ['', None]:
                         ipRating[0][1] = ipRating[0][1] + 1
                     else:
                         ipr = int(project.getGefRatings[1])
                         ipRating[ipr+1][1] = ipRating[ipr+1][1] + 1
 
-                    if project.getGefRatings[2] == None:
+                    if project.getGefRatings[2] in ['', None]:
                         outcomeRating[0][1] = outcomeRating[0][1] + 1
                     else:
                         opr = int(project.getGefRatings[2])

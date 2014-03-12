@@ -49,10 +49,25 @@
         Maintenance</a>
 </li>
 </ul>
-  <p>The GEF IW Portfolio Visualization Tool provides an on-the-fly mapping
-  of project results and achievements of 20 years of GEF IW project interventions
-  in a spatially presented and user-friendly tool.
+  <p class="mapdesc">The Portfolio Results Archive (PRA) map aims to facilitate discovery, analysis and learning from the results of previously executed GEF IW projects. </p>
+<p class="mapdesc">The map below displays the results reported by the most recent phase or tranche of a given project and not collectively for a given basin, result nor project type. This approach is currently being used to be able to spatially report results amidst challenges in aggregating and analyzing historical data in inconsistent formal.
   </p>
+  <table class="colordesc">
+<tr>
+
+<td><span style="background-color:white">&nbsp;&nbsp;&nbsp;&nbsp;</span> Not applicable</td>
+<td><span style="background-color:grey">&nbsp;&nbsp;&nbsp;&nbsp;</span> No data available
+</td>
+<td><span style="background-color:blue">&nbsp;&nbsp;&nbsp;&nbsp;</span> Assessed by IW:LEARN (numeric ratings are inaccessible/unavailable/undetermined)
+</td>
+</tr>
+<tr>
+<td><span style="background-color:green">&nbsp;&nbsp;&nbsp;&nbsp;</span> Targets have been achieved</td>
+<td><span style="background-color:orange">&nbsp;&nbsp;&nbsp;&nbsp;</span> Limited progress
+</td>
+<td><span style="background-color:red">&nbsp;&nbsp;&nbsp;&nbsp;</span> No progress has been reported</td>
+</tr>
+</table>
   <div id="projectmapcontainer">
     <div id="projectdbmap">
     <!-- Collective.geo map -->
@@ -131,7 +146,7 @@
                   <input type="radio" id="category-policy" name="getProject_category:list" value="Policy" />
                         <label for="category-policy">Policy</label>
                     <br />
-                  <input type="radio" id="category-learn" name="getProject_category:list" value="Portfolio Learning" "/>
+                  <input type="radio" id="category-learn" name="getProject_category:list" value="Portfolio Learning" />
                         <label for="category-learn">Portfolio Learning</label>
                     <br />
                   <input type="radio" id="category-sap" name="getProject_category:list" value="SAP Implementation" />

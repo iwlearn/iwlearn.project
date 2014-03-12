@@ -44,6 +44,22 @@
                 <span  tal:on-error="nothing" tal:replace="python:context.end().strftime('%Y-%m')"/>
             </p>
             <div id="content-core">
+            <table class="colordesc">
+<tr>
+
+<td><span style="background-color:white">&nbsp;&nbsp;&nbsp;&nbsp;</span> Not applicable</td>
+<td><span style="background-color:grey">&nbsp;&nbsp;&nbsp;&nbsp;</span> No data available
+</td>
+<td><span style="background-color:blue">&nbsp;&nbsp;&nbsp;&nbsp;</span> Assessed by IW:LEARN (numeric ratings are inaccessible/unavailable/undetermined)
+</td>
+</tr>
+<tr>
+<td><span style="background-color:green">&nbsp;&nbsp;&nbsp;&nbsp;</span> Targets have been achieved</td>
+<td><span style="background-color:orange">&nbsp;&nbsp;&nbsp;&nbsp;</span> Limited progress
+</td>
+<td><span style="background-color:red">&nbsp;&nbsp;&nbsp;&nbsp;</span> No progress has been reported</td>
+</tr>
+</table>
             <figure class="projectchart">
               <embed src="circle1.svg" type="image/svg+xml"
                     tal:attributes="src string:${context/absolute_url}/@@project_result_chart.svg" />

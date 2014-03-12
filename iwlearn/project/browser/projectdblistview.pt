@@ -21,7 +21,7 @@
                     <img class="thumbnail"
                         style="float: left;"
                         tal:attributes="src string:${result/getURL}/logo_image"
-                        alt="Project Logo" />
+                        alt="Project Logo" /><b>Description:</b>
                     <span tal:replace="result/Description"/>
                     <br />
                     <span tal:replace="python: ', '.join(result.getSubRegions)" tal:on-error="nothing" > Regions/subregions </span>
@@ -35,7 +35,7 @@
                     <p class="documentByLine">
                         <span tal:define="tags result/Subject|nothing"
                             tal:condition="tags">
-                            <tal:filedunder i18n:translate="label_filed_under">Filed under:</tal:filedunder>
+                            <tal:filedunder i18n:translate="label_filed_under"><b>Scope:</b></tal:filedunder>
                                 <span tal:repeat="tag tags">
                                     <a href=""
                                        class="link-tag"

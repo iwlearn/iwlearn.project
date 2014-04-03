@@ -85,7 +85,7 @@
               <fieldset>
                 <legend>Search for Projects</legend>
                 <div class="field odd">
-                    <label for="SearchableText">Search text</label>
+                    <label for="SearchableText">Search <!-- text --></label>
 
                     <div class="formHelp">
                     For a simple text search, enter your search term
@@ -99,14 +99,14 @@
                         id="SearchableText" placeholder="Fulltext Search" />
                 </div>
 
-                <div class="field even">
+                <!-- <div class="field even">
                     <label for="Title">Title</label>
                     <div class="formHelp">
                     Return items matching this title.
                     </div>
                     <input type="text" size="25" name="Title" id="Title"
                         placeholder="Search Title"/>
-                </div>
+                </div> -->
 
 
                 <div class="field odd">
@@ -126,7 +126,7 @@
                         </select>
                 </div>
 
-                <div class="field even">
+                <!-- <div class="field even">
                     <label  for="getProject_type">Project type</label>
                     <div class="formHelp">
                     Return projects of this type
@@ -175,7 +175,7 @@
                                     tal:content="opt/name">All</option>
                             </tal:loop>
                         </select>
-                </div>
+                </div> -->
 
                 <div class="field odd">
                     <label  for="getBasin">Basin</label>

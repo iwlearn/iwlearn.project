@@ -248,8 +248,8 @@
                         <tr tal:define="pic view/rnd_picture"
                             tal:condition="pic">
                             <td width="100%" colspan="2">
-                                <img tal:attributes="src string:${pic/getURL}/image_preview;
-                                        alt pic/Title;" />
+                                <a href="photos"><img tal:attributes="src string:${pic/getURL}/image_preview;
+                                        alt pic/Title;" /></a>
                             </td>
                         </tr>
                         <tr>

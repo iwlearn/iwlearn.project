@@ -180,7 +180,7 @@ The Basin content type
 ===============================
 
 In this section we are tesing the Basin content type by performing
-basic operations like adding, updadating and deleting Basin content
+basic operations like adding, updating and deleting Basin content
 items.
 
 Adding a new Basin content item

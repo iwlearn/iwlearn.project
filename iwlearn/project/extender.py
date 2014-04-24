@@ -54,34 +54,9 @@ class ProjectFieldsExtender(object):
     def __init__(self, context):
         self.context = context
 
-    # def _computeSubregions(self):
-    #     return ','.join(vocabulary.get_subregions(
-    #             countries=self.getCountry()))
-
     def getFields(self):
         return self.fields
 
-
-class ImageAndFileExtender(ProjectFieldsExtender):
-    """ Additionally add image fields
-    """
-
-    fields = [
-	    _ExtensionImageField(
-		"folderimage",
-		    widget = ImageWidget(
-		    label=u"Folder Image",
-		    description=u"Image to display with the folder",
-		),
-	    ),
-	    _ExtensionStringField(
-		"folderimagetitle",
-		widget = StringWidget(
-		    label=u"Image Title",
-		    description=u"Title of image to display with the folder",
-		),
-	    ),
-        ] + _fields
 
 from plone.indexer import indexer
 

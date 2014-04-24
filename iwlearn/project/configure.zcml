@@ -67,7 +67,7 @@
     for="Products.ATContentTypes.interface.IATFile" />
 
   <adapter
-    factory=".extender.ImageAndFileExtender"
+    factory=".extender.ProjectFieldsExtender"
     for="Products.ATContentTypes.interface.IATImage" />
 
   <adapter

@@ -281,14 +281,34 @@ GEF_PHASE = [
 #   ('6', 'GEF - 6'),
     ]
 
+DOCUMENT_TYPE = [
+    ('Not applicable', ''),
+    ('Experience Notes', 'Experience Notes'),
+    ('Factsheet', 'Factsheet'),
+    ('Final Summary', 'Final Summary'),
+    ('Manual', 'Manual'),
+    ('Midterm Evaluation', 'Midterm Evaluation'),
+    ('Newsletter', 'Newsletter'),
+    ('Lessons Learned', 'Lessons Learned'),
+    ('Project Brief', 'Project Brief'),
+    ('Project Document', 'Project Document'),
+    ('Project Information', 'Project Information'),
+    ('Project Identification Form', 'Project Identification Form'),
+    ('Proposal Preparation', 'Proposal Preparation'),
+    ('Report', 'Report'),
+    ('Results', 'Results'),
+    ('Strategic Action Plan', 'Strategic Action Plan'),
+    ('Terminal Evaluation', 'Terminal Evaluation'),
+    ('Transboundary Diagnostic Analysis', 'Transboundary Diagnostic Analysis'),
+    ('Other', 'Other'),
+    ]
+
+
 def gef_phase_vocabulary_factory(context):
     terms = []
     for value in GEF_PHASE:
         terms.append(SimpleTerm(*value))
     return SimpleVocabulary(terms)
-
-
-
 
 
 def basin_vocabulary_factory(context):

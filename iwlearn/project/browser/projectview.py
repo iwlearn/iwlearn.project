@@ -160,6 +160,9 @@ class ProjectResultView(ProjectView):
         brains = self.portal_catalog(path=path, Subject=
             ['ProjectDocument:FinalSummary', 'ProjectDocument:Results',
             'ProjectDocument:TerminalEvaluation'])
+        # TODO: change to this after migration
+        # brains = self.portal_catalog(path=path, getDocument_type=
+        #     ['Final Summary', 'Results', 'Terminal Evaluation'])
         return brains
 
 

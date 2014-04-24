@@ -24,8 +24,6 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-  <!-- -*- extra stuff goes here -*- -->
-
   <include package=".browser" />
 
   <subscriber
@@ -60,6 +58,32 @@
     provides="zope.schema.interfaces.IVocabularyFactory"
     />
 
+  <!-- Extend some standard content types -->
+
+  <include package="archetypes.schemaextender" />
+
+  <adapter
+    factory=".extender.ProjectFieldsExtender"
+    for="Products.ATContentTypes.interface.IATFile" />
+
+  <adapter
+    factory=".extender.ImageAndFileExtender"
+    for="Products.ATContentTypes.interface.IATImage" />
+
+  <adapter
+    factory=".extender.ProjectFieldsExtender"
+    for="Products.ATContentTypes.interface.IATDocument" />
+
+  <adapter
+    name="document_type"
+    factory=".extender.document_type_doc_indexer"
+    />
+
+  <adapter
+    name="document_type"
+    factory=".extender.document_type_file_indexer"
+    />
+
   <!-- Register the import step -->
   <genericsetup:importStep
       name="iwlearn.project"
@@ -72,7 +96,7 @@
       title="Add catalog indexes"
       description=""
       source="*"
-      destination="1012"
+      destination="1014"
       handler="iwlearn.project.setuphandlers.add_catalog_indexes"
       profile="iwlearn.project:default" />
 
@@ -99,7 +123,6 @@
       destination="1010"
       handler="iwlearn.project.setuphandlers.reindex_regions"
       profile="iwlearn.project:default" />
-
 
   <genericsetup:upgradeStep
       title="Add update form gefonline action"

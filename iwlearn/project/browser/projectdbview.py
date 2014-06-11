@@ -66,8 +66,7 @@ class ProjectDBBaseView(BrowserView):
                 {display: 'Implementing agencies', name : 'getAgencies', width : 220, sortable : true, align: 'left', hide: false},
                 {display: 'Region', name : 'getSubRegions', width : 200, sortable : true, align: 'left', hide: false},
                 {display: 'Basin', name : 'getBasin', width : 200, sortable : true, align: 'left', hide: false},
-                {display: 'Status', name : 'getProject_status', width : 100, sortable : true, align: 'left', hide: false},
-                {display: 'URL', name : 'getRemoteUrl', width : 100, sortable : false, align: 'left', hide: true}
+                {display: 'Status', name : 'getProject_status', width : 100, sortable : true, align: 'left', hide: false}                
                 ],
             sortname: "Title",
             sortorder: "asc",

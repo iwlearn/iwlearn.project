@@ -54,8 +54,8 @@
 </td>
 </tr>
 <tr>
-<td><span style="background-color:green">&nbsp;&nbsp;&nbsp;&nbsp;</span> Targets have been achieved</td>
-<td><span style="background-color:orange">&nbsp;&nbsp;&nbsp;&nbsp;</span> Limited progress
+<td><span style="background-color:#27a72e">&nbsp;&nbsp;&nbsp;&nbsp;</span> Targets have been achieved</td>
+<td><span style="background-color:#f9f932">&nbsp;&nbsp;&nbsp;&nbsp;</span> Limited progress
 </td>
 <td><span style="background-color:red">&nbsp;&nbsp;&nbsp;&nbsp;</span> No progress has been reported</td>
 </tr>

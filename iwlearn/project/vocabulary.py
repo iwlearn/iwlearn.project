@@ -233,22 +233,33 @@ ECOSYSTEM = [
     'Groundwater',
 ]
 
-
 PROJECT_CATEGORY = [
     'ABNJ',
-    'Coastal Management',
     'Fisheries',
-    'Foundational',
-    'LBS',
-    'Nutrient Reduction Investment',
-    'Oil Spill',
-    'Persistent Toxic Substances',
-    'Policy',
-    'Portfolio Learning',
-    'SAP Implementation',
-    'Ship Safety',
-    'Ship Waste',
+    'Groundwater',
+    'Land-Based Sources/Coastal Zone',
+    'Large Marine Ecosystem',
+    'Portfolio Learning/Policy',
+    'River/Lake',
+    'Toxic Substances',
     'Wastewater',
+    'Other',
+
+    # old
+    # 'ABNJ',
+    # 'Coastal Management',
+    # 'Fisheries',
+    # 'Foundational',
+    # 'LBS',
+    # 'Nutrient Reduction Investment',
+    # 'Oil Spill',
+    # 'Persistent Toxic Substances',
+    # 'Policy',
+    # 'Portfolio Learning',
+    # 'SAP Implementation',
+    # 'Ship Safety',
+    # 'Ship Waste',
+    # 'Wastewater',
     ]
 
 

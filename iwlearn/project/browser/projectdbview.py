@@ -708,6 +708,9 @@ class ProjectDBMapView(ProjectDBBaseView):
 
 class ProjectDBResultMapView(ProjectDBMapView):
 
+    def get_categories(self):
+        return vocabulary.PROJECT_CATEGORY 
+
     def get_js(self):
         refresh_js = """
         function onPraLayerOptionsChange(event) {
@@ -829,8 +832,6 @@ class ProjectDBListView(BrowserView):
                 form['getSubRegions'] = 'Global'
 
         query = get_query(form)
-        query['sort_on'] = 'start'
-        query['sort_order'] = 'reverse'
         results = self.portal_catalog(**query)
         return results
 

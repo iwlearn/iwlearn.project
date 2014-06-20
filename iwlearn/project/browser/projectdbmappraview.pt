@@ -119,6 +119,16 @@
               </fieldset>
               <fieldset id="pratypelayer" >
                 <legend>Type</legend>
+
+                  <tal:item repeat="item view/get_categories">
+                  <tal:define define="item_id python:'category-%s' % item.lower().translate(None, ' -/')">
+                  <input type="radio" tal:attributes="id item_id; value item" id="category-abnj" name="getProject_category:list" value="ABNJ"  />
+                        <label for="category-abnj" tal:attributes="id item_id" tal:content="item">ABNJ</label>
+                    <br />
+                  </tal:define>
+                  </tal:item>
+
+                  <!--
                   <input type="radio" id="category-abnj" name="getProject_category:list" value="ABNJ"  />
                         <label for="category-abnj">ABNJ</label>
                     <br />
@@ -160,6 +170,7 @@
                     <br />
                   <input type="radio" id="category-wastewater" name="getProject_category:list" value="Wastewater" />
                         <label for="category-wastewater">Wastewater</label>
+              -->
               </fieldset>
             <!--h5>Refine List</h5>
              <fieldset class="projectdetails">

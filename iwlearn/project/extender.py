@@ -24,24 +24,12 @@ from archetypes.schemaextender.interfaces import ISchemaExtender
 from archetypes.schemaextender.interfaces import IBrowserLayerAwareExtender
 from iwlearn.project import vocabulary
 
-class _ExtensionImageField(ExtensionField, ImageField): pass
-class _ExtensionStringField(ExtensionField, StringField): pass
+# class _ExtensionImageField(ExtensionField, ImageField): pass
+# class _ExtensionStringField(ExtensionField, StringField): pass
 # class _ExtensionCountryField(ExtensionField, LinesField): pass
-class _ExtensionRegionField(ExtensionField, LinesField):pass
-class _ExtensionBasinField(ExtensionField, ReferenceField):pass
+# class _ExtensionRegionField(ExtensionField, LinesField):pass
+# class _ExtensionBasinField(ExtensionField, ReferenceField):pass
 class _ExtensionDocumentTypeField(ExtensionField, LinesField):pass
-
-_fields = [
-    _ExtensionDocumentTypeField(
-        "document_type",
-        searchable=True,
-        vocabulary = vocabulary.DOCUMENT_TYPE,
-        widget = SelectionWidget(
-            label=u"Document Type",
-            description=u"Classification of the document type",
-        ),
-    ),
-]
 
 class ProjectFieldsExtender(object):
     """ Add 'Project Type' field
@@ -49,7 +37,17 @@ class ProjectFieldsExtender(object):
     #adapts(IATFile,IATImage)
     implements(ISchemaExtender)
 
-    fields = _fields
+    fields = [
+        _ExtensionDocumentTypeField(
+            "document_type",
+            searchable=True,
+            vocabulary = vocabulary.DOCUMENT_TYPE,
+            widget = SelectionWidget(
+                label=u"Document Type",
+                description=u"Classification of the document type",
+            ),
+        ),
+    ]
 
     def __init__(self, context):
         self.context = context

@@ -225,7 +225,7 @@ class BasinResultPlacemark(BasinPlacemark):
         desc = u''
         for project in self.projects:
             title = project['title'].decode('utf-8', 'ignore')
-            desc += u'<h3><a href="%s" title="%s" > %s </a></h3><p> %s: %s </p>' % (
+            desc += u'<h3><a href="%s" title="%s" > %s </a></h3><p>Rating: %s: %s </p>' % (
                     '@@project-result-map-view.html#pid' + project['uid'],
                     #title.encode(
                     #   'ascii', 'xmlcharrefreplace'),

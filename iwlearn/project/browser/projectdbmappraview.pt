@@ -52,22 +52,22 @@
   <p class="mapdesc">The Portfolio Results Archive (PRA) map aims to facilitate discovery, analysis and learning from the results of previously executed GEF IW projects. </p>
 <p class="mapdesc">The map below displays the results reported by the most recent phase or tranche of a given project and not collectively for a given basin, result nor project type. This approach is currently being used to be able to spatially report results amidst challenges in aggregating and analyzing historical data in inconsistent format. <a href="http://iwlearn.net/iw-projects/pra/PRA_Legend_22oct13.xls" target="_blank">View the Conversion Matrix here.</a>
   </p>
-  <table class="colordesc">
-<tr>
+  <div class="colordesc">
+<div><span style="background-color:white">&nbsp;&nbsp;&nbsp;&nbsp;</span> Not applicable</div>
+<div><span style="background-color:grey">&nbsp;&nbsp;&nbsp;&nbsp;</span> No data available
+</div>
+<div><span style="background-color:blue">&nbsp;&nbsp;&nbsp;&nbsp;</span> Progress has occurred but no specific indicator ranking is assigned (determined by IW:LEARN)
+</div>
+</div>
+<div class="colordesc">
+<div><span style="background-color:#27a72e">&nbsp;&nbsp;&nbsp;&nbsp;</span> Targets were achieved</div>
+<div><span style="background-color:#f9f932">&nbsp;&nbsp;&nbsp;&nbsp;</span> Targets were achieved but with limited effectiveness
+</div>
+<div><span style="background-color:#FF8000">&nbsp;&nbsp;&nbsp;&nbsp;</span> Limited progress
+</div>
+<div><span style="background-color:red">&nbsp;&nbsp;&nbsp;&nbsp;</span> No progress was reported</div>
 
-<td><span style="background-color:white">&nbsp;&nbsp;&nbsp;&nbsp;</span> Not applicable</td>
-<td><span style="background-color:grey">&nbsp;&nbsp;&nbsp;&nbsp;</span> No data available
-</td>
-<td><span style="background-color:blue">&nbsp;&nbsp;&nbsp;&nbsp;</span> Progress has occurred but no specific indicator ranking is assigned (determined by IW:LEARN)
-</td>
-</tr>
-<tr>
-<td><span style="background-color:#27a72e">&nbsp;&nbsp;&nbsp;&nbsp;</span> Targets have been achieved</td>
-<td><span style="background-color:#f9f932">&nbsp;&nbsp;&nbsp;&nbsp;</span> Limited progress
-</td>
-<td><span style="background-color:red">&nbsp;&nbsp;&nbsp;&nbsp;</span> No progress has been reported</td>
-</tr>
-</table>
+</div>
   <div id="projectmapcontainer">
     <div id="projectdbmap">
     <!-- Collective.geo map -->
@@ -531,7 +531,7 @@ $('#projectmapform').submit
         function onFeatureSelect(event) {
             if (event.feature.cluster == null){
                 var feature = event.feature;
-                var content = lt + "h2" + gt + feature.attributes.name + lt + "/h2" + gt + feature.attributes.description;
+                var content = lt + "h6" + gt + "The map displays the results reported by the most recent phase/tranche of a given project (first item on this list) and not collectively for a given basin, result nor project type." + lt + "/h6" + gt + lt + "br/" + gt + lt + "h2" + gt + feature.attributes.name + lt + "/h2" + gt + feature.attributes.description;
                 popup = new OpenLayers.Popup.FramedCloud("chicken",
                                          feature.geometry.getBounds().getCenterLonLat(),
                                          new OpenLayers.Size(500,500),

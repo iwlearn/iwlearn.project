@@ -75,9 +75,7 @@
                 class="enableAutoFocus" action="map_view.html"
                 tal:attributes="action view/__name__">
               <h5>Display</h5>
-              <div class="formHelp">Select layer(s) and/or additional filters
-              and click on a coordinate or polygon to list the projects
-              in that area
+              <div class="formHelp">Select layer(s) and/or additional criteria and click on a coordinate or polygon to list the international waters projects supported by the GEF in a given area. You may download the corresponding KML file using the ‘Download KML’ link below the map. Kindly take note to give the tool enough time to load/reload new data based on your varying selections.
               </div>
               <input type="checkbox" id="show-pcu" name="show-pcu" />
               <label for="show-pcu">

@@ -64,7 +64,7 @@ i18n:domain="iwlearn.project">
           filters and click on a coordinate or polygon to list the
           projects in that area</div>
           <fieldset>
-            <legend>Scope</legend>
+            <legend>Project Type</legend>
             <input type="radio" id="scope-national"
             name="getSubRegions" value="National"
             checked="checked" />

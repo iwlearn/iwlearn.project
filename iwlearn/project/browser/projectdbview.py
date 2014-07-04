@@ -713,8 +713,7 @@ class ProjectDBResultMapView(ProjectDBMapView):
 
     def get_js(self):
         refresh_js = """
-        function onPraLayerOptionsChange(event) {
-            // refresh map
+        function refreshMap(event, widget) {
             var dt = $('#projectmapform').serializeArray();
             var qs = '?';
             var params = {};
@@ -724,10 +723,14 @@ class ProjectDBResultMapView(ProjectDBMapView):
                     params[field.name] = field.value;
                 };
             });
-            try {
-                var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
-            } catch(e) {
-                var map = null;
+            if (widget) {
+                var map = widget.map
+                } else {
+                try {
+                    var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
+                } catch(e) {
+                    var map = null;
+                };
             };
             var kmls = map.getLayersByName('National Results');
             layer = kmls[0];
@@ -738,9 +741,11 @@ class ProjectDBResultMapView(ProjectDBMapView):
             kml_url = '%(url)s/@@projectdbregionalresults_view.kml' + qs;
             layer.refresh({url: kml_url});
             return true;
-
         };
 
+        function onPraLayerOptionsChange(event) {
+            refreshMap(event, null);
+        };
 
         function refreshDownloadKmlUrl(event) {
             var dt = $('#projectmapform').serializeArray();
@@ -778,9 +783,6 @@ class ProjectDBResultMapView(ProjectDBMapView):
                   jQuery('#featureprojectdetails').html(data);
             });
         };
-
-
-
         """ % {'url': self.context.absolute_url()}
         return refresh_js
 

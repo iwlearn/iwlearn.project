@@ -35,7 +35,7 @@
                     <p class="documentByLine">
                         <span tal:define="tags result/Subject|nothing"
                             tal:condition="tags">
-                            <tal:filedunder i18n:translate="label_filed_under"><b>Scope:</b></tal:filedunder>
+                            <tal:filedunder i18n:translate="label_filed_under"><b>Project Type:</b></tal:filedunder>
                                 <span tal:repeat="tag tags">
                                     <a href=""
                                        class="link-tag"

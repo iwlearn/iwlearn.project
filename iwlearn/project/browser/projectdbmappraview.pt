@@ -95,7 +95,7 @@
               in that area
               </div>
               <fieldset>
-                <legend>Scope</legend>
+                <legend>Project Type</legend>
                   <input type="radio" id="scope-national" name="getSubRegions:list" value="National" />
                         <label for="scope-national">National</label>
                   <input type="radio" id="scope-regional" name="getSubRegions:list" value="Regional" checked="checked"/>
@@ -122,7 +122,7 @@
 
                   <tal:item repeat="item view/get_categories">
                   <tal:define define="item_id python:'category-%s' % item.lower().translate(None, ' -/')">
-                  <input type="radio" tal:attributes="id item_id; value item" id="category-abnj" name="getProject_category:list" value="ABNJ"  />
+                  <input type="radio" tal:attributes="id item_id; value item; checked python:'river' in item.lower() and 'checked' or None" id="category-abnj" name="getProject_category:list" value="ABNJ"  />
                         <label for="category-abnj" tal:attributes="id item_id" tal:content="item">ABNJ</label>
                     <br />
                   </tal:define>
@@ -382,31 +382,31 @@ function expand_map_area(event) {
     $('#projectmapform').show();
     var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
     map.updateSize();
-    $("#mapformsplitter").unbind('click', expand_map_area).click(colapse_map_area);
-    $('#exp-collapse-form').unbind('click', expand_map_area).click(colapse_map_area);
+    $("#mapformsplitter").unbind('click', expand_map_area).click(collapse_map_area);
+    $('#exp-collapse-form').unbind('click', expand_map_area).click(collapse_map_area);
     $('#exp-collapse-form').attr('src', 'fullscreencollapse_icon.png');
     $("#mapformsplitter").css('cursor', 'e-resize');
     $('#exp-collapse-form').css('cursor', 'ne-resize');
 };
 
 
-function colapse_map_area(event) {
+function collapse_map_area(event) {
     var map = $('#default-cgmap').data('collectivegeo').mapwidget.map;
     $('#projectdbmap').width('96%');
     $('#projectmapform').hide();
     map.updateSize();
-    $("#mapformsplitter").unbind('click', colapse_map_area).click(expand_map_area);
-    $('#exp-collapse-form').unbind('click', colapse_map_area).click(expand_map_area);
+    $("#mapformsplitter").unbind('click', collapse_map_area).click(expand_map_area);
+    $('#exp-collapse-form').unbind('click', collapse_map_area).click(expand_map_area);
     $('#exp-collapse-form').attr('src', 'fullscreenexpand_icon.png');
     $("#mapformsplitter").css('cursor', 'w-resize');
     $('#exp-collapse-form').css('cursor', 'sw-resize');
 };
 
 $('#mapformsplitter').click (function(event) {
-    colapse_map_area(event);
+    collapse_map_area(event);
 });
 $('#exp-collapse-form').click (function(event) {
-    colapse_map_area(event);
+    collapse_map_area(event);
 });
 /*]]>*/
 </script>
@@ -462,6 +462,11 @@ $('#projectmapform').submit
 );
 
  $(document).ready(function() {
+
+   $(window).bind('maploadend', function(evt, widget) {
+       refreshMap(evt, widget)
+       });
+
    /*$("#projectmapform").find("select").each(function(i) {
         $(this).change(onLayerOptionsChange) ;
    });

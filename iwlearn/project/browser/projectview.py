@@ -108,22 +108,34 @@ class ProjectView(BrowserView):
 
     def get_pra_chart(self, disable_xml_declaration=True):
         ratings = [
-        ('Establishment of country-specific inter-ministerial committees', [self.context.r4imcs()]),
-        ('Regional legal agreements and cooperation frameworks', [self.context.r4regional_frameworks()]),
-        ('Regional Management Institutions', [self.context.r4rmis()]),
-        ('National/Local reforms', [self.context.r4reforms()]),
-        ('Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes', [self.context.r4tda_priorities()]),
-        ('Development of Strategic Action Plan', [self.context.r4sap_devel()]),
-        ('Management measures in ABNJ incorporated in Global/Regional Management Organizations', [self.context.r4abnj_rmi()]),
-        ('Revised TDA/ SAP including Climatic Variability and Change considerations', [self.context.r4tdasap_cc()]),
-        ('TDA based on multi-national, interdisciplinary technical and scientific activities', [self.context.r4tda_mnits()]),
-        ('Proportion of countries that have adopted SAP', [self.context.r4sap_adopted()]),
-        ('Proportion of countries that are implementing specific measures from the SAP ', [self.context.r4sap_implementing()]),
-        ('Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc.', [self.context.r4sap_inc()]),
+            ('Establishment of country-specific inter-ministerial committees',
+                self.context.r4imcs()),
+            ('Regional legal agreements and cooperation frameworks',
+                self.context.r4regional_frameworks()),
+            ('Regional Management Institutions',
+                self.context.r4rmis()),
+            ('National/Local reforms',
+                self.context.r4reforms()),
+            ('Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes',
+                self.context.r4tda_priorities()),
+            ('Development of Strategic Action Plan',
+                self.context.r4sap_devel()),
+            ('Management measures in ABNJ incorporated in Global/Regional Management Organizations',
+                self.context.r4abnj_rmi()),
+            ('Revised TDA/ SAP including Climatic Variability and Change considerations',
+                self.context.r4tdasap_cc()),
+            ('TDA based on multi-national, interdisciplinary technical and scientific activities',
+                self.context.r4tda_mnits()),
+            ('Proportion of countries that have adopted SAP',
+                self.context.r4sap_adopted()),
+            ('Proportion of countries that are implementing specific measures from the SAP ',
+                self.context.r4sap_implementing()),
+            ('Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc.',
+                self.context.r4sap_inc()),
         ]
         colors = []
-        for rating in ratings:
-            colors.append(rating[1][0]['style'].pop('color'))
+        for label, rating in ratings:
+            colors.append(rating['style'].pop('color'))
 
         config = pygal.Config()
         config.tooltip_font_size=10
@@ -143,10 +155,11 @@ class ProjectView(BrowserView):
                     disable_xml_declaration=disable_xml_declaration,
                     show_legend=True,
                     truncate_legend=35,)
-        chart.range = [-1, 4]
-        for rating in ratings:
-            rating[1][0].pop('description')
-            chart.add(rating[0], rating[1])
+        #njj chart.range = [-1, 4]
+        chart.range = [0, 4]
+        for label, rating in ratings:
+            rating.pop('description')
+            chart.add(label, [rating])
             #chart.add({'title':rating[0], 'xlink': rating[1][0]['xlink']},
             #        rating[1])
         return chart.render()

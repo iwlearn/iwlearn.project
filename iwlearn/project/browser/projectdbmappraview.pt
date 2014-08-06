@@ -104,7 +104,7 @@
                         <label for="scope-global">Global</label-->
               </fieldset>
               <fieldset id="resultitems">
-                <legend>Result</legend>
+                <legend>Indicator</legend>
                 <input type="radio" id="rlacf" name="result" value="rlacf" checked="checked" />
                 <label for="rlacf">Regional legal agreements and cooperation frameworks</label>
                 <br />

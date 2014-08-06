@@ -879,8 +879,9 @@ class ProjectDBListView(BrowserView):
         result['description'] = rating['description']
         result['text'] = text
         tmpl = """
-        <strong>%(title)s</strong>
+        <strong>Indicator:</strong> %(title)s
         <div class="pra-rating-%(rating)s">
+        		<em>Description of rankings:</em><br/>
             Rating:
             <span>%(rating)s</span>:
             <span>%(description)s</span>

@@ -108,29 +108,29 @@ class ProjectView(BrowserView):
 
     def get_pra_chart(self, disable_xml_declaration=True):
         ratings = [
-            ('Establishment of country-specific inter-ministerial committees',
+            ('Inter-Ministerial Committees ',
                 self.context.r4imcs()),
-            ('Regional legal agreements and cooperation frameworks',
+            ('Legal or Cooperation Frameworks ',
                 self.context.r4regional_frameworks()),
             ('Regional Management Institutions',
                 self.context.r4rmis()),
             ('National/Local reforms',
                 self.context.r4reforms()),
-            ('Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes',
+            ('Transboundary Diagnostic Analysis ',
                 self.context.r4tda_priorities()),
-            ('Development of Strategic Action Plan',
+            ('Strategic Action Program ',
                 self.context.r4sap_devel()),
-            ('Management measures in ABNJ incorporated in Global/Regional Management Organizations',
+            ('ABNJ Considerations Mainstreamed ',
                 self.context.r4abnj_rmi()),
-            ('Revised TDA/ SAP including Climatic Variability and Change considerations',
+            ('Revised TDA-SAP including Climate ',
                 self.context.r4tdasap_cc()),
-            ('TDA based on multi-national, interdisciplinary technical and scientific activities',
+            ('Inter-disciplinary TDA ',
                 self.context.r4tda_mnits()),
-            ('Proportion of countries that have adopted SAP',
+            ('SAP Adoption by Percentage',
                 self.context.r4sap_adopted()),
-            ('Proportion of countries that are implementing specific measures from the SAP ',
+            ('SAP Implementation by Percentage ',
                 self.context.r4sap_implementing()),
-            ('Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc.',
+            ('Incorporation of SAP into Frameworks ',
                 self.context.r4sap_inc()),
         ]
         colors = []
@@ -156,6 +156,7 @@ class ProjectView(BrowserView):
                     show_legend=True,
                     truncate_legend=35,)
         #njj chart.range = [-1, 4]
+        chart.title = "Overall Project Tracking Tool - Process Rankings"
         chart.range = [0, 4]
         for label, rating in ratings:
             rating.pop('description')

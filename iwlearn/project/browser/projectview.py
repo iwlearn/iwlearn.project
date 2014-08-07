@@ -154,7 +154,7 @@ class ProjectView(BrowserView):
                     spacing=20,
                     disable_xml_declaration=disable_xml_declaration,
                     show_legend=True,
-                    #truncate_legend=35,
+                    truncate_legend=37,
 						)
         #njj chart.range = [-1, 4]
         chart.title = "Overall Project Tracking Tool - Process Rankings"

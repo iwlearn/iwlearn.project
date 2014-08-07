@@ -147,14 +147,15 @@ class ProjectView(BrowserView):
                         foreground_light='rgba(0, 0, 0, 0.9)',
                         )
 
-        chart = pygal.HorizontalBar(config, width=800, height=400,
+        chart = pygal.HorizontalBar(config, width=800, height=440,
                     explicit_size=False,
                     style=style,
                     legend_box_size=16,
                     spacing=20,
                     disable_xml_declaration=disable_xml_declaration,
                     show_legend=True,
-                    truncate_legend=35,)
+                    #truncate_legend=35,
+						)
         #njj chart.range = [-1, 4]
         chart.title = "Overall Project Tracking Tool - Process Rankings"
         chart.range = [0, 4]

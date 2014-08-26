@@ -52,6 +52,7 @@
   <p class="mapdesc">The Portfolio Results Archive (PRA) map aims to facilitate discovery, analysis and learning from the results of previously executed GEF IW projects. </p>
 <p class="mapdesc">The map below displays the results reported by the most recent phase or tranche of a given project and not collectively for a given basin, result nor project type. This approach is currently being used to be able to spatially report results amidst challenges in aggregating and analyzing historical data in inconsistent format. <a href="http://iwlearn.net/iw-projects/pra/PRA_Legend_22oct13.xls" target="_blank">View the Conversion Matrix here.</a>
   </p>
+  <div id="conversion-matrix"></div>
   <div class="colordesc">
 <div><span style="background-color:white">&nbsp;&nbsp;&nbsp;&nbsp;</span> Not applicable</div>
 <div><span style="background-color:grey">&nbsp;&nbsp;&nbsp;&nbsp;</span> No data available
@@ -273,8 +274,10 @@ provided or are unavailable, IW:LEARN will endeavor to provide a sound
 analysis using various documents, i.e., terminal evaluation reports,
 IW Results Notes, final seminar documents, and form supplementary data
 needed to complete the portfolio results visualization.
+<!-- moved to conversion-matrix.json below
 <a href="/iw-projects/pra/PRA_Legend_22oct13.xls" target="_blank">
     View the Conversion Matrix here.</a>
+-->
 </p>
 <h3>Geographic boundaries</h3>
 <p>
@@ -339,6 +342,47 @@ territory, or any endorsement or acceptance of such boundaries.
 
 <script type="text/javascript">
 /*<![CDATA[*/
+
+/* Conversion matrix
+*/
+
+function GetColumnSize(percent) {
+    screen_res = ($(document).width()-221)*0.85;
+    col = parseInt((percent*(screen_res/100)));
+    if (percent != 100) {
+        return col-18;
+    } else {
+        return col;
+    }
+}
+
+function SuccesCallback() {
+    $('div.ptogtitle').click();
+} 
+
+$('#conversion-matrix').flexigrid({
+    url: 'conversion-matrix.json',
+    dataType: 'json',
+    title: 'Conversion Matrix',
+    showTableToggleBtn: true,
+    onSuccess: SuccesCallback,
+    colModel: [
+        {display: 'GEF 5 Rating', name: 'rating', width: GetColumnSize(15)},
+        {display: 'Ratings equivalent', name: 'equiv', width: GetColumnSize(15)},
+        {display: 'GEF5', name: 'gef5', width: GetColumnSize(27)},
+        {display: 'GEF4', name: 'gef4', width: GetColumnSize(27)},
+        {display: 'GEF3', name: 'gef3', width: GetColumnSize(27)},
+        {display: 'IW:LEARN', name: 'iwlearn', width: GetColumnSize(27)}],
+    searchitems: [
+        {display: 'GEF 5 Rating', name: 'rating'},
+        {display: 'Ratings equivalent', name: 'equiv'},
+        {display: 'GEF5', name: 'gef5'},
+        {display: 'GEF4', name: 'gef4'},
+        {display: 'GEF3', name: 'gef3'},
+        {display: 'IW:LEARN', name: 'iwlearn'}
+        ]
+    }
+)
 
 /* disclaimer */
 $(function() {

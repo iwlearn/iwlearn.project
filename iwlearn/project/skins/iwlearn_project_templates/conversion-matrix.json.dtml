@@ -1,0 +1,1469 @@
+{"total": "1", "rows": [
+	{"color": "#003366", "cell": [
+		"<b><font color=\"#000000\">GEF 5 Rating<\/font><\/b>",
+		"<b><font color=\"#000000\">Ratings equivalent for previous GEF Replenishments and IW:LEARN Determined<br>(e.g. III0 is &apos;0&apos; rating for GEF3, IV3 is &apos;3&apos; rating for GEF4, IW2 is &apos;2&apos; rating as determined by IW:LEARN)<\/font><\/b>",
+		"<b><font color=\"#FFFFFF\">GEF5  (current replenishment)<br>Ratings in the GEF IW Tracking Tool (TT) start at &apos;1&apos; <br><br>Note: There are separate GEF IW TT templates across difference replenishments, hence the different indicators and ratings<br><\/font><\/b>",
+		"<b><font color=\"#FFFFFF\">GEF4 <br>Ratings in the GEF IW TT start at &apos;0&apos; <br>e.g., IV0 is &apos;0&apos; rating for GEF4<br><\/font><\/b>",
+		"<b><font color=\"#FFFFFF\">GEF3<br>Ratings in the GEF IW TT start at &apos;0&apos; <br>e.g., III0 is &apos;0&apos; rating for GEF3<\/font><\/b>",
+		"<b><font color=\"#FFFFFF\">IW:LEARN Determined<br>When numeric ratings are inaccessible/unavailable/undetermined,  IW:LEARN will provide a rating using the criteria explained below to complete the PRA data analysis, using results reported in final reports , e.g., IW Results Notes, Terminal Evaluation Report, Final Seminar Documents, etc.<\/font><\/b>"
+    ]},
+	{"color": "#000000", "cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#FFFFFF\">PROCESS Indicators<\/font><\/b>",
+		"<b><font color=\"#FFFFFF\"><br><\/font><\/b>",
+		"<b><font color=\"#FFFFFF\"><br><\/font><\/b>",
+		"<b><font color=\"#FFFFFF\"><br><\/font><\/b>"
+    ]},
+	{"color": "#FFFFCC", "cell": [
+		"<b><font color=\"#000000\">PROCESS Indicator 1</font></b>",
+        "",
+		"<b><font color=\"#000000\">Regional legal agreements and cooperation frameworks<\/font><\/b>",
+		"<b><font color=\"#000000\">Regional Legal Agreement<\/font><\/b>",
+		"<b><font color=\"#000000\">Regional Legal Agreement Adopted/Implemented<\/font><\/b>",
+		"<b><font color=\"#000000\">Regional legal agreements and cooperation frameworks<\/font><\/b>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IWA<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IWA<br>Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FF0000", "cell": [
+		"<font color=\"#000000\">1</font>",
+		"<font color=\"#000000\">,,<\/font>",
+		"<font color=\"#000000\">1<br>No legal agreement/cooperation framework in place<\/font>",
+		"<font color=\"#000000\">IV0<br>No legal agreement in place<\/font>",
+		"<font color=\"#000000\">III0<br>No legal agreement in place<\/font>",
+		"<font color=\"#000000\">IW1<br>No legal agreement/cooperation framework in place (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FFCC00", "cell": [
+		"<font color=\"#000000\">2</font>",
+		"<font color=\"#000000\">,<\/font>",
+		"<font color=\"#000000\">2<br>Regional legal agreement negotiated but not yet signed<\/font>",
+		"<font color=\"#000000\">IV1, IV2<br>Legal agreement signed<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IW2<br>Regional legal agreement negotiated but not yet signed (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FFFF00", "cell": [
+		"<font color=\"#000000\">3</font>",
+		"<font color=\"#000000\">, <\/font>",
+		"<font color=\"#000000\">3<br>Countries signed legal agreement<\/font>",
+		"<font color=\"#000000\">More than one country ratified legal agreement<\/font>",
+		"<font color=\"#000000\">III1<br>Legal agreement signed and ratified by more than one country  <\/font>",
+		"<font color=\"#000000\">IW3<br>Countries signed legal agreement (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\">4</font>",
+		"<font color=\"#000000\">,,<\/font>",
+		"<font color=\"#000000\">4<br>Legal agreement ratified and entered into force<\/font>",
+		"<font color=\"#000000\">IV3<br>Legal agreement ratified by necessary quorum and in force<\/font>",
+		"<font color=\"#000000\">III2, III3<br>Legal agreement ratified by necessary quorum and in force, Legal agreement  in force, ratified by all countries<\/font>",
+		"<font color=\"#000000\">IW4<br>Legal agreement ratified and entered into force (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"color": "#FFFFCC", "cell": [
+		"<b><font color=\"#000000\">PROCESS Indicator 2</font></b>",
+        "",
+		"<b><font color=\"#000000\">Regional management institutions (RMI)<\/font><\/b>",
+		"<b><font color=\"#000000\">Functioning and Sustainable Regional TB Waters Institution<\/font><\/b>",
+		"<b><font color=\"#000000\">Functioning &amp; Sustainable Regional Transboundary Waters Institution<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IWA<br>Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FF0000", "cell": [
+		"<font color=\"#000000\">1</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">1<br>No RMI in place<\/font>",
+		"<font color=\"#000000\">IV0<br>No TBW Institution in place<\/font>",
+		"<font color=\"#000000\">III0<br>No TBW institution in place   <\/font>",
+		"<b><font color=\"#000000\">IW1<\/font><\/b>"
+    ]},
+	{"color": "#FFCC00", "cell": [
+		"<font color=\"#000000\">2</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">2<br>RMI established but functioning with limited effectiveness, &lt; 50% countries contributing dues<\/font>",
+		"<font color=\"#000000\">IV1<br>TBW institution established but functioning with limited effectiveness due to lack of staff and  and  poor implementation of its work programme, countries contribution quite limited<\/font>",
+		"<font color=\"#000000\">III1<br>TBW institution established but functioning with limited effectiveness; 50% or less of countries contributing dues   <\/font>",
+		"<b><font color=\"#000000\">IW2<\/font><\/b>"
+    ]},
+	{"color": "#FFFF00", "cell": [
+		"<font color=\"#000000\">3</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">3<br>RMI established and functioning, &gt;50% of countries contributing dues<\/font>",
+		"<font color=\"#000000\">IV2<br>TBW institution established and functioning with moderate effectiveness, 50% of countries contributing dues<\/font>",
+		"<font color=\"#000000\">III2<br>TBW institution established and functioning with moderate effectiveness, 50-75% of countries contributing dues                 <\/font>",
+		"<b><font color=\"#000000\">IW3<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\">4</font>",
+		"<font color=\"#000000\">, <\/font>",
+		"<font color=\"#000000\">4<br>RMI in place, fully functioning and fully sustained by at or near 100% country contributions<\/font>",
+		"<font color=\"#000000\">IV3<br>TBW institution in place, fully functioning and fully sustained by at or near 100% country contributions<\/font>",
+		"<font color=\"#000000\">III3<br>TBW institution in place, fully functioning and fully sustained by at or near 100% country contributions <\/font>",
+		"<b><font color=\"#000000\">IW4<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"color": "#FFFFCC", "cell": [
+		"<b><font color=\"#000000\">PROCESS Indicator 3</font></b>",
+        "",
+		"<b><font color=\"#000000\">Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI) institutional/ management frameworks<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\">IWA</font>",
+        "",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IWA<br>Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FF0000", "cell": [
+		"<font color=\"#000000\">1, IV0, IW1<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">1<br>No management measures in ABNJ  in  (RMI) institutional/ management frameworks<\/font>",
+		"<b><font color=\"#000000\">IV0<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW1<\/font><\/b>"
+    ]},
+	{"color": "#FFCC00", "cell": [
+		"<font color=\"#000000\">2, IV1, IW2<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">2<br>Management measures in ABNJ designed but not formally adopted by project participants<\/font>",
+		"<b><font color=\"#000000\">IV1<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW2<\/font><\/b>"
+    ]},
+	{"color": "#FFFF00", "cell": [
+		"<font color=\"#000000\">3, IV2, IW3<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">3<br>Management measures in ABNJ  formally adopted by project participants but not incorporated in RMI institutional/management frameworks<\/font>",
+		"<b><font color=\"#000000\">IV2<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW3<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\">4, IV3, IW4<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">4<br>Management measures in ABNJ fully incorporated in  RMI institutional/ management frameworks<\/font>",
+		"<b><font color=\"#000000\">IV3<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW4<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"color": "#FFFFCC", "cell": [
+		"<b><font color=\"#000000\">PROCESS Indicator 4</font></b>",
+        "",
+		"<b><font color=\"#000000\">National Inter-Ministry Committees (IMCs)<\/font><\/b>",
+		"<b><font color=\"#000000\">Functional National Inter-Ministry Committees<\/font><\/b>",
+		"<b><font color=\"#000000\">Functional Inter-Ministery Commitees (ICM)<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\">IWA</font>",
+        "",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IWA<br>Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FF0000", "cell": [
+		"<font color=\"#000000\">1, IV0, III0, IW1<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">1<br>No IMCs established<\/font>",
+		"<font color=\"#000000\">IV0<br>No IMCs established<\/font>",
+		"<font color=\"#000000\">III0<br>No IMC established          <\/font>",
+		"<b><font color=\"#000000\">IW1<\/font><\/b>"
+    ]},
+	{"color": "#FFCC00", "cell": [
+		"<font color=\"#000000\">2, IV1, III1, IW2<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">2<br>IMCs established and functioning, &lt; 50% countries participating<\/font>",
+		"<font color=\"#000000\">IV1<br>IMCs established with clear ToR but not functioning <\/font>",
+		"<font color=\"#000000\">III1<br>IMCs established but not functioning effectively or at all.<\/font>",
+		"<b><font color=\"#000000\">IW2<\/font><\/b>"
+    ]},
+	{"color": "#FFFF00", "cell": [
+		"<font color=\"#000000\">3, IV2, III2, IW3<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">3<br>IMCs established and functioning, &gt; 50% countries participating<\/font>",
+		"<font color=\"#000000\">IV2<br>IMCs estbalished with clear ToR, functioning informally or for project purposes only<\/font>",
+		"<font color=\"#000000\">III2<br>IMCs established and functioning on informal basis<\/font>",
+		"<b><font color=\"#000000\">IW3<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\">4, IV3, III3, IW4<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">4<br>IMCs established, functioning and formalized thru legal and/or institutional arrangements, in most participating countries<\/font>",
+		"<font color=\"#000000\">IV3<br>IMCs established with clear ToR, functioning and formalized thru legal and/or institutional arrangements<\/font>",
+		"<font color=\"#000000\">III3<br>IMCs established, functioning and formalized thru legal and/or institutional arrangements       <\/font>",
+		"<b><font color=\"#000000\">IW4<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"color": "#FFFFCC", "cell": [
+		"<b><font color=\"#000000\">PROCESS Indicator 5</font></b>",
+        "",
+		"<b><font color=\"#000000\">National/Local reforms <\/font><\/b>",
+		"<b><font color=\"#000000\">National commitments to policy, legal &amp; institutional reforms (Ministerial level adoption of SAP, ICM or IWRM Plans, etc.)<\/font><\/b>",
+		"<b><font color=\"#000000\">National/Local Reforms Enacted/Implemented<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\">IWA</font>",
+        "",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IWA<br>Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FF0000", "cell": [
+		"<font color=\"#000000\">1, IV0, III0, IW1<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">1<br>No national/local reforms drafted<\/font>",
+		"<font color=\"#000000\">IV0<br>No progress<\/font>",
+		"<font color=\"#000000\">III0<br>Agreed reforms neither enacted nor implemented in majority of countries <\/font>",
+		"<b><font color=\"#000000\">IW1<\/font><\/b>"
+    ]},
+	{"color": "#FFCC00", "cell": [
+		"<font color=\"#000000\">2, IW2<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">2<br>National/ local reforms drafted but not yet adopted<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW2<\/font><\/b>"
+    ]},
+	{"color": "#FFFF00", "cell": [
+		"<font color=\"#000000\">3, IV1, IV2, III1, III2, IW3<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">3<br>National/legal reform adopted with technical/enforcement mechanism in place<\/font>",
+		"<font color=\"#000000\">IV1, IV2<br>Less than 50% of countries committed to policy, legal and institutional reforms required to address agreed priority issues / 50-75% of countries committed to policy, legal and institutional reforms required to address agreed priority issues. <\/font>",
+		"<font color=\"#000000\">III1, III2<br>Most countries have enacted reforms but less than 50% are implementing, 50-80% of countries have enacted and are implementing reforms<\/font>",
+		"<b><font color=\"#000000\">IW3<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\">4, IV3, III3, IW4<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">4<br>National/ legal reforms implemented<\/font>",
+		"<font color=\"#000000\">IV3<br>Clear commitments in 90% or more of countries to policy, legal and institutional reforms required to address agreed priority issues.<\/font>",
+		"<font color=\"#000000\">III3<br>80% or more of countries have enacted and are implementing reforms<\/font>",
+		"<b><font color=\"#000000\">IW4<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"color": "#FFFFCC", "cell": [
+		"<b><font color=\"#000000\">PROCESS Indicator 6</font></b>",
+        "",
+		"<b><font color=\"#000000\">Transboundary Diagnostic Analysis (TDA): Agreement on transboundary priorities and root causes<\/font><\/b>",
+		"<b><font color=\"#000000\">Agreement on TB priorities and Root causes (TDA)<\/font><\/b>",
+		"<b><font color=\"#000000\">Agreement on TB Priorities and Root Causes (TDA Development and Completion)<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\">IWA<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IWA<br>Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FF0000", "cell": [
+		"<font color=\"#000000\">1, IV0, IW1<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">1<br>No progress on TDA<\/font>",
+		"<font color=\"#000000\">IV0<br>No progress on TDA<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW1<\/font><\/b>"
+    ]},
+	{"color": "#FFCC00", "cell": [
+		"<font color=\"#000000\">2, IV1, III0, III1, IW2<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">2<br>Priority TB issues identified and agreed on but based on limited effect information; inadequate root cause analysis<\/font>",
+		"<font color=\"#000000\">IV1<br>Priority TB issues identified and agreed but based on limited envir/socioecon impact information; none or inadequate root cause analysis<\/font>",
+		"<font color=\"#000000\">III0, III1<br>TDA in progress, Priority TB issues identified and agreed but based on limited environmental/socioeconomic impact information; none or inadequate root cause analysis,                       <\/font>",
+		"<b><font color=\"#000000\">IW2<\/font><\/b>"
+    ]},
+	{"color": "#FFFF00", "cell": [
+		"<font color=\"#000000\">3, IV2, III2, IW3<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">3<br>Priority TB issues agreed on based on solid baseline effect info; root cause analysis is inadequate<\/font>",
+		"<font color=\"#000000\">IV2<br>Priority TB Issues agreed based on solid baseline of envir and socioecon impacts info; root cause analysis is inadequate<\/font>",
+		"<font color=\"#000000\">III2<br>Priority TB Issues agreed based on solid baseline of envir and socioecon impacts info; root cause analysis is inadequate <\/font>",
+		"<b><font color=\"#000000\">IW3<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\">4, IV3, III3, IW4<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">4<br>Regional agreement on priority TB issues drawn from valid effect baseline, immediate and root causes properly determined<\/font>",
+		"<font color=\"#000000\">IV3<br>Regional agreement on priority TB issues drawn from valid enviro/socioecon impacts baseline, immediate and root causes properly determined<\/font>",
+		"<font color=\"#000000\">III3<br>Regional agreement on priority TB issues drawn from valid enviro/socioecon impacts baseline, immediate and root causes properly determined.               <\/font>",
+		"<b><font color=\"#000000\">IW4<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"color": "#FFFFCC", "cell": [
+		"<b><font color=\"#000000\">PROCESS Indicator 7</font></b>",
+        "",
+		"<b><font color=\"#000000\">Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\">IWA<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IWA<br>Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FF0000", "cell": [
+		"<font color=\"#000000\">1, IV0, IW1<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">1<br>No revised TDA or SAP<\/font>",
+		"<b><font color=\"#000000\">IV0<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW1<\/font><\/b>"
+    ]},
+	{"color": "#FFCC00", "cell": [
+		"<font color=\"#000000\">2, IV1, IW2<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">2<br>TDA updated to incorporate climate variability and change<\/font>",
+		"<b><font color=\"#000000\">IV1<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW2<\/font><\/b>"
+    ]},
+	{"color": "#FFFF00", "cell": [
+		"<font color=\"#000000\">3, IV2, IW3<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">3<br>Revised SAP prepared including Climatic Variability and Change<\/font>",
+		"<b><font color=\"#000000\">IV2<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW3<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\">4, IV3, IW4<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">4<br>SAP including Climatic Variability and Change adopted by all involved countries<\/font>",
+		"<b><font color=\"#000000\">IV3<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW4<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"color": "#FFFFCC", "cell": [
+		"<b><font color=\"#000000\">PROCESS Indicator 8</font></b>",
+        "",
+		"<b><font color=\"#000000\">TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities<\/font><\/b>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#FF0000", "cell": [
+		"<font color=\"#000000\">1, IW1<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">1 <br>TDA does not include technical annex based on MNITS activities<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW1<\/font><\/b>"
+    ]},
+	{"color": "#FFCC00", "cell": [
+		"<font color=\"#000000\">2, IW2<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">2<br>MNITS committee established and contributed to TDA development<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW2<\/font><\/b>"
+    ]},
+	{"color": "#FFFF00", "cell": [
+		"<font color=\"#000000\">3, IW3<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">3<br>TDA includes technical annex, documenting data and analysis being collected<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW3<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\">4, IW4<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">4<br>TDA includes technical annex posted IW:LEARN and based on MNITS committee inputs<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW4<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"color": "#FFFFCC", "cell": [
+		"<b><font color=\"#000000\">PROCESS Indicator 9</font></b>",
+        "",
+		"<b><font color=\"#000000\">Development of Strategic Action Plan (SAP)  <\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">SAP Approved<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\">IWA<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IWA<br>Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FF0000", "cell": [
+		"<font color=\"#000000\">1, IV0, III0, IW1<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">1<br>No development of SAP<\/font>",
+		"<b><font color=\"#000000\">IV0<\/font><\/b>",
+		"<font color=\"#000000\">III0<br>SAP neither developed, nor approved                   <\/font>",
+		"<b><font color=\"#000000\">IW1<\/font><\/b>"
+    ]},
+	{"color": "#FFCC00", "cell": [
+		"<font color=\"#000000\">2, IV1, III1, IW2<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">2<br>SAP developed addressing key TB concerns spatially<\/font>",
+		"<b><font color=\"#000000\">IV1<\/font><\/b>",
+		"<font color=\"#000000\">III1<br>SAP developed and agreed at highest technical level (e.g. project Steering Committee)                              <\/font>",
+		"<b><font color=\"#000000\">IW2<\/font><\/b>"
+    ]},
+	{"color": "#FFFF00", "cell": [
+		"<font color=\"#000000\">3, IV2, III2, IW3<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">3<br>SAP developed and adopted by ministers <\/font>",
+		"<b><font color=\"#000000\">IV2<\/font><\/b>",
+		"<font color=\"#000000\">III2<br>SAP developed and endorsed by minimum 50% 0f countries                       <\/font>",
+		"<b><font color=\"#000000\">IW3<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\">4, IV3, III3, IW4<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font face=\"Cambria\" color=\"#000000\">4<br>Adoption of SAP into National Action Plans (NAPs)<\/font>",
+		"<b><font color=\"#000000\">IV3<\/font><\/b>",
+		"<font color=\"#000000\">III3<br>SAP endorsed by all ministers of countries sharing the TB water body or adopted by relevant inter-governmental body   <\/font>",
+		"<b><font color=\"#000000\">IW4<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"color": "#FFFFCC", "cell": [
+		"<b><font color=\"#000000\">PROCESS Indicator 10</font></b>",
+        "",
+		"<b><font color=\"#000000\">Proportion of Countries that have adopted SAP<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\">%<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">Number of countries adopted SAP / total number of countries  - e.g.. 3 countries adopted /10 total countries in project, so 3/10<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">%<\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"color": "#FFFFFF", "cell": [
+		"<b><font color=\"#000000\">PROCESS Indicator 11</font></b>",
+        "",
+		"<b><font color=\"#000000\">Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\">%<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">Number of countries implementing adopted SAP / total number of countries  - e.g.. 3 countries implementing /10 total countries in project, so 3/10<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">%<\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"color": "#FFFFCC", "cell": [
+		"<b><font color=\"#000000\">PROCESS Indicator 12</font></b>",
+        "",
+		"<b><font color=\"#000000\">Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc<\/font><\/b>",
+		"<b><font color=\"#000000\">Incorporation of (SAP, etc.) transboundarypriorities into national PRSP, CAS, UN frameworks, etc.<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<br>",
+		"<br>",
+		"<br>",
+		"0<br>No information available"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\">IWA<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IWA<br>Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FF0000", "cell": [
+		"<font color=\"#000000\">1, IV0, IW1<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">1<br>No progress <\/font>",
+		"<font color=\"#000000\">IV0<br>No progress in incorporating priorities into national strategic planning frameworks<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW1<\/font><\/b>"
+    ]},
+	{"color": "#FFCC00", "cell": [
+		"<font color=\"#000000\">2, IV1, IW2<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">2<br>Limited progress, very generic with no specific agency/government(s) commitments<\/font>",
+		"<font color=\"#000000\">IV1<br>Less than 25% of actions  incorporated  into national frameworks but very generic with no specific commitments<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW2<\/font><\/b>"
+    ]},
+	{"color": "#FFFF00", "cell": [
+		"<font color=\"#000000\">3, IV2, IW3<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">3<br>Priorities specifically incorporated into some national development/assistance frameworks with clear agency/government(s) commitments and time frames for achievement<\/font>",
+		"<font color=\"#000000\">IV2<br>Priorities specifically incorporated into some national frameworks with clear commitments and time frames for achievement<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW3<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\">4, IV3, IW4<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">4<br>Majority of national development/assistance frameworks have incorporated priorities with clear agency/government(s)  commitments and time frames for achievement<\/font>",
+		"<font color=\"#000000\">IV3<br>Majority of national frameworks have incorporated priorities with clear commitments and time frames for achievement<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW4<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"color": "#000000", "cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#FFFFFF\">STRESS REDUCTION Indicators<\/font><\/b>",
+		"<b><font color=\"#FFFFFF\"><br><\/font><\/b>",
+		"<b><font color=\"#FFFFFF\"><br><\/font><\/b>",
+		"<b><font color=\"#FFFFFF\"><br><\/font><\/b>"
+    ]},
+	{"cell": [
+		"<b><font color=\"#000000\"><br></font></b>",
+        "",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">Are there mechanisms in place to produce a monitoring report on stress reduction measures?<\/font><\/b>",
+		"<b><font color=\"#000000\">Mechanisms in Place to Monitor Stress Reduction  &amp; Environmental/Water Resources and Socioeconomic Status of the Waterbody<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br><\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\">IWA<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IWA<br>Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FF0000", "cell": [
+		"<font color=\"#000000\">1, IV0, IW1<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">1<br>No mechanisms in place to monitor/report change<\/font>",
+		"<font color=\"#000000\">IV0<br>No environmental /water resources &amp; socioeconomic status baseline nor mechanisms to monitor change in SR and  E/WR &amp; S status indicators<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW1 <br>No information available<\/font><\/b>"
+    ]},
+	{"color": "#FFCC00", "cell": [
+		"<font color=\"#000000\">2, IV1, IW2<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">2<br>Some national/regional monitoring mechanisms, but they do not satisfy the project related indicators.<\/font>",
+		"<font color=\"#000000\">IV1<br>Some data on environmental /water resources &amp; socioeconomic status baseline; very limited regional/national mechanisms to monitor change in SR and  E/WR &amp; S status indicators <\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW2<\/font><\/b>"
+    ]},
+	{"color": "#FFFF00", "cell": [
+		"<font color=\"#000000\">3, IV2, IW3<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">3<br>Monitoring mechanisms in place for some of the project related indicators<\/font>",
+		"<font color=\"#000000\">IV2<br>Good data environmental /water resources &amp; socioeconomic status baseline; mechanisms in place to monitor some but not all of key SR E/WR &amp; S Status indicators<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW3<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\">4, IV3, IW4<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">4<br>Mechanisms in place and sustainable for long-term monitoring<\/font>",
+		"<font color=\"#000000\">IV3<br>Excellent environmental status baseline data; mechanisms in place and sustainable for long-term monitoring of key E &amp; S Status indicators of SAP implementation<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW4<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\">Municipal wastewater pollution reduction<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">N, P &amp; BOD (kg/yr)                                                                                                                                                                                                                                            <\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\">Industrial wastewater pollution reduction - pollutant; estimated<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">kg/yr                                                                                                                                                                                                                                                                                                                                                                                   <\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\">Agriculture pollution reduction practices - ha of practices<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">estimate of N, P &amp; BOD  kg/yr                                                                                                                                                                                                                                                                                          <\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\">Restored habitat, including wetlands<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">ha restored                                                                                                                                                                                                                                                                                                                                                      <\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\">Conserved/protected wetland, MPAs, and fish refugia habitat<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">ha applied                                                                                                                                                                                                                                                         <\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\">Reduced fishing pressure<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">tons/yr reduction; % reduction in fleet size                                                                                                                                                                                                                                                                                                                                                                        <\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\">Improved use of fish gear/techniques<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">% vessels applying improved gear/techniques<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\">Water use efficiency measures<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">m^3/yr water saved<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\">Improved irrigation practices <\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">m^3/ha/yr water saved                                                                                                                                                                                                                                                                                  <\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\">Alternative livelihoods introduced<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"># people provided alternative livelihoods<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">Catchment protection measures<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">ha under improved catchment management <\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">Aquifer pumping reduction<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">m^3/yr water saved <\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">Aquifer recharge area protection<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">ha protected<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">Pollution reduction to aquifers<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">kg/ha/year reduction<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">Invasive species reduction<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br>No information available<\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">ha and/or #&apos;s of targeted area<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"color": "#000000", "cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#FFFFFF\">ENVIRONMENTAL STATUS Indicators<\/font><\/b>",
+		"<b><font color=\"#FFFFFF\"><br><\/font><\/b>",
+		"<b><font color=\"#FFFFFF\"><br><\/font><\/b>",
+		"<b><font color=\"#FFFFFF\"><br><\/font><\/b>"
+    ]},
+	{"cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">Are there mechanisms and project indicators in place to monitor the environmental and socioeconomic status of the waterbody?<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br><\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\">IWA<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IWA<br>Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FF0000", "cell": [
+		"<font color=\"#000000\">1, IV0, IW1<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">1<br>No mechanisms in place <\/font>",
+		"<b><font color=\"#000000\">IV0<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW1<\/font><\/b>"
+    ]},
+	{"color": "#FFCC00", "cell": [
+		"<font color=\"#000000\">2, IV1, IW2<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">2<br>Some national/regional monitoring mechanisms, but they do not satisfy the project related indicators.<\/font>",
+		"<b><font color=\"#000000\">IV1<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW2<\/font><\/b>"
+    ]},
+	{"color": "#FFFF00", "cell": [
+		"<font color=\"#000000\">3, IV2, IW3<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">3<br>Monitoring mechanisms in place for some of the project related indicators<\/font>",
+		"<b><font color=\"#000000\">IV2<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW3<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\">4, IV3, IW4<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">4<br>Mechanisms in place for project related indicators and sustainable for long-term monitoring <\/font>",
+		"<b><font color=\"#000000\">IV3<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW4<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"color": "#000000", "cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#FFFFFF\">IW LEARNING Indicators<\/font><\/b>",
+		"<b><font color=\"#FFFFFF\"><br><\/font><\/b>",
+		"<b><font color=\"#FFFFFF\"><br><\/font><\/b>",
+		"<b><font color=\"#FFFFFF\"><br><\/font><\/b>"
+    ]},
+	{"cell": [
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<b><font color=\"#000000\">Participation in IW events (GEF IWC, Community of Practice (COP), IW:LEARN)<\/font><\/b>",
+		"<b><font color=\"#000000\">Experience Sharing &amp; Learning<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br><\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\">IWA<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IWA<br>Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FF0000", "cell": [
+		"<font color=\"#000000\">1, IV0, IW1<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">1<br>No participation<\/font>",
+		"<font color=\"#000000\">IV0<br>No participation in IW:LEARN events or communities of practice (COP)<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW1<\/font><\/b>"
+    ]},
+	{"color": "#FFCC00", "cell": [
+		"<font color=\"#000000\">2, IV1, IW2<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">2<br>Documentation of minimum 1 event or limited COP participation<\/font>",
+		"<font color=\"#000000\">IV1<br>Documentation of Minimum 1 event or limited COP participation<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW2<\/font><\/b>"
+    ]},
+	{"color": "#FFFF00", "cell": [
+		"<font color=\"#000000\">3, IV2, IW3<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">3<br>Strong participation in COPs and in IWC<\/font>",
+		"<font color=\"#000000\">IV2<br>strong participation in COPs and/or hosting staff exchanges<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW3<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\">4, IV3, IW4<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">4<br>Presentations with booth participation and hosting of staff/twinning<\/font>",
+		"<font color=\"#000000\">IV3<br>Presentations at IW:LEARN event/COPs &amp; at GEF Biennial IW Conference with booth<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW4<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br></font>",
+        "",
+        "",
+        ""
+    ]},
+	{"cell": [
+		"<b><font color=\"#000000\">Project website (according to IW:LEARN guidelines)<\/font><\/b>",
+		"<b><font color=\"#000000\"><br><\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">Project website established and maintainedin line with the IW:Learn template/guideline<\/font><\/b>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">Project website (according to IW:LEARN guidelines<\/font><\/b>"
+    ]},
+	{"color": "#FFFF99", "cell": [
+		"<font color=\"#000000\">0</font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">0<br><\/font>"
+    ]},
+	{"color": "#99CCFF", "cell": [
+		"<font color=\"#000000\">IWA<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">IWA<br>Some progress has occurred but cannot be ranked, please see the description for further details (IWL Assessed)<\/font>"
+    ]},
+	{"color": "#FF0000", "cell": [
+		"<font color=\"#000000\">1, IV0, IW1<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">1<br>No project website<\/font>",
+		"<font color=\"#000000\">IV0<br>No project website in place<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW1<\/font><\/b>"
+    ]},
+	{"color": "#FFCC00", "cell": [
+		"<font color=\"#000000\">2, IV1, IW2<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">2<br>Website not in line with IW:LEARN guidelines, not regularly updated<\/font>",
+		"<font color=\"#000000\">IV1<br>Project website established, not in line with IW:Learn template/guideline, updated less than once in 3 months <\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW2<\/font><\/b>"
+    ]},
+	{"color": "#FFFF00", "cell": [
+		"<font color=\"#000000\">3, IV2, IW3<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">3<br>Website in line with IW:LEARN guidelines, not regularly updated<\/font>",
+		"<font color=\"#000000\">IV2<br>Project website established,  in line with IW:Learn template/guideline,   updated less than once in a month<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW3<\/font><\/b>"
+    ]},
+	{"color": "#008000", "cell": [
+		"<font color=\"#000000\">4, IV3, IW4<\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<font color=\"#000000\">4<br>Website in line with IW:LEARN guidelines, regularly updated<\/font>",
+		"<font color=\"#000000\">IV3<br>Project website established in line with IW:Learn template/guideline, regularly updated and visited (xxx hits/y) <\/font>",
+		"<font color=\"#000000\"><br><\/font>",
+		"<b><font color=\"#000000\">IW4<\/font><\/b>"
+    ]}
+	]
+}
+

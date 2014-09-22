@@ -50,7 +50,15 @@
 </li>
 </ul>
   <p class="mapdesc">The Portfolio Results Archive (PRA) map aims to facilitate discovery, analysis and learning from the results of previously executed GEF IW projects. </p>
-<p class="mapdesc">The map below displays the results reported by the most recent phase or tranche of a given project and not collectively for a given basin, result nor project type. This approach is currently being used to be able to spatially report results amidst challenges in aggregating and analyzing historical data in inconsistent format. <a href="http://iwlearn.net/iw-projects/pra/PRA_Legend_22oct13.xls" target="_blank">View the Conversion Matrix here.</a>
+<p class="mapdesc">The map below displays the results reported by the most
+recent phase or tranche of a given project and not collectively for a given
+basin, result nor project type. This approach is currently being used to be
+able to spatially report results amidst challenges in aggregating and
+analyzing historical data in inconsistent format.
+<!-- moved to conversion-matrix.json
+<a href="http://iwlearn.net/iw-projects/pra/PRA_Legend_22oct13.xls"
+   target="_blank">View the Conversion Matrix here.</a>
+-->
   </p>
   <div id="conversion-matrix"></div>
   <div class="colordesc">
@@ -274,10 +282,8 @@ provided or are unavailable, IW:LEARN will endeavor to provide a sound
 analysis using various documents, i.e., terminal evaluation reports,
 IW Results Notes, final seminar documents, and form supplementary data
 needed to complete the portfolio results visualization.
-<!-- moved to conversion-matrix.json below
 <a href="/iw-projects/pra/PRA_Legend_22oct13.xls" target="_blank">
-    View the Conversion Matrix here.</a>
--->
+    Download the Conversion Matrix here.</a>
 </p>
 <h3>Geographic boundaries</h3>
 <p>

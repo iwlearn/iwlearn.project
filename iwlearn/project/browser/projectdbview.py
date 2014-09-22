@@ -33,7 +33,6 @@ class ProjectDBBaseView(BrowserView):
     ProjectDB browser view
     """
 
-
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -52,8 +51,6 @@ class ProjectDBBaseView(BrowserView):
         }) ;
    });
  });
-
-
 
     $("#flexiprojects").flexigrid
             (
@@ -834,7 +831,9 @@ class ProjectDBListView(BrowserView):
                 form['getSubRegions'] = 'Global'
 
         query = get_query(form)
-        results = self.portal_catalog(**query)
+        results = list(self.portal_catalog(**query))
+        results.sort(key=lambda r: int(r.id), reverse=True)
+
         return results
 
     def feature_name(self):
@@ -890,3 +889,8 @@ class ProjectDBListView(BrowserView):
         <div>%(text)s</div>
         """
         return tmpl % result
+
+class ProjectDBRatingsView(ProjectDBView):
+    """ Aggregates projects according to ratings
+    """
+    pass

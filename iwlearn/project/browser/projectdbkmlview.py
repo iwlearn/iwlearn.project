@@ -147,6 +147,7 @@ class BasinPlacemark(BrainPlacemark):
                 else:
                     if projects:
                         logger.debug('Project UID %s not found' % project_uid)
+        self.projects.sort(key=itemgetter('id'), reverse=True)
 
     @property
     def name(self):
@@ -212,7 +213,7 @@ class BasinResultPlacemark(BasinPlacemark):
             project['rmi'] = obj.r4rmis()
             project['tda'] = obj.r4tda_priorities()
             project['sap'] = obj.r4sap_devel()
-        self.projects.sort(key=itemgetter('gefid'), reverse=True)
+        self.projects.sort(key=itemgetter('id'), reverse=True)
 
     @property
     def portal(self):
@@ -225,16 +226,20 @@ class BasinResultPlacemark(BasinPlacemark):
         desc = u''
         for project in self.projects:
             title = project['title'].decode('utf-8', 'ignore')
-            desc += u'<h3><a href="%s" title="%s" > %s </a></h3><p>Rating: %s: %s </p>' % (
-                    '@@project-result-map-view.html#pid' + project['uid'],
+            desc += u'''<h3><a href="%(url)s" title="%(alttitle)s">
+                               %(title)s
+                               </a></h3>
+                    <p>Basin: %(basin)s,
+                    Rating: %(result_label)s: %(result_desc)s </p>''' % {
+                    'url': '@@project-result-map-view.html#pid' + project['uid'],
                     #title.encode(
                     #   'ascii', 'xmlcharrefreplace'),
-                     "",
-                    title.encode(
-                        'ascii', 'xmlcharrefreplace'),
-                    project[result_for]['label'],
-                    project[result_for]['description'],
-                    )
+                    'alttitle': "",
+                    'title': title.encode('ascii', 'xmlcharrefreplace'),
+                    'basin': project[result_for].get('basin', ''),
+                    'result_label': project[result_for]['label'],
+                    'result_desc': project[result_for]['description'],
+                    }
         url = '@@project-result-map-view.html'
         desc +='<a href="%s#projectdetaillist">  More information below the map </a>' %url
         return desc.encode('ascii')
@@ -331,6 +336,8 @@ class CountryPlacemark(BrainPlacemark):
                                 % (project.Title,
                                     substitute_for, country))
                             self.projects.append(project)
+        self.projects.sort(key=itemgetter('id'), reverse=True)
+
     @property
     def polygoncolor(self):
         if self.styles:
@@ -424,8 +431,7 @@ class CountryResultsPlacemark(CountryPlacemark):
         if len(tmp_projects) == 0:
             self.geom = NullGeometry()
         self.projects = tmp_projects
-
-
+        self.projects.sort(key=itemgetter('id'), reverse=True)
 
     @property
     def description(self):
@@ -526,12 +532,14 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
     def get_projects(self, query):
         logger.debug('get projects')
         brains = self.get_results(query)
+
         projects = {}
         for brain in brains:
             if brain.getBasin:
-                projects[brain.UID] = {'title':
-                                    brain.Title,
+                projects[brain.UID] = {
+                                'title': brain.Title,
                                 'uid': brain.UID,
+                                'id': int(brain.id),
                                 'basin': brain.getBasin,
                                 'countries' : brain.getCountry,
                                 'agencies': brain.getAgencies,

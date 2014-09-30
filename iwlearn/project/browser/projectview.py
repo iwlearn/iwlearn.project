@@ -157,11 +157,12 @@ class ProjectView(BrowserView):
                     truncate_legend=37,
 						)
         #njj chart.range = [-1, 4]
-        chart.title = "Overall Project Tracking Tool - Process Rankings"
+        chart.title = "Overall Project Tracking Tool - Process Ratings"
         chart.range = [0, 4]
         for label, rating in ratings:
             rating.pop('description')
-            chart.add(label, [rating])
+            if rating['value']:
+                chart.add(label, [rating])
             #chart.add({'title':rating[0], 'xlink': rating[1][0]['xlink']},
             #        rating[1])
         return chart.render()

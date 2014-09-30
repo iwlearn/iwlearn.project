@@ -179,7 +179,7 @@ Finally, let's login back as manager.
 The Basin content type
 ===============================
 
-In this section we are tesing the Basin content type by performing
+In this section we are testing the Basin content type by performing
 basic operations like adding, updating and deleting Basin content
 items.
 
@@ -543,6 +543,124 @@ Finally, let's login back as manager.
     >>> browser.getControl(name='__ac_password').value = default_password
     >>> browser.getControl(name='submit').click()
     >>> browser.open(portal_url)
+
+
+The Demo Site content type
+===============================
+
+In this section we are testing the Demo Site content type by performing
+basic operations like adding, updadating and deleting Demo Site content
+items.
+
+Adding a new Demo Site content item
+------------------------------------
+
+We use the 'Add new' menu to add a new content item.
+TODO: Only under Project
+
+    >>> browser.getLink('Add new').click()
+
+Then we select the type of item we want to add. In this case we select
+'Demo Site' and click the 'Add' button to get to the add form.
+
+    >>> browser.getControl('Demo Site').click()
+    >>> browser.getControl(name='form.button.Add').click()
+    >>> 'Demo Site' in browser.contents
+    True
+
+Now we fill the form and submit it.
+
+    >>> browser.getControl(name='title').value = 'Demo Site Sample'
+    >>> browser.getControl('Save').click()
+    >>> 'Changes saved' in browser.contents
+    True
+
+And we are done! We added a new 'Demo Site' content item to the portal.
+
+Updating an existing Demo Site content item
+--------------------------------------------
+
+Let's click on the 'edit' tab and update the object attribute values.
+
+    >>> browser.getLink('Edit').click()
+    >>> browser.getControl(name='title').value = 'New Demo Site Sample'
+    >>> browser.getControl('Save').click()
+
+We check that the changes were applied.
+
+    >>> 'Changes saved' in browser.contents
+    True
+    >>> 'New Demo Site Sample' in browser.contents
+    True
+
+Removing a/an Demo Site content item
+------------------------------------
+
+Now we are going to delete the 'New Demo Site Sample' object. First we
+go to the contents tab and select the 'New Demo Site Sample' for
+deletion.
+
+    >>> browser.getLink('Contents').click()
+    >>> browser.getControl('New Demo Site Sample').click()
+
+We click on the 'Delete' button.
+
+    >>> browser.getControl('Delete').click()
+    >>> 'Item(s) deleted' in browser.contents
+    True
+
+So, if we go back to the home page, there is no longer a 'New Demo Site
+Sample' tab.
+
+    >>> browser.open(portal_url)
+    >>> 'New Demo Site Sample' in browser.contents
+    False
+
+Adding a new Demo Site content item as contributor
+----------------------------------------------------
+
+Not only site managers are allowed to add Demo Site content items, but
+also site contributors.
+
+Let's logout and then login as 'contributor', a portal member that has the
+contributor role assigned.
+
+    >>> browser.getLink('Log out').click()
+    >>> browser.open(portal_url)
+    >>> browser.getControl(name='__ac_name').value = 'contributor'
+    >>> browser.getControl(name='__ac_password').value = default_password
+    >>> browser.getControl(name='submit').click()
+    >>> browser.open(portal_url)
+
+We use the 'Add new' menu to add a new content item.
+
+    >>> browser.getLink('Add new').click()
+
+We select 'Demo Site' and click the 'Add' button to get to the add form.
+
+    >>> browser.getControl('Demo Site').click()
+    >>> browser.getControl(name='form.button.Add').click()
+    >>> 'Demo Site' in browser.contents
+    True
+
+Now we fill the form and submit it.
+
+    >>> browser.getControl(name='title').value = 'Demo Site Sample'
+    >>> browser.getControl('Save').click()
+    >>> 'Changes saved' in browser.contents
+    True
+
+Done! We added a new Demo Site content item logged in as contributor.
+
+Finally, let's login back as manager.
+
+    >>> browser.getLink('Log out').click()
+    >>> browser.open(portal_url)
+    >>> browser.getControl(name='__ac_name').value = portal_owner
+    >>> browser.getControl(name='__ac_password').value = default_password
+    >>> browser.getControl(name='submit').click()
+    >>> browser.open(portal_url)
+
 
 
 

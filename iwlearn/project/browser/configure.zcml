@@ -346,6 +346,22 @@
       permission="zope.Public"
       />
 
+  <!--
+  <browser:page
+      for="..interfaces.IProjectDatabase"
+      name="projectratings_view"
+      class=".projectdbview.ProjectDBRatingsView"
+      template="projectdb_ratings.pt"
+      allowed_interface=".projectdbview.IProjectDBView"
+      permission="zope.Public"
+      />
+-->
+  <!--
+  <cache:ruleset
+      TODO
+      />
+  -->
+
 
   <adapter
       for=".projectdbview.ProjectDBMapView

@@ -13,6 +13,7 @@
   <property name="global_allow">false</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
+    <element value="DemoSite" />
     <element value="Project" />
     <element value="Folder" />
   </property>

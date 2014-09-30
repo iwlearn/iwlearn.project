@@ -24,7 +24,12 @@
         permission="zope2.View"
         interface="..interfaces.IProject"
         />
-
+  </class>
+  <class class=".demosite.DemoSite">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IDemoSite"
+        />
   </class>
   <class class=".projectdatabase.ProjectDatabase">
     <require

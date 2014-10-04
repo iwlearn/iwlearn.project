@@ -11,6 +11,33 @@
   <!-- -*- extra stuff goes here -*- -->
 
 
+  <browser:page
+      for="iwlearn.project.interfaces.IProject"
+      name="geo_view"
+      class="..extender.GeoTags"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="Products.ATContentTypes.interface.IATFile"
+      name="geo_view"
+      class="..extender.GeoTags"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="Products.ATContentTypes.interface.IATImage"
+      name="geo_view"
+      class="..extender.GeoTags"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="Products.ATContentTypes.interface.IATDocument" 
+      name="geo_view"
+      class="..extender.GeoTags"
+      permission="zope2.View"
+      />
 
   <browser:page
       for="..interfaces.ILegalFW"

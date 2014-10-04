@@ -26,11 +26,13 @@
 
   <include package=".browser" />
 
+  <!-- Moved to subregion_indexer
   <subscriber
     for=".interfaces.IProject
          Products.Archetypes.interfaces.IObjectEditedEvent"
     handler=".content.project.reindexProjectDocuments"
     />
+    -->
 
   <subscriber
     for=".interfaces.IProject
@@ -51,7 +53,6 @@
     provides="zope.schema.interfaces.IVocabularyFactory"
     />
 
-
  <utility
     component=".vocabulary.rating_vocabulary_factory"
     name="iwlearn.project.ratings"
@@ -63,26 +64,44 @@
   <include package="archetypes.schemaextender" />
 
   <adapter
+    factory=".extender.GeoFieldsExtender"
+    for="iwlearn.project.interfaces.IProject" />
+
+  <adapter
+    name="geo"
+    factory=".extender.GeoFieldsExtender"
+    for="Products.ATContentTypes.interface.IATFile" />
+
+  <adapter
+    name="geo"
+    factory=".extender.GeoFieldsExtender"
+    for="Products.ATContentTypes.interface.IATImage" />
+
+  <adapter
+    name="geo"
+    factory=".extender.GeoFieldsExtender"
+    for="Products.ATContentTypes.interface.IATDocument" />
+
+  <adapter
+    name="type"
     factory=".extender.ProjectFieldsExtender"
     for="Products.ATContentTypes.interface.IATFile" />
 
   <adapter
+    name="type"
     factory=".extender.ProjectFieldsExtender"
     for="Products.ATContentTypes.interface.IATImage" />
 
   <adapter
+    name="type"
     factory=".extender.ProjectFieldsExtender"
     for="Products.ATContentTypes.interface.IATDocument" />
 
-  <adapter
-    name="document_type"
-    factory=".extender.document_type_doc_indexer"
-    />
-
-  <adapter
-    name="document_type"
-    factory=".extender.document_type_file_indexer"
-    />
+  <adapter name="document_type" factory=".extender.document_type_indexer" />
+  <adapter name="getBasin" factory=".extender.basin_indexer" />
+  <adapter name="getCountryCode" factory=".extender.country_code_indexer" />
+  <adapter name="getCountry" factory=".extender.country_indexer" />
+  <adapter name="getSubRegions" factory=".extender.subregion_indexer" />
 
   <!-- Register the import step -->
   <genericsetup:importStep

@@ -23,17 +23,18 @@ logger = logging.getLogger('iwlearn.project')
 
 ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
-
     atapi.ImageField('logo_image',
-        max_size = (64, 64),
-        widget=atapi.ImageWidget(label=_(u'Logo'),
-                        description=_(u'The project logo')),
+        max_size=(64, 64),
+        widget=atapi.ImageWidget(
+            label=_(u'Logo'),
+            description=_(u'The project logo')),
         validators=('isNonEmptyFile'),
     ),
 
     atapi.ImageField('project_header_image',
-        widget=atapi.ImageWidget(label=_(u'Header Image'),
-                        description=_(u'The project header image')),
+        widget=atapi.ImageWidget(
+            label=_(u'Header Image'),
+            description=_(u'The project header image')),
         validators=('isNonEmptyFile'),
     ),
 
@@ -46,8 +47,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         ),
     ),
 
-    atapi.StringField(
-        'gef_project_id',
+    atapi.StringField('gef_project_id',
         required=True,
         searchable=False,
         widget=atapi.StringWidget(
@@ -57,9 +57,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         validators=('isInt',)
     ),
 
-
-    atapi.IntegerField(
-        'wb_project_id',
+    atapi.IntegerField('wb_project_id',
         required=False,
         searchable=False,
         widget=atapi.StringWidget(
@@ -69,21 +67,18 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
          validators=('isInt',)
     ),
 
-    atapi.IntegerField(
-        'unep_addis_project_id',
+    atapi.IntegerField('unep_addis_project_id',
         required=False,
         searchable=False,
         widget=atapi.StringWidget(
             label=_(u"UNEP ID"),
             description=_(u"Unep Addis Database Id"),
             visible={'edit': 'invisible'},
-
         ),
          validators=('isInt',)
     ),
 
-    atapi.StringField(
-        'unep_addis_url',
+    atapi.StringField('unep_addis_url',
         widget=atapi.StringWidget(
             label=_(u"UNEP ADDIS URL"),
             description=_(u"Link to project in addis db"),
@@ -91,8 +86,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         ),
     ),
 
-    atapi.StringField(
-        'remote_url',
+    atapi.StringField('remote_url',
         required=False,
         searchable=False,
         widget= UrlWidget(
@@ -104,110 +98,54 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     ),
 
     atapi.ImageField('website_thumb',
-        max_size = (160, 100),
-        widget=atapi.ImageWidget(label=_(u'Website Thumbnail'),
-                        description=_(u'Screenshot of the website')),
+        max_size=(160, 100),
+        widget=atapi.ImageWidget(
+            label=_(u'Website Thumbnail'),
+            description=_(u'Screenshot of the website')),
         validators=('isNonEmptyFile'),
     ),
 
-    atapi.ComputedField(
-        'globalproject',
+    atapi.ComputedField('globalproject',
         searchable=False,
-        expression = 'context._isglobal()',
+        expression='context._isglobal()',
         widget=atapi.ComputedWidget(
-        label=_(u"Global"),
+            label=_(u"Global"),
             description=_(u"Indicate if the project has a global scope"),
         ),
-
     ),
 
-
-
-    atapi.StringField(
-        'project_scale',
+    atapi.StringField('project_scale',
         required=True,
         searchable=True,
         default=u"National",
-        vocabulary = vocabulary.PROJECT_SCALE,
+        vocabulary=vocabulary.PROJECT_SCALE,
         widget=atapi.SelectionWidget(
             label=_(u"Project Scale"),
             description=_(u"Project Scale"),
         ),
     ),
 
-
-    atapi.ComputedField(
-        'region',
-        required=True,
-        searchable=True,
-        expression = 'context._computeRegions()',
-        widget=atapi.ComputedWidget(
-            label=_(u"Geographic Region"),
-            description=_(u"Geographic Region in which the project operates"),
-        ),
-
-    ),
-
-    atapi.ComputedField(
-        'subregion',
+    atapi.LinesField('ecosystem',
         required=False,
         searchable=True,
-        expression = 'context._computeSubregions()',
-        widget=atapi.ComputedWidget(
-            label=_(u"Geographic Sub Region"),
-            description=_(u"Geographic Sub Region in which the project operates"),
-        ),
-    ),
-
-    atapi.LinesField(
-        'country',
-        required=False,
-        searchable=True,
-        vocabulary = vocabulary.get_countries(),
-        widget=atapi.InAndOutWidget(
-            label=_(u"Countries"),
-            description=_(u"Countries"),
-        ),
-    ),
-
-    atapi.LinesField(
-        'ecosystem',
-        required=False,
-        searchable=True,
-        vocabulary = vocabulary.ECOSYSTEM,
+        vocabulary=vocabulary.ECOSYSTEM,
         widget=atapi.InAndOutWidget(
             label=_(u"Ecosystem"),
             description=_(u"Ecosystem"),
         ),
     ),
 
-    atapi.LinesField(
-        'project_category',
+    atapi.LinesField('project_category',
         required=False,
         searchable=True,
-        vocabulary = vocabulary.PROJECT_CATEGORY,
+        vocabulary=vocabulary.PROJECT_CATEGORY,
         widget=atapi.InAndOutWidget(
             label=_(u"Project Category"),
             description=_(u"Project Category"),
         ),
     ),
 
-    atapi.ReferenceField(
-        'basins',
-        required=False,
-        widget=ReferenceBrowserWidget(
-            label=_(u"Basins"),
-            description=_(u"Basins"),
-            allow_sorting=True,
-        ),
-        relationship='basins_projects',
-        allowed_types=('Basin',), # specify portal type names here ('Example Type',)
-        multiValued=True,
-    ),
-
-
-    atapi.ReferenceField(
-        'project_contacts',
+    atapi.ReferenceField('project_contacts',
         widget=ReferenceBrowserWidget(
             label=_(u"Project Contacts"),
             description=_(u"Select Project Contacts"),
@@ -217,8 +155,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         multiValued=True,
     ),
 
-    atapi.TextField(
-        'project_summary',
+    atapi.TextField('project_summary',
         required=False,
         searchable=True,
         widget=atapi.RichWidget(
@@ -232,31 +169,27 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     #   General Information
 
-    atapi.StringField(
-        'project_type',
+    atapi.StringField('project_type',
         required=False,
         searchable=True,
-        vocabulary = vocabulary.PROJECT_TYPES,
+        vocabulary=vocabulary.PROJECT_TYPES,
         widget=atapi.SelectionWidget(
             label=_(u"Project Type"),
             description=_(u"Project Type"),
         ),
     ),
 
-
-    atapi.StringField(
-        'project_status',
+    atapi.StringField('project_status',
         required=False,
         searchable=True,
-        vocabulary = vocabulary.PROJECT_STATUS,
+        vocabulary=vocabulary.PROJECT_STATUS,
         widget=atapi.SelectionWidget(
             label=_(u"Project Status"),
             description=_(u"Project Status"),
         ),
     ),
 
-    atapi.DateTimeField(
-        'start_date',
+    atapi.DateTimeField('start_date',
         widget=atapi.CalendarWidget(
             label=_(u"Start Date"),
             description=_(u"Start Date"),
@@ -265,8 +198,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         validators=('isValidDate'),
     ),
 
-   atapi.DateTimeField(
-        'end_date',
+   atapi.DateTimeField('end_date',
         widget=atapi.CalendarWidget(
             label=_(u"End date"),
             description=_(u"End date"),
@@ -275,60 +207,52 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         validators=('isValidDate'),
     ),
 
+    ### GEF characteristic
 
-    # GEF characteristic
-
-    atapi.StringField(
-        'gef_phase',
+    atapi.StringField('gef_phase',
         required=True,
         searchable=False,
         default=u'5',
         validators=('isInt',),
-        vocabulary_factory = u"iwlearn.project.gef-phase",
+        vocabulary_factory=u"iwlearn.project.gef-phase",
         widget=atapi.SelectionWidget(
             label=_(u"GEF Phase"),
             description=_(u"GEF replenishment phase"),
         ),
     ),
 
-
-    atapi.LinesField(
-        'strategic_priority',
+    atapi.LinesField('strategic_priority',
         required=False,
         searchable=True,
-        #vocabulary = vocabulary.STRATEGIC_PRIORITIES,
+        #vocabulary=vocabulary.STRATEGIC_PRIORITIES,
         #widget=atapi.InAndOutWidget(
         #    label=_(u"GEF Strategic Priority"),
         #    description=_(u"GEF Strategic Priority"),
         #),
     ),
 
-    atapi.LinesField(
-        'focal_area',
+    atapi.LinesField('focal_area',
         required=False,
         searchable=True,
-        vocabulary = vocabulary.FOCAL_AREAS,
+        vocabulary=vocabulary.FOCAL_AREAS,
         widget=atapi.MultiSelectionWidget(
             label=_(u"Focal Areas"),
             description=_(u"Focal Areas"),
-            format = 'checkbox',
+            format='checkbox',
         ),
     ),
 
-
-    atapi.LinesField(
-        'operational_programme',
+    atapi.LinesField('operational_programme',
         required=False,
         searchable=True,
-        #vocabulary = vocabulary.OPERATIONAL_PROGRAMMES,
+        #vocabulary=vocabulary.OPERATIONAL_PROGRAMMES,
         #widget=atapi.InAndOutWidget(
         #    label=_(u"GEF Operational Programme"),
         #    description=_(u"GEF Operational Programme"),
         #),
     ),
 
-    atapi.FixedPointField(
-        'gef_project_allocation',
+    atapi.FixedPointField('gef_project_allocation',
         widget=atapi.DecimalWidget(
             label=_(u"GEF Allocation to project"),
             description=_(u"GEF Allocation to project in Million $US"),
@@ -345,12 +269,9 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         validators=('isDecimal'),
     ),
 
+    ### Partners
 
-    # Partners
-
-
-    atapi.ReferenceField(
-        'leadagency',
+    atapi.ReferenceField('leadagency',
         required=False,
         widget=ReferenceBrowserWidget(
             label=_(u"Lead Implementing Agency"),
@@ -362,8 +283,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         multiValued=False,
     ),
 
-    atapi.ReferenceField(
-        'other_implementing_agency',
+    atapi.ReferenceField('other_implementing_agency',
         required=False,
         widget=ReferenceBrowserWidget(
             label=_(u"Other Implementing Agencies"),
@@ -376,9 +296,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         multiValued=True,
     ),
 
-
-    atapi.ReferenceField(
-        'executing_agency',
+    atapi.ReferenceField('executing_agency',
         required=False,
         widget=ReferenceBrowserWidget(
             label=_(u"Executing Agencies"),
@@ -392,9 +310,7 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         multiValued=True,
     ),
 
-
-    atapi.ReferenceField(
-        'other_partners',
+    atapi.ReferenceField('other_partners',
         required=False,
         widget=ReferenceBrowserWidget(
             label=_(u"Other Partners"),
@@ -407,56 +323,50 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         multiValued=True,
     ),
 
-
-
-    atapi.StringField( 'iprating',
-        required = False,
-        vocabulary_factory = u"iwlearn.project.ratings",
-        widget = atapi.SelectionWidget(
-            label = u'IP Rating',
+    atapi.StringField('iprating',
+        required=False,
+        vocabulary_factory=u"iwlearn.project.ratings",
+        widget=atapi.SelectionWidget(
+            label=u'IP Rating',
             #visible={'edit': 'invisible', 'view': 'visible'},
         ),
         validators=('isInt',),
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-
-    atapi.StringField( 'dorating',
-        required = False,
-        vocabulary_factory = u"iwlearn.project.ratings",
-        widget = atapi.SelectionWidget(
-            label = u'DO Rating',
+    atapi.StringField('dorating',
+        required=False,
+        vocabulary_factory=u"iwlearn.project.ratings",
+        widget=atapi.SelectionWidget(
+            label=u'DO Rating',
             #visible={'edit': 'invisible', 'view': 'visible'},
         ),
         validators=('isInt',),
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-    atapi.StringField( 'outcomerating',
-        required = False,
-        vocabulary_factory = u"iwlearn.project.ratings",
-        widget = atapi.SelectionWidget(
-            label = u'TE Rating',
+    atapi.StringField('outcomerating',
+        required=False,
+        vocabulary_factory=u"iwlearn.project.ratings",
+        widget=atapi.SelectionWidget(
+            label=u'TE Rating',
             #visible={'edit': 'invisible', 'view': 'visible'},
         ),
         validators=('isInt',),
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
+    ### project result ratings:
 
-# project result ratings:
-
-
-    atapi.StringField( 'pra_sources',
+    atapi.StringField('pra_sources',
         widget=atapi.StringWidget(
             label=_(u'Information Sources'),
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
-        required = False,
-        schemata = "ratings",
+        required=False,
+        schemata="ratings",
     ),
-
 
     atapi.TextField('lessons',
         widget=atapi.RichWidget(
@@ -464,12 +374,12 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
     atapi.TextField('key_results',
@@ -478,12 +388,12 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
     atapi.TextField('impacts',
@@ -492,22 +402,22 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u""),
             #visible={'edit': 'invisible'},
             ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-    atapi.StringField( 'imcs',
+    atapi.StringField('imcs',
         widget=atapi.StringWidget(
             label=_(u"Establishment of country-specific inter-ministerial committees"),
             description=_(u"National Inter-Ministry Committees (IMCs)"),
             #visible={'edit': 'invisible'},
         ),
-        required = False,
-        schemata = "ratings",
+        required=False,
+        schemata="ratings",
     ),
 
     atapi.TextField('imcs_desc',
@@ -516,22 +426,22 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u"National Inter-Ministry Committees (IMCs)"),
             #visible={'edit': 'invisible'},
         ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-    atapi.StringField( 'regional_frameworks',
+    atapi.StringField('regional_frameworks',
         widget=atapi.StringWidget(
             label=_(u"Regional legal agreements and cooperation frameworks"),
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
-        required = False,
-        schemata = "ratings",
+        required=False,
+        schemata="ratings",
     ),
 
     atapi.TextField('regional_frameworks_desc',
@@ -540,22 +450,22 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u""),
             #visible={'edit': 'invisible'},
             ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-    atapi.StringField( 'rmis',
+    atapi.StringField('rmis',
         widget=atapi.StringWidget(
             label=_(u"Regional Management Institutions"),
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
-        required = False,
-        schemata = "ratings",
+        required=False,
+        schemata="ratings",
     ),
 
     atapi.TextField('rmis_desc',
@@ -564,45 +474,46 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u""),
             #visible={'edit': 'invisible'},
             ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-    atapi.StringField( 'reforms',
+    atapi.StringField('reforms',
         widget=atapi.StringWidget(
             label=_(u"National/Local reforms"),
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
-        required = False,
-        schemata = "ratings",
+        required=False,
+        schemata="ratings",
     ),
+
     atapi.TextField('reforms_desc',
         widget=atapi.RichWidget(
             label=_(u"National/Local reforms"),
             description=_(u""),
             #visible={'edit': 'invisible'},
             ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-    atapi.StringField( 'tda_priorities',
+    atapi.StringField('tda_priorities',
         widget=atapi.StringWidget(
             label=_(u"Transboundary Diagnostic Analysis: Agreement on transboundary priorities and root causes"),
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
-        required = False,
-        schemata = "ratings",
+        required=False,
+        schemata="ratings",
     ),
 
     atapi.TextField('tda_priorities_desc',
@@ -611,22 +522,22 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-    atapi.StringField( 'sap_devel',
+    atapi.StringField('sap_devel',
         widget=atapi.StringWidget(
             label=_(u"Development of Strategic Action Plan (SAP)"),
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
-        required = False,
-        schemata = "ratings",
+        required=False,
+        schemata="ratings",
     ),
 
     atapi.TextField('sap_devel_desc',
@@ -635,22 +546,22 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u""),
             #visible={'edit': 'invisible'},
             ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-    atapi.StringField( 'abnj_rmi',
+    atapi.StringField('abnj_rmi',
         widget=atapi.StringWidget(
             label=_(u"Management measures in ABNJ incorporated in  Global/Regional Management Organizations (RMI)"),
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
-        required = False,
-        schemata = "ratings",
+        required=False,
+        schemata="ratings",
     ),
 
     atapi.TextField('abnj_rmi_desc',
@@ -659,22 +570,22 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u""),
             #visible={'edit': 'invisible'},
             ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-    atapi.StringField( 'tdasap_cc',
+    atapi.StringField('tdasap_cc',
         widget=atapi.StringWidget(
             label=_(u"Revised Transboundary Diagnostic Analysis (TDA)/Strategic Action Program (SAP) including Climatic Variability and Change considerations"),
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
-        required = False,
-        schemata = "ratings",
+        required=False,
+        schemata="ratings",
     ),
 
     atapi.TextField('tdasap_cc_desc',
@@ -683,22 +594,22 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u""),
             #visible={'edit': 'invisible'},
             ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-    atapi.StringField( 'tda_mnits',
+    atapi.StringField('tda_mnits',
         widget=atapi.StringWidget(
             label=_(u"TDA based on multi-national, interdisciplinary technical and scientific (MNITS) activities"),
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
-        required = False,
-        schemata = "ratings",
+        required=False,
+        schemata="ratings",
     ),
 
     atapi.TextField('tda_mnits_desc',
@@ -707,23 +618,23 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u""),
             #visible={'edit': 'invisible'},
             ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-    atapi.StringField( 'sap_adopted',
+    atapi.StringField('sap_adopted',
         widget=atapi.StringWidget(
             label=_(u"Proportion of Countries that have adopted SAP"),
-            description=_(u"In %. 0 = None, 100=All"),
+            description=_(u"In %. 0=None, 100=All"),
             #visible={'edit': 'invisible'},
         ),
-        required = False,
+        required=False,
         validators=('isInt',),
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
     atapi.TextField('sap_adopted_desc',
@@ -732,23 +643,23 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u""),
             #visible={'edit': 'invisible'},
             ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-    atapi.StringField( 'sap_implementing',
+    atapi.StringField('sap_implementing',
         widget=atapi.StringWidget(
             label=_(u"Proportion of countries that are implementing specific measures from the SAP (i.e. adopted national policies, laws, budgeted plans)"),
-            description=_(u"In %. 0 = None, 100=All"),
+            description=_(u"In %. 0=None, 100=All"),
             #visible={'edit': 'invisible'},
         ),
-        required = False,
+        required=False,
         validators=('isInt',),
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
     atapi.TextField('sap_implementing_desc',
@@ -757,22 +668,22 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-    atapi.StringField( 'sap_inc',
+    atapi.StringField('sap_inc',
         widget=atapi.StringWidget(
             label=_(u"Incorporation of (SAP, etc.) priorities with clear commitments and time frames into CAS, PRSPs, UN Frameworks, UNDAF, key agency strategic documents including financial commitments and time frames, etc"),
             description=_(u""),
             #visible={'edit': 'invisible'},
         ),
-        required = False,
-        schemata = "ratings",
+        required=False,
+        schemata="ratings",
     ),
 
     atapi.TextField('sap_inc_desc',
@@ -781,27 +692,50 @@ ProjectSchema = folder.ATFolderSchema.copy() + atapi.Schema((
             description=_(u""),
             #visible={'edit': 'invisible'},
             ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
 
-    atapi.TextField( 'key_process_results',
+    atapi.TextField('key_process_results',
         widget=atapi.RichWidget(
             label=_(u"Other Key Process Results"),
             description=_(u""),
             #visible={'edit': 'invisible'},
             ),
-        default_content_type = 'text/restructured',
-        default_output_type = 'text/x-html-safe',
+        default_content_type='text/restructured',
+        default_output_type='text/x-html-safe',
         allowable_content_types=('text/restructured', 'text/html', 'text/plain',),
-        required = False,
+        required=False,
         searchable=True,
-        schemata = "ratings",
+        schemata="ratings",
     ),
+
+    # atapi.ComputedField('region',
+    #     schemata='geodata',
+    #     required=True,
+    #     searchable=True,
+    #     expression='context._computeRegions()',
+    #     widget=atapi.ComputedWidget(
+    #         label=_(u"Geographic Region"),
+    #         description=_(u"Geographic Region in which the project operates"),
+    #     ),
+    # ),
+
+    # atapi.ComputedField('subregion',
+    #     schemata='geodata',
+    #     required=False,
+    #     searchable=True,
+    #     expression='context._computeSubregions()',
+    #     widget=atapi.ComputedWidget(
+    #         label=_(u"Geographic Sub Region"),
+    #         description=_(u"Geographic Sub Region in which the project operates"),
+    #     ),
+    # ),
+
 
 ))
 
@@ -843,18 +777,22 @@ class Project(folder.ATFolder):
             return False
 
 
-    def _computeRegions(self):
-        if self.getGlobalproject():
-            return ', '.join(vocabulary.get_regions(
-                    countries=self.getCountry(),
-                    regions=[u'Global']))
-        else:
-             return ', '.join(vocabulary.get_regions(
-                    countries=self.getCountry()))
+    # Moved to extender
+    # def _computeRegions(self):
+    #     if self.getGlobalproject():
+    #         return ', '.join(
+    #                 vocabulary.get_regions(
+    #                     countries=self.getField('country').get(self),
+    #                     regions=[u'Global']))
+    #     else:
+    #          return ', '.join(
+    #                 vocabulary.get_regions(
+    #                     countries=self.getField('country').get(self)))
 
-    def _computeSubregions(self):
-        return ', '.join(vocabulary.get_subregions(
-                countries=self.getCountry()))
+    # def _computeSubregions(self):
+    #     return ', '.join(
+    #             vocabulary.get_subregions(
+    #                     countries=self.getField('country').get(self)))
 
     ### indexed attributes ###
 
@@ -864,24 +802,25 @@ class Project(folder.ATFolder):
     def end(self):
         return self.getEnd_date()
 
-    def getSubRegions(self):
-        """ get region + subregion for indexing """
-        countries=self.getCountry()
-        if self.getProject_scale():
-            scale = [self.getProject_scale(), ]
-        else:
-            scale = []
-        if countries:
-            sr = vocabulary.get_subregions(countries=countries)
-            r = vocabulary.get_regions(countries=countries)
-            return scale + r + sr
-        else:
-            if self.getGlobalproject():
-                return [u'Global',]
-            else:
-                logger.info('no regions found for %s' % '/'.join(
-                    self.getPhysicalPath()))
-                return scale + ['???',]
+    # Moved to extender
+    # def getSubRegions(self):
+    #     """ get region + subregion for indexing """
+    #     countries=self.getField('country').get(self)
+    #     if self.getProject_scale():
+    #         scale = [self.getProject_scale(), ]
+    #     else:
+    #         scale = []
+    #     if countries:
+    #         sr = vocabulary.get_subregions(countries=countries)
+    #         r = vocabulary.get_regions(countries=countries)
+    #         return scale + r + sr
+    #     else:
+    #         if self.getGlobalproject():
+    #             return [u'Global',]
+    #         else:
+    #             logger.info('no regions found for %s' % '/'.join(
+    #                 self.getPhysicalPath()))
+    #             return scale + ['???',]
 
     def getAgencies(self):
         """ Returns the implementing + lead agencies of the project """
@@ -900,13 +839,13 @@ class Project(folder.ATFolder):
         return (self.getDorating(), self.getIprating(), self.getOutcomerating())
 
 
-    def getBasin(self):
-        basins = self.getBasins()
-        titles = []
-        for basin in basins:
-            if basin is not None:
-                 titles.append(basin.Title())
-        return titles
+    # def getBasin(self):
+    #     basins = self.getBasins()
+    #     titles = []
+    #     for basin in basins:
+    #         if basin is not None:
+    #              titles.append(basin.Title())
+    #     return titles
 
     def start(self):
         return self.getStart_date()
@@ -915,12 +854,12 @@ class Project(folder.ATFolder):
     def end(self):
         return self.getEnd_date()
 
-    def getCountryCode(self):
-        ccs = []
-        for k,v in vocabulary.my_countrylist.iteritems():
-            if v['name'] in self.getCountry():
-                ccs.append(k)
-        return ccs
+    # def getCountryCode(self):
+    #     ccs = []
+    #     for k,v in vocabulary.my_countrylist.iteritems():
+    #         if v['name'] in self.getCountry():
+    #             ccs.append(k)
+    #     return ccs
 
     ### Ratings ###
 
@@ -1565,14 +1504,14 @@ def reindexProjectDocuments(context, event):
     cat = getToolByName(context, 'portal_catalog')
     brains = cat.searchResults(portal_type='File',
         path='/'.join(context.getPhysicalPath()))
+
     for brain in brains:
         obj = brain.getObject()
         logger.info('reindex: %s' % '/'.join(obj.getPhysicalPath()))
-        obj.reindexObject(idxs=['getSubRegions',
-            'getAgencies', 'getBasin','getCountry',
-            'getProject_status', 'getProject_type', 'getEcosystem'])
+        obj.reindexObject(idxs=['getAgencies', 'getProject_status',
+                'getProject_type', 'getEcosystem'])
 
-    basins = context.getBasins()
+    basins = context.getField('basins').get(context)
     for basin in basins:
         basin.reindexObject()
 

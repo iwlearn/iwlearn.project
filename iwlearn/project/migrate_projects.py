@@ -145,7 +145,7 @@ def getRegions(region, subregions,countries):
     #print region, ' -> ', regions
     return regions
 
-def getSubregions(region, subregions,countries):
+def getSubregions(region, subregions, countries):
     _subregions=[]
     if countries:
         _subregions=[]
@@ -261,145 +261,144 @@ def migrate_metadata(old, new, old_parent, new_parent):
     old._uncatalogUID(old_parent)
     new._setUID(uid)
 
-
-def migrate(self):
-    def migrate_project(old, old_parent, new_parent, f):
-        new = None
-        if callable(old.id):
-            obj_id = old.id()
-        else:
-            obj_id = old.id
-        self.portal_types.constructContent('Project', new_parent, obj_id)
-        print old.Title()
-        new = new_parent[obj_id]
-        # set fields
-        new.update(title=old.Title())
-        new.setBasin(old.getBasin() )
-        new.setCountry(update_countries(old.getCountry()))
-        new.setEnd_date(old.getEnd_date() )
-        new.setFocal_area(old.getFocal_area() )
-        new.setGef_project_allocation(old.getGef_project_allocation() )
-        new.setGef_project_id(old.getGef_project_id() )
-        new.setGlobalproject('Global' in old.getRegion())
-        new.setLatitude(old.getLatitude() )
-        new.setLongitude(old.getLongitude() )
-        new.setOperational_programme(old.getOperational_programme() )
-        new.setProject_status(old.getProject_status() )
-        new.setProject_summary( '<div class="migration-tbd"> <h3> Executing Agencies: </h3>' +
-            ', '.join(old.getExecuting_agency()) + '</div> <hr/> <br/>' +
-            old.getSummary_project_description() + '<p><hr/></p>' +
-            old.getProject_results())
-        new.setProject_type(old.getProject_type() )
-        new.setRemote_url(old.getProject_website_address() )
-        new.setStart_date(old.getStart_date() )
-        new.setStrategic_priority(old.getStrategic_priority() )
-        new.setTotal_cost(old.getTotal_cost() )
-
-        # lead implementing agency
-        la = old.getLeadagency()
-        hit = False
-        lauid = None
-        for agency in agency_map.keys():
-            if ((la in agency_map[agency]['alias']) or
-                    (la==agency_map[agency]['name'])):
-                # set lead agency reference
-                hit = True
-                lauid = agency_map[agency]['uid']
-        if hit:
-            new.setLeadagency(lauid)
-            f.write('    #project leadagency \n')
-            f.write('    obj=uid_tool.lookupObject("' + old.UID() + '")\n')
-            f.write('    obj.setLeadagency("' + lauid + '")\n')
-            #set backreferences from organization
-            f.write('    #organization set leadagency backrefs\n')
-            f.write('    obj=uid_tool.lookupObject("' + lauid + '")\n')
-            f.write('    project_uids = list(la_obj.getRawProjectlead())\n')
-            f.write('    project_uids.append("' + old.UID() + '")\n')
-            f.write('    obj.setProjectlead(project_uids)\n')
-            la_obj=uid_tool.lookupObject(lauid)
-            project_uids = list(la_obj.getRawProjectlead())
-            project_uids.append(old.UID())
-            project_uids = uniquelist(project_uids)
-            la_obj.setProjectlead(project_uids)
-        else:
-            print 'leadagency not found: ', la
-        # Implementing agencies
-        ias = old.getOther_implementing_agency()
-        hit = False
-        auids =[]
-        for ia in ias:
-            for agency in agency_map.keys():
-                if ((ia in agency_map[agency]['alias']) or
-                        (ia==agency_map[agency]['name'])):
-                    hit = True
-                    auids.append(agency_map[agency]['uid'])
-        if hit:
-            auids = uniquelist(auids)
-            #set other implementing agencies
-            f.write('    #project implementing agencies \n')
-            f.write('    obj=uid_tool.lookupObject("' + old.UID() + '")\n')
-            f.write('    obj.setOther_implementing_agency([')
-            for auid in auids:
-                f.write('"' + auid + '", ')
-            f.write('])\n')
-            new.setOther_implementing_agency(auids)
-            #set the backreferences from organization
-            f.write('    #backrefs for  implementing agencies from org to project\n')
-            for auid in auids:
-                f.write('    oia_obj=uid_tool.lookupObject("' + auid +'")\n')
-                f.write('    project_uids = list(oia_obj.getRawProjectimplementing())\n')
-                f.write('    project_uids.append("' + old.UID() +'")\n')
-                f.write('    oia_obj.setProjectimplementing(project_uids)\n')
-                oia_obj=uid_tool.lookupObject(auid)
-                project_uids = list(oia_obj.getRawProjectimplementing())
-                project_uids.append(old.UID())
-                project_uids = uniquelist(project_uids)
-                oia_obj.setProjectimplementing(project_uids)
-        else:
-            print 'could not find other implementing agency: ', ias
-
-        #copy or migrate child objects
-        for child in old.objectValues():
-            if child.portal_type == 'IWSubProject':
-                migrate_project(child, old, new, f)
-            elif child.portal_type == 'Folder':
-                new.manage_pasteObjects(old.manage_cutObjects(child.id))
-            else:
-                print 'ignored: ', child.portal_type, child.id
-        migrate_metadata(old, new, old_parent, new_parent)
-        old_parent.manage_delObjects(ids=[obj_id])
-    ###########################################################
-    print 'starting migration'
-    f = open('update_project_uids.py', 'w')
-    f.write('def migrate(self):\n')
-    f.write('    print "start setting uids"\n')
-    f.write('    uid_tool = self.reference_catalog\n')
-    agency_map = get_agency_uid_map(self)
-    uid_tool = self.reference_catalog
-    print 'search for iw project databases'
-    for brain in self.portal_catalog(portal_type = 'IWProjectDatabase'):
-        obj=brain.getObject()
-        parent = obj.getParentNode()
-        if callable(obj.id):
-            obj_id = obj.id()
-        else:
-            obj_id = obj.id
-        parent.manage_renameObject(obj_id, obj_id + '_old')
-        print 'create new project  db'
-        self.portal_types.constructContent('Project Database', parent, obj_id)
-        print 'created project db: ', obj_id
-        #new = None
-        new = parent[obj_id]
-        new.update(title=obj.title, description=obj.description )
-        #migrate_metadata(obj, new, parent, parent)
-        for child_id in obj.objectIds():
-            child = obj[child_id]
-            if child.portal_type == 'IWProject':
-                print 'migrate project:'
-                migrate_project(child, obj, new, f)
-            else:
-                print 'ignored: ', child.portal_type, child.id
-        #parent.manage_delObjects(ids=[obj_id])
-    print 'migration finished'
-    f.close()
-    return 'success'
+### OBSOLETE # def migrate(self):
+#     def migrate_project(old, old_parent, new_parent, f):
+#         new = None
+#         if callable(old.id):
+#             obj_id = old.id()
+#         else:
+#             obj_id = old.id
+#         self.portal_types.constructContent('Project', new_parent, obj_id)
+#         print old.Title()
+#         new = new_parent[obj_id]
+#         # set fields
+#         new.update(title=old.Title())
+#         new.setBasin(old.getBasin() )
+#         new.setCountry(update_countries(old.getCountry()))
+#         new.setEnd_date(old.getEnd_date() )
+#         new.setFocal_area(old.getFocal_area() )
+#         new.setGef_project_allocation(old.getGef_project_allocation() )
+#         new.setGef_project_id(old.getGef_project_id() )
+#         new.setGlobalproject('Global' in old.getRegion())
+#         new.setLatitude(old.getLatitude() )
+#         new.setLongitude(old.getLongitude() )
+#         new.setOperational_programme(old.getOperational_programme() )
+#         new.setProject_status(old.getProject_status() )
+#         new.setProject_summary( '<div class="migration-tbd"> <h3> Executing Agencies: </h3>' +
+#             ', '.join(old.getExecuting_agency()) + '</div> <hr/> <br/>' +
+#             old.getSummary_project_description() + '<p><hr/></p>' +
+#             old.getProject_results())
+#         new.setProject_type(old.getProject_type() )
+#         new.setRemote_url(old.getProject_website_address() )
+#         new.setStart_date(old.getStart_date() )
+#         new.setStrategic_priority(old.getStrategic_priority() )
+#         new.setTotal_cost(old.getTotal_cost() )
+# 
+#         # lead implementing agency
+#         la = old.getLeadagency()
+#         hit = False
+#         lauid = None
+#         for agency in agency_map.keys():
+#             if ((la in agency_map[agency]['alias']) or
+#                     (la==agency_map[agency]['name'])):
+#                 # set lead agency reference
+#                 hit = True
+#                 lauid = agency_map[agency]['uid']
+#         if hit:
+#             new.setLeadagency(lauid)
+#             f.write('    #project leadagency \n')
+#             f.write('    obj=uid_tool.lookupObject("' + old.UID() + '")\n')
+#             f.write('    obj.setLeadagency("' + lauid + '")\n')
+#             #set backreferences from organization
+#             f.write('    #organization set leadagency backrefs\n')
+#             f.write('    obj=uid_tool.lookupObject("' + lauid + '")\n')
+#             f.write('    project_uids = list(la_obj.getRawProjectlead())\n')
+#             f.write('    project_uids.append("' + old.UID() + '")\n')
+#             f.write('    obj.setProjectlead(project_uids)\n')
+#             la_obj=uid_tool.lookupObject(lauid)
+#             project_uids = list(la_obj.getRawProjectlead())
+#             project_uids.append(old.UID())
+#             project_uids = uniquelist(project_uids)
+#             la_obj.setProjectlead(project_uids)
+#         else:
+#             print 'leadagency not found: ', la
+#         # Implementing agencies
+#         ias = old.getOther_implementing_agency()
+#         hit = False
+#         auids =[]
+#         for ia in ias:
+#             for agency in agency_map.keys():
+#                 if ((ia in agency_map[agency]['alias']) or
+#                         (ia==agency_map[agency]['name'])):
+#                     hit = True
+#                     auids.append(agency_map[agency]['uid'])
+#         if hit:
+#             auids = uniquelist(auids)
+#             #set other implementing agencies
+#             f.write('    #project implementing agencies \n')
+#             f.write('    obj=uid_tool.lookupObject("' + old.UID() + '")\n')
+#             f.write('    obj.setOther_implementing_agency([')
+#             for auid in auids:
+#                 f.write('"' + auid + '", ')
+#             f.write('])\n')
+#             new.setOther_implementing_agency(auids)
+#             #set the backreferences from organization
+#             f.write('    #backrefs for  implementing agencies from org to project\n')
+#             for auid in auids:
+#                 f.write('    oia_obj=uid_tool.lookupObject("' + auid +'")\n')
+#                 f.write('    project_uids = list(oia_obj.getRawProjectimplementing())\n')
+#                 f.write('    project_uids.append("' + old.UID() +'")\n')
+#                 f.write('    oia_obj.setProjectimplementing(project_uids)\n')
+#                 oia_obj=uid_tool.lookupObject(auid)
+#                 project_uids = list(oia_obj.getRawProjectimplementing())
+#                 project_uids.append(old.UID())
+#                 project_uids = uniquelist(project_uids)
+#                 oia_obj.setProjectimplementing(project_uids)
+#         else:
+#             print 'could not find other implementing agency: ', ias
+# 
+#         #copy or migrate child objects
+#         for child in old.objectValues():
+#             if child.portal_type == 'IWSubProject':
+#                 migrate_project(child, old, new, f)
+#             elif child.portal_type == 'Folder':
+#                 new.manage_pasteObjects(old.manage_cutObjects(child.id))
+#             else:
+#                 print 'ignored: ', child.portal_type, child.id
+#         migrate_metadata(old, new, old_parent, new_parent)
+#         old_parent.manage_delObjects(ids=[obj_id])
+#     ###########################################################
+#     print 'starting migration'
+#     f = open('update_project_uids.py', 'w')
+#     f.write('def migrate(self):\n')
+#     f.write('    print "start setting uids"\n')
+#     f.write('    uid_tool = self.reference_catalog\n')
+#     agency_map = get_agency_uid_map(self)
+#     uid_tool = self.reference_catalog
+#     print 'search for iw project databases'
+#     for brain in self.portal_catalog(portal_type = 'IWProjectDatabase'):
+#         obj=brain.getObject()
+#         parent = obj.getParentNode()
+#         if callable(obj.id):
+#             obj_id = obj.id()
+#         else:
+#             obj_id = obj.id
+#         parent.manage_renameObject(obj_id, obj_id + '_old')
+#         print 'create new project  db'
+#         self.portal_types.constructContent('Project Database', parent, obj_id)
+#         print 'created project db: ', obj_id
+#         #new = None
+#         new = parent[obj_id]
+#         new.update(title=obj.title, description=obj.description )
+#         #migrate_metadata(obj, new, parent, parent)
+#         for child_id in obj.objectIds():
+#             child = obj[child_id]
+#             if child.portal_type == 'IWProject':
+#                 print 'migrate project:'
+#                 migrate_project(child, obj, new, f)
+#             else:
+#                 print 'ignored: ', child.portal_type, child.id
+#         #parent.manage_delObjects(ids=[obj_id])
+#     print 'migration finished'
+#     f.close()
+#     return 'success'

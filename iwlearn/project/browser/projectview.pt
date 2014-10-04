@@ -126,7 +126,7 @@
                               </a>
                             </td>
                           </tr>
-                          <tr tal:define="field python:here.Schema()['region']; accessor python:getattr(here, field.accessor)"
+                          <tr tal:define="field python:here.getField('region'); accessor python:field.getAccessor(here)"
                           tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
                             <td class="c1 prjlabel"
@@ -137,7 +137,8 @@
                               <span tal:replace="structure accessor" />
                             </td>
                           </tr>
-                          <tr tal:define="field python:here.Schema()['subregion']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                          <tr tal:define="
+                          field python:here.getField('subregion'); accessor python:field.getAccessor(here); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
                           tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
                             <td class="c1" width="22%" valign="top"
@@ -151,7 +152,8 @@
                               </span>
                             </td>
                           </tr>
-                          <tr tal:define="field python:here.Schema()['basins']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                          <tr tal:define="
+                          field python:here.getField('basins'); accessor python:field.getAccessor(here); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
                           tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
                             <td class="c1" width="22%" valign="top"
@@ -429,7 +431,8 @@
                             <font>Partners:</font></b>
                           </td>
                         </tr>
-                        <tr tal:define="field python:here.Schema()['country']; accessor python:getattr(here, field.accessor); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                        <tr tal:define="
+                        field python:here.getField('country'); accessor python:field.getAccessor(here); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
                         tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
 
                           <td width="46%" bgcolor="#C7D8A8">

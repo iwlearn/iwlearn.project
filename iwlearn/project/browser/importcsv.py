@@ -41,7 +41,7 @@ class ImportCSV(formbase.PageForm):
                  project.setGlobalproject(True)
             project.setProject_type(data['Type'])
             #pd['Project Name']= obj.Title()
-            #pd['Region']= obj.getRegion()
+            #pd['Region']= obj.getField('region').get(obj)
             project.setProject_status(data['Status'])
             #pd['FOCAL AREA']='; '.join(obj.getFocal_area())
             #pd['Approval Date']= None
@@ -110,8 +110,7 @@ class ImportRACSV(ImportCSV):
             #project.setTitle(data['GEF Project Full Title'])
             #XXX data['Associated Basin/Ecosystem']
             #project.setProject_status(data['Status'])
-            #project.setCountry([v.strip() for v in data['Country'].split(';')
-            #        if v.strip() in self.plone_countries])
+            #project.getField('country').set(project, [v.strip() for v in data['Country'].split(';') if v.strip() in self.plone_countries])
             project.setEcosystem(data['Ecosystem'])
             project.setProject_category([s.strip() for s in ','.join(data['Project Type'].split(';')).split(',')])
             project.setProject_scale(data['Project Scale'])

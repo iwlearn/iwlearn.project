@@ -52,27 +52,31 @@ class ProjectCountryKMLView(ProjectKMLView):
     @property
     def features(self):
         project = self.context
-        project_countries=[]
-        if project.getCountry():
-            project_countries = project.getCountry()
-        countries = self.portal_catalog(portal_type = 'Image',
-                        path='iwlearn/images/countries/')
+        project_countries = []
+        country = project.getField('country').get(project)
+        if country:
+            project_countries = country
 
-        for country in countries:
-            if ((country.Title in project_countries) and
-                country.zgeo_geometry):
-                if country.zgeo_geometry['coordinates']:
-                    yield BrainPlacemark(country, self.request, self)
+        country_image_brains = self.portal_catalog(
+                portal_type = 'Image',
+                path='iwlearn/images/countries/')
+
+        for brain in country_image_brains:
+            if ((brain.Title in project_countries) and
+                brain.zgeo_geometry):
+                if brain.zgeo_geometry['coordinates']:
+                    yield BrainPlacemark(brain, self.request, self)
                     continue
-            if country.Title in project_countries:
-                # the country is there but has no coordinates => cs
-                related_countries = list(get_related_countries_uids(country))
-                logger.debug('Country %s is not geoannotated' % country.Title)
-                for rel_country in self.portal_catalog(portal_type = 'Image',
-                            path='iwlearn/images/countries/',
-                            UID = related_countries):
+            if brain.Title in project_countries:
+                # the brain is there but has no coordinates => cs
+                related_countries = list(get_related_countries_uids(brain))
+                logger.debug('Country %s is not geoannotated' % brain.Title)
+                for rel_country in self.portal_catalog(
+                        portal_type='Image',
+                        path='iwlearn/images/countries/',
+                        UID=related_countries):
                     logger.debug('replacing with %s' % rel_country.Title)
-                    yield  BrainPlacemark(rel_country, self.request, self)
+                    yield BrainPlacemark(rel_country, self.request, self)
 
 
 class ProjectBasinKMLView(ProjectKMLView):
@@ -82,10 +86,10 @@ class ProjectBasinKMLView(ProjectKMLView):
         project = self.context
         project_countries = []
         project_basins = None
-        if project.getBasins():
-            project_basins = project.getRawBasins()
+        if project.getField('basins').get(project):
+            project_basins = project.getField('basins').getRaw(project)
         if project_basins:
-            basins = self.portal_catalog(UID=project_basins)
-            for basin in basins:
-                yield BrainPlacemark(basin, self.request, self)
+            basin_brains = self.portal_catalog(UID=project_basins)
+            for brain in basin_brains:
+                yield BrainPlacemark(brain, self.request, self)
 

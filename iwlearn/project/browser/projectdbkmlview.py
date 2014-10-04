@@ -118,52 +118,52 @@ class ProjectDbKmlView(FastKMLBaseDocument):
     @property
     def features(self):
         query = get_query(self.request.form)
-        results = self.get_results(query)
-        for brain in results:
+        brains = self.get_results(query)
+        for brain in brains:
             yield BrainPlacemark(brain, self.request, self)
 
 
 
 class BasinPlacemark(BrainPlacemark):
 
-    def __init__(self, context, request, document, projects):
-        self.context = context
+    def __init__(self, brain, request, document, project_dicts):
+        self.brain = brain
         self.request = request
-        shape = { 'type': context.zgeo_geometry['type'],
-                'coordinates': context.zgeo_geometry['coordinates']}
+        shape = { 'type': brain.zgeo_geometry['type'],
+                'coordinates': brain.zgeo_geometry['coordinates']}
         self.geom = NullGeometry()
         self.geom.type = shape['type']
         self.geom.coordinates = shape['coordinates']
         try:
-            self.styles = copy(self.context.collective_geo_styles)
+            self.styles = copy(self.brain.collective_geo_styles)
         except:
             self.styles = None
-        self.projects = []
-        logger.debug("Projects for Basins %s" % str(context.getRawProjects))
-        if context.getRawProjects:
-            for project_uid in context.getRawProjects:
-                if project_uid in projects:
-                    self.projects.append(projects[project_uid])
+        self.project_dicts = []
+        logger.debug("Projects for Basins %s" % str(brain.getRawProjects))
+        if brain.getRawProjects:
+            for project_uid in brain.getRawProjects:
+                if project_uid in project_dicts:
+                    self.project_dicts.append(project_dicts[project_uid])
                 else:
-                    if projects:
+                    if project_dicts:
                         logger.debug('Project UID %s not found' % project_uid)
-        self.projects.sort(key=itemgetter('id'), reverse=True)
+        self.project_dicts.sort(key=itemgetter('id'), reverse=True)
 
     @property
     def name(self):
-        if callable(self.context.Title):
-            title = self.context.Title() #.decode('utf-8', 'ignore')
+        if callable(self.brain.Title):
+            title = self.brain.Title() #.decode('utf-8', 'ignore')
         else:
-            title = self.context.Title #.decode('utf-8', 'ignore')
-        return cgi.escape(title) + '\t- %i Projects' % len(self.projects)
+            title = self.brain.Title #.decode('utf-8', 'ignore')
+        return cgi.escape(title) + '\t- %i Projects' % len(self.project_dicts)
 
 
     @property
     def description(self):
 
-        if self.projects:
+        if self.project_dicts:
             #desc = u'<ul>'
-            #for project in self.projects:
+            #for project in self.project_dicts:
             #    title = project['title'].decode('utf-8', 'ignore')
             #    desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (
             #            project['url'],
@@ -188,10 +188,10 @@ class BasinPlacemark(BrainPlacemark):
     def polygoncolor(self):
         if self.styles:
             color = get_color(self.styles['polygoncolor'],
-                        len(self.projects))
+                        len(self.project_dicts))
         else:
             color = get_basin_color('#0022FF44',
-                    len(self.projects))
+                    len(self.project_dicts))
         return web2kmlcolor(color.upper())
 
     def display_properties(self, document):
@@ -203,42 +203,42 @@ class BasinPlacemark(BrainPlacemark):
 
 class BasinResultPlacemark(BasinPlacemark):
 
-    def __init__(self, context, request, document, projects):
-        super(BasinResultPlacemark, self).__init__(context, request, document, projects)
+    def __init__(self, brain, request, document, project_dicts):
+        super(BasinResultPlacemark, self).__init__(brain, request, document, project_dicts)
         ref_cat = self.portal.reference_catalog
-        for project in self.projects:
-            obj = ref_cat.lookupObject(project['uid'])
-            project['gefid'] = int(obj.getGef_project_id())
-            project['rlacf'] = obj.r4regional_frameworks()
-            project['rmi'] = obj.r4rmis()
-            project['tda'] = obj.r4tda_priorities()
-            project['sap'] = obj.r4sap_devel()
-        self.projects.sort(key=itemgetter('id'), reverse=True)
+        for project_dict in self.project_dicts:
+            obj = ref_cat.lookupObject(project_dict['uid'])
+            project_dict['gefid'] = int(obj.getGef_project_id())
+            project_dict['rlacf'] = obj.r4regional_frameworks()
+            project_dict['rmi'] = obj.r4rmis()
+            project_dict['tda'] = obj.r4tda_priorities()
+            project_dict['sap'] = obj.r4sap_devel()
+        self.project_dicts.sort(key=itemgetter('id'), reverse=True)
 
     @property
     def portal(self):
-        return getToolByName(self.context, 'portal_url').getPortalObject()
+        return getToolByName(self.brain, 'portal_url').getPortalObject()
 
 
     @property
     def description(self):
         result_for = self.request.form.get('result', 'rlacf')
         desc = u''
-        for project in self.projects:
-            title = project['title'].decode('utf-8', 'ignore')
+        for project_dict in self.project_dicts:
+            title = project_dict['title'].decode('utf-8', 'ignore')
             desc += u'''<h3><a href="%(url)s" title="%(alttitle)s">
                                %(title)s
                                </a></h3>
                     <p>Basin: %(basin)s,
                     Rating: %(result_label)s: %(result_desc)s </p>''' % {
-                    'url': '@@project-result-map-view.html#pid' + project['uid'],
+                    'url': '@@project-result-map-view.html#pid' + project_dict['uid'],
                     #title.encode(
                     #   'ascii', 'xmlcharrefreplace'),
                     'alttitle': "",
                     'title': title.encode('ascii', 'xmlcharrefreplace'),
-                    'basin': project[result_for].get('basin', ''),
-                    'result_label': project[result_for]['label'],
-                    'result_desc': project[result_for]['description'],
+                    'basin': project_dict[result_for].get('basin', ''),
+                    'result_label': project_dict[result_for]['label'],
+                    'result_desc': project_dict[result_for]['description'],
                     }
         url = '@@project-result-map-view.html'
         desc +='<a href="%s#projectdetaillist">  More information below the map </a>' %url
@@ -247,7 +247,7 @@ class BasinResultPlacemark(BasinPlacemark):
     @property
     def polygoncolor(self):
         result_for = self.request.form.get('result', 'rlacf')
-        value = self.projects[0][result_for]['value']
+        value = self.project_dicts[0][result_for]['value']
         colors = {
             -1: '#ccddcca0',
             0: '#445544a0',
@@ -308,42 +308,43 @@ class ClusteredBasinPlacemark(BasinPlacemark):
 
 class CountryPlacemark(BrainPlacemark):
 
-    def __init__(self, context, request, document, country, projects):
+    def __init__(self, context, request, document, country, project_brains):
         self.context = context
         self.request = request
         self.geom = NullGeometry()
         self.geom.type =  context['geometry']['type']
         self.geom.coordinates =  context['geometry']['coordinates']
         self.country = country
-        self.projects = []
+        self.project_brains = []
         try:
             self.styles = copy(context['styles'])
         except:
             self.styles = None
         if country == 'Global':
-            for project in projects:
-                if project.getSubRegions:
-                    if country in project.getSubRegions:
-                        self.projects.append(project)
+            for brain in project_brains:
+                if brain.getSubRegions:
+                    if country in brain.getSubRegions:
+                        self.project_brains.append(brain)
         else:
-            for project in projects:
-                if project.getCountry:
-                    if country in project.getCountry:
-                        self.projects.append(project)
+            for brain in project_brains:
+                if brain.getCountry:
+                    if country in brain.getCountry:
+                        self.project_brains.append(brain)
                     for substitute_for in context.get('replaces', []):
-                        if substitute_for in project.getCountry:
-                            logger.debug('%s in: "%s" assinged to "%s"'
-                                % (project.Title,
-                                    substitute_for, country))
-                            self.projects.append(project)
-        self.projects.sort(key=itemgetter('id'), reverse=True)
+                        if substitute_for in brain.getCountry:
+                            logger.debug('%s in: "%s" assigned to "%s"'
+                                % (brain.Title,
+                                    substitute_for,
+                                    country))
+                            self.project_brains.append(brain)
+        self.project_brains.sort(key=itemgetter('id'), reverse=True)
 
     @property
     def polygoncolor(self):
         if self.styles:
-            color = get_color(self.styles['polygoncolor'], len(self.projects))
+            color = get_color(self.styles['polygoncolor'], len(self.project_brains))
         else:
-            color = get_color("#a52a2a3c", len(self.projects))
+            color = get_color("#a52a2a3c", len(self.project_brains))
         return web2kmlcolor(color.upper())
 
 
@@ -380,14 +381,14 @@ class CountryPlacemark(BrainPlacemark):
 
     @property
     def name(self):
-        return cgi.escape(self.country ) + '\t- %i Projects' % len(self.projects)
+        return cgi.escape(self.country ) + '\t- %i Projects' % len(self.project_brains)
 
     @property
     def description(self):
         #desc = u'<ul>'
-        #for project in self.projects:
-        #    title = project.Title.decode('utf-8', 'ignore')
-        #    desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (project.getURL(),
+        #for brain in self.project_brains:
+        #    title = brain.Title.decode('utf-8', 'ignore')
+        #    desc += u'<li><a href="%s" title="%s" > %s </a></li>' % (brain.getURL(),
         #                    cgi.escape(title.encode(
         #                    'ascii', 'xmlcharrefreplace')),
         #                    cgi.escape(title[:48].encode(
@@ -406,52 +407,53 @@ class CountryPlacemark(BrainPlacemark):
 
 class CountryResultsPlacemark(CountryPlacemark):
 
-    def __init__(self, context, request, document, country, projects):
-        super(CountryResultsPlacemark, self).__init__(context, request, document, country, projects)
+    def __init__(self, context, request, document, country, project_brains):
+        super(CountryResultsPlacemark, self).__init__(
+                context, request, document, country, project_brains)
         result_for = self.request.form.get('result', 'rlacf')
-        tmp_projects =[]
-        for project in self.projects:
-            obj = project.getObject()
+        tmp_project_brains =[]
+        for brain in self.project_brains:
+            project = brain.getObject()
             if result_for == 'rlacf':
-                result = obj.getRegional_frameworks()
+                result = project.getRegional_frameworks()
                 if result != 'nap':
-                    tmp_projects.append(project)
+                    tmp_project_brains.append(brain)
             if result_for == 'rmi':
-                result = obj.getRmis()
+                result = project.getRmis()
                 if result != 'nap':
-                    tmp_projects.append(project)
+                    tmp_project_brains.append(brain)
             if result_for == 'tda':
-                result = obj.getTda_priorities()
+                result = project.getTda_priorities()
                 if result != 'nap':
-                    tmp_projects.append(project)
+                    tmp_project_brains.append(brain)
             if result_for == 'sap':
-                result = obj.getSap_devel()
+                result = project.getSap_devel()
                 if result != 'nap':
-                    tmp_projects.append(project)
-        if len(tmp_projects) == 0:
+                    tmp_project_brains.append(brain)
+        if len(tmp_project_brains) == 0:
             self.geom = NullGeometry()
-        self.projects = tmp_projects
-        self.projects.sort(key=itemgetter('id'), reverse=True)
+        self.project_brains = tmp_project_brains
+        self.project_brains.sort(key=itemgetter('id'), reverse=True)
 
     @property
     def description(self):
         desc = u''
-        for project in self.projects:
-            obj = project.getObject()
-            if obj.has_result_ratings():
+        for brain in self.project_brains:
+            project = brain.getObject()
+            if project.has_result_ratings():
                 style = u"color: green;"
             else:
                 style = u"color: red; text-decoration: line-through;"
-            title = project.Title.decode('utf-8', 'ignore')
+            title = brain.Title.decode('utf-8', 'ignore')
             desc += u'<h3><a style="%s" href="%s" title="%s" > %s </a></h3>' % (
                             style,
-                            '@@project-result-map-view.html#pid' + project.UID,
+                            '@@project-result-map-view.html#pid' + brain.UID,
                             cgi.escape(title.encode(
                             'ascii', 'xmlcharrefreplace')),
                             cgi.escape(title.encode(
                             'ascii', 'xmlcharrefreplace'))
                             )
-            rating = get_ratings(obj, self.request.form)
+            rating = get_ratings(project, self.request.form)
             desc += u'<br/><p>%(label)s : %(description)s</p>' % rating
         url = u'@@project-result-map-view.html'
         desc +=u'<a href="%s#projectdetaillist">  More information below the map </a>' %url
@@ -466,32 +468,32 @@ class CountryResultsPlacemark(CountryPlacemark):
         i = 0
         result_for = self.request.form.get('result', 'rlacf')
         logger.debug(result_for)
-        for project in self.projects:
-            obj = project.getObject()
+        for brain in self.project_brains:
+            project = brain.getObject()
             if result_for == 'rlacf':
-                result = obj.getRegional_frameworks()
+                result = project.getRegional_frameworks()
                 if result and result != 'nav':
                     i+=1
             if result_for == 'rmi':
-                result = obj.getRmis()
+                result = project.getRmis()
                 if result and result != 'nav':
                     i+=1
             if result_for == 'tda':
-                result = obj.getTda_priorities()
+                result = project.getTda_priorities()
                 if result and result != 'nav':
                     i+=1
             if result_for == 'sap':
-                result = obj.getSap_devel()
+                result = project.getSap_devel()
                 if result and result != 'nav':
                     i+=1
-            #if obj.has_result_ratings():
+            #if project.has_result_ratings():
             #    i+= 1
             #else:
             #    continue
             logger.debug(result)
         if i == 0:
             ccolor = red
-        elif i <  len(self.projects):
+        elif i <  len(self.project_brains):
             ccolor = yellow
         else:
             ccolor = green
@@ -533,10 +535,10 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
         logger.debug('get projects')
         brains = self.get_results(query)
 
-        projects = {}
+        project_dicts = {}
         for brain in brains:
             if brain.getBasin:
-                projects[brain.UID] = {
+                project_dicts[brain.UID] = {
                                 'title': brain.Title,
                                 'uid': brain.UID,
                                 'id': int(brain.id),
@@ -545,48 +547,59 @@ class ProjectDbKmlBasinView(ProjectDbKmlView):
                                 'agencies': brain.getAgencies,
                                 'ratings': brain.getGefRatings,
                                 'url': brain.getURL()}
-        return projects
+        return project_dicts
 
     @property
     def features(self):
         show_gef_basins = self.request.form.get('showgefbasins', SHOW_BASINS)
         basin_types = self.request.form.get('basintype', DEFAULT_BASINS)
         query = get_query(self.request.form)
-        projects = self.get_projects(query)
+        project_dicts = self.get_projects(query)
+
         basin_query = {'portal_type': 'Basin'}
         if basin_types:
             basin_query['getBasin_type'] = basin_types
-        basins = self.get_results(basin_query)
-        for basin in basins:
-            if basin.zgeo_geometry and basin.zgeo_geometry['coordinates']:
+
+        basin_brains = self.get_results(basin_query)
+        for brain in basin_brains:
+            if brain.zgeo_geometry and brain.zgeo_geometry['coordinates']:
                 if 'with' in show_gef_basins:
-                    if basin.getRawProjects:
+                    if brain.getRawProjects:
                         show = False
-                        for puid in basin.getRawProjects:
-                            if puid in projects:
+                        for puid in brain.getRawProjects:
+                            if puid in project_dicts:
                                 show = True
                         if show:
-                            yield BasinPlacemark(basin, self.request,
-                                self, projects)
+                            yield BasinPlacemark(
+                                    brain,
+                                    self.request,
+                                    self,
+                                    project_dicts)
                             continue
                 if 'without' in show_gef_basins:
                     has_projects = False
-                    if basin.getRawProjects:
-                        for puid in basin.getRawProjects:
-                            if puid in projects:
+                    if brain.getRawProjects:
+                        for puid in brain.getRawProjects:
+                            if puid in project_dicts:
                                 has_projects = True
                     if has_projects:
                             if 'with' in show_gef_basins:
-                                yield BasinPlacemark(basin, self.request,
-                                                    self, projects)
+                                yield BasinPlacemark(
+                                        brain,
+                                        self.request,
+                                        self,
+                                        project_dicts)
                     else:
-                        yield BasinPlacemark(basin, self.request, self,
-                                 {})
+                        yield BasinPlacemark(
+                                brain,
+                                self.request,
+                                self,
+                                {})
 
 SHOW_BBOX_RATIO = 2048
 
-class ProjectDbKmlBasinClusterView(ProjectDbKmlBasinView):
 
+class ProjectDbKmlBasinClusterView(ProjectDbKmlBasinView):
 
     @property
     def features(self):
@@ -594,44 +607,55 @@ class ProjectDbKmlBasinClusterView(ProjectDbKmlBasinView):
         basin_types = self.request.form.get('basintype', DEFAULT_BASINS)
         query = get_query(self.request.form)
         logger.debug('Cluster basin view project query: %s' % str(query))
-        projects = self.get_projects(query)
+        project_dicts = self.get_projects(query)
         path = []
+
         basin_query = {'portal_type':'Basin'}
         if basin_types:
             basin_query['getBasin_type'] = basin_types
-        basins = self.get_results(basin_query)
-        for basin in basins:
-            if basin.zgeo_geometry and basin.zgeo_geometry['coordinates']:
-                shape = { 'type': basin.zgeo_geometry['type'],
-                            'coordinates': basin.zgeo_geometry['coordinates']}
+
+        basin_brains = self.get_results(basin_query)
+        for brain in basin_brains:
+            if brain.zgeo_geometry and brain.zgeo_geometry['coordinates']:
+                shape = {'type': brain.zgeo_geometry['type'],
+                        'coordinates': brain.zgeo_geometry['coordinates']}
                 basin_area = self._get_basin_area(shape)
                 if basin_area < 15.0:
                     if 'with' in show_gef_basins:
-                        if basin.getRawProjects:
+                        if brain.getRawProjects:
                             show = False
-                            for puid in basin.getRawProjects:
-                                if puid in projects:
+                            for puid in brain.getRawProjects:
+                                if puid in project_dicts:
                                     show = True
                             if show:
-                                yield ClusteredBasinPlacemark(basin,
-                                    self.request, self, projects)
+                                yield ClusteredBasinPlacemark(
+                                        brain,
+                                        self.request,
+                                        self,
+                                        project_dicts)
                                 continue
                     if 'without' in show_gef_basins:
                         has_projects = False
-                        if basin.getRawProjects:
-                            for puid in basin.getRawProjects:
-                                if puid in projects:
+                        if brain.getRawProjects:
+                            for puid in brain.getRawProjects:
+                                if puid in project_dicts:
                                     has_projects = True
                         if has_projects:
                             if 'with' in show_gef_basins:
-                                yield ClusteredBasinPlacemark(basin, self.request,
-                                    self, projects)
+                                yield ClusteredBasinPlacemark(
+                                        brain,
+                                        self.request,
+                                        self,
+                                        project_dicts)
                         else:
-                            yield ClusteredBasinPlacemark(basin, self.request,
-                                    self, {})
+                            yield ClusteredBasinPlacemark(
+                                    brain,
+                                    self.request,
+                                    self,
+                                    {})
+
 
 class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
-
 
     @property
     def features(self):
@@ -639,42 +663,55 @@ class ProjectDbKmlBasinDetailView(ProjectDbKmlBasinView):
         basin_types = self.request.form.get('basintype', DEFAULT_BASINS)
         query = get_query(self.request.form)
         logger.debug('detail basin view project query: %s' % str(query))
-        projects = self.get_projects(query)
+        project_dicts = self.get_projects(query)
         path = []
+
         basin_query = {'portal_type':'Basin'}
         if basin_types:
             basin_query['getBasin_type'] = basin_types
-        basins = self.get_results(basin_query)
-        for basin in basins:
-            if basin.zgeo_geometry and basin.zgeo_geometry['coordinates']:
+
+        basin_brains = self.get_results(basin_query)
+        for brain in basin_brains:
+            if brain.zgeo_geometry and brain.zgeo_geometry['coordinates']:
                 if 'with' in show_gef_basins:
-                    if basin.getRawProjects:
+                    if brain.getRawProjects:
                         show = False
-                        for puid in basin.getRawProjects:
-                            if puid in projects:
+                        for puid in brain.getRawProjects:
+                            if puid in project_dicts:
                                 show = True
                         if show:
-                            yield BasinPlacemark(basin, self.request, self,
-                                   projects)
+                            yield BasinPlacemark(
+                                    brain,
+                                    self.request,
+                                    self,
+                                    project_dicts)
                             continue
                 if 'without' in show_gef_basins:
                     has_projects = False
-                    if basin.getRawProjects:
-                        for puid in basin.getRawProjects:
-                            if puid in projects:
+                    if brain.getRawProjects:
+                        for puid in brain.getRawProjects:
+                            if puid in project_dicts:
                                 has_projects = True
                     if has_projects:
                         if 'with' in show_gef_basins:
-                            yield BasinPlacemark(basin, self.request, self,
-                               projects)
+                            yield BasinPlacemark(
+                                    brain,
+                                    self.request,
+                                    self,
+                                    project_dicts)
                     else:
-                        yield BasinPlacemark(basin, self.request, self,
-                            {})
+                        yield BasinPlacemark(
+                                brain,
+                                self.request,
+                                self,
+                                {})
+
 
 # fetch projects once every hour only
 def _country_cachekey(method, self, **args):
     ckey = [time() // (3600)]
     return ckey
+
 
 class ProjectDbKmlCountryView(ProjectDbKmlView):
 
@@ -705,21 +742,21 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
 
         cquery = {'portal_type': 'Image',
                 'path': 'iwlearn/images/countries/'}
-        countries = self.get_results(cquery)
+        country_image_brains = self.get_results(cquery)
         geo_annotated_countries = {}
-        for country in countries:
-            if country.zgeo_geometry:
-                if country.zgeo_geometry['coordinates']:
-                    if country.Title in geo_annotated_countries:
+        for brain in country_image_brains:
+            if brain.zgeo_geometry:
+                if brain.zgeo_geometry['coordinates']:
+                    if brain.Title in geo_annotated_countries:
                         replaces = geo_annotated_countries[
-                                country.Title].get('replaces', [])
+                                brain.Title].get('replaces', [])
                     else:
                         replaces = []
-                    geo_annotated_countries[country.Title] = {
-                                    'geometry': country.zgeo_geometry,
-                                    'styles': country.collective_geo_styles,
+                    geo_annotated_countries[brain.Title] = {
+                                    'geometry': brain.zgeo_geometry,
+                                    'styles': brain.collective_geo_styles,
                                     'replaces': replaces,
-                                    'url': country.getURL() }
+                                    'url': brain.getURL() }
                     continue
                 else:
                     # the country is there but has no coordinates => cs
@@ -728,18 +765,18 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
             else:
                 if _related_countries():
                     continue
-            logger.debug('Country %s is not geoannotated and has no related items' % country.Title)
+            logger.debug('Country %s is not geoannotated and has no related items' % brain.Title)
 
         return geo_annotated_countries
 
 
-    def get_project_countries(self, projects):
+    def get_project_countries(self, project_brains):
         project_countries = []
-        for project in projects:
-            if project.getCountry:
-                project_countries += project.getCountry
-            if project.getSubRegions:
-                if 'Global' in project.getSubRegions:
+        for brain in project_brains:
+            if brain.getCountry:
+                project_countries += brain.getCountry
+            if brain.getSubRegions:
+                if 'Global' in brain.getSubRegions:
                     project_countries.append('Global')
         project_countries = list(set(project_countries))
         countries = self.get_countries()
@@ -755,8 +792,8 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
     @property
     def features(self):
         query = get_query(self.request.form)
-        projects = self.get_results(query)
-        countries, project_countries = self.get_project_countries(projects)
+        project_brains = self.get_results(query)
+        countries, project_countries = self.get_project_countries(project_brains)
         processed_countries = []
         for ct, cv in countries.iteritems():
             if cv.get('replaces', False):
@@ -764,7 +801,7 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
             if (ct in project_countries) and cv.get('geometry', False):
                 processed_countries.append(ct)
                 yield CountryPlacemark(cv, self.request, self,
-                                    ct, projects )
+                                    ct, project_brains )
             elif ct in project_countries:
                 logger.critical('Country %s is not geoannotated and has no related items' % ct)
 
@@ -783,16 +820,21 @@ class ProjectDbKmlNationalResultsView(ProjectDbKmlCountryView):
         query = get_query(self.request.form)
         query['getSubRegions'] = ['National']
         query['getProject_category'] = self.request.form.get('getProject_category', 'Foundational')
-        projects = self.get_results(query)
-        countries, project_countries = self.get_project_countries(projects)
+        project_brains = self.get_results(query)
+        countries, project_countries = self.get_project_countries(project_brains)
         processed_countries = []
         for ct, cv in countries.iteritems():
             if cv.get('replaces', False):
                 processed_countries += cv['replaces']
             if (ct in project_countries) and cv.get('geometry', False):
                 processed_countries.append(ct)
-                yield CountryResultsPlacemark(cv, self.request, self,
-                                    ct, projects )
+                yield CountryResultsPlacemark(
+                        cv,
+                        self.request,
+                        self,
+                        ct,
+                        project_brains
+                        )
             elif ct in project_countries:
                 logger.critical('Country %s is not geoannotated and has no related items' % ct)
 
@@ -802,8 +844,8 @@ class ProjectDbKmlNationalResultsView(ProjectDbKmlCountryView):
             else:
                 logger.error('country %s not in database some projects will not be shown' % c)
 
-class ProjectDbKmlRegionalResultsView(ProjectDbKmlBasinView):
 
+class ProjectDbKmlRegionalResultsView(ProjectDbKmlBasinView):
 
     @property
     def features(self):
@@ -811,15 +853,18 @@ class ProjectDbKmlRegionalResultsView(ProjectDbKmlBasinView):
         query['getSubRegions'] = ['Regional']
         query['getProject_category'] = self.request.form.get('getProject_category', 'Foundational')
         logger.debug('detail basin view project query: %s' % str(query))
-        projects = self.get_projects(query)
+        project_dicts = self.get_projects(query)
         path = []
         basin_query = {'portal_type':'Basin'}
-        basins = self.get_results(basin_query)
-        for basin in basins:
-            if basin.zgeo_geometry and basin.zgeo_geometry['coordinates']:
-                if basin.getRawProjects:
-                    for puid in basin.getRawProjects:
-                        if puid in projects:
-                            yield BasinResultPlacemark(basin, self.request, self,
-                               projects)
+        basin_dicts = self.get_results(basin_query)
+        for brain in basin_dicts:
+            if brain.zgeo_geometry and brain.zgeo_geometry['coordinates']:
+                if brain.getRawProjects:
+                    for puid in brain.getRawProjects:
+                        if puid in project_dicts:
+                            yield BasinResultPlacemark(
+                                    brain,
+                                    self.request,
+                                    self,
+                                    project_dicts)
 

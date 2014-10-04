@@ -17,9 +17,9 @@
         </ol>
         <h2>National Projects with more than one country</h2>
          <ol>
-        <tal:loop tal:repeat="project python:here.portal_catalog(portal_type ='Project', getSubRegions='National')">
-          <li tal:condition="python: len(project.getCountry)>1">
-            <a tal:attributes="href project/getURL" tal:content="project/Title"> project </a>
+        <tal:loop tal:repeat="brain python:here.portal_catalog(portal_type ='Project', getSubRegions='National')">
+          <li tal:condition="python: len(brain.getCountry)>1">
+            <a tal:attributes="href brain/getURL" tal:content="brain/Title"> project </a>
           </li>
         </tal:loop>
         </ol>

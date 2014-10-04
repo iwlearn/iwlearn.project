@@ -218,7 +218,7 @@ $('#projectsearchform').submit
     def search_term(self):
         return self.request.form.get('SearchableText', '')
 
-    def search_results(self):
+    def search_results_batch(self):
         form = self.request.form
         batch_size = form.get('b_size', 20)
         batch_start = form.get('b_start', 0)
@@ -248,39 +248,39 @@ $('#projectsearchform').submit
         doRating = self.init_ratings()
         ipRating = self.init_ratings()
         outcomeRating = self.init_ratings()
-        results = self.search_results()
+        results = self.search_results_batch()
         regions = vocabulary.get_regions()
         regionsd = {}
         for r in regions:
             regionsd[r] = 0
         if results:
-            for project in results['results']:
-                for country in project.getCountry:
+            for project_brain in results['results']:
+                for country in project_brain.getCountry:
                     ci = countries.get(country, 0)
                     countries[country] = ci + 1
-                for agency in project.getAgencies:
+                for agency in project_brain.getAgencies:
                     ca = agencies.get(agency, 0)
                     agencies[agency]= ca + 1
-                if project.getGefRatings:
-                    if project.getGefRatings[0] in ['', None]:
+                if project_brain.getGefRatings:
+                    if project_brain.getGefRatings[0] in ['', None]:
                         doRating[0][1] = doRating[0][1] + 1
                     else:
-                        dor = int(project.getGefRatings[0])
+                        dor = int(project_brain.getGefRatings[0])
                         doRating[dor+1][1] = doRating[dor+1][1] + 1
 
-                    if project.getGefRatings[1] in ['', None]:
+                    if project_brain.getGefRatings[1] in ['', None]:
                         ipRating[0][1] = ipRating[0][1] + 1
                     else:
-                        ipr = int(project.getGefRatings[1])
+                        ipr = int(project_brain.getGefRatings[1])
                         ipRating[ipr+1][1] = ipRating[ipr+1][1] + 1
 
-                    if project.getGefRatings[2] in ['', None]:
+                    if project_brain.getGefRatings[2] in ['', None]:
                         outcomeRating[0][1] = outcomeRating[0][1] + 1
                     else:
-                        opr = int(project.getGefRatings[2])
+                        opr = int(project_brain.getGefRatings[2])
                         outcomeRating[opr+1][1] = outcomeRating[opr+1][1] + 1
-                if project.getSubRegions:
-                    for rsr in project.getSubRegions:
+                if project_brain.getSubRegions:
+                    for rsr in project_brain.getSubRegions:
                         if rsr in regions:
                             cr = regionsd.get(rsr, 0)
                             regionsd[rsr] = cr + 1
@@ -382,14 +382,14 @@ $('#projectsearchform').submit
 
     def dorating_chart(self):
         doRating = self.init_ratings()
-        results = self.search_results()
+        results = self.search_results_batch()
         if results:
-            for project in results['results']:
-                if project.getGefRatings:
-                    if project.getGefRatings[0] == None:
+            for project_brain in results['results']:
+                if project_brain.getGefRatings:
+                    if project_brain.getGefRatings[0] == None:
                         doRating[0][1] = doRating[0][1] + 1
                     else:
-                        dor = project.getGefRatings[0]
+                        dor = project_brain.getGefRatings[0]
                         doRating[dor+1][1] = doRating[dor+1][1] + 1
         colors = ['#565656', '#FF0000', '#FF7F00', '#FFFF00',
                 '#00FFFF', '#00FF7F', '#00FF00', '#FF007F',
@@ -812,7 +812,6 @@ class ProjectDBListView(BrowserView):
     """ Returns html snippet for project map view when a feature
     is clicked"""
     implements(IProjectDBListView)
-
 
     @property
     def portal_catalog(self):

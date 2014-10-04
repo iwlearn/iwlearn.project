@@ -47,29 +47,29 @@ class FlexiJsonView(BrowserView):
         start = (int(form.get('page', '1')) - 1) * limit
         end = start + limit + 1
         query = get_query(form)
-        results = self.portal_catalog(**query)
+        brains = self.portal_catalog(**query)
         json_result= {"page":form.get('page', '1') ,
-            "total":len(results),
+            "total":len(brains),
             "rows":[]}
-        for result in results[start:end]:
-            if result.getAgencies:
-                agency = ', '.join(result.getAgencies)
+        for brain in brains[start:end]:
+            if brain.getAgencies:
+                agency = ', '.join(brain.getAgencies)
             else:
                 agency =''
-            if result.getSubRegions:
-                region = ', '.join(result.getSubRegions)
+            if brain.getSubRegions:
+                region = ', '.join(brain.getSubRegions)
             else:
                 region = ''
             a = u'<a href="%s">%s</a>'
             json_result['rows'].append(
-                {"id":result.getId,"cell":[
-                    a % (result.getURL(), result.Title.decode(
+                {"id":brain.getId,"cell":[
+                    a % (brain.getURL(), brain.Title.decode(
                                             'utf-8', 'ignore').encode(
                                             'ascii', 'xmlcharrefreplace')),
-                    result.getProject_type ,
+                    brain.getProject_type ,
                     agency, region,
-                    result.getBasin,
-                    result.getProject_status
+                    brain.getBasin,
+                    brain.getProject_status
                     ]})
         self.request.RESPONSE.setHeader('Content-Type','application/json; charset=utf-8')
         return json.dumps(json_result)

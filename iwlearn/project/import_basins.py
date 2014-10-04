@@ -323,14 +323,14 @@ def relate_basins(self):
     for brain in self.portal_catalog(portal_type = 'Project'):
         old_basins = list(brain.getBasin)
         change = False
-        new_basins =[]
+        new_basins = []
         for old_basin in old_basins:
             if old_basin in basins:
                 change = True
                 new_basins = new_basins + basins[old_basin]
         if change:
             ob = brain.getObject()
-            ob.setBasins(new_basins)
+            ob.getField('basins').set(ob, new_basins)
             print old_basins
 
 
@@ -347,7 +347,7 @@ def rename_basins(self):
                 print basin, BASIN_TRANSLATE[basin]
         if b_in:
             ob = brain.getObject()
-            ob.setBasin(basins)
+            ob.getField('basin').set(ob, basins)
 
 def import_basins(self):
     import_lmes(self)

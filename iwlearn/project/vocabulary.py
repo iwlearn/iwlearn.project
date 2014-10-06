@@ -322,17 +322,6 @@ def gef_phase_vocabulary_factory(context):
     return SimpleVocabulary(terms)
 
 
-def basin_vocabulary_factory(context):
-    catalog = getToolByName(context, 'portal_catalog')
-    path='iwlearn/iw-projects/basins/'
-    query = {'portal_type': 'Document', 'path': path, 'sort_on': 'sortable_title'}
-    brains = catalog(**query)
-    basins=[brain.Title for brain in brains]
-    basins = list(set(basins))
-    basins.sort()
-    items = [(basin,basin) for basin in basins]
-    return SimpleVocabulary.fromItems(items)
-
 def rating_vocabulary_factory(context):
     ratings =( (u'N/A', ''),
             (u'Highly Unsatisfactory', '0'),

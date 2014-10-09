@@ -270,7 +270,7 @@ $('#projectsearchform').submit
 </script>
 
 
-            <noscript tal:define="search_results view/search_results" tal:condition="search_results">
+            <noscript tal:define="search_results view/search_results_batch" tal:condition="search_results">
               <table  tal:define="results search_results/results;
                          Batch python:modules['Products.CMFPlone'].Batch;
                          b_size search_results/size;

@@ -429,9 +429,9 @@ class ProjectKMLMapLayers(MapLayers):
     def layers(self):
         #add basemaps
         layers = super(ProjectKMLMapLayers, self).layers()
-        if self.context.getField('country').get(context):
+        if self.context.getField('country').get(self.context):
             layers.append(ProjectKMLCountryMapLayer(self.context))
-        if self.context.getField('basin').get(context):
+        if self.context.getField('basin').get(self.context):
             layers.append(ProjectBasinMapLayer(self.context))
         path = '/'.join(self.context.getPhysicalPath())
         portal_catalog = getToolByName(self.context, 'portal_catalog')
@@ -550,9 +550,9 @@ class LegalFWMapLayers(MapLayers):
         #add basemaps
         layers = super(LegalFWMapLayers, self).layers()
         geo = IGeoManager(self.context)
-        if self.context.getField('country').get(context):
+        if self.context.getField('country').get(self.context):
             layers.append(LegalFWCountryMapLayer(self.context))
-        if self.context.getField('basin').get(context):
+        if self.context.getField('basin').get(self.context):
             layers.append(LegalFWBasinMapLayer(self.context))
         if geo.isGeoreferenceable():
             if geo.getCoordinates():

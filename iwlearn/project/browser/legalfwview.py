@@ -32,7 +32,7 @@ class LegalFWView(BrowserView):
 
 
     def get_basin_projects(self):
-        basins = self.context.getField('basin').get(context)
+        basins = self.context.getField('basin').get(self.context)
         projects = []
         brains = self.portal_catalog(portal_type='Project', getBasin=basins)
         for brain in brains:
@@ -40,7 +40,7 @@ class LegalFWView(BrowserView):
         return projects
 
     def get_country_projects(self):
-        countries = self.context.getField('country').get(context)
+        countries = self.context.getField('country').get(self.context)
         projects = []
         brains = self.portal_catalog(portal_type='Project', getCountry=countries)
         for brain in brains:

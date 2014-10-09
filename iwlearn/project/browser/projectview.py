@@ -78,7 +78,7 @@ class ProjectView(BrowserView):
             return wb_url % wb_id
 
     def get_basin_frameworks(self):
-        basins = self.context.getField('basin').get(context)
+        basins = self.context.getField('basin').get(self.context)
         frameworks = []
         brains = self.portal_catalog(portal_type='LegalFW', getBasin=basins)
         for brain in brains:
@@ -86,7 +86,7 @@ class ProjectView(BrowserView):
         return frameworks
 
     def get_country_frameworks(self):
-        countries = self.context.getField('country').get(context)
+        countries = self.context.getField('country').get(self.context)
         frameworks = []
         brains = self.portal_catalog(portal_type='LegalFW', getCountry=countries)
         for brain in brains:

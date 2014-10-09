@@ -126,7 +126,9 @@ from plone.indexer import indexer
 @indexer(IATImage)
 @indexer(IATDocument)
 def document_type_indexer(context):
-    return context.getField('document_type').get(context)
+    document_type = context.getField('document_type').get(context)
+    #DBG logger.info('document_type_indexer: %s' % document_type)
+    return document_type
 
 
 @indexer(IATFile)
@@ -134,7 +136,9 @@ def document_type_indexer(context):
 @indexer(IProject)
 @indexer(IATDocument)
 def country_indexer(context):
-    return context.getField('country').get(context)
+    countries = _find_first(context, 'country')
+    #DBG logger.info('country_indexer: %s' % `countries`)
+    return countries
 
 
 @indexer(IATFile)
@@ -142,11 +146,12 @@ def country_indexer(context):
 @indexer(IProject)
 @indexer(IATDocument)
 def country_code_indexer(context):
-    country = context.getField('country').get(context)
+    countries = _find_first(context, 'country')
     ccs = []
     for k,v in vocabulary.my_countrylist.iteritems():
-        if v['name'] in country:
+        if v['name'] in countries:
             ccs.append(k)
+    #DBG logger.info('country_code_indexer: %s' % `ccs`)
     return ccs
 
 
@@ -155,18 +160,18 @@ def country_code_indexer(context):
 @indexer(IProject)
 @indexer(IATDocument)
 def basin_indexer(context):
-    basins = context.getField('basins').get(context)
+    basins = _find_first(context, 'basins')
     titles = []
     for basin in basins:
         if basin is not None:
              titles.append(basin.Title())
+    #DBG logger.info('basin_indexer: %s' % `titles`)
     return titles
 
 
 @indexer(IATFile)
 def subregion_indexer(context):
-    logger.info('subregion_indexer')
-    countries = context.getField('country').get(context)
+    countries = _find_first(context, 'country')
     if context.getProject_scale():
         scale = [context.getProject_scale(), ]
     else:
@@ -174,14 +179,20 @@ def subregion_indexer(context):
     if countries:
         sr = vocabulary.get_subregions(countries=countries)
         r = vocabulary.get_regions(countries=countries)
-        return scale + r + sr
+        subregions = scale + r + sr
+        #DBG logger.info('subregion_indexer: %s' % `subregions`)
+        return subregions
     else:
         if context.getGlobalproject():
-            return [u'Global',]
+            subregions = [u'Global',]
+            #DBG logger.info('subregion_indexer: %s' % `subregions`)
+            return subregions
         else:
             logger.info('no regions found for %s' % '/'.join(
                 context.getPhysicalPath()))
-            return scale + ['???',]
+            subregions = scale + ['???',]
+            #DBG logger.info('subregion_indexer: %s' % `subregions`)
+            return subregions
 
 
 class IGeoTags(Interface):
@@ -215,15 +226,20 @@ class GeoTags(object):
         countries = _find_first(context, 'country')
 
         if context.getGlobalproject():
-            return ', '.join(
+            regions = ', '.join(
                     vocabulary.get_regions(
                         countries=countries,
                         regions=[u'Global']))
+        else:
+            regions = ', '.join(vocabulary.get_regions(countries=countries))
 
-        return ', '.join(vocabulary.get_regions(countries=countries))
+        #DBG logger.info('_computeRegions: %s' % `regions`)
+        return regions 
 
     def _computeSubregions(self):
         context = self.context
-        return ', '.join(
+        subregions = ', '.join(
                 vocabulary.get_subregions(
                         countries=_find_first(context, 'country')))
+        #DBG logger.info('_computeSubregions: %s' % `subregions`)
+        return subregions

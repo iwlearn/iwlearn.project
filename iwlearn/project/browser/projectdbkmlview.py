@@ -126,22 +126,22 @@ class ProjectDbKmlView(FastKMLBaseDocument):
 
 class BasinPlacemark(BrainPlacemark):
 
-    def __init__(self, brain, request, document, project_dicts):
-        self.brain = brain
+    def __init__(self, context, request, document, project_dicts):
+        self.context = context
         self.request = request
-        shape = { 'type': brain.zgeo_geometry['type'],
-                'coordinates': brain.zgeo_geometry['coordinates']}
+        shape = {'type': context.zgeo_geometry['type'],
+                'coordinates': context.zgeo_geometry['coordinates']}
         self.geom = NullGeometry()
         self.geom.type = shape['type']
         self.geom.coordinates = shape['coordinates']
         try:
-            self.styles = copy(self.brain.collective_geo_styles)
+            self.styles = copy(self.context.collective_geo_styles)
         except:
             self.styles = None
         self.project_dicts = []
-        logger.debug("Projects for Basins %s" % str(brain.getRawProjects))
-        if brain.getRawProjects:
-            for project_uid in brain.getRawProjects:
+        logger.debug("Projects for Basins %s" % str(context.getRawProjects))
+        if context.getRawProjects:
+            for project_uid in context.getRawProjects:
                 if project_uid in project_dicts:
                     self.project_dicts.append(project_dicts[project_uid])
                 else:
@@ -151,10 +151,10 @@ class BasinPlacemark(BrainPlacemark):
 
     @property
     def name(self):
-        if callable(self.brain.Title):
-            title = self.brain.Title() #.decode('utf-8', 'ignore')
+        if callable(self.context.Title):
+            title = self.context.Title() #.decode('utf-8', 'ignore')
         else:
-            title = self.brain.Title #.decode('utf-8', 'ignore')
+            title = self.context.Title #.decode('utf-8', 'ignore')
         return cgi.escape(title) + '\t- %i Projects' % len(self.project_dicts)
 
 
@@ -203,8 +203,8 @@ class BasinPlacemark(BrainPlacemark):
 
 class BasinResultPlacemark(BasinPlacemark):
 
-    def __init__(self, brain, request, document, project_dicts):
-        super(BasinResultPlacemark, self).__init__(brain, request, document, project_dicts)
+    def __init__(self, context, request, document, project_dicts):
+        super(BasinResultPlacemark, self).__init__(context, request, document, project_dicts)
         ref_cat = self.portal.reference_catalog
         for project_dict in self.project_dicts:
             obj = ref_cat.lookupObject(project_dict['uid'])
@@ -217,7 +217,7 @@ class BasinResultPlacemark(BasinPlacemark):
 
     @property
     def portal(self):
-        return getToolByName(self.brain, 'portal_url').getPortalObject()
+        return getToolByName(self.context, 'portal_url').getPortalObject()
 
 
     @property
@@ -267,8 +267,8 @@ def _centeroid_cachekey(context, fun, shape):
 
 class ClusteredBasinPlacemark(BasinPlacemark):
 
-    def __init__(self, context, request, document, projects):
-        super(ClusteredBasinPlacemark, self).__init__(context, request, document, [])
+    def __init__(self, context, request, document, project_dicts):
+        super(ClusteredBasinPlacemark, self).__init__(context, request, document, project_dicts)
         shape = { 'type': context.zgeo_geometry['type'],
                 'coordinates': context.zgeo_geometry['coordinates']}
         #geom = self._get_simplified_geometry(shape)
@@ -296,7 +296,7 @@ class ClusteredBasinPlacemark(BasinPlacemark):
             title = self.context.Title #.decode('utf-8', 'ignore')
 
         return cgi.escape(title +
-                    '\t- %i Projects' % len(self.projects))
+                    '\t- %i Projects' % len(self.project_dicts))
 
     @property
     def use_custom_styles(self):

@@ -59,6 +59,10 @@
 
   <adapter
     factory=".extender.GeoFieldsExtender"
+    for="iwlearn.project.interfaces.ILegalFW" />
+
+  <adapter
+    factory=".extender.GeoFieldsExtender"
     for="iwlearn.project.interfaces.IProject" />
 
   <adapter

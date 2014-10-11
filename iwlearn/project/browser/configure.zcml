@@ -12,6 +12,13 @@
 
 
   <browser:page
+      for="iwlearn.project.interfaces.ILegalFW"
+      name="geo_view"
+      class="..extender.GeoTags"
+      permission="zope2.View"
+      />
+
+  <browser:page
       for="iwlearn.project.interfaces.IProject"
       name="geo_view"
       class="..extender.GeoTags"

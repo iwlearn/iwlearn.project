@@ -14,6 +14,7 @@ from Products.ATContentTypes.interfaces import IATFile
 from Products.ATContentTypes.interfaces import IATImage
 
 from Products.Archetypes import atapi
+from Products.Archetypes.utils import shasattr
 
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from archetypes.schemaextender.field import ExtensionField
@@ -83,6 +84,19 @@ class GeoFieldsExtender(object):
             relationship='basins_projects',
             allowed_types=('Basin',), # specify portal type names here ('Example Type',)
             multiValued=True,
+        ),
+
+        # List of titles derived from basins references
+        # TODO: better name
+        _ExtensionComputedField('basin',
+            schemata='geodata',
+            required=False,
+            expression='context.restrictedTraverse("@@geo_view")._computeBasinTitles()',
+            widget=atapi.ComputedWidget(
+                label=_(u"Basin titles"),
+                description=_(u"Basin titles"),
+                allow_sorting=True,
+            ),
         ),
 
     ]
@@ -172,10 +186,11 @@ def basin_indexer(context):
 @indexer(IATFile)
 def subregion_indexer(context):
     countries = _find_first(context, 'country')
-    if context.getProject_scale():
-        scale = [context.getProject_scale(), ]
-    else:
-        scale = []
+    in_project_context = shasattr(context, 'getProject_scale', acquire=True)
+    scale = []
+    if in_project_context:
+        if context.getProject_scale():
+            scale = [context.getProject_scale(), ]
     if countries:
         sr = vocabulary.get_subregions(countries=countries)
         r = vocabulary.get_regions(countries=countries)
@@ -183,21 +198,24 @@ def subregion_indexer(context):
         #DBG logger.info('subregion_indexer: %s' % `subregions`)
         return subregions
     else:
-        if context.getGlobalproject():
-            subregions = [u'Global',]
-            #DBG logger.info('subregion_indexer: %s' % `subregions`)
-            return subregions
-        else:
-            logger.info('no regions found for %s' % '/'.join(
-                context.getPhysicalPath()))
-            subregions = scale + ['???',]
-            #DBG logger.info('subregion_indexer: %s' % `subregions`)
-            return subregions
+        subregions = []
+        if in_project_context:
+            if context.getGlobalproject():
+                subregions = [u'Global',]
+            else:
+                logger.info('no regions found for %s' % '/'.join(
+                    context.getPhysicalPath()))
+                subregions = scale + ['???',]
+        #DBG logger.info('subregion_indexer: %s' % `subregions`)
+        return subregions
 
 
 class IGeoTags(Interface):
     """ For content that knows where it is
     """
+
+    def _computeBasinTitles():
+        """Compute regions"""
 
     def _computeRegions():
         """Compute regions"""
@@ -225,13 +243,15 @@ class GeoTags(object):
         context = self.context
         countries = _find_first(context, 'country')
 
-        if context.getGlobalproject():
-            regions = ', '.join(
-                    vocabulary.get_regions(
-                        countries=countries,
-                        regions=[u'Global']))
-        else:
-            regions = ', '.join(vocabulary.get_regions(countries=countries))
+        if shasattr(context, 'getGlobalproject', acquire=True):
+            if context.getGlobalproject():
+                regions = ', '.join(
+                        vocabulary.get_regions(
+                            countries=countries,
+                            regions=[u'Global']))
+            else:
+                regions = ', '.join(vocabulary.get_regions(countries=countries))
+        regions = []
 
         #DBG logger.info('_computeRegions: %s' % `regions`)
         return regions 
@@ -243,3 +263,17 @@ class GeoTags(object):
                         countries=_find_first(context, 'country')))
         #DBG logger.info('_computeSubregions: %s' % `subregions`)
         return subregions
+
+    def _computeBasinTitles(self):
+        # TODO: get rid of basin_indexer
+        context = self.context
+        basins = _find_first(self.context, 'basins')
+        if not basins:
+            return []
+        titles = []
+        for basin in basins:
+            if basin is not None:
+                 titles.append(basin.Title())
+        #DBG logger.info('_computeBasinTitles: %s' % `titles`)
+        return titles
+

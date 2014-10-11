@@ -347,7 +347,7 @@ def rename_basins(self):
                 print basin, BASIN_TRANSLATE[basin]
         if b_in:
             ob = brain.getObject()
-            ob.getField('basin').set(ob, basins)
+            ob.getField('basins').set(ob, basins)
 
 def import_basins(self):
     import_lmes(self)

@@ -66,6 +66,21 @@
     for="iwlearn.project.interfaces.IProject" />
 
   <adapter
+    name="topictags"
+    factory=".extender.TopicFieldsExtender"
+    for="Products.ATContentTypes.interface.IATFile" />
+
+  <adapter
+    name="topictags"
+    factory=".extender.TopicFieldsExtender"
+    for="Products.ATContentTypes.interface.IATImage" />
+
+  <adapter
+    name="topictags"
+    factory=".extender.TopicFieldsExtender"
+    for="Products.ATContentTypes.interface.IATDocument" />
+
+  <adapter
     name="geo"
     factory=".extender.GeoFieldsExtender"
     for="Products.ATContentTypes.interface.IATFile" />
@@ -100,6 +115,7 @@
   <adapter name="getCountryCode" factory=".extender.country_code_indexer" />
   <adapter name="getCountry" factory=".extender.country_indexer" />
   <adapter name="getSubRegions" factory=".extender.subregion_indexer" />
+  <adapter name="topic" factory=".extender.topic_indexer" />
 
   <!-- Register the import step -->
   <genericsetup:importStep

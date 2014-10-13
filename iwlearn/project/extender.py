@@ -15,6 +15,7 @@ from Products.ATContentTypes.interfaces import IATImage
 
 from Products.Archetypes import atapi
 from Products.Archetypes.utils import shasattr
+from Products.ATVocabularyManager import NamedVocabulary
 
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from archetypes.schemaextender.field import ExtensionField
@@ -115,10 +116,9 @@ class ProjectFieldsExtender(object):
     implements(ISchemaExtender)
 
     fields = [
-        _ExtensionLinesField(
-            "document_type",
+        _ExtensionLinesField('document_type',
             searchable=True,
-            vocabulary = vocabulary.DOCUMENT_TYPE,
+            vocabulary=vocabulary.DOCUMENT_TYPE,
             widget = atapi.SelectionWidget(
                 label=u"Document Type",
                 description=u"Classification of the document type",
@@ -134,6 +134,17 @@ class ProjectFieldsExtender(object):
 
 
 from plone.indexer import indexer
+
+
+@indexer(IATFile)
+@indexer(IATImage)
+@indexer(IATDocument)
+def topic_indexer(context):
+    topicuid = context.getField('topic').get(context)
+    topics = context.getField('topic').vocabulary.getKeyPathForTerms(
+            context, topicuid)
+    #DBG logger.info('topic_indexer: %s' % topics) 
+    return topics
 
 
 @indexer(IATFile)
@@ -210,6 +221,32 @@ def subregion_indexer(context):
         return subregions
 
 
+class TopicFieldsExtender(object):
+    """ Controlled vocabular(y|ies)
+    """
+    implements(ISchemaExtender)
+
+    fields = [
+        _ExtensionLinesField('topic',
+            searchable=True,
+            vocabulary=NamedVocabulary('topictags'),
+            widget=atapi.MultiSelectionWidget(
+                    label=u"Topic tag",
+                    description=u"Classification of the document topic",
+                    ),
+            ),
+    ]
+
+    def __init__(self, context):
+        self.context = context
+
+    def getFields(self):
+        return self.fields
+
+
+
+
+
 class IGeoTags(Interface):
     """ For content that knows where it is
     """
@@ -234,6 +271,7 @@ def _find_first(context, fieldname):
                 value = field.get(context)
                 if value:
                     return value
+        logger.info('_find_first: %s' % context) #DBG 
         context = context.aq_parent
 
 class GeoTags(object):

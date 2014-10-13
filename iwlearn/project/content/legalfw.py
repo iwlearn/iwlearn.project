@@ -326,28 +326,29 @@ class LegalFW(folder.ATFolder):
     meta_type = "LegalFW"
     schema = LegalFWSchema
 
-    def _computeRegions(self):
-        return ','.join(vocabulary.get_regions(
-                    countries=self.getCountry()))
+    # Moved to extender
+    # def _computeRegions(self):
+    #     return ','.join(vocabulary.get_regions(
+    #                 countries=self.getCountry()))
 
-    def _computeSubregions(self):
-        return ','.join(vocabulary.get_subregions(
-                countries=self.getCountry()))
+    # def _computeSubregions(self):
+    #     return ','.join(vocabulary.get_subregions(
+    #             countries=self.getCountry()))
 
-    def getSubRegions(self):
-        """ get region + subregion for indexing """
-        countries=self.getCountry()
-        if countries:
-            sr = vocabulary.get_subregions(countries=countries)
-            r = vocabulary.get_regions(countries=countries)
-            return r + sr
+    # def getSubRegions(self):
+    #     """ get region + subregion for indexing """
+    #     countries=self.getCountry()
+    #     if countries:
+    #         sr = vocabulary.get_subregions(countries=countries)
+    #         r = vocabulary.get_regions(countries=countries)
+    #         return r + sr
 
-    def getBasin(self):
-        basins = self.getBasins()
-        titles = []
-        for basin in basins:
-            if basin is not None:
-                 titles.append(basin.Title())
-        return titles
+    # def getBasin(self):
+    #     basins = self.getBasins()
+    #     titles = []
+    #     for basin in basins:
+    #         if basin is not None:
+    #              titles.append(basin.Title())
+    #     return titles
 
 atapi.registerType(LegalFW, PROJECTNAME)

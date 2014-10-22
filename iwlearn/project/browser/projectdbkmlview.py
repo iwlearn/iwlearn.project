@@ -717,26 +717,27 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
 
     @ram.cache(_country_cachekey)
     def get_countries(self):
-        def _related_countries():
-            related_countries = list(get_related_countries_uids(country))
-            logger.debug('Country %s is not geoannotated' % country.Title)
+        def _related_countries(country_brain):
+            related_country_uids = list(get_related_countries_uids(country_brain))
+            logger.debug('Country %s is not geoannotated' % country_brain.Title)
             is_related = False
-            for rel_country in self.portal_catalog(UID = related_countries,
-                            portal_type = 'Image',
-                            path='iwlearn/images/countries/'):
-                if rel_country.Title in geo_annotated_countries:
+            for related_country_b in self.portal_catalog(
+                    UID=related_country_uids,
+                    portal_type='Image',
+                    path='iwlearn/images/countries/'):
+                if related_country_b.Title in geo_annotated_countries:
                     replaces = geo_annotated_countries[
-                            rel_country.Title].get('replaces', [])
+                            related_country_b.Title].get('replaces', [])
                 else:
                     replaces = []
-                replaces.append(country.Title)
-                geo_annotated_countries[rel_country.Title] = {
-                            'geometry': rel_country.zgeo_geometry,
-                            'styles': country.collective_geo_styles,
+                replaces.append(country_brain.Title)
+                geo_annotated_countries[related_country_b.Title] = {
+                            'geometry': related_country_b.zgeo_geometry,
+                            'styles': country_brain.collective_geo_styles,
                             'replaces': replaces,
-                            'url': rel_country.getURL()}
+                            'url': related_country_b.getURL()}
                 is_related = True
-                logger.debug('%s  replaces %s' % (rel_country.Title, str(replaces)))
+                logger.debug('%s  replaces %s' % (related_country_b.Title, str(replaces)))
             return is_related
             # - end local functions -
 
@@ -760,10 +761,10 @@ class ProjectDbKmlCountryView(ProjectDbKmlView):
                     continue
                 else:
                     # the country is there but has no coordinates => cs
-                    if _related_countries():
+                    if _related_countries(brain):
                         continue
             else:
-                if _related_countries():
+                if _related_countries(brain):
                     continue
             logger.debug('Country %s is not geoannotated and has no related items' % brain.Title)
 

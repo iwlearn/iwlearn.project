@@ -75,12 +75,12 @@ class FWCountryPlacemark(CountryPlacemark):
 
     @property
     def name(self):
-        return cgi.escape(self.country ) + '\tis member in %i frameworks' % len(self.projects)
+        return cgi.escape(self.country ) + '\tis member in %i frameworks' % len(self.project_brains)
 
     @property
     def description(self):
         desc = u'<ul>'
-        for project in self.projects:
+        for project in self.project_brains:
             title = project.Title.decode('utf-8', 'ignore')
             if len(title) > 48:
                 dots =u'...'

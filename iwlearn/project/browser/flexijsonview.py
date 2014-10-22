@@ -1,3 +1,5 @@
+import logging
+
 from zope.interface import implements, Interface
 
 try:
@@ -10,6 +12,8 @@ from Products.CMFCore.utils import getToolByName
 
 from iwlearn.project import projectMessageFactory as _
 from iwlearn.project.browser.utils import get_query
+
+logger = logging.getLogger('iwlearn.project')
 
 class IFlexiJsonView(Interface):
     """
@@ -48,6 +52,7 @@ class FlexiJsonView(BrowserView):
         end = start + limit + 1
         query = get_query(form)
         brains = self.portal_catalog(**query)
+        # logger.info('brains: %s query: %s' % (len(brains), `query`))
         json_result= {"page":form.get('page', '1') ,
             "total":len(brains),
             "rows":[]}

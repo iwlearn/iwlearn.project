@@ -30,7 +30,6 @@ class LegalFWView(BrowserView):
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
-
     def get_basin_projects(self):
         basins = self.context.getField('basin').get(self.context)
         projects = []

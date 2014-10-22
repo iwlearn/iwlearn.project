@@ -173,9 +173,10 @@ def country_indexer(context):
 def country_code_indexer(context):
     countries = _find_first(context, 'country')
     ccs = []
-    for k,v in vocabulary.my_countrylist.iteritems():
-        if v['name'] in countries:
-            ccs.append(k)
+    if countries:
+        for k,v in vocabulary.my_countrylist.iteritems():
+            if v['name'] in countries:
+                ccs.append(k)
     #DBG logger.info('country_code_indexer: %s' % `ccs`)
     return ccs
 
@@ -187,9 +188,10 @@ def country_code_indexer(context):
 def basin_indexer(context):
     basins = _find_first(context, 'basins')
     titles = []
-    for basin in basins:
-        if basin is not None:
-             titles.append(basin.Title())
+    if basins:
+        for basin in basins:
+            if basin is not None:
+                 titles.append(basin.Title())
     #DBG logger.info('basin_indexer: %s' % `titles`)
     return titles
 
@@ -271,7 +273,7 @@ def _find_first(context, fieldname):
                 value = field.get(context)
                 if value:
                     return value
-        logger.info('_find_first: %s' % context) #DBG 
+        #DBG logger.info('_find_first: %s' % context) 
         context = context.aq_parent
 
 class GeoTags(object):

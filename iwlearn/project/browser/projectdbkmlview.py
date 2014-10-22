@@ -226,19 +226,22 @@ class BasinResultPlacemark(BasinPlacemark):
         desc = u''
         for project_dict in self.project_dicts:
             title = project_dict['title'].decode('utf-8', 'ignore')
+            basin = project_dict.get('basin', [])
+            result_label = project_dict[result_for]['label']
+            rating = result_label and result_label+": " or ''
+            rating += project_dict[result_for]['description']
             desc += u'''<h3><a href="%(url)s" title="%(alttitle)s">
                                %(title)s
                                </a></h3>
-                    <p>Basin: %(basin)s,
-                    Rating: %(result_label)s: %(result_desc)s </p>''' % {
+                    <p>%(basin)s
+                    <em>Rating:</em> %(rating)s</p>''' % {
                     'url': '@@project-result-map-view.html#pid' + project_dict['uid'],
                     #title.encode(
                     #   'ascii', 'xmlcharrefreplace'),
                     'alttitle': "",
                     'title': title.encode('ascii', 'xmlcharrefreplace'),
-                    'basin': project_dict[result_for].get('basin', ''),
-                    'result_label': project_dict[result_for]['label'],
-                    'result_desc': project_dict[result_for]['description'],
+                    'basin': basin and '%s<br/>'%','.join(basin) or '',
+                    'rating': rating
                     }
         url = '@@project-result-map-view.html'
         desc +='<a href="%s#projectdetaillist">  More information below the map </a>' %url
@@ -280,7 +283,7 @@ class ClusteredBasinPlacemark(BasinPlacemark):
 
     @ram.cache(_centeroid_cachekey)
     def _get_simplified_geometry(self, shape):
-        logger.debug( 'center of: %s' % shape['type'])
+        logger.debug('center of: %s' % shape['type'])
         return asShape(shape).centroid
 
     @property
@@ -446,13 +449,11 @@ class CountryResultsPlacemark(CountryPlacemark):
                 style = u"color: red; text-decoration: line-through;"
             title = brain.Title.decode('utf-8', 'ignore')
             desc += u'<h3><a style="%s" href="%s" title="%s" > %s </a></h3>' % (
-                            style,
-                            '@@project-result-map-view.html#pid' + brain.UID,
-                            cgi.escape(title.encode(
-                            'ascii', 'xmlcharrefreplace')),
-                            cgi.escape(title.encode(
-                            'ascii', 'xmlcharrefreplace'))
-                            )
+                    style,
+                    '@@project-result-map-view.html#pid' + brain.UID,
+                    cgi.escape(title.encode('ascii', 'xmlcharrefreplace')),
+                    cgi.escape(title.encode('ascii', 'xmlcharrefreplace'))
+                    )
             rating = get_ratings(project, self.request.form)
             desc += u'<br/><p>%(label)s : %(description)s</p>' % rating
         url = u'@@project-result-map-view.html'

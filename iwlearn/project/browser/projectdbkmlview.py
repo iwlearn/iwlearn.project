@@ -15,6 +15,7 @@ from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
 from plone.memoize import view, ram, instance
 
 
@@ -225,8 +226,10 @@ class BasinResultPlacemark(BasinPlacemark):
         result_for = self.request.form.get('result', 'rlacf')
         desc = u''
         for project_dict in self.project_dicts:
-            title = project_dict['title'].decode('utf-8', 'ignore')
+            title = safe_unicode(project_dict['title'])
             basin = project_dict.get('basin', [])
+            basin = [safe_unicode(b) for b in basin]
+            basin = basin and '%s<br/>'%', '.join(basin) or ''
             result_label = project_dict[result_for]['label']
             rating = result_label and result_label+": " or ''
             rating += project_dict[result_for]['description']
@@ -239,13 +242,13 @@ class BasinResultPlacemark(BasinPlacemark):
                     #title.encode(
                     #   'ascii', 'xmlcharrefreplace'),
                     'alttitle': "",
-                    'title': title.encode('ascii', 'xmlcharrefreplace'),
-                    'basin': basin and '%s<br/>'%','.join(basin) or '',
+                    'title': title,
+                    'basin': basin,
                     'rating': rating
                     }
         url = '@@project-result-map-view.html'
         desc +='<a href="%s#projectdetaillist">  More information below the map </a>' %url
-        return desc.encode('ascii')
+        return desc.encode('ascii', 'xmlcharrefreplace')
 
     @property
     def polygoncolor(self):

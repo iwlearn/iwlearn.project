@@ -853,8 +853,8 @@ class ProjectDBListView(BrowserView):
             obj = brain.getObject()
             rating = obj.r4regional_frameworks()
             text = obj.getRegional_frameworks_desc()
-        elif rt == "rmis":
-            result ={'title': 'Regional Management Institutions'}
+        elif rt == "rmi":
+            result = {'title': 'Regional Management Institutions'}
             obj = brain.getObject()
             rating = obj.r4rmis()
             text = obj.getRmis_desc()

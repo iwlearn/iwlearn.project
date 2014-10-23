@@ -43,9 +43,10 @@ class LegalFWView(BrowserView):
         projects = []
         brains = self.portal_catalog(portal_type='Project', getCountry=countries)
         for brain in brains:
-            projects.append({'title': brain.Title,
-                        'url': brain.getURL(),
-                        })
+            projects.append({
+                    'title': brain.Title,
+                    'url': brain.getURL(),
+                    })
         return projects
 
 class ILegalFWFolderView(Interface):

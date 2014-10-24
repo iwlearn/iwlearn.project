@@ -191,7 +191,6 @@ def country_indexer_project(context):
 @indexer(IATDocument)
 def country_indexer_document(context):
     return _country_indexer(context)
-#@indexer(IGeoTags)
 
 
 def _country_code_indexer(context):

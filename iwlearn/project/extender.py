@@ -32,8 +32,22 @@ logger = logging.getLogger('iwlearn.project')
 class _ExtensionComputedField(ExtensionField, atapi.ComputedField): pass
 class _ExtensionImageField(ExtensionField, atapi.ImageField): pass
 class _ExtensionLinesField(ExtensionField, atapi.LinesField): pass
-class _ExtensionReferenceField(ExtensionField, atapi.ReferenceField): pass
 class _ExtensionStringField(ExtensionField, atapi.StringField): pass
+
+
+class _ExtensionUpdatingReferenceField(ExtensionField, atapi.ReferenceField):
+    """ An extension field that takes care of the backreference
+    """
+
+    def set(self, instance, value, **kwargs):
+        old_refs = self.get(instance, aslist=True)
+        super(_ExtensionUpdatingReferenceField, self).set(instance, value, **kwargs)
+        new_refs = self.get(instance, aslist=True)
+        refs = set(old_refs + new_refs)
+        for ref in refs:
+            #TODO: ref.reindexObject(idxs=...)
+            #DBG logger.info('_ExtensionUpdatingReferenceField: %s' % ref.id) 
+            ref.reindexObject()
 
 
 class GeoFieldsExtender(object):
@@ -76,7 +90,7 @@ class GeoFieldsExtender(object):
             ),
         ),
 
-        _ExtensionReferenceField('basins',
+        _ExtensionUpdatingReferenceField('basins',
             schemata='geodata',
             required=False,
             widget=ReferenceBrowserWidget(
@@ -109,7 +123,6 @@ class GeoFieldsExtender(object):
 
     def getFields(self):
         return self.fields
-
 
 
 class ProjectFieldsExtender(object):
@@ -224,7 +237,7 @@ def _basin_indexer(context):
         for basin in basins:
             if basin is not None:
                  titles.append(basin.Title())
-    #DBG logger.info('basin_indexer: %s' % `titles`)
+    #DBG logger.info('basin_indexer: %s' % `titles`) 
     return titles
 
 @indexer(IATFile)

@@ -1,6 +1,7 @@
 """Definition of the Basin content type
 """
 
+import logging
 from zope.interface import implements
 
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
@@ -16,6 +17,23 @@ from iwlearn.project import projectMessageFactory as _
 from iwlearn.project.interfaces import IBasin
 from iwlearn.project.config import PROJECTNAME
 from iwlearn.project import vocabulary
+
+logger = logging.getLogger('iwlearn.project')
+
+
+class UpdatingBackReferenceField(backref.BackReferenceField):
+    """ An backreference field that takes care of the reference
+    """
+
+    def set(self, instance, value, **kwargs):
+        old_refs = self.get(instance, aslist=True)
+        super(UpdatingBackReferenceField, self).set(instance, value, **kwargs)
+        new_refs = self.get(instance, aslist=True)
+        refs = set(old_refs + new_refs)
+        for ref in refs:
+            #TODO: ref.reindexObject(idxs=...)
+            #DBG logger.info('UpdatingBackReferenceField: %s' % ref.id) 
+            ref.reindexObject()
 
 
 BasinSchema = ATDocumentSchema.copy() + atapi.Schema((
@@ -33,7 +51,7 @@ BasinSchema = ATDocumentSchema.copy() + atapi.Schema((
         ),
     ),
 
-    backref.BackReferenceField(
+    UpdatingBackReferenceField(
         'projects',
         widget=backref.BackReferenceBrowserWidget(
             label=_(u"Projects"),

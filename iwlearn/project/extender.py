@@ -174,6 +174,8 @@ def document_type_indexer_document(context):
 
 def _country_indexer(context):
     countries = _find_first(context, 'country')
+    if not countries:
+        countries = ()
     #DBG logger.info('country_indexer: %s: %s' % (context.id, `countries`))
     return countries
 

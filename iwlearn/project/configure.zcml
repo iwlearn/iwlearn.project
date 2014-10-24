@@ -40,7 +40,6 @@
     handler=".content.project.get_default_logo"
     />
 
-
   <utility
     component=".vocabulary.gef_phase_vocabulary_factory"
     name="iwlearn.project.gef-phase"

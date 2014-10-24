@@ -1528,4 +1528,5 @@ def get_default_logo(context, event):
                 logger.info( 'EA "%s" has no logo' % la.Title())
 
 
+
 atapi.registerType(Project, PROJECTNAME)

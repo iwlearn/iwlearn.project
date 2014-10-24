@@ -158,7 +158,7 @@ def topic_indexer_document(context):
 
 def _document_type_indexer(context):
     document_type = context.getField('document_type').get(context)
-    #DBG logger.info('document_type_indexer: %s' % document_type)
+    #DBG logger.info('document_type_indexer: %s' % `document_type`)
     return document_type
 
 @indexer(IATFile)
@@ -291,9 +291,6 @@ class TopicFieldsExtender(object):
         return self.fields
 
 
-
-
-
 class IGeoTags(Interface):
     """ For content that knows where it is
     """
@@ -320,6 +317,7 @@ def _find_first(context, fieldname):
                     return value
         #DBG logger.info('_find_first: %s' % context) 
         context = context.aq_parent
+
 
 class GeoTags(object):
     implements(IGeoTags)

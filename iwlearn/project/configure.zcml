@@ -58,10 +58,12 @@
   <include package="archetypes.schemaextender" />
 
   <adapter
+    name="geo"
     factory=".extender.GeoFieldsExtender"
     for="iwlearn.project.interfaces.ILegalFW" />
 
   <adapter
+    name="geo"
     factory=".extender.GeoFieldsExtender"
     for="iwlearn.project.interfaces.IProject" />
 
@@ -110,12 +112,21 @@
     factory=".extender.ProjectFieldsExtender"
     for="Products.ATContentTypes.interface.IATDocument" />
 
-  <adapter name="document_type" factory=".extender.document_type_indexer" />
-  <adapter name="getBasin" factory=".extender.basin_indexer" />
-  <adapter name="getCountryCode" factory=".extender.country_code_indexer" />
-  <adapter name="getCountry" factory=".extender.country_indexer" />
+  <adapter name="document_type" factory=".extender.document_type_indexer_file" />
+  <adapter name="document_type" factory=".extender.document_type_indexer_image" />
+  <adapter name="document_type" factory=".extender.document_type_indexer_document" />
+  <adapter name="getBasin" factory=".extender.basin_indexer_file" />
+  <adapter name="getBasin" factory=".extender.basin_indexer_image" />
+  <adapter name="getBasin" factory=".extender.basin_indexer_project" />
+  <adapter name="getBasin" factory=".extender.basin_indexer_document" />
+  <adapter name="getCountry" factory=".extender.country_indexer_file" />
+  <adapter name="getCountry" factory=".extender.country_indexer_image" />
+  <adapter name="getCountry" factory=".extender.country_indexer_project" />
+  <adapter name="getCountry" factory=".extender.country_indexer_document" />
   <adapter name="getSubRegions" factory=".extender.subregion_indexer" />
-  <adapter name="topic" factory=".extender.topic_indexer" />
+  <adapter name="topic" factory=".extender.topic_indexer_file" />
+  <adapter name="topic" factory=".extender.topic_indexer_image" />
+  <adapter name="topic" factory=".extender.topic_indexer_document" />
 
   <!-- Register the import step -->
   <genericsetup:importStep

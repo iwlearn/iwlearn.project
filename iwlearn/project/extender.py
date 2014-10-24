@@ -28,11 +28,13 @@ from iwlearn.project.interfaces import IProject
 
 logger = logging.getLogger('iwlearn.project')
 
+
 class _ExtensionComputedField(ExtensionField, atapi.ComputedField): pass
 class _ExtensionImageField(ExtensionField, atapi.ImageField): pass
 class _ExtensionLinesField(ExtensionField, atapi.LinesField): pass
 class _ExtensionReferenceField(ExtensionField, atapi.ReferenceField): pass
 class _ExtensionStringField(ExtensionField, atapi.StringField): pass
+
 
 class GeoFieldsExtender(object):
     """ Group Region/Basin/Country fields
@@ -136,41 +138,61 @@ class ProjectFieldsExtender(object):
 from plone.indexer import indexer
 
 
-@indexer(IATFile)
-@indexer(IATImage)
-@indexer(IATDocument)
-def topic_indexer(context):
+def _topic_indexer(context):
     topicuid = context.getField('topic').get(context)
     topics = context.getField('topic').vocabulary.getKeyPathForTerms(
             context, topicuid)
-    #DBG logger.info('topic_indexer: %s' % topics) 
+    #DBG logger.info('topic_indexer: %s' % topics)
     return topics
 
-
 @indexer(IATFile)
+def topic_indexer_file(context):
+    return _topic_indexer(context)
 @indexer(IATImage)
+def topic_indexer_image(context):
+    return _topic_indexer(context)
 @indexer(IATDocument)
-def document_type_indexer(context):
+def topic_indexer_document(context):
+    return _topic_indexer(context)
+
+
+def _document_type_indexer(context):
     document_type = context.getField('document_type').get(context)
     #DBG logger.info('document_type_indexer: %s' % document_type)
     return document_type
 
-
 @indexer(IATFile)
+def document_type_indexer_file(context):
+    return _document_type_indexer(context)
 @indexer(IATImage)
-@indexer(IProject)
+def document_type_indexer_image(context):
+    return _document_type_indexer(context)
 @indexer(IATDocument)
-def country_indexer(context):
+def document_type_indexer_document(context):
+    return _document_type_indexer(context)
+
+
+def _country_indexer(context):
     countries = _find_first(context, 'country')
-    #DBG logger.info('country_indexer: %s' % `countries`)
+    #DBG logger.info('country_indexer: %s: %s' % (context.id, `countries`))
     return countries
 
-
 @indexer(IATFile)
+def country_indexer_file(context):
+    return _country_indexer(context)
 @indexer(IATImage)
+def country_indexer_image(context):
+    return _country_indexer(context)
 @indexer(IProject)
+def country_indexer_project(context):
+    return _country_indexer(context)
 @indexer(IATDocument)
-def country_code_indexer(context):
+def country_indexer_document(context):
+    return _country_indexer(context)
+#@indexer(IGeoTags)
+
+
+def _country_code_indexer(context):
     countries = _find_first(context, 'country')
     ccs = []
     if countries:
@@ -180,12 +202,21 @@ def country_code_indexer(context):
     #DBG logger.info('country_code_indexer: %s' % `ccs`)
     return ccs
 
-
 @indexer(IATFile)
+def country_code_indexer_file(context):
+    return _country_code_indexer(context)
 @indexer(IATImage)
+def country_code_indexer_image(context):
+    return _country_code_indexer(context)
 @indexer(IProject)
+def country_code_indexer_project(context):
+    return _country_code_indexer(context)
 @indexer(IATDocument)
-def basin_indexer(context):
+def country_code_indexer_document(context):
+    return _country_code_indexer(context)
+
+
+def _basin_indexer(context):
     basins = _find_first(context, 'basins')
     titles = []
     if basins:
@@ -194,6 +225,19 @@ def basin_indexer(context):
                  titles.append(basin.Title())
     #DBG logger.info('basin_indexer: %s' % `titles`)
     return titles
+
+@indexer(IATFile)
+def basin_indexer_file(context):
+    return _basin_indexer(context)
+@indexer(IATImage)
+def basin_indexer_image(context):
+    return _basin_indexer(context)
+@indexer(IProject)
+def basin_indexer_project(context):
+    return _basin_indexer(context)
+@indexer(IATDocument)
+def basin_indexer_document(context):
+    return _basin_indexer(context)
 
 
 @indexer(IATFile)

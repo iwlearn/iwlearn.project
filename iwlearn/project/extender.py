@@ -57,6 +57,17 @@ class GeoFieldsExtender(object):
 
     fields = [
 
+        _ExtensionLinesField('country',
+            schemata='geodata',
+            required=False,
+            searchable=True,
+            vocabulary=vocabulary.get_countries(),
+            widget=atapi.InAndOutWidget(
+                label=_(u"Countries"),
+                description=_(u"Countries"),
+            ),
+        ),
+
         _ExtensionComputedField('region',
             schemata='geodata',
             required=True,
@@ -76,17 +87,6 @@ class GeoFieldsExtender(object):
             widget=atapi.ComputedWidget(
                 label=_(u"Geographic Sub Region"),
                 description=_(u"Geographic Sub Region in which the project operates"),
-            ),
-        ),
-
-        _ExtensionLinesField('country',
-            schemata='geodata',
-            required=False,
-            searchable=True,
-            vocabulary=vocabulary.get_countries(),
-            widget=atapi.InAndOutWidget(
-                label=_(u"Countries"),
-                description=_(u"Countries"),
             ),
         ),
 

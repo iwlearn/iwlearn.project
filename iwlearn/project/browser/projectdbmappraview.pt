@@ -474,6 +474,11 @@ function onNationalPraChange(event) {
     } catch(e) {
         var map = null;
     };
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
+                };
     var is_visible = $(this).is(':checked');
     var kmls = map.getLayersByName('National Results');
     layer = kmls[0];
@@ -491,6 +496,11 @@ function onRegionalPraChange(event) {
     } catch(e) {
         var map = null;
     };
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
+                };
     var is_visible = $(this).is(':checked');
     var kmls = map.getLayersByName('Regional Results');
     layer = kmls[0];
@@ -551,9 +561,11 @@ $('#projectmapform').submit
         // Center and Zoom
         map.setCenter(lonlat, newZoom);
         // Remove Popups
-        for (var i=0; i<map.popups.length; ++i){
-            map.removePopup(map.popups[i]);
-        };
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
+                };
     };
 
 /*]]>*/
@@ -569,17 +581,19 @@ $('#projectmapform').submit
 
 
         function onFeatureUnselect(event) {
-                for (var i=0; i<map.popups.length; ++i){
-                        map.removePopup(map.popups[i]);
-                        map.popups[i].destroy();
-                        map.popups[i] = null;
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
                 };
 
         };
 
         function onPopupClose(event) {
-             for (var i=0; i<map.popups.length; ++i){
-                        map.removePopup(map.popups[i]);
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
                 };
         };
         var lt = String.fromCharCode(60);
@@ -589,6 +603,13 @@ $('#projectmapform').submit
             if (event.feature.cluster == null){
                 var feature = event.feature;
                 var content = lt + "h6" + gt + "The map displays the results reported by the most recent phase/tranche of a given project (first item on this list) and not collectively for a given basin, result nor project type." + lt + "/h6" + gt + lt + "br/" + gt + lt + "h2" + gt + feature.attributes.name + lt + "/h2" + gt + feature.attributes.description;
+
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
+                };
+
                 popup = new OpenLayers.Popup.FramedCloud("chicken",
                                          feature.geometry.getBounds().getCenterLonLat(),
                                          new OpenLayers.Size(500,500),

@@ -622,6 +622,11 @@ class ProjectDBMapView(ProjectDBBaseView):
             if ( map != null){
                 var kmls = map.getLayersByName('Countries');
                 var kml_url = '%(url)s/@@projectdbcountry_view.kml' + qs;
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
+                };
                 layer = kmls[0];
                 layer.refresh({url: kml_url});
                 var kmls = map.getLayersByName('Project management offices');
@@ -651,6 +656,11 @@ class ProjectDBMapView(ProjectDBBaseView):
             } catch(e) {
                 var map = null;
             };
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
+                };
             var kmls = map.getLayersByName('Basin Cluster');
             layer = kmls[0];
             kml_url = '%(url)s/@@projectbasincluster_view.kml' + qs;
@@ -729,6 +739,11 @@ class ProjectDBResultMapView(ProjectDBMapView):
                     var map = null;
                 };
             };
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
+                };
             var kmls = map.getLayersByName('National Results');
             layer = kmls[0];
             kml_url = '%(url)s/@@projectdbnationalresults_view.kml' + qs;

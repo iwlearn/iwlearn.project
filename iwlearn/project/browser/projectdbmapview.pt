@@ -385,6 +385,11 @@ function onBasinLayerChange(event) {
     } catch(e) {
         var map = null;
     };
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
+                };
     var is_visible = $(this).is(':checked');
     var kmls = map.getLayersByName('Basin Cluster');
     if (kmls.lenght > 0) {
@@ -411,6 +416,11 @@ function onCountryLayerChange(event) {
     } catch(e) {
         var map = null;
     };
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
+                };
     var is_visible = $(this).is(':checked');
     var kmls = map.getLayersByName('Countries');
     if (kmls.length > 0) {
@@ -427,6 +437,11 @@ function onPCULayerChange(event) {
     } catch(e) {
         var map = null;
     };
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
+                };
     var is_visible = $(this).is(':checked');
     var kmls = map.getLayersByName('Project management offices');
     if (kmls.length > 0) {
@@ -473,9 +488,11 @@ $('#projectmapform').submit
         // Center and Zoom
         map.setCenter(lonlat, newZoom);
         // Remove Popups
-        for (var i=0; i<map.popups.length; ++i){
-            map.removePopup(map.popups[i]);
-        };
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
+                };
     };
 
 /*]]>*/
@@ -500,17 +517,19 @@ $('#projectmapform').submit
 
 
         function onFeatureUnselect(event) {
-                for (var i=0; i<map.popups.length; ++i){
-                        map.removePopup(map.popups[i]);
-                        map.popups[i].destroy();
-                        map.popups[i] = null;
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
                 };
 
         };
 
         function onPopupClose(event) {
-             for (var i=0; i<map.popups.length; ++i){
-                        map.removePopup(map.popups[i]);
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
                 };
         };
         var lt = String.fromCharCode(60);
@@ -520,6 +539,11 @@ $('#projectmapform').submit
             if (event.feature.cluster == null){
                 var feature = event.feature;
                 var content = lt + "h2" + gt + feature.attributes.name + lt + "/h2" + gt + feature.attributes.description;
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
+                };
                 popup = new OpenLayers.Popup.FramedCloud("chicken",
                                          feature.geometry.getBounds().getCenterLonLat(),
                                          new OpenLayers.Size(500,500),
@@ -584,6 +608,11 @@ $('#projectmapform').submit
 
                     message += lt + '/div' + gt;
                     if (event.feature.cluster.length <= maxp){
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
+                };
                         popup = new OpenLayers.Popup.FramedCloud("id", event.feature.geometry.bounds.getCenterLonLat(), null, message, null, true, onPopupClose);
                         event.popup = popup;
                         map.addPopup(popup);

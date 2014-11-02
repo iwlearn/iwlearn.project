@@ -53,17 +53,19 @@
         var kmls = map.getLayersByClass('OpenLayers.Layer.Vector');
 
         function onFeatureUnselect(event) {
-                for (var i=0; i<map.popups.length; ++i){
-                        map.removePopup(map.popups[i]);
-                        map.popups[i].destroy();
-                        map.popups[i] = null;
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
                 };
 
         };
 
         function onPopupClose(event) {
-             for (var i=0; i<map.popups.length; ++i){
-                        map.removePopup(map.popups[i]);
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
                 };
         };
         var lt = String.fromCharCode(60);
@@ -73,6 +75,11 @@
             if (event.feature.cluster == null){
                 var feature = event.feature;
                 var content = lt + "h2" + gt + feature.attributes.name + lt + "/h2" + gt + feature.attributes.description;
+                for (var i=map.popups.length; i>0; i--){
+                        var popup = map.popups[i-1];
+                        map.removePopup(popup);
+                        popup.destroy();
+                };
                 popup = new OpenLayers.Popup.FramedCloud("chicken",
                                          feature.geometry.getBounds().getCenterLonLat(),
                                          new OpenLayers.Size(500,500),

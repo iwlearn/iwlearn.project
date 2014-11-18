@@ -153,8 +153,12 @@
                             </td>
                           </tr>
                           <tr tal:define="
-                          field python:here.getField('basins'); accessor python:field.getAccessor(here); mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
-                          tal:condition="python:(accessor() != None) and (accessor() != ()) and (accessor() != []) and (accessor() != '')">
+                              field python:here.getField('basins');
+                              accessor python:field.getAccessor(here);
+                              value python:accessor();
+                              mode string:view;
+                              widget_view python:here.widget(field.getName(), mode=mode, use_label=1);"
+                              tal:condition="value">
 
                             <td class="c1" width="22%" valign="top"
                             bgcolor="#E9F1F7">
@@ -167,8 +171,9 @@
                             </td>
                           </tr>
                           <tr tal:condition="context/getEcosystem"
-                            tal:define="field python:here.Schema()['ecosystem']; accessor python:getattr(here, field.accessor);
-                                    mode string:view; widget_view python:here.widget(field.getName(), mode=mode, use_label=1);">
+                            tal:define="
+                                field python:here.Schema()['ecosystem'];
+                                widget_view python:here.widget(field.getName(), mode='view', use_label=1);">
                             <td class="c1 prjlabel"
                             valign="top">
                               Ecosystem:
